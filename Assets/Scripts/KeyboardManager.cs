@@ -2,25 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class KeyboardManager : MonoBehaviour {
     private InputsDataPerFrame inputs;
-   
-    void Update()
+
+    private void Awake()
     {
-        inputs.InputVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Horizontal"));
-        inputs.InputVector = Vector3.ClampMagnitude(inputs.InputVector, 1);
-        inputs.MAttackET = Input.GetKeyDown(KeyCode.I);
-        inputs.MAttackEX = Input.GetKeyUp(KeyCode.I);
-        inputs.RAttackET = Input.GetKeyDown(KeyCode.J);
-        inputs.RAttackEX = Input.GetKeyUp(KeyCode.J);
-        inputs.DodgeET = Input.GetKeyDown(KeyCode.K);
-        inputs.DodgeEX = Input.GetKeyUp(KeyCode.K);
-        inputs.ChargeET = Input.GetKeyDown(KeyCode.L);
-        inputs.ChargeEX = Input.GetKeyUp(KeyCode.L);
+        inputs = new InputsDataPerFrame();
+        //inputs.InputVector = new Vector2();
+        //inputs.KeysState = new bool[12];
         
-        VirtualInputManager.Instance.LoadInput(inputs);
     }
-  
+
+    void Update () {
+
+        inputs.InputVector = new Vector2 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
+        inputs.InputVector = Vector2.ClampMagnitude (inputs.InputVector, 1);
+
+
+
+        inputs.KeysState[(int) InputKeyStateType.KEY_MELEE_ATTACK_DOWN] = Input.GetKeyDown (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_MELEE_ATTACK]);
+        inputs.KeysState[(int) InputKeyStateType.KEY_MELEE_ATTACK_UP] = Input.GetKeyUp (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_MELEE_ATTACK]);
+        inputs.KeysState[(int) InputKeyStateType.KEY_MELEE_ATTACK] = Input.GetKey (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_MELEE_ATTACK]);
+
+        inputs.KeysState[(int) InputKeyStateType.KEY_RANGE_ATTACK_DOWN] = Input.GetKeyDown (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_RANGE_ATTACK]);
+        inputs.KeysState[(int) InputKeyStateType.KEY_RANGE_ATTACK_UP] = Input.GetKeyUp (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_RANGE_ATTACK]);
+        inputs.KeysState[(int) InputKeyStateType.KEY_RANGE_ATTACK] = Input.GetKey (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_RANGE_ATTACK]);
+
+        inputs.KeysState[(int) InputKeyStateType.KEY_DODGE_DOWN] = Input.GetKeyDown (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_DODGE]);
+        inputs.KeysState[(int) InputKeyStateType.KEY_DODGE_UP] = Input.GetKeyUp (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_DODGE]);
+        inputs.KeysState[(int) InputKeyStateType.KEY_DODGE] = Input.GetKey (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_DODGE]);
+
+        inputs.KeysState[(int) InputKeyStateType.KEY_CHARGE_DOWN] = Input.GetKeyDown (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_CHARGE]);
+        inputs.KeysState[(int) InputKeyStateType.KEY_CHARGE_UP] = Input.GetKeyUp (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_CHARGE]);
+        inputs.KeysState[(int) InputKeyStateType.KEY_CHARGE] = Input.GetKey (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_CHARGE]);
+        
+
+        VirtualInputManager.Instance.LoadInput (inputs);
+    }
+
 }

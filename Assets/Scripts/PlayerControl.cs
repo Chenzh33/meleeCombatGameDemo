@@ -32,22 +32,26 @@ namespace meleeDemo
 
         void Update()
         {
+            /*
             hInput = Input.GetAxis("Horizontal");
             vInput = Input.GetAxis("Vertical");
-            //Debug.Log(h);
-            //Debug.Log(v);
-            moveDirection = new Vector3(hInput, 0, vInput);
-            moveDirection = Vector3.ClampMagnitude(moveDirection, 1);
+            //Debug.Log(hInput);
+            //Debug.Log(vInput);
+            */
+            Vector2 input = VirtualInputManager.Instance.GetInput().InputVector;
+            
+            moveDirection = new Vector3(input.x, 0, input.y);
+            //moveDirection = Vector3.ClampMagnitude(moveDirection, 1);
             stateinfo = m_Animator.GetCurrentAnimatorStateInfo(0);
-            if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
-            //if(moveDirection.magnitude > 0.01f)
+            //if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
+            if(moveDirection.magnitude > 0f)
             {
                 m_Animator.SetBool("IsRun", true);
                 if (stateinfo.IsName("Run"))
                 {
                     MoveForward(moveDirection, speed, 1.0f);
                     float angle = Mathf.Acos(Vector3.Dot(new Vector3(0, 0, 1), moveDirection)) * Mathf.Rad2Deg;
-                    if (hInput < 0.0f) { angle = -angle; }
+                    if (input.x < 0.0f) { angle = -angle; }
                     Quaternion target = Quaternion.Euler(new Vector3(0, angle, 0));
                     transform.localRotation = Quaternion.Slerp(transform.localRotation, target, Time.deltaTime * smooth);
                 }

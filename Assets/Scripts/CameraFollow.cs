@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
-    Transform playerTransform;
-	private Vector3 targetPos;
+    public Transform playerTransform;
+    private Vector3 targetPos;
     public float moveSpeed;
+    private Vector3 offset;
 
     void Start () {
+        offset = transform.position - playerTransform.position;
 
     }
 
     void Update () {
-        if (playerTransform != null) {
-            targetPos = new Vector3 (playerTransform.position.x, playerTransform.position.y, playerTransform.position.z);
-            Vector3 velocity = (targetPos - transform.position) * moveSpeed;
-            transform.position = Vector3.SmoothDamp (transform.position, targetPos, ref velocity, 1.0f, Time.deltaTime);
-        }
+        targetPos = playerTransform.position + offset;
+        Vector3 velocity = (targetPos - transform.position) * moveSpeed;
+        transform.position = Vector3.SmoothDamp (transform.position, targetPos, ref velocity, 1.0f, Time.deltaTime);
     }
 }
