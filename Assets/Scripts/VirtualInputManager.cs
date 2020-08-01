@@ -7,8 +7,8 @@ public class InputsDataPerFrame {
         InputVector = new Vector2 ();
         KeysState = new bool[12];
     }
-    public string ToString () {
-        string str = InputVector.ToString();
+    public override string ToString () {
+        string str = InputVector.ToString ();
         str += " ";
         for (int i = 0; i != 12; ++i) {
             if (KeysState[i])
@@ -16,7 +16,7 @@ public class InputsDataPerFrame {
             else
                 str += "0";
             if (i % 3 == 2)
-            str += " ";
+                str += " ";
         }
         return str;
     }
@@ -47,12 +47,14 @@ public enum InputKeyStateType {
     KEY_CHARGE
 }
 public class VirtualInputManager : MonoBehaviour {
+    public GameObject inputUIObj;
+    private DebugHUB inputUIHUB;
 
     private static VirtualInputManager instance;
     public Dictionary<InputKeyType, KeyCode> DicKeys = new Dictionary<InputKeyType, KeyCode> ();
-    private const int INPUT_BUFFER_SIZE = 16;
+    public const int INPUT_BUFFER_SIZE = 16;
     private int curIndex = 0;
-    private InputsDataPerFrame[] inputBuffer = new InputsDataPerFrame[INPUT_BUFFER_SIZE + 1];
+    private InputsDataPerFrame[] inputBuffer = new InputsDataPerFrame[INPUT_BUFFER_SIZE];
 
     static public VirtualInputManager Instance {
         get {
@@ -72,6 +74,7 @@ public class VirtualInputManager : MonoBehaviour {
     private void Awake () {
         SetDefaultKeyConfig ();
         InitInputDataPool ();
+        inputUIHUB = inputUIObj.GetComponent<DebugHUB>();
         /*
         if (Instance == null) {
             Instance = this;
@@ -83,7 +86,7 @@ public class VirtualInputManager : MonoBehaviour {
     }
 
     private void InitInputDataPool () {
-        for (int i = 0; i != INPUT_BUFFER_SIZE + 1; ++i) {
+        for (int i = 0; i != INPUT_BUFFER_SIZE; ++i) {
             inputBuffer[i] = new InputsDataPerFrame ();
             //inputBuffer[i].InputVector = new Vector2();
             //inputBuffer[i].KeysState = new bool[12];
@@ -98,6 +101,12 @@ public class VirtualInputManager : MonoBehaviour {
         DicKeys.Add (InputKeyType.KEY_CHARGE, KeyCode.L);
 
     }
+
+    public int GetIndex () {
+        return curIndex;
+    }
+
+    /*
     private void PushInput () {
         inputBuffer[curIndex + 1].InputVector = inputBuffer[0].InputVector;
         inputBuffer[curIndex + 1].KeysState = (bool[]) inputBuffer[0].KeysState.Clone ();
@@ -106,13 +115,14 @@ public class VirtualInputManager : MonoBehaviour {
         curIndex = (curIndex + 1) % INPUT_BUFFER_SIZE;
 
     }
-    void LateUpdate () {
-        PushInput ();
+    */
+    void Update () {
+        inputUIHUB.Fresh();
 
     }
 
-    public InputsDataPerFrame GetInput () {
-        return inputBuffer[curIndex + 1];
+    public InputsDataPerFrame GetTopInput () {
+        return inputBuffer[curIndex];
 
     }
     public InputsDataPerFrame[] GetAllInputs () {
@@ -120,8 +130,11 @@ public class VirtualInputManager : MonoBehaviour {
     }
 
     public void LoadInput (InputsDataPerFrame data) {
-        inputBuffer[0].InputVector = data.InputVector;
-        inputBuffer[0].KeysState = (bool[]) data.KeysState.Clone ();
+        curIndex = (curIndex + 1) % INPUT_BUFFER_SIZE;
+        inputBuffer[curIndex].InputVector = data.InputVector;
+        inputBuffer[curIndex].KeysState = (bool[]) data.KeysState.Clone ();
+        //Debug.Log (inputBuffer[curIndex + 1].ToString());
+        //Debug.Log (inputBuffer[curIndex + 1].KeysState[1]);
     }
 
 }

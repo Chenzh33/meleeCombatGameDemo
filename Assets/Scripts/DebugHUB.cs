@@ -14,11 +14,12 @@ public class DebugHUB : MonoBehaviour {
 
     }
 
-    void Update () {
+    public void Fresh () {
         InputsDataPerFrame[] inputData = VirtualInputManager.Instance.GetAllInputs ();
+        int curIdx = VirtualInputManager.Instance.GetIndex ();
         debugText.text = "";
-        foreach (InputsDataPerFrame d in inputData) {
-            debugText.text += d.ToString ();
+        for (int i = VirtualInputManager.INPUT_BUFFER_SIZE; i != 0; --i) {
+            debugText.text += inputData[(curIdx + i) % VirtualInputManager.INPUT_BUFFER_SIZE].ToString ();
             debugText.text += "\n";
 
         }

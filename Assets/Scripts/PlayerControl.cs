@@ -2,65 +2,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace meleeDemo
-{
-    public class PlayerControl : MonoBehaviour
-    {
-        public float speed = 6.0f;
-        public float smooth = 5.0f;
-        float times;
+namespace meleeDemo {
+    public enum TransitionParameter {
+        Move,
+        AttackMelee,
+        ForcedTransition
 
-        CharacterController m_Controller;
-        Animator m_Animator;
+    }
+
+    public class PlayerControl : MonoBehaviour {
+        public InputsDataPerFrame inputDataTop;
+
+        CharacterController controller;
+        Animator animator;
         AnimatorStateInfo stateinfo;
 
-        private float hInput;
-        private float vInput;
-        private Vector3 moveDirection = Vector3.zero;
+        //private float hInput;
+        //private float vInput;
+        //private Vector3 moveDirection = Vector3.zero;
 
-        void Start()
-        {
-            m_Animator = GetComponent<Animator>();
-            m_Controller = GetComponent<CharacterController>();
+        void Start () {
+            animator = GetComponent<Animator> ();
+            controller = GetComponent<CharacterController> ();
         }
 
-        public void MoveForward(Vector3 dir, float s, float sgraph)
+        public CharacterController GetCharacterController()
         {
+            return controller;
+        }
+
+/*
+        public void MoveForward (Vector3 dir, float s, float sgraph) {
             //m_Controller.Move(moveDirection * s * sgraph * Time.deltaTime);
-            m_Controller.Move(dir * s * sgraph * Time.deltaTime);
+            controller.Move (dir * s * sgraph * Time.deltaTime);
         }
+        */
 
-        void Update()
-        {
+        void Update () {
             /*
             hInput = Input.GetAxis("Horizontal");
             vInput = Input.GetAxis("Vertical");
             //Debug.Log(hInput);
             //Debug.Log(vInput);
             */
-            Vector2 input = VirtualInputManager.Instance.GetInput().InputVector;
-            
-            moveDirection = new Vector3(input.x, 0, input.y);
+            inputDataTop = VirtualInputManager.Instance.GetTopInput ();
+            /*
+            Vector2 inputVector = inputData.InputVector;
+            bool[] inputKeysState = inputData.KeysState;
+
             //moveDirection = Vector3.ClampMagnitude(moveDirection, 1);
-            stateinfo = m_Animator.GetCurrentAnimatorStateInfo(0);
+            stateinfo = animator.GetCurrentAnimatorStateInfo (0);
             //if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
-            if(moveDirection.magnitude > 0f)
-            {
-                m_Animator.SetBool("IsRun", true);
-                if (stateinfo.IsName("Run"))
-                {
-                    MoveForward(moveDirection, speed, 1.0f);
-                    float angle = Mathf.Acos(Vector3.Dot(new Vector3(0, 0, 1), moveDirection)) * Mathf.Rad2Deg;
-                    if (input.x < 0.0f) { angle = -angle; }
-                    Quaternion target = Quaternion.Euler(new Vector3(0, angle, 0));
-                    transform.localRotation = Quaternion.Slerp(transform.localRotation, target, Time.deltaTime * smooth);
+            if (inputVector.magnitude > 0f) {
+                animator.SetBool (TransitionParameter.Move.ToString (), true);
+                if (stateinfo.IsName ("Run")) {
+                    moveDirection = new Vector3 (inputVector.x, 0, inputVector.y);
+                    MoveForward (moveDirection, speed, 1.0f);
+                    float angle = Mathf.Acos (Vector3.Dot (new Vector3 (0, 0, 1), moveDirection)) * Mathf.Rad2Deg;
+                    if (inputVector.x < 0.0f) { angle = -angle; }
+                    Quaternion target = Quaternion.Euler (new Vector3 (0, angle, 0));
+                    transform.localRotation = Quaternion.Slerp (transform.localRotation, target, Time.deltaTime * smooth);
                 }
-            }
-            else
-            {
-                m_Animator.SetBool("IsRun", false);
+            } else {
+                animator.SetBool (TransitionParameter.Move.ToString (), false);
             }
 
+            */
             //Debug.Log(stateinfo.IsName("Run"));
             /*
              if (Input.GetButtonUp("Fire1") || Input.GetButtonUp("Fire2")) { times = Mathf.Ceil(stateinfo.normalizedTime); }
@@ -88,10 +95,12 @@ namespace meleeDemo
                  }
              }
              */
-            if (Input.GetButtonDown("Fire3"))
-            {
-                this.enabled = false;
+            if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_MELEE_ATTACK_DOWN]) {
+                animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
+            } else {
+                animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
             }
+
         }
     }
 

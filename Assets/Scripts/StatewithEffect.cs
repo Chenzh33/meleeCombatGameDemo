@@ -7,8 +7,12 @@ namespace meleeDemo
     public class StatewithEffect : StateMachineBehaviour
     {
         public List<SkillEffect> ListSkillEffect = new List<SkillEffect>();
-        public PlayerControl playerControl;
+        private PlayerControl playerControl;
 
+        public PlayerControl GetPlayerControl()
+        {
+            return playerControl;
+        }
 
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -9,32 +9,60 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3275aa1c6bc52244eab361fc5dd5add4, type: 3}
+  m_Script: {fileID: 11500000, guid: feb28c08435cea64c812511c41772d7f, type: 3}
   m_Name: Attack1_MoveForward
   m_EditorClassIdentifier: 
-  SpeedGraph:
+  speedGraph:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.9977722
-      inSlope: 0
-      outSlope: 0
+      value: 0.5
+      inSlope: -0.083892226
+      outSlope: -0.083892226
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.22725616
     - serializedVersion: 3
-      time: 0.35017636
-      value: 0.0065388214
-      inSlope: 0
-      outSlope: 0
+      time: 0.15
+      value: 0.5
+      inSlope: -0.0047647934
+      outSlope: -0.0047647934
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.5103157
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3
+      value: 1
+      inSlope: 0.0016800493
+      outSlope: 0.0016800493
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.21302027
+      outWeight: 0.18261775
+    - serializedVersion: 3
+      time: 0.45
+      value: 0
+      inSlope: -0.036193117
+      outSlope: -0.036193117
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.26392692
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Speed: 10
-  LockDirection: 0
+  speed: 12
+  smooth: 5
+  LockDirection: 1

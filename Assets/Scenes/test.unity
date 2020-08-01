@@ -525,6 +525,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 7962155993650078085, guid: eda6041cb58c0354d8f10004350c5183, type: 3}
+    - {fileID: 7949288511737365875, guid: eda6041cb58c0354d8f10004350c5183, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eda6041cb58c0354d8f10004350c5183, type: 3}
 --- !u!1 &610606575
 GameObject:
@@ -830,6 +831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87658027eea0b31478a3cb4cf689e4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputUIObj: {fileID: 43955194}
 --- !u!4 &1784151735
 Transform:
   m_ObjectHideFlags: 0
