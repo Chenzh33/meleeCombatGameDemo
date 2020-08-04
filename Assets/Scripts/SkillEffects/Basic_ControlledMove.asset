@@ -36,6 +36,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 6
-  smooth: 5
+  speed: 5
+  smooth: 10
   LockDirection: 0
