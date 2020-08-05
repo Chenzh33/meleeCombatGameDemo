@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace meleeDemo {
+
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/Movement")]
     public class Movement : SkillEffect {
         //private CharacterController characterController;
@@ -31,12 +32,12 @@ namespace meleeDemo {
         public void ControlledMove (CharacterControl control, Animator animator, AnimatorStateInfo animatorStateInfo) {
             InputsDataPerFrame inputData = control.inputDataTop;
             Vector2 inputVector = inputData.InputVector;
-            Debug.Log(inputVector);
+            //Debug.Log(inputVector);
             bool[] inputKeysState = inputData.KeysState;
 
             if (inputVector.magnitude > 0f) {
                 animator.SetBool (TransitionParameter.Move.ToString (), true);
-                if (animatorStateInfo.IsName ("StandingRun")) {
+                if (animatorStateInfo.IsName ("Move")) {
                     Vector3 moveDirection = new Vector3 (inputVector.x, 0, inputVector.y);
                     //MoveForward (moveDirection, speed, 1.0f);
                     control.characterController.Move (moveDirection * speed * Time.deltaTime);

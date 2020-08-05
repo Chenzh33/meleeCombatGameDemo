@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace meleeDemo {
+
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/ForcedTransition")]
     public class ForcedTransition : SkillEffect {
         [Range (0.01f, 1f)]

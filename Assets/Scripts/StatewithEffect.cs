@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace meleeDemo {
+
     public class StatewithEffect : StateMachineBehaviour {
         public List<SkillEffect> ListSkillEffect = new List<SkillEffect> ();
         private CharacterControl characterControl;

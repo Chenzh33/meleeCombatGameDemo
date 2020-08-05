@@ -13,6 +13,10 @@ namespace meleeDemo {
     public class CharacterControl : MonoBehaviour {
         public InputsDataPerFrame inputDataTop = new InputsDataPerFrame ();
         public bool isPlayerControll;
+        public List<Collider> RagdollParts = new List<Collider> ();
+        public List<Collider> AttackingParts = new List<Collider> ();
+        //private List<TriggerDetector> TriggerDetectors = new List<TriggerDetector> ();
+        private TriggerDetector detector;
 
         CharacterController controller;
         Animator animator;
@@ -24,7 +28,8 @@ namespace meleeDemo {
         void Awake () {
             animator = GetComponentInChildren<Animator> ();
             controller = GetComponent<CharacterController> ();
-            SetRagdollParts ();
+            detector = GetComponentInChildren<TriggerDetector> ();
+            SetRagdollAndAttackingParts ();
         }
 
         void Start () {
@@ -37,16 +42,64 @@ namespace meleeDemo {
             }
         }
 
-        public void Dead () {
+        public TriggerDetector GetTriggerDetector () {
+            return detector;
 
         }
-        private void SetRagdollParts () {
+        /*
+        public List<TriggerDetector> GetAllTriggers () {
+            if (TriggerDetectors.Count == 0) {
+                TriggerDetector[] triggers = this.gameObject.GetComponentsInChildren<TriggerDetector> ();
+                foreach (TriggerDetector t in triggers) {
+                    TriggerDetectors.Add (t);
+                }
+
+            }
+            return TriggerDetectors;
+        }
+        */
+
+        private void TurnOnRagdoll() {
+            //Rigidbody rig = GetComponent<Rigidbody>();
+            //rig.useGravity = false;
+            animator.enabled = false;
+            foreach(Collider c in RagdollParts)
+            {
+                c.isTrigger = false;
+                c.attachedRigidbody.velocity = Vector3.zero;
+            }
+
+        }
+
+        public void Dead () {
+            TurnOnRagdoll();
+
+        }
+        private void SetRagdollAndAttackingParts () {
+            RagdollParts.Clear ();
+            AttackingParts.Clear ();
             Collider[] cols = this.gameObject.GetComponentsInChildren<Collider> ();
             foreach (Collider c in cols) {
                 if (c.gameObject != this.gameObject) {
-                    c.isTrigger = true;
+                    if (c.GetComponent<Rigidbody> () != null) {
+                        /*
+                        if (c.GetComponent<TriggerDetector> () == null)
+                            c.gameObject.AddComponent<TriggerDetector> ();
+                        */
+                        if (c.isTrigger) {
+                            AttackingParts.Add (c);
+                        } else {
+                            RagdollParts.Add (c);
+                            c.isTrigger = true;
+                        }
+                    }
                 }
             }
+
+        }
+
+        public List<Collider> GetAttackingPart () {
+            return AttackingParts;
 
         }
         /*

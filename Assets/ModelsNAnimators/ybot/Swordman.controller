@@ -68,6 +68,7 @@ MonoBehaviour:
   ListSkillEffect:
   - {fileID: 11400000, guid: 570d0d7b80ac78d43ab3efa6fb5d86fe, type: 2}
   - {fileID: 11400000, guid: 649b0edcc3a70fb44bd8203ba93ae7f4, type: 2}
+  - {fileID: 11400000, guid: 878647f1a393c85499ea8cd461d88946, type: 2}
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -130,7 +131,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: d12be8bc8696b4849ad7112fc9e47450,
+  m_Motion: {fileID: 1827226128182048838, guid: dd8abd49755a3404192614423b427124,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -302,7 +303,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: StandingRun
+  m_Name: Move
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
