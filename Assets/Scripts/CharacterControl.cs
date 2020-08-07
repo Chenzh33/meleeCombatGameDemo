@@ -59,12 +59,11 @@ namespace meleeDemo {
         }
         */
 
-        private void TurnOnRagdoll() {
+        private void TurnOnRagdoll () {
             //Rigidbody rig = GetComponent<Rigidbody>();
             //rig.useGravity = false;
             animator.enabled = false;
-            foreach(Collider c in RagdollParts)
-            {
+            foreach (Collider c in RagdollParts) {
                 c.isTrigger = false;
                 c.attachedRigidbody.velocity = Vector3.zero;
             }
@@ -72,7 +71,7 @@ namespace meleeDemo {
         }
 
         public void Dead () {
-            TurnOnRagdoll();
+            TurnOnRagdoll ();
 
         }
         private void SetRagdollAndAttackingParts () {
@@ -167,6 +166,10 @@ namespace meleeDemo {
                  }
              }
              */
+            if (!this.characterController.isGrounded) {
+                Vector3 gravity = new Vector3 (0, -9.8f * Time.deltaTime, 0);
+                this.characterController.Move (gravity);
+            }
             if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_MELEE_ATTACK_DOWN]) {
                 animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
             } else {

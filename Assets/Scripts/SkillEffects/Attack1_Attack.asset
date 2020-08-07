@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
   m_Name: Attack1_Attack
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.2
-  AttackEndTime: 0.6
+  AttackBeginTime: 0.3
+  AttackEndTime: 0.8
   AttackParts: 
   FinishedAttacks: []

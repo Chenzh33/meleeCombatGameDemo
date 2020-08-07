@@ -35,6 +35,7 @@ namespace meleeDemo {
             //Debug.Log(inputVector);
             bool[] inputKeysState = inputData.KeysState;
 
+          
             if (inputVector.magnitude > 0f) {
                 animator.SetBool (TransitionParameter.Move.ToString (), true);
                 if (animatorStateInfo.IsName ("Move")) {
@@ -54,7 +55,7 @@ namespace meleeDemo {
         }
         public void MoveForward (CharacterControl control, Animator animator, AnimatorStateInfo animatorStateInfo) {
             Vector3 faceDirection = animator.transform.forward;
-            control.characterController.Move (faceDirection * speed * speedGraph.Evaluate(animatorStateInfo.normalizedTime) * Time.deltaTime);
+            control.characterController.Move (faceDirection * speed * speedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime);
 
         }
     }
