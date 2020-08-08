@@ -46,7 +46,7 @@ namespace meleeDemo {
             obj.gameObject.SetActive (false);
 
         }
-        public void Init () {
+        public override void Init () {
             BuildDictionary ();
 
         }

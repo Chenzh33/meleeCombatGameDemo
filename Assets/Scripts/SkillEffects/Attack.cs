@@ -43,13 +43,17 @@ namespace meleeDemo {
             FinishedAttacks.Clear ();
 
         }
-        public void RegisterAttack (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            if (stateInfo.normalizedTime >= AttackBeginTime && stateInfo.normalizedTime < AttackEndTime) {
-                foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
-                    if (!info.IsRegistered && info.AttackSkill == this) {
-                        Debug.Log (this.name + " registered: " + stateInfo.normalizedTime);
-                        info.Register ();
-
+        public void RegisterAttack(StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo)
+        {
+            if (stateInfo.normalizedTime >= AttackBeginTime && stateInfo.normalizedTime < AttackEndTime)
+            {
+                foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo)
+                {
+                    if (!info.IsRegistered && info.AttackSkill == this)
+                    {
+                        Debug.Log(this.name + " registered: " + stateInfo.normalizedTime);
+                        info.Register();
+                        //CameraManager.Instance.ShakeCamera(0.2f);
                     }
                 }
             }

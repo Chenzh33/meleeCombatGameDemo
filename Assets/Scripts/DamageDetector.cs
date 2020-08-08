@@ -55,6 +55,7 @@ namespace meleeDemo {
         private void ProcessDamage () {
             Debug.Log ("HIT !!!");
             control.Dead();
+            CameraManager.Instance.ShakeCamera(0.25f);
         }
     }
 }

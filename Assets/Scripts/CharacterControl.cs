@@ -27,8 +27,8 @@ namespace meleeDemo {
 
         void Awake () {
             animator = GetComponentInChildren<Animator> ();
-            controller = GetComponent<CharacterController> ();
             detector = GetComponentInChildren<TriggerDetector> ();
+            controller = GetComponent<CharacterController>();
             SetRagdollAndAttackingParts ();
         }
 

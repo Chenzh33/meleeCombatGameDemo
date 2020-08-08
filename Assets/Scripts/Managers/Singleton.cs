@@ -22,5 +22,10 @@ namespace meleeDemo {
                 return instance;
             }
         }
+
+        public virtual void Init()
+        {
+
+        }
     }
 }

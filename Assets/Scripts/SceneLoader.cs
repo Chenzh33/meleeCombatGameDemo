@@ -11,6 +11,7 @@ namespace meleeDemo {
             KeyboardManager.Instance.Init ();
             PoolManager.Instance.Init();
             AttackManager.Instance.Init ();
+            CameraManager.Instance.Init ();
         }
 
         void Update () { }

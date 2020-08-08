@@ -64,9 +64,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.33104149
+  m_TransitionDuration: 0.10986504
   m_TransitionOffset: 0
-  m_ExitTime: 0.7064016
+  m_ExitTime: 0.8000579
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -80,7 +80,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Attack_2
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 4159235679704600982}
@@ -134,7 +134,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Attack_1
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7603045413527589605}
@@ -208,7 +208,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Attack_3
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8463507838606525014}
@@ -244,6 +244,7 @@ MonoBehaviour:
   ListSkillEffect:
   - {fileID: 11400000, guid: 649b0edcc3a70fb44bd8203ba93ae7f4, type: 2}
   - {fileID: 11400000, guid: 878647f1a393c85499ea8cd461d88946, type: 2}
+  - {fileID: 11400000, guid: 1f0a94dc2a50f364692030a6974b7900, type: 2}
 --- !u!1101 &-3108893745993902224
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -475,7 +476,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Move
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7990929697791864598}

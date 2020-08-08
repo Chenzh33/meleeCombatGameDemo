@@ -55,7 +55,7 @@ namespace meleeDemo {
         private int curIndex = 0;
         private InputsDataPerFrame[] inputBuffer = new InputsDataPerFrame[INPUT_BUFFER_SIZE];
 
-        public void Init () {
+        public override void Init () {
             SetDefaultKeyConfig ();
             InitInputDataPool ();
 

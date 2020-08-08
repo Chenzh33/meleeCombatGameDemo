@@ -7,7 +7,7 @@ namespace meleeDemo {
     public class KeyboardManager : Singleton<KeyboardManager> {
         private InputsDataPerFrame inputs;
 
-        public void Init () {
+        public override void Init () {
             inputs = new InputsDataPerFrame ();
         }
 
