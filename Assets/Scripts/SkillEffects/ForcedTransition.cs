@@ -6,7 +6,7 @@ namespace meleeDemo {
 
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/ForcedTransition")]
     public class ForcedTransition : SkillEffect {
-        [Range (0.01f, 1f)]
+        [Range (0.01f, 2f)]
         public float transitionTime = 0.8f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {

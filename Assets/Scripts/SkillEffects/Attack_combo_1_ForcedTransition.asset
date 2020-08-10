@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b2197c81ec85849b3fbc113d7f1892, type: 3}
-  m_Name: Attack1_ShakeCamera
-  m_EditorClassIdentifier: Assembly-CSharp:meleeDemo:CameraShake
-  ShakeBeginTime: 0.25
-  ShakeEndTime: 0.32
+  m_Script: {fileID: 11500000, guid: 70b670948998a0f43954936c716d8e4e, type: 3}
+  m_Name: Attack_combo_1_ForcedTransition
+  m_EditorClassIdentifier: 
+  transitionTime: 0.8

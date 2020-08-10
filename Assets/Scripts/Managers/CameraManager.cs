@@ -12,6 +12,7 @@ namespace meleeDemo {
         public override void Init()
         {
             controller = GameObject.FindObjectOfType<CameraController>();
+            //Time.timeScale = 0.5f;
         }
 
         IEnumerator _ShakeCamera(float second)

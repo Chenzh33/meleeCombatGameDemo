@@ -21,13 +21,10 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Unreal Take' has import animation warnings
-      that might lower retargeting quality:\n\t'pelvis' has translation animation
-      that will be discarded.\n\t'pelvis' is inbetween humanoid transforms and has
-      rotation animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: "\nRetargeting quality report for clip 'Unreal
       Take':\n\tLeftHand average position error 0.6 mm and maximum position error
-      1.5 mm at time 0: 6 (25.0%) Frame 6\n\tRightHand average position error 1.1
+      1.4 mm at time 0: 6 (25.0%) Frame 6\n\tRightHand average position error 1.1
       mm and maximum position error 2.4 mm at time 0: 6 (25.0%) Frame 6\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
@@ -132,8 +129,8 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1

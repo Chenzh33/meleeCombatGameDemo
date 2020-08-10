@@ -5,7 +5,7 @@ using UnityEngine;
 namespace meleeDemo {
 
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/ShakeCamera")]
-    public class CameraShake : SkillEffect {
+    public class ShakeCamera : SkillEffect {
         [Range (0.01f, 1f)]
         public float ShakeBeginTime = 0.4f;
 
@@ -33,7 +33,7 @@ namespace meleeDemo {
 
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-           
+            IsShaking = false;
         }
      
     }
