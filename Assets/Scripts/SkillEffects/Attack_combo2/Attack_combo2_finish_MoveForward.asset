@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feb28c08435cea64c812511c41772d7f, type: 3}
-  m_Name: Attack_combo_1_MoveForward
+  m_Name: Attack_combo2_finish_MoveForward
   m_EditorClassIdentifier: 
   speedGraph:
     serializedVersion: 2
@@ -18,42 +18,52 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: -0.083892226
-      outSlope: -0.083892226
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.22725616
-    - serializedVersion: 3
-      time: 0.2
-      value: 1
-      inSlope: 0.0016800493
-      outSlope: 0.0016800493
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.21302027
-      outWeight: 0.18261775
-    - serializedVersion: 3
-      time: 0.25
-      value: 0
-      inSlope: -0.036193117
-      outSlope: -0.036193117
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.26392692
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 34
       weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4
+      value: 0
+      inSlope: 0.012195414
+      outSlope: 0.012195414
+      tangentMode: 0
+      weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0
+      outWeight: 0.7231637
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: -0.0036225715
+      outSlope: -0.0036225715
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.95
+      value: 1
+      inSlope: 0.010969031
+      outSlope: 0.010969031
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.59928054
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.0331849
+      outSlope: -0.0331849
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.7090399
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 10
+  speed: 50
   smooth: 5
   LockDirection: 1
+  AllowEarlyTurn: 0

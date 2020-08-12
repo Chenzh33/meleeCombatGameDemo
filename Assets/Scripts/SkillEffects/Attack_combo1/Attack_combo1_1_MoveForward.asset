@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feb28c08435cea64c812511c41772d7f, type: 3}
-  m_Name: Attack_combo_2_MoveForward
+  m_Name: Attack_combo1_1_MoveForward
   m_EditorClassIdentifier: 
   speedGraph:
     serializedVersion: 2
@@ -18,42 +18,45 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.55529416
-      outSlope: 0.55529416
+      inSlope: -0.083892226
+      outSlope: -0.083892226
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.24447875
+      outWeight: 0.22725616
     - serializedVersion: 3
-      time: 0.22531505
+      time: 0.1
       value: 1
-      inSlope: -0.00021937084
-      outSlope: -0.00021937084
+      inSlope: 0.0016800493
+      outSlope: 0.0016800493
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.23522031
-      outWeight: 0.54482234
+      inWeight: 0.21302027
+      outWeight: 0.18261775
     - serializedVersion: 3
-      time: 0.3
+      time: 0.25
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.036193117
+      outSlope: -0.036193117
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.50013286
+      inWeight: 0.26392692
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 0
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 7
+  speed: 12
   smooth: 5
   LockDirection: 1
+  AllowEarlyTurn: 1
+  smoothEarlyTurn: 18
+  AllowTurnStartTime: 0

@@ -48,6 +48,7 @@ namespace meleeDemo {
         KEY_CHARGE_UP,
         KEY_CHARGE
     }
+
     public class VirtualInputManager : Singleton<VirtualInputManager> {
 
         public Dictionary<InputKeyType, KeyCode> DicKeys = new Dictionary<InputKeyType, KeyCode> ();
@@ -85,6 +86,33 @@ namespace meleeDemo {
         void Update () {
 
         }
+
+        public bool CheckCommandInput () {
+            for (int i = 0; i != System.Enum.GetValues (typeof (InputKeyType)).Length; ++i) {
+                if (inputBuffer[curIndex].KeysState[i * 3 + 2])
+                    return true;
+            }
+            return false;
+        }
+
+        public bool CheckInputInBuffer (InputKeyStateType keystate) {
+            for (int i = 0; i != VirtualInputManager.INPUT_BUFFER_SIZE; ++i) { // from old to new
+                if (inputBuffer[(curIndex + i + 1) % VirtualInputManager.INPUT_BUFFER_SIZE].KeysState[(int) keystate]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void ClearInputInBuffer (InputKeyStateType keystate) {
+            for (int i = 0; i != VirtualInputManager.INPUT_BUFFER_SIZE; ++i) { // from old to new
+                if (inputBuffer[(curIndex + i + 1) % VirtualInputManager.INPUT_BUFFER_SIZE].KeysState[(int) keystate]) {
+                    inputBuffer[(curIndex + i + 1) % VirtualInputManager.INPUT_BUFFER_SIZE].KeysState[(int) keystate] = false;
+                    return;
+                }
+            }
+ 
+        }
+
 
         public InputsDataPerFrame GetTopInput () {
             return inputBuffer[curIndex];

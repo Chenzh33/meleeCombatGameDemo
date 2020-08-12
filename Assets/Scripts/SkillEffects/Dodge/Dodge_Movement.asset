@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feb28c08435cea64c812511c41772d7f, type: 3}
-  m_Name: Attack_combo2_loop_MoveForward
+  m_Name: Dodge_Movement
   m_EditorClassIdentifier: 
   speedGraph:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -26,25 +26,37 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 0.5
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 0.9
+      inSlope: -0.8460398
+      outSlope: -0.8460398
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.14971757
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7
+      value: 0.2
+      inSlope: -2.0797307
+      outSlope: -2.0797307
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.10169482
+      outWeight: 0.14312604
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.015440542
+      outSlope: 0.015440542
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.15254247
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 8
+  speed: 12
   smooth: 5
   LockDirection: 1
+  AllowEarlyTurn: 1
+  smoothEarlyTurn: 0
+  AllowTurnStartTime: 0

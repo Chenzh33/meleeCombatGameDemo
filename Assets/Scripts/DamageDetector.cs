@@ -28,7 +28,7 @@ namespace meleeDemo {
                     continue;
                 if (info.Attacker == control)
                     continue;
-                Debug.Log ("check attack");
+                //Debug.Log ("check attack");
                 if (IsCollided (info)) {
                     info.IsFinished = true;
                     ProcessDamage ();

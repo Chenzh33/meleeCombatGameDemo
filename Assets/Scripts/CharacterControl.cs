@@ -6,7 +6,9 @@ namespace meleeDemo {
     public enum TransitionParameter {
         Move,
         AttackMelee,
-        ForcedTransition
+        ForcedTransition,
+        Dodge,
+        CheckCombo
 
     }
 
@@ -17,6 +19,9 @@ namespace meleeDemo {
         public List<Collider> AttackingParts = new List<Collider> ();
         //private List<TriggerDetector> TriggerDetectors = new List<TriggerDetector> ();
         private TriggerDetector detector;
+        private Coroutine CheckStopCoroutine;
+        private Coroutine TurnToTargetCoroutine;
+        public Vector3 FaceTarget;
 
         CharacterController controller;
         Animator animator;
@@ -24,11 +29,13 @@ namespace meleeDemo {
         //private float hInput;
         //private float vInput;
         //private Vector3 moveDirection = Vector3.zero;
+        public bool AttackTrigger;
+        public bool DodgeTrigger;
 
         void Awake () {
             animator = GetComponentInChildren<Animator> ();
             detector = GetComponentInChildren<TriggerDetector> ();
-            controller = GetComponent<CharacterController>();
+            controller = GetComponent<CharacterController> ();
             SetRagdollAndAttackingParts ();
         }
 
@@ -107,7 +114,40 @@ namespace meleeDemo {
                     controller.Move (dir * s * sgraph * Time.deltaTime);
                 }
                 */
+        IEnumerator _TurnToTarget (float stTime, float smooth, Quaternion target) {
+            float t = 0f;
+            while (Quaternion.Angle(animator.transform.localRotation, target) > 0.1f) {
+                if (t >= stTime)
+                    animator.transform.localRotation = Quaternion.Slerp (animator.transform.localRotation, target, smooth * Time.deltaTime);
+                t += Time.deltaTime;
+                yield return null;
+            }
+            TurnToTargetCoroutine = null;
+        }
 
+        public void TurnToTarget (float stTime, float smooth, Quaternion target) {
+            //FaceTarget = target.eulerAngles;
+            if (smooth == 0f)
+                animator.transform.localRotation = target;
+            else if (TurnToTargetCoroutine == null)
+                TurnToTargetCoroutine = StartCoroutine (_TurnToTarget (stTime, smooth, target));
+        }
+
+        IEnumerator _CheckStopMove (float time) {
+            yield return new WaitForSeconds (time);
+            Vector2 inputVector = inputDataTop.InputVector;
+            if (inputVector.magnitude <= 0.01f) {
+                animator.SetBool (TransitionParameter.Move.ToString (), false);
+            }
+            CheckStopCoroutine = null;
+        }
+        public void CheckStopMove (float time) {
+            //if (CheckStopCoroutine != null)
+            //StopCoroutine (CheckStopCoroutine);
+            if (CheckStopCoroutine == null)
+                CheckStopCoroutine = StartCoroutine (_CheckStopMove (time));
+
+        }
         void Update () {
             /*
             hInput = Input.GetAxis("Horizontal");
@@ -117,6 +157,7 @@ namespace meleeDemo {
             */
             if (isPlayerControll)
                 inputDataTop = VirtualInputManager.Instance.GetTopInput ();
+
             /*
             Vector2 inputVector = inputData.InputVector;
             bool[] inputKeysState = inputData.KeysState;
@@ -170,12 +211,42 @@ namespace meleeDemo {
                 Vector3 gravity = new Vector3 (0, -9.8f * Time.deltaTime, 0);
                 this.characterController.Move (gravity);
             }
+            /*
             if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_MELEE_ATTACK_DOWN]) {
                 animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
             } else {
                 animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
             }
-
+            if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_DODGE_DOWN]) {
+                animator.SetBool (TransitionParameter.Dodge.ToString (), true);
+            } else {
+                animator.SetBool (TransitionParameter.Dodge.ToString (), false);
+            }
+            */
+            if (isPlayerControll) {
+                if (VirtualInputManager.Instance.CheckCommandInput ()) {
+                    if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN))
+                        animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
+                    if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
+                        animator.SetBool (TransitionParameter.Dodge.ToString (), true);
+                }
+                if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN))
+                    animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
+                if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
+                    animator.SetBool (TransitionParameter.Dodge.ToString (), false);
+                if (DodgeTrigger) {
+                    VirtualInputManager.Instance.ClearInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN);
+                }
+                if (AttackTrigger) {
+                    VirtualInputManager.Instance.ClearInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN);
+                }
+            }
+            if (DodgeTrigger) {
+                DodgeTrigger = false;
+            }
+            if (AttackTrigger) {
+                AttackTrigger = false;
+            }
         }
     }
 

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feb28c08435cea64c812511c41772d7f, type: 3}
-  m_Name: Attack_combo2_finish_MoveForward
+  m_Name: Attack_combo1_3_MoveForward
   m_EditorClassIdentifier: 
   speedGraph:
     serializedVersion: 2
@@ -25,44 +25,56 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.4
+      time: 0.15
       value: 0
-      inSlope: 0.012195414
-      outSlope: 0.012195414
+      inSlope: -0
+      outSlope: -0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.7231637
+      outWeight: 0.26145425
     - serializedVersion: 3
-      time: 0.5
+      time: 0.2
       value: 1
-      inSlope: -0.0036225715
-      outSlope: -0.0036225715
+      inSlope: -0.013786001
+      outSlope: -0.013786001
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.25
+      value: 1
+      inSlope: -0.014588681
+      outSlope: -0.014588681
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.32400376
+      outWeight: 0.11950892
+    - serializedVersion: 3
+      time: 0.32
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.24290359
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.95
-      value: 1
-      inSlope: 0.010969031
-      outSlope: 0.010969031
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.59928054
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -0.0331849
-      outSlope: -0.0331849
-      tangentMode: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.7090399
-      outWeight: 0.33333334
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 50
+  speed: 18
   smooth: 5
   LockDirection: 1
+  AllowEarlyTurn: 1
+  smoothEarlyTurn: 18
+  AllowTurnStartTime: 0
