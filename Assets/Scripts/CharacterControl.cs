@@ -8,6 +8,7 @@ namespace meleeDemo {
         AttackMelee,
         ForcedTransition,
         Dodge,
+        TransitionIndexer,
         CheckCombo
 
     }
@@ -116,7 +117,7 @@ namespace meleeDemo {
                 */
         IEnumerator _TurnToTarget (float stTime, float smooth, Quaternion target) {
             float t = 0f;
-            while (Quaternion.Angle(animator.transform.localRotation, target) > 0.1f) {
+            while (Quaternion.Angle (animator.transform.localRotation, target) > 0.1f) {
                 if (t >= stTime)
                     animator.transform.localRotation = Quaternion.Slerp (animator.transform.localRotation, target, smooth * Time.deltaTime);
                 t += Time.deltaTime;
@@ -211,42 +212,73 @@ namespace meleeDemo {
                 Vector3 gravity = new Vector3 (0, -9.8f * Time.deltaTime, 0);
                 this.characterController.Move (gravity);
             }
+
             /*
-            if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_MELEE_ATTACK_DOWN]) {
-                animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
-            } else {
-                animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
-            }
-            if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_DODGE_DOWN]) {
-                animator.SetBool (TransitionParameter.Dodge.ToString (), true);
-            } else {
-                animator.SetBool (TransitionParameter.Dodge.ToString (), false);
-            }
-            */
+                        if (isPlayerControll) {
+
+                            if (inputDataTop.InputVector.magnitude > 0.01f) {
+                                animator.SetBool (TransitionParameter.Move.ToString (), true);
+                            } else {
+                                if (animator.GetCurrentAnimatorStateInfo(0).IsName ("Move")) {
+                                    CheckStopMove (0.10f);
+                                }
+                            }
+                            if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_MELEE_ATTACK_DOWN]) {
+                                animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
+                                //AttackTrigger = true;
+                            } else {
+                                animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
+                                //AttackTrigger = false;
+                            }
+                            if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_DODGE_DOWN]) {
+                                animator.SetBool (TransitionParameter.Dodge.ToString (), true);
+                                //DodgeTrigger = true;
+                            } else {
+                                animator.SetBool (TransitionParameter.Dodge.ToString (), false);
+                                //DodgeTrigger = false;
+                            }
+
+                        }
+                        */
+
             if (isPlayerControll) {
+                if (inputDataTop.InputVector.magnitude > 0.01f) {
+                    animator.SetBool (TransitionParameter.Move.ToString (), true);
+                } else {
+                    if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Move")) {
+                        CheckStopMove (0.10f);
+                    }
+                }
                 if (VirtualInputManager.Instance.CheckCommandInput ()) {
                     if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN))
                         animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
                     if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
                         animator.SetBool (TransitionParameter.Dodge.ToString (), true);
                 }
+                
                 if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN))
                     animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
                 if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
                     animator.SetBool (TransitionParameter.Dodge.ToString (), false);
+                    
                 if (DodgeTrigger) {
-                    VirtualInputManager.Instance.ClearInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN);
+                    //VirtualInputManager.Instance.ClearInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN);
+                    VirtualInputManager.Instance.ClearAllInputsInBuffer ();
                 }
                 if (AttackTrigger) {
-                    VirtualInputManager.Instance.ClearInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN);
+                    //VirtualInputManager.Instance.ClearInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN);
+                    VirtualInputManager.Instance.ClearAllInputsInBuffer ();
                 }
             }
+
+            
             if (DodgeTrigger) {
                 DodgeTrigger = false;
             }
             if (AttackTrigger) {
                 AttackTrigger = false;
             }
+            
         }
     }
 

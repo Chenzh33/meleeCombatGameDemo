@@ -17,8 +17,8 @@ namespace meleeDemo {
 
         //[Range (0.01f, 1f)]
         //public float ComboInputStartTime = 0.3f;
-        [Range (0.01f, 1f)]
-        public List<float> ComboInputInterval = new List<float> {0f, 1f};
+        //[Range (0.01f, 1f)]
+        //public List<float> ComboInputInterval = new List<float> {0f, 1f};
         //public float ComboInputEndTime = 0.7f;
 
         public List<AttackPartType> AttackParts = new List<AttackPartType> ();
@@ -26,7 +26,7 @@ namespace meleeDemo {
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
             animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
-            animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
+            //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
             GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_INFO);
             AttackInfo atkInfo = obj.GetComponent<AttackInfo> ();
             atkInfo.Init (this, stateEffect.CharacterControl);
@@ -39,7 +39,7 @@ namespace meleeDemo {
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
             RegisterAttack (stateEffect, animator, animatorStateInfo);
             DeregisterAttack (stateEffect, animator, animatorStateInfo);
-            CheckCombo (stateEffect, animator, animatorStateInfo);
+            //CheckCombo (stateEffect, animator, animatorStateInfo);
 
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
@@ -51,7 +51,7 @@ namespace meleeDemo {
                 }
             }
             FinishedAttacks.Clear ();
-            animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
+            //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
 
         }
         public void RegisterAttack (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
@@ -82,6 +82,7 @@ namespace meleeDemo {
 
         }
 
+/*
         public void CheckCombo (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
             for (int i = 0; i != ComboInputInterval.Count - 1; ++i) {
@@ -90,5 +91,6 @@ namespace meleeDemo {
                 }
             }
         }
+        */
     }
 }

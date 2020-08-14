@@ -13,11 +13,6 @@ MonoBehaviour:
   m_Name: Attack_combo1_2_Attack
   m_EditorClassIdentifier: 
   AttackBeginTime: 0.35
-  AttackEndTime: 0.45
-  ComboInputInterval:
-  - 0
-  - 0.3
-  - 0.7
-  - 1
+  AttackEndTime: 0.43
   AttackParts: 
   FinishedAttacks: []

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b670948998a0f43954936c716d8e4e, type: 3}
   m_Name: Attack_combo1_1_ForcedTransition
   m_EditorClassIdentifier: 
-  transitionTime: 0.8
+  transitionTime: 0.95

@@ -75,7 +75,7 @@ namespace meleeDemo {
             bool[] inputKeysState = inputData.KeysState;
 
             if (inputVector.magnitude > 0.01f) {
-                animator.SetBool (TransitionParameter.Move.ToString (), true);
+                //animator.SetBool (TransitionParameter.Move.ToString (), true);
                 if (animatorStateInfo.IsName ("Move")) {
                     Vector3 moveDirection = new Vector3 (inputVector.x, 0, inputVector.y);
                     //MoveForward (moveDirection, speed, 1.0f);
@@ -87,12 +87,16 @@ namespace meleeDemo {
                     Quaternion target = Quaternion.Euler (new Vector3 (0, angle, 0));
                     animator.transform.localRotation = Quaternion.Slerp (animator.transform.localRotation, target, Time.deltaTime * smooth);
                 }
-            } else {
+            } 
+            /*
+            else {
                 if (animatorStateInfo.IsName ("Move")) {
-                    control.CheckStopMove (0.05f);
+                    //animator.SetBool (TransitionParameter.Move.ToString (), false);
+                    control.CheckStopMove (0.10f);
                 }
+                
                 //animator.SetBool (TransitionParameter.Move.ToString (), false);
-                /*
+                
                 if (animatorStateInfo.IsName ("Move")) {
                     if (control.IsStoppingMovement) {
                         animator.SetBool (TransitionParameter.Move.ToString (), false);
@@ -100,8 +104,8 @@ namespace meleeDemo {
                     } else
                         control.IsStoppingMovement = true;
                 }
-                */
-            }
+                
+            }*/
             //Vector3 horizontalVelocity = new Vector3 (control.characterController.velocity.x, 0, control.characterController.velocity.z);
         }
         public void MoveForward (CharacterControl control, Animator animator, AnimatorStateInfo animatorStateInfo) {

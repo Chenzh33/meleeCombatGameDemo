@@ -97,11 +97,20 @@ namespace meleeDemo {
 
         public bool CheckInputInBuffer (InputKeyStateType keystate) {
             for (int i = 0; i != VirtualInputManager.INPUT_BUFFER_SIZE; ++i) { // from old to new
-                if (inputBuffer[(curIndex + i + 1) % VirtualInputManager.INPUT_BUFFER_SIZE].KeysState[(int) keystate]) {
+                //for (int i = VirtualInputManager.INPUT_BUFFER_SIZE; i != 0; --i) { // from new to old
+                if (inputBuffer[(curIndex + i) % VirtualInputManager.INPUT_BUFFER_SIZE].KeysState[(int) keystate]) {
                     return true;
                 }
             }
             return false;
+        }
+        public void ClearAllInputsInBuffer () {
+            for (int i = 0; i != VirtualInputManager.INPUT_BUFFER_SIZE; ++i) { // from old to new
+                for (int k = 0; k != 4; ++k) { // from old to new
+                    inputBuffer[i].KeysState[k * 3] = false;
+                }
+            }
+
         }
         public void ClearInputInBuffer (InputKeyStateType keystate) {
             for (int i = 0; i != VirtualInputManager.INPUT_BUFFER_SIZE; ++i) { // from old to new
@@ -110,9 +119,8 @@ namespace meleeDemo {
                     return;
                 }
             }
- 
-        }
 
+        }
 
         public InputsDataPerFrame GetTopInput () {
             return inputBuffer[curIndex];
