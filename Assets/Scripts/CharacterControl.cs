@@ -3,26 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace meleeDemo {
-    public enum TransitionParameter {
-        Move,
-        AttackMelee,
-        ForcedTransition,
-        Dodge,
-        TransitionIndexer,
-        CheckCombo
-
-    }
 
     public class CharacterControl : MonoBehaviour {
         public InputsDataPerFrame inputDataTop = new InputsDataPerFrame ();
+        public int[] keysHoldFrames = new int[4];
         public bool isPlayerControll;
         public List<Collider> RagdollParts = new List<Collider> ();
         public List<Collider> AttackingParts = new List<Collider> ();
+        //public List<ProjectileObject> ProjectileObjs = new List<ProjectileObject> ();
         //private List<TriggerDetector> TriggerDetectors = new List<TriggerDetector> ();
         private TriggerDetector detector;
         private Coroutine CheckStopCoroutine;
         private Coroutine TurnToTargetCoroutine;
+        private Coroutine KnockbackCoroutine;
         public Vector3 FaceTarget;
+
+        //[System.Serializable]
+        public CharacterData data = new CharacterData ();
 
         CharacterController controller;
         Animator animator;
@@ -32,11 +29,14 @@ namespace meleeDemo {
         //private Vector3 moveDirection = Vector3.zero;
         public bool AttackTrigger;
         public bool DodgeTrigger;
+        //public int AttackHoldReleaseFrame;
+        //public int ExecuteHoldReleaseFrame;
 
         void Awake () {
             animator = GetComponentInChildren<Animator> ();
             detector = GetComponentInChildren<TriggerDetector> ();
             controller = GetComponent<CharacterController> ();
+            // load data process xxxx
             SetRagdollAndAttackingParts ();
         }
 
@@ -44,15 +44,47 @@ namespace meleeDemo {
 
         }
 
-        public CharacterController characterController {
+        public Animator Animator {
+            get {
+                return animator;
+            }
+        }
+        public CharacterController CharacterController {
             get {
                 return controller;
             }
         }
 
+        public CharacterData CharacterData {
+            get {
+                return data;
+            }
+        }
         public TriggerDetector GetTriggerDetector () {
             return detector;
 
+        }
+
+        public void TakeDamage (float damage) {
+            this.CharacterData.HP -= damage;
+
+            if (this.CharacterData.HP <= 0)
+                Dead ();
+        }
+
+        public void TakeKnockback (Vector3 knockbackVector, float duration) {
+            if (KnockbackCoroutine == null)
+                KnockbackCoroutine = StartCoroutine (_TakeKnockback (knockbackVector, duration));
+        }
+
+        IEnumerator _TakeKnockback (Vector3 knockbackVector, float duration) {
+            float t = 0f;
+            while (t < duration) {
+                this.CharacterController.Move (knockbackVector * Time.deltaTime);
+                t += Time.deltaTime;
+                yield return null;
+            }
+            KnockbackCoroutine = null;
         }
         /*
         public List<TriggerDetector> GetAllTriggers () {
@@ -109,6 +141,17 @@ namespace meleeDemo {
             return AttackingParts;
 
         }
+        public Transform GetProjectileSpawnPoint () {
+
+            ProjectSpawnPoint p = this.gameObject.GetComponentInChildren<ProjectSpawnPoint> ();
+            return p.gameObject.transform;
+        }
+        /*
+        public List<ProjectileObject> GetProjectileObjs() {
+            return ProjectileObjs;
+
+        }
+        */
         /*
                 public void MoveForward (Vector3 dir, float s, float sgraph) {
                     //m_Controller.Move(moveDirection * s * sgraph * Time.deltaTime);
@@ -156,8 +199,6 @@ namespace meleeDemo {
             //Debug.Log(hInput);
             //Debug.Log(vInput);
             */
-            if (isPlayerControll)
-                inputDataTop = VirtualInputManager.Instance.GetTopInput ();
 
             /*
             Vector2 inputVector = inputData.InputVector;
@@ -208,9 +249,9 @@ namespace meleeDemo {
                  }
              }
              */
-            if (!this.characterController.isGrounded) {
+            if (!this.CharacterController.isGrounded) {
                 Vector3 gravity = new Vector3 (0, -9.8f * Time.deltaTime, 0);
-                this.characterController.Move (gravity);
+                this.CharacterController.Move (gravity);
             }
 
             /*
@@ -242,6 +283,8 @@ namespace meleeDemo {
                         */
 
             if (isPlayerControll) {
+                inputDataTop = VirtualInputManager.Instance.GetTopInput ();
+
                 if (inputDataTop.InputVector.magnitude > 0.01f) {
                     animator.SetBool (TransitionParameter.Move.ToString (), true);
                 } else {
@@ -255,12 +298,12 @@ namespace meleeDemo {
                     if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
                         animator.SetBool (TransitionParameter.Dodge.ToString (), true);
                 }
-                
+
                 if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN))
                     animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
                 if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
                     animator.SetBool (TransitionParameter.Dodge.ToString (), false);
-                    
+
                 if (DodgeTrigger) {
                     //VirtualInputManager.Instance.ClearInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN);
                     VirtualInputManager.Instance.ClearAllInputsInBuffer ();
@@ -269,16 +312,24 @@ namespace meleeDemo {
                     //VirtualInputManager.Instance.ClearInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN);
                     VirtualInputManager.Instance.ClearAllInputsInBuffer ();
                 }
+
+                keysHoldFrames = VirtualInputManager.Instance.GetKeysHoldFrames ();
+                if (keysHoldFrames[0] < 0) {
+                    animator.SetInteger (TransitionParameter.AtkReleaseTiming.ToString (), -keysHoldFrames[0]);
+                    //Debug.Log("attack release frame: " + -keysHoldFrames[0]);
+
+                } else
+                    animator.SetInteger (TransitionParameter.AtkReleaseTiming.ToString (), 0);
+
             }
 
-            
             if (DodgeTrigger) {
                 DodgeTrigger = false;
             }
             if (AttackTrigger) {
                 AttackTrigger = false;
             }
-            
+
         }
     }
 

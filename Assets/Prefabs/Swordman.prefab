@@ -457,9 +457,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516202fb3757de948a69d4fd4620a9ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keysHoldFrames: 00000000000000000000000000000000
   isPlayerControll: 0
   RagdollParts: []
   AttackingParts: []
+  FaceTarget: {x: 0, y: 0, z: 0}
+  data:
+    HP: 10
+    MaxHP: 10
+  AttackTrigger: 0
+  DodgeTrigger: 0
 --- !u!114 &901825142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,6 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7b04cab8e521347acad46cc7f2b5a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitReactDuration: 0.1
 --- !u!1 &1152176033656922197
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,7 +617,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

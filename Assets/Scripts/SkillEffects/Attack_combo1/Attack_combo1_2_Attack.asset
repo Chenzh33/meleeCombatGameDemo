@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackBeginTime: 0.35
   AttackEndTime: 0.43
-  AttackParts: 
+  attackType: 1
+  MaxTargetNum: 5
+  Range: 2
+  Damage: 1
+  KnockbackForce: 3
   FinishedAttacks: []

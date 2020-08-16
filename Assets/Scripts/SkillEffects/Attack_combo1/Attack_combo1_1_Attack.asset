@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackBeginTime: 0.32
   AttackEndTime: 0.42
-  ComboInputInterval:
-  - 0
-  - 0.3
-  - 1
-  AttackParts: 
+  attackType: 1
+  MaxTargetNum: 5
+  Range: 0
+  Damage: 1
+  KnockbackForce: 4
   FinishedAttacks: []

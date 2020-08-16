@@ -52,9 +52,11 @@ namespace meleeDemo {
     public class VirtualInputManager : Singleton<VirtualInputManager> {
 
         public Dictionary<InputKeyType, KeyCode> DicKeys = new Dictionary<InputKeyType, KeyCode> ();
-        public const int INPUT_BUFFER_SIZE = 16;
+        public const int INPUT_BUFFER_SIZE = 10;
+        public const int MAX_HOLD_FRAME = 600;
         private int curIndex = 0;
         private InputsDataPerFrame[] inputBuffer = new InputsDataPerFrame[INPUT_BUFFER_SIZE];
+        private int[] KeysHoldFrames = new int[4];
 
         public override void Init () {
             SetDefaultKeyConfig ();
@@ -67,6 +69,11 @@ namespace meleeDemo {
                 inputBuffer[i] = new InputsDataPerFrame ();
                 //inputBuffer[i].InputVector = new Vector2();
                 //inputBuffer[i].KeysState = new bool[12];
+            }
+
+            for (int i = 0; i != System.Enum.GetValues (typeof (InputKeyType)).Length; ++i) {
+                KeysHoldFrames[i] = 0;
+
             }
         }
 
@@ -130,12 +137,32 @@ namespace meleeDemo {
             return inputBuffer;
         }
 
+        public int[] GetKeysHoldFrames () {
+            return KeysHoldFrames;
+        }
         public void LoadInput (InputsDataPerFrame data) {
             curIndex = (curIndex + 1) % INPUT_BUFFER_SIZE;
             inputBuffer[curIndex].InputVector = data.InputVector;
             inputBuffer[curIndex].KeysState = (bool[]) data.KeysState.Clone ();
+            StoreHoldTime (data);
             //Debug.Log (inputBuffer[curIndex + 1].ToString());
             //Debug.Log (inputBuffer[curIndex + 1].KeysState[1]);
+        }
+
+        private void StoreHoldTime (InputsDataPerFrame data) {
+
+            for (int i = 0; i != System.Enum.GetValues (typeof (InputKeyType)).Length; ++i) {
+                if (KeysHoldFrames[i] < 0)
+                    KeysHoldFrames[i] = 0;
+                if (data.KeysState[i * 3 + 2] && KeysHoldFrames[i] != VirtualInputManager.MAX_HOLD_FRAME)
+                    ++KeysHoldFrames[i];
+                else if (data.KeysState[i * 3 + 1]) {
+                    KeysHoldFrames[i] *= -1;
+                    Debug.Log ("release frame: " + -KeysHoldFrames[i]);
+
+                }
+            }
+
         }
 
     }

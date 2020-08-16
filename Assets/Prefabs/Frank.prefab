@@ -806,6 +806,7 @@ Transform:
   - {fileID: 828171108827368168}
   - {fileID: 4237428697351133702}
   - {fileID: 7914826923748195247}
+  - {fileID: 6880795878839587037}
   m_Father: {fileID: 1265035613784548754}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1099,9 +1100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516202fb3757de948a69d4fd4620a9ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keysHoldFrames: 00000000000000000000000000000000
   isPlayerControll: 1
   RagdollParts: []
   AttackingParts: []
+  FaceTarget: {x: 0, y: 0, z: 0}
+  AttackTrigger: 0
+  DodgeTrigger: 0
 --- !u!143 &1265035613390957192
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1115,7 +1120,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1.6
   m_Radius: 0.3
-  m_SlopeLimit: 45
+  m_SlopeLimit: 0
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -2039,6 +2044,49 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &2628538663793731634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6880795878839587037}
+  - component: {fileID: 2742486893801261248}
+  m_Layer: 0
+  m_Name: ProjectileSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6880795878839587037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2628538663793731634}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 350948317391180653}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2742486893801261248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2628538663793731634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9d6a692fc1d2a4d82253ba1f84bea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2719755522509899507
 GameObject:
   m_ObjectHideFlags: 0
@@ -3285,7 +3333,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5609914123956208463}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5191,7 +5239,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8507311632564790588}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

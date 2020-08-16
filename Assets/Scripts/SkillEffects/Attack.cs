@@ -4,8 +4,12 @@ using UnityEngine;
 
 namespace meleeDemo {
 
-    public enum AttackPartType {
-        MELEE_WEAPON
+    public enum AttackType {
+        NULL,
+        MUST_COLLIDE,
+        AOE,
+        PROJECTILE
+
     }
 
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/Attack")]
@@ -15,13 +19,19 @@ namespace meleeDemo {
         [Range (0.01f, 1f)]
         public float AttackEndTime = 0.6f;
 
+        public AttackType attackType = AttackType.MUST_COLLIDE;
+        public int MaxTargetNum = 5;
+        public float Range = 2f;
+        public float Damage = 1f;
+        public float KnockbackForce = 10f;
+
         //[Range (0.01f, 1f)]
         //public float ComboInputStartTime = 0.3f;
         //[Range (0.01f, 1f)]
         //public List<float> ComboInputInterval = new List<float> {0f, 1f};
         //public float ComboInputEndTime = 0.7f;
 
-        public List<AttackPartType> AttackParts = new List<AttackPartType> ();
+        //public List<AttackType> AttackParts = new List<AttackPartType> ();
         public List<AttackInfo> FinishedAttacks = new List<AttackInfo> ();
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
@@ -29,7 +39,7 @@ namespace meleeDemo {
             //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
             GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_INFO);
             AttackInfo atkInfo = obj.GetComponent<AttackInfo> ();
-            atkInfo.Init (this, stateEffect.CharacterControl);
+            atkInfo.Init (this, null, stateEffect.CharacterControl);
             obj.SetActive (true);
             AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
             stateEffect.CharacterControl.AttackTrigger = true;
@@ -39,18 +49,27 @@ namespace meleeDemo {
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
             RegisterAttack (stateEffect, animator, animatorStateInfo);
             DeregisterAttack (stateEffect, animator, animatorStateInfo);
-            //CheckCombo (stateEffect, animator, animatorStateInfo);
 
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
+
+            foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
+                if (!info.IsFinished && info.AttackSkill == this) {
+                    info.IsFinished = true;
+                    info.IsRegistered = false;
+                    FinishedAttacks.Add (info);
+                }
+            }
             foreach (AttackInfo info in FinishedAttacks) {
                 if (AttackManager.Instance.CurrentAttackInfo.Contains (info)) {
                     AttackManager.Instance.CurrentAttackInfo.Remove (info);
                     PoolObject pobj = info.GetComponent<PoolObject> ();
                     PoolManager.Instance.ReturnToPool (pobj);
+                    info.Clear();
                 }
             }
             FinishedAttacks.Clear ();
+            animator.SetBool (TransitionParameter.Move.ToString (), false);
             //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
 
         }
@@ -82,15 +101,5 @@ namespace meleeDemo {
 
         }
 
-/*
-        public void CheckCombo (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
-            for (int i = 0; i != ComboInputInterval.Count - 1; ++i) {
-                if (stateInfo.normalizedTime >= ComboInputInterval[i] && stateInfo.normalizedTime < ComboInputInterval[i + 1]) {
-                    animator.SetInteger (TransitionParameter.CheckCombo.ToString (), i + 1);
-                }
-            }
-        }
-        */
     }
 }

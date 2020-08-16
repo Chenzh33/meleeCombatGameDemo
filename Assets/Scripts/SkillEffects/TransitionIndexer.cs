@@ -27,6 +27,7 @@ namespace meleeDemo {
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             animator.SetInteger (TransitionParameter.TransitionIndexer.ToString (), 0);
+            animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
         }
 
         public void CheckTransition (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {

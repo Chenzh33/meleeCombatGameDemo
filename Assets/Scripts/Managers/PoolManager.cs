@@ -5,7 +5,8 @@ using UnityEngine;
 namespace meleeDemo {
 
     public enum PoolObjectType {
-        ATTACK_INFO
+        ATTACK_INFO,
+        ATTACK_HOLD_PROJECTILE
     }
 
     public class PoolManager : Singleton<PoolManager> {
@@ -29,7 +30,7 @@ namespace meleeDemo {
             } else {
                 Debug.Log ("count = 0");
                 obj = InstantiatePrefab (type);
-                list.Add (obj);
+                //list.Add (obj);
             }
             return obj;
 
@@ -57,6 +58,11 @@ namespace meleeDemo {
                 case PoolObjectType.ATTACK_INFO:
                     {
                         obj = Instantiate (Resources.Load ("AttackInfoPrefab", typeof (GameObject)) as GameObject);
+                        break;
+                    }
+                case PoolObjectType.ATTACK_HOLD_PROJECTILE:
+                    {
+                        obj = Instantiate (Resources.Load ("AttackHoldProjectilePrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
 

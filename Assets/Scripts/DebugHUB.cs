@@ -18,11 +18,12 @@ namespace meleeDemo {
 
         public void Fresh () {
             InputsDataPerFrame[] inputData = VirtualInputManager.Instance.GetAllInputs ();
+            int[] keysHoldFrames = VirtualInputManager.Instance.GetKeysHoldFrames();
             int curIdx = VirtualInputManager.Instance.GetIndex ();
             debugText.text = "";
             for (int i = VirtualInputManager.INPUT_BUFFER_SIZE; i != 0; --i) { // from new to old
                 debugText.text += inputData[(curIdx + i) % VirtualInputManager.INPUT_BUFFER_SIZE].ToString ();
-                debugText.text += VirtualInputManager.Instance.CheckCommandInput().ToString ();
+                //debugText.text += VirtualInputManager.Instance.CheckCommandInput().ToString ();
                 debugText.text += "\n";
 
             }

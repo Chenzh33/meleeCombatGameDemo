@@ -79,7 +79,7 @@ namespace meleeDemo {
                 if (animatorStateInfo.IsName ("Move")) {
                     Vector3 moveDirection = new Vector3 (inputVector.x, 0, inputVector.y);
                     //MoveForward (moveDirection, speed, 1.0f);
-                    control.characterController.Move (moveDirection * speed * speedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime);
+                    control.CharacterController.Move (moveDirection * speed * speedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime);
                     //animator.transform.root.Translate(moveDirection * speed * Time.deltaTime);
                     //animator.transform.Translate(moveDirection * speed * Time.deltaTime);
                     float angle = Mathf.Acos (Vector3.Dot (new Vector3 (0, 0, 1), moveDirection)) * Mathf.Rad2Deg;
@@ -110,7 +110,7 @@ namespace meleeDemo {
         }
         public void MoveForward (CharacterControl control, Animator animator, AnimatorStateInfo animatorStateInfo) {
             Vector3 moveDirection = control.FaceTarget;
-            control.characterController.Move (moveDirection * speed * speedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime);
+            control.CharacterController.Move (moveDirection * speed * speedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime);
 
         }
     }

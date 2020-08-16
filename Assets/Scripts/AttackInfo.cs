@@ -5,18 +5,56 @@ using UnityEngine;
 namespace meleeDemo {
 
     public class AttackInfo : MonoBehaviour {
-        public CharacterControl Attacker;
-        public List<CharacterControl> Targets = new List<CharacterControl>();
         public Attack AttackSkill;
-        public bool IsFinished;
+        public LaunchProjectile ProjectileSkill;
         public bool IsRegistered;
+        public bool IsFinished;
+        public int CurrentTargetNum;
+        public int MaxTargetNum;
+        public CharacterControl Attacker;
+        public List<CharacterControl> Targets = new List<CharacterControl> ();
+        public AttackType Type;
+        public float Range;
+        public ProjectileObject ProjectileObject;
+        public float Damage;
+        public float KnockbackForce;
 
-        public void Init (Attack attackSkill, CharacterControl attacker) {
+        public void Init (Attack attackSkill, LaunchProjectile projectileSkill, CharacterControl attacker) {
+            AttackSkill = attackSkill;
+            ProjectileSkill = projectileSkill;
             IsRegistered = false;
             IsFinished = false;
-            AttackSkill = attackSkill;
+            CurrentTargetNum = 0;
             Attacker = attacker;
-            Targets.Clear();
+            Targets.Clear ();
+            ProjectileObject = null;
+            if (attackSkill != null) {
+                Type = attackSkill.attackType;
+                MaxTargetNum = attackSkill.MaxTargetNum;
+                Range = attackSkill.Range;
+                Damage = attackSkill.Damage;
+                KnockbackForce = attackSkill.KnockbackForce;
+            } else {
+                Type = projectileSkill.attackType;
+                MaxTargetNum = projectileSkill.MaxTargetNum;
+                Range = projectileSkill.Range;
+                Damage = projectileSkill.Damage;
+                KnockbackForce = projectileSkill.KnockbackForce;
+            }
+        }
+
+        public void Clear () {
+            AttackSkill = null;
+            ProjectileSkill = null;
+            IsRegistered = false;
+            IsFinished = false;
+            CurrentTargetNum = 0;
+            MaxTargetNum = 0;
+            Attacker = null;
+            Targets.Clear ();
+            Type = AttackType.NULL;
+            Range = 0f;
+            ProjectileObject = null;
         }
         void Start () {
 
@@ -25,8 +63,7 @@ namespace meleeDemo {
         void Update () {
 
         }
-        public void Register()
-        {
+        public void Register () {
             IsRegistered = true;
 
         }
