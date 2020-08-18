@@ -54,7 +54,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 10
+  speed: 12
   smooth: 5
   LockDirection: 1
   AllowEarlyTurn: 1

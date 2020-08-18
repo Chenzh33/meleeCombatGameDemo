@@ -7,7 +7,7 @@ namespace meleeDemo {
     public class CharacterControl : MonoBehaviour {
         public InputsDataPerFrame inputDataTop = new InputsDataPerFrame ();
         public int[] keysHoldFrames = new int[4];
-        public bool isPlayerControll;
+        public bool isPlayerControl;
         public List<Collider> RagdollParts = new List<Collider> ();
         public List<Collider> AttackingParts = new List<Collider> ();
         //public List<ProjectileObject> ProjectileObjs = new List<ProjectileObject> ();
@@ -159,6 +159,7 @@ namespace meleeDemo {
                 }
                 */
         IEnumerator _TurnToTarget (float stTime, float smooth, Quaternion target) {
+
             float t = 0f;
             while (Quaternion.Angle (animator.transform.localRotation, target) > 0.1f) {
                 if (t >= stTime)
@@ -169,8 +170,10 @@ namespace meleeDemo {
             TurnToTargetCoroutine = null;
         }
 
-        public void TurnToTarget (float stTime, float smooth, Quaternion target) {
-            //FaceTarget = target.eulerAngles;
+        public void TurnToTarget (float stTime, float smooth) {
+            float angle = Mathf.Acos (Vector3.Dot (new Vector3 (0, 0, 1), FaceTarget)) * Mathf.Rad2Deg;
+            if (FaceTarget.x < 0.0f) { angle = -angle; }
+            Quaternion target = Quaternion.Euler (new Vector3 (0, angle, 0));
             if (smooth == 0f)
                 animator.transform.localRotation = target;
             else if (TurnToTargetCoroutine == null)
@@ -282,7 +285,7 @@ namespace meleeDemo {
                         }
                         */
 
-            if (isPlayerControll) {
+            if (isPlayerControl) {
                 inputDataTop = VirtualInputManager.Instance.GetTopInput ();
 
                 if (inputDataTop.InputVector.magnitude > 0.01f) {

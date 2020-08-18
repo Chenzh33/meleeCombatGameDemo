@@ -23,6 +23,7 @@ namespace meleeDemo {
             //faceDirection = animator.transform.forward;
             //characterControl = stateEffect.GetCharacterControl();
 
+/*
             if (AllowEarlyTurn) {
                 Vector2 inputDirection2d = stateEffect.CharacterControl.inputDataTop.InputVector;
                 if (inputDirection2d.magnitude > 0.01f) {
@@ -39,6 +40,7 @@ namespace meleeDemo {
                 stateEffect.CharacterControl.FaceTarget = animator.transform.forward;
 
             }
+            */
 
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {

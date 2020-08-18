@@ -20,15 +20,15 @@ namespace meleeDemo {
         }
 
         public GameObject GetObject (PoolObjectType type) {
-            Debug.Log ("get object");
+            //Debug.Log ("get object");
             GameObject obj = null;
             List<GameObject> list = Pool[type];
             if (list.Count > 0) {
                 obj = list[0];
                 list.RemoveAt (0);
-                Debug.Log ("count > 0");
+                //Debug.Log ("count > 0");
             } else {
-                Debug.Log ("count = 0");
+                //Debug.Log ("count = 0");
                 obj = InstantiatePrefab (type);
                 //list.Add (obj);
             }
@@ -37,7 +37,7 @@ namespace meleeDemo {
         }
 
         public void ReturnToPool (PoolObject obj) {
-            Debug.Log ("return to pool");
+            //Debug.Log ("return to pool");
             GameObject go = obj.gameObject;
             go.transform.parent = null;
             go.transform.position = Vector3.zero;

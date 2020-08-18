@@ -10,7 +10,6 @@ namespace meleeDemo {
 
         void Awake () {
             control = this.GetComponent<CharacterControl> ();
-
         }
 
         void Start () {
@@ -85,13 +84,14 @@ namespace meleeDemo {
             return true;
         }
         private void ProcessDamage (AttackInfo info) {
-            Debug.Log ("HIT !!!");
+            //Debug.Log ("HIT !!!");
             if (!info.Targets.Contains (control)) {
                 info.Targets.Add (control);
                 info.CurrentTargetNum++;
                 Vector3 dirVector = gameObject.transform.position - info.Attacker.gameObject.transform.position;
-                Vector3 hitVector = (new Vector3(dirVector.x, 0, dirVector.y)).normalized;
-                Debug.Log(hitVector);
+                Vector3 hitVector = (new Vector3(dirVector.x, 0, dirVector.z)).normalized;
+                //Debug.Log(hitVector);
+                //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
                 control.TakeDamage (info.Damage);
                 control.TakeKnockback (info.KnockbackForce * hitVector, HitReactDuration);
                 int randomIndex = Random.Range (0, 3) + 1;

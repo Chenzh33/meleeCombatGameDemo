@@ -335,6 +335,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0a4ff1542b1051749a80df6737858a29, type: 2}
   - {fileID: 11400000, guid: a89d82c969ddb6245a07d9e36d02fbe3, type: 2}
   - {fileID: 11400000, guid: 7f363f3b37577b94ab072aea29583c76, type: 2}
+  - {fileID: 11400000, guid: 02407fbaaff4d9a4384593a73e799145, type: 2}
 --- !u!1101 &-5407967276500243157
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -430,6 +431,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b674f51540a30e848b3ded094dac5222, type: 2}
   - {fileID: 11400000, guid: d1f4975dc8b374848831cc1fd47f34af, type: 2}
   - {fileID: 11400000, guid: 90d8dec357be7884a8f8f8756023d85e, type: 2}
+  - {fileID: 11400000, guid: a8631bdb60ac6f341922cce02e11227a, type: 2}
   - {fileID: 11400000, guid: 1f0a94dc2a50f364692030a6974b7900, type: 2}
 --- !u!1102 &-3820276939679843572
 AnimatorState:
@@ -661,6 +663,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 649b0edcc3a70fb44bd8203ba93ae7f4, type: 2}
   - {fileID: 11400000, guid: 878647f1a393c85499ea8cd461d88946, type: 2}
   - {fileID: 11400000, guid: 7aa9dff6dc935c54c80c8793dca58289, type: 2}
+  - {fileID: 11400000, guid: 265437359bf2588409f04f9a6dbb6758, type: 2}
 --- !u!1101 &-548512736688069568
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1045,7 +1048,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e4eec408d4562ad49bd8ef745ec47c5d, type: 2}
   - {fileID: 11400000, guid: ee04631911e7dfc4a9bb17aae8f0e320, type: 2}
   - {fileID: 11400000, guid: 84487c07ea6c4994fad40132c794e666, type: 2}
-  - {fileID: 11400000, guid: 00cc51ff69a14d54d8d610adf251bc5a, type: 2}
+  - {fileID: 11400000, guid: f66dfbb117afaf34db424dcf213f8680, type: 2}
 --- !u!1101 &6674950427492796076
 AnimatorStateTransition:
   m_ObjectHideFlags: 3
@@ -1247,6 +1250,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d82b059003ae05944b29c261fc946ab9, type: 2}
   - {fileID: 11400000, guid: 24dbd5c3b73990f46b8f6f2b25baf898, type: 2}
   - {fileID: 11400000, guid: f307a52f293589540ad83e0eba9e1c04, type: 2}
+  - {fileID: 11400000, guid: b1ba7b965c5223749a8914b812c22dbd, type: 2}
 --- !u!1101 &8438212460231823972
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
