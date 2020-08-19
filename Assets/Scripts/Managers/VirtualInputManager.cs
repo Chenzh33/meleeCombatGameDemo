@@ -158,7 +158,7 @@ namespace meleeDemo {
                     ++KeysHoldFrames[i];
                 else if (data.KeysState[i * 3 + 1]) {
                     KeysHoldFrames[i] *= -1;
-                    Debug.Log ("release frame: " + -KeysHoldFrames[i]);
+                    //Debug.Log ("release frame: " + -KeysHoldFrames[i]);
 
                 }
             }

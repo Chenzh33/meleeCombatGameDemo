@@ -34,7 +34,7 @@ namespace meleeDemo {
         //public List<AttackType> AttackParts = new List<AttackPartType> ();
         public List<AttackInfo> FinishedAttacks = new List<AttackInfo> ();
 
-        public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
+        public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
             //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
             GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_INFO);
@@ -44,20 +44,26 @@ namespace meleeDemo {
             AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
             stateEffect.CharacterControl.AttackTrigger = true;
             //animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
+            //Debug.Log ("Enter " + stateInfo.normalizedTime.ToString());
 
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
-            RegisterAttack (stateEffect, animator, animatorStateInfo);
-            DeregisterAttack (stateEffect, animator, animatorStateInfo);
-
+            if (!CheckInTransitionBetweenSameState(stateEffect.CharacterControl, animator)) {
+                //Debug.Log ("not in transition");
+                RegisterAttack (stateEffect, animator, animatorStateInfo);
+                DeregisterAttack (stateEffect, animator, animatorStateInfo);
+            }
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
 
+            //Debug.Log ("Exit " + stateInfo.normalizedTime.ToString ());
             foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
-                if (!info.IsFinished && info.AttackSkill == this) {
+                if (!info.IsFinished && info.IsRegistered && info.AttackSkill == this) {
                     info.IsFinished = true;
                     info.IsRegistered = false;
                     FinishedAttacks.Add (info);
+                    //Debug.Log (this.name + " deregistered: " + stateInfo.normalizedTime);
+
                 }
             }
             foreach (AttackInfo info in FinishedAttacks) {
@@ -65,7 +71,7 @@ namespace meleeDemo {
                     AttackManager.Instance.CurrentAttackInfo.Remove (info);
                     PoolObject pobj = info.GetComponent<PoolObject> ();
                     PoolManager.Instance.ReturnToPool (pobj);
-                    info.Clear();
+                    info.Clear ();
                 }
             }
             FinishedAttacks.Clear ();
@@ -75,6 +81,9 @@ namespace meleeDemo {
         }
         public void RegisterAttack (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             if (stateInfo.normalizedTime >= AttackBeginTime && stateInfo.normalizedTime < AttackEndTime) {
+                //if (stateInfo.normalizedTime >= AttackBeginTime && stateInfo.normalizedTime < AttackEndTime) {
+                //Debug.Log ("about to register");
+                //Debug.Log (stateInfo.normalizedTime);
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
                     if (!info.IsRegistered && info.AttackSkill == this) {
                         Debug.Log (this.name + " registered: " + stateInfo.normalizedTime);
@@ -88,7 +97,7 @@ namespace meleeDemo {
         public void DeregisterAttack (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             if (stateInfo.normalizedTime >= AttackEndTime) {
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
-                    if (!info.IsFinished && info.AttackSkill == this) {
+                    if (!info.IsFinished && info.IsRegistered && info.AttackSkill == this) {
                         info.IsFinished = true;
                         info.IsRegistered = false;
                         FinishedAttacks.Add (info);

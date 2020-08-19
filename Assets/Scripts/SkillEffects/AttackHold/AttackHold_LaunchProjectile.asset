@@ -16,7 +16,7 @@ MonoBehaviour:
   ProjectileSpeed: 18
   ProjectileLaunchTiming: 0.26
   attackType: 3
-  MaxTargetNum: 1
+  MaxTargetNum: 5
   Range: 2
   Damage: 1
   KnockbackForce: 4

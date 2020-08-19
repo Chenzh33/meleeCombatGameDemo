@@ -18,6 +18,8 @@ namespace meleeDemo {
             if (characterControl == null)
                 //characterControl = animator.transform.root.GetComponentInChildren<CharacterControl> ();
                 characterControl = animator.transform.root.GetComponent<CharacterControl> ();
+            characterControl.CharacterData.LoadState (stateInfo.shortNameHash);
+            //Debug.Log(stateInfo.shortNameHash);
             foreach (SkillEffect se in ListSkillEffect) {
                 se.OnEnter (this, animator, stateInfo);
             }

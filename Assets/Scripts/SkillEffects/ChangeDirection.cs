@@ -52,8 +52,8 @@ namespace meleeDemo {
                         rotSelf = Quaternion.LookRotation (inputDirection, Vector3.up);
                     else
                         rotSelf = Quaternion.LookRotation (animator.transform.forward, Vector3.up);
-                    Debug.Log ("dist = " + diffVector2d.magnitude.ToString ());
-                    Debug.Log ("rot = " + Quaternion.Angle (rotEnemy, rotSelf).ToString ());
+                    //Debug.Log ("dist = " + diffVector2d.magnitude.ToString ());
+                    //Debug.Log ("rot = " + Quaternion.Angle (rotEnemy, rotSelf).ToString ());
 
                     float finalDist = Mathf.Infinity;
                     if (Mathf.Abs (Quaternion.Angle (rotEnemy, rotSelf)) <= CaptureAngleRange) {

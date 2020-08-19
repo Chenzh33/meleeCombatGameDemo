@@ -30,22 +30,31 @@ namespace meleeDemo {
         //public List<AttackType> AttackParts = new List<AttackPartType> ();
         //public List<AttackInfo> FinishedAttacks = new List<AttackInfo> ();
 
-        public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
+        public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_INFO);
             AttackInfo atkInfo = obj.GetComponent<AttackInfo> ();
             atkInfo.Init (null, this, stateEffect.CharacterControl);
             obj.SetActive (true);
             AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
             //ProjectileSpawnPoint = stateEffect.CharacterControl.GetProjectileSpawnPoint();
+            /*
+            if(stateEffect.CharacterControl.CharacterData.GetPrevState() == Animator.StringToHash("AttackHold"))
+            {
+                Debug.Log("prev state is attack hold");
+
+            }
+            */
         }
 
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
 
-            if (stateInfo.normalizedTime >= ProjectileLaunchTiming) {
+            if (!CheckInTransitionBetweenSameState(stateEffect.CharacterControl, animator) && stateInfo.normalizedTime >= ProjectileLaunchTiming) {
+            //if (!animator.IsInTransition(0) && stateInfo.normalizedTime >= ProjectileLaunchTiming) {
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
                     if (!info.IsRegistered && info.ProjectileSkill == this) {
                         info.Register ();
                         Launch (info, stateEffect.CharacterControl);
+                        //Debug.Log (stateInfo.normalizedTime);
                     }
                 }
             }
@@ -74,20 +83,19 @@ namespace meleeDemo {
 
         }
         public void Launch (AttackInfo info, CharacterControl control) {
-            GameObject obj = PoolManager.Instance.GetObject(PoolObjectType.ATTACK_HOLD_PROJECTILE);
-            obj.transform.parent = control.GetProjectileSpawnPoint();
+            GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_HOLD_PROJECTILE);
+            obj.transform.parent = control.GetProjectileSpawnPoint ();
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localRotation = Quaternion.identity;
             obj.transform.parent = null;
-            obj.SetActive(true);
-            ProjectileObject projectileObject = obj.GetComponent<ProjectileObject>();
-            projectileObject.Init(info, ProjectileLifeTime, ProjectileSpeed);
+            obj.SetActive (true);
+            ProjectileObject projectileObject = obj.GetComponent<ProjectileObject> ();
+            projectileObject.Init (info, ProjectileLifeTime, ProjectileSpeed);
             info.ProjectileObject = projectileObject;
             //control.ProjectileObjs.Add(projectileObject);
             //control.ProjectileList.Add()
 
         }
-       
 
     }
 }

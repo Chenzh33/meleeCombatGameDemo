@@ -17,6 +17,7 @@ namespace meleeDemo {
         private Coroutine TurnToTargetCoroutine;
         private Coroutine KnockbackCoroutine;
         public Vector3 FaceTarget;
+        //public float SpeedMultiplyer = 1.0f;
 
         //[System.Serializable]
         public CharacterData data = new CharacterData ();
@@ -195,6 +196,13 @@ namespace meleeDemo {
                 CheckStopCoroutine = StartCoroutine (_CheckStopMove (time));
 
         }
+        /*
+        public bool CheckInTransitionBetweenSameClips(Animator animator)
+        {
+
+        }
+        */
+
         void Update () {
             /*
             hInput = Input.GetAxis("Horizontal");
