@@ -34,7 +34,7 @@ namespace meleeDemo {
                 List<GameObject> enemyObjs = new List<GameObject> ();
                 CharacterControl[] characterControls = FindObjectsOfType (typeof (CharacterControl)) as CharacterControl[];
                 foreach (CharacterControl c in characterControls) {
-                    if (!c.isPlayerControl)
+                    if (!c.isPlayerControl && !c.CharacterData.IsDead)
                         enemyObjs.Add (c.gameObject);
                 }
                 // need update

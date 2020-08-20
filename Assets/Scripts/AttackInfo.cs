@@ -18,6 +18,7 @@ namespace meleeDemo {
         public ProjectileObject ProjectileObject;
         public float Damage;
         public float KnockbackForce;
+        public float HitReactDuration;
 
         public void Init (Attack attackSkill, LaunchProjectile projectileSkill, CharacterControl attacker) {
             AttackSkill = attackSkill;
@@ -34,12 +35,14 @@ namespace meleeDemo {
                 Range = attackSkill.Range;
                 Damage = attackSkill.Damage;
                 KnockbackForce = attackSkill.KnockbackForce;
+                HitReactDuration = attackSkill.HitReactDuration;
             } else {
                 Type = projectileSkill.attackType;
                 MaxTargetNum = projectileSkill.MaxTargetNum;
                 Range = projectileSkill.Range;
                 Damage = projectileSkill.Damage;
                 KnockbackForce = projectileSkill.KnockbackForce;
+                HitReactDuration = projectileSkill.HitReactDuration;
             }
         }
 

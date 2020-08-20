@@ -8,6 +8,9 @@ namespace meleeDemo {
     public class CharacterData {
         public float HP;
         public float MaxHP;
+        public bool IsColliderOff;
+        public bool IsAnimationPause;
+        public bool IsDead;
 
         public const int STATE_BUFFER_SIZE = 3;
         public int[] StateBuffer = new int[STATE_BUFFER_SIZE];

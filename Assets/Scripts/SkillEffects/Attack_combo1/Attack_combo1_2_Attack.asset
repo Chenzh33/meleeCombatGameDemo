@@ -18,5 +18,6 @@ MonoBehaviour:
   MaxTargetNum: 5
   Range: 2
   Damage: 1
-  KnockbackForce: 3
+  KnockbackForce: 2
+  HitReactDuration: 0.15
   FinishedAttacks: []

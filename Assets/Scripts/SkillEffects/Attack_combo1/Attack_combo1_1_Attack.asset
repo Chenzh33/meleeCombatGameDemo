@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
   m_Name: Attack_combo1_1_Attack
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.32
-  AttackEndTime: 0.42
+  AttackBeginTime: 0.31
+  AttackEndTime: 0.39
   attackType: 1
   MaxTargetNum: 5
   Range: 0
   Damage: 1
-  KnockbackForce: 4
+  KnockbackForce: 2.5
+  HitReactDuration: 0.15
   FinishedAttacks: []

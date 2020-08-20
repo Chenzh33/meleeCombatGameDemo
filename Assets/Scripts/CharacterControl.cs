@@ -100,6 +100,18 @@ namespace meleeDemo {
         }
         */
 
+        public void TurnOffCollider() {
+            data.IsColliderOff = true;
+            foreach (Collider c in RagdollParts) {
+                c.isTrigger = true;
+            }
+        }
+        public void TurnOnCollider() {
+            data.IsColliderOff = false;
+            foreach (Collider c in RagdollParts) {
+                c.isTrigger = false;
+            }
+        }
         private void TurnOnRagdoll () {
             //Rigidbody rig = GetComponent<Rigidbody>();
             //rig.useGravity = false;
@@ -113,6 +125,7 @@ namespace meleeDemo {
 
         public void Dead () {
             TurnOnRagdoll ();
+            data.IsDead = true;
 
         }
         private void SetRagdollAndAttackingParts () {
@@ -204,6 +217,7 @@ namespace meleeDemo {
         */
 
         void Update () {
+
             /*
             hInput = Input.GetAxis("Horizontal");
             vInput = Input.GetAxis("Vertical");
@@ -294,6 +308,13 @@ namespace meleeDemo {
                         */
 
             if (isPlayerControl) {
+                // for test
+                if (Input.GetKeyDown (KeyCode.B)) {
+                    if (animator.GetFloat ("SpeedMultiplier") == 1.0f)
+                        animator.SetFloat ("SpeedMultiplier", 0.1f);
+                    else
+                        animator.SetFloat ("SpeedMultiplier", 1f);
+                }
                 inputDataTop = VirtualInputManager.Instance.GetTopInput ();
 
                 if (inputDataTop.InputVector.magnitude > 0.01f) {

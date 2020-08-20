@@ -65,6 +65,10 @@ MonoBehaviour:
   ListSkillEffect:
   - {fileID: 11400000, guid: 88167e99c0afd26459b397a0517c42f3, type: 2}
   - {fileID: 11400000, guid: a2168897915830c4faab913a41cd6c7d, type: 2}
+  - {fileID: 11400000, guid: 111022e4436f6a34cabd84c9b186620e, type: 2}
+  - {fileID: 11400000, guid: 64791fc3aefdfc745ab7470a6aa8f5a3, type: 2}
+  - {fileID: 11400000, guid: 1aa92c558db413b47be0ca9eea6e097c, type: 2}
+  - {fileID: 11400000, guid: fb9957bd043715e4290415a51508d0f3, type: 2}
 --- !u!1101 &-8167709454526890204
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -76,15 +80,18 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: TransitionIndexer
     m_EventTreshold: 1
+  - m_ConditionMode: 2
+    m_ConditionEvent: ButtonSmashing
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4851539176037560595}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.06793843
+  m_TransitionDuration: 0.09976852
   m_TransitionOffset: 0
-  m_ExitTime: 0.93631595
+  m_ExitTime: 0.84189504
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -302,7 +309,7 @@ AnimatorStateTransition:
   m_ExitTime: 5.418371
   m_HasExitTime: 1
   m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_InterruptionSource: 1
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!114 &-6408878305561667867
@@ -343,19 +350,25 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 6
+    m_ConditionEvent: TransitionIndexer
+    m_EventTreshold: 1
+  - m_ConditionMode: 1
+    m_ConditionEvent: ButtonSmashing
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1633486474991585312}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.043842047
+  m_TransitionDuration: 0.005531758
   m_TransitionOffset: 0
-  m_ExitTime: 0.8867463
-  m_HasExitTime: 1
+  m_ExitTime: 0.9903172
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_InterruptionSource: 1
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1102 &-5143913396220991862
@@ -366,23 +379,24 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: COMBO_2_1_prep2
-  m_Speed: 3
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -548512736688069568}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -4636503623412365152}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 1
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 8993902097722301239, guid: b54e43b74de5fad4498613dd74cf43bc,
     type: 3}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: SpeedMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -415,6 +429,35 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-4993439169881789232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b838d496b90d34a4e94a8717f533fea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListSkillEffect:
+  - {fileID: 11400000, guid: 1cd0140c61df76542b2e62e1416a3b2d, type: 2}
+  - {fileID: 11400000, guid: f047815cdd0a7254dadf2f647cbe4af9, type: 2}
+--- !u!114 &-4636503623412365152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b838d496b90d34a4e94a8717f533fea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListSkillEffect:
+  - {fileID: 11400000, guid: 5b0f010915204864f88561d01fcee9b9, type: 2}
 --- !u!114 &-3946036515893258763
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -451,14 +494,14 @@ AnimatorState:
   m_IKOnFeet: 1
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 8993902097722301239, guid: 139a54ccf0598074eace91c27be59128,
     type: 3}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: SpeedMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -475,16 +518,16 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: AtkReleaseTiming
-    m_EventTreshold: 3
+    m_EventTreshold: 25
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2556667527447986431}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.05665922
+  m_TransitionDuration: 0.183779
   m_TransitionOffset: 0
-  m_ExitTime: 0.99537855
+  m_ExitTime: 0.7970837
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -504,6 +547,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ListSkillEffect:
   - {fileID: 11400000, guid: 1724a044049f0364d88d39fb9129ea6b, type: 2}
+  - {fileID: 11400000, guid: 28ba727e91e7142458429e65cfc6b514, type: 2}
+  - {fileID: 11400000, guid: c0b81127ca60fac438d0254f712c9bc6, type: 2}
 --- !u!1101 &-3108893745993902224
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -524,9 +569,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.50682175
-  m_TransitionOffset: 0
-  m_ExitTime: 0.6039229
+  m_TransitionDuration: 0.27085048
+  m_TransitionOffset: 0.14805761
+  m_ExitTime: 0.6834239
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -762,6 +807,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: ButtonSmashing
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -833,7 +884,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: COMBO_2_1_prep1
-  m_Speed: 2
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 3728131622381752261}
@@ -843,14 +894,14 @@ AnimatorState:
   m_IKOnFeet: 1
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 8993902097722301239, guid: a6f3cb0aa538c3842a24f50a6f55f7c3,
     type: 3}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: SpeedMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -862,7 +913,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: COMBO_2_1_mainloop
-  m_Speed: 1.2
+  m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5407967276500243157}
@@ -873,14 +924,14 @@ AnimatorState:
   m_IKOnFeet: 1
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: -7949999712812860815, guid: b54e43b74de5fad4498613dd74cf43bc,
     type: 3}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: SpeedMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -894,7 +945,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: AtkReleaseTiming
-    m_EventTreshold: 3
+    m_EventTreshold: 25
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2556667527447986431}
   m_Solo: 0
@@ -957,7 +1008,7 @@ AnimatorStateTransition:
   m_ExitTime: 0.625
   m_HasExitTime: 1
   m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_InterruptionSource: 1
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &4159235679704600982
@@ -1000,19 +1051,20 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 4914197978441323984}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -4993439169881789232}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 8993902097722301239, guid: b54e43b74de5fad4498613dd74cf43bc,
     type: 3}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: SpeedMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -1023,7 +1075,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 6
+    m_ConditionEvent: TransitionIndexer
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3820276939679843572}
   m_Solo: 0
@@ -1033,9 +1088,9 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.8026316
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_InterruptionSource: 1
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!114 &5819528764852565722
@@ -1100,12 +1155,12 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.3286571
   m_TransitionOffset: 0
-  m_ExitTime: 0.8125
+  m_ExitTime: 0.63183445
   m_HasExitTime: 0
   m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_InterruptionSource: 1
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &7306617566438438798
@@ -1128,9 +1183,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.0063329637
+  m_TransitionDuration: 0.11094129
   m_TransitionOffset: 0
-  m_ExitTime: 0.99293983
+  m_ExitTime: 0.9116816
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1208,6 +1263,7 @@ MonoBehaviour:
   ListSkillEffect:
   - {fileID: 11400000, guid: 9894eec60a1fa3440b1e0634bada52a8, type: 2}
   - {fileID: 11400000, guid: 22e79b00e2c5a0948b0019602158d863, type: 2}
+  - {fileID: 11400000, guid: 396182b16a075cc49a8939acb9c42d0f, type: 2}
 --- !u!1102 &7800133967181330145
 AnimatorState:
   serializedVersion: 5
@@ -1267,7 +1323,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: AtkReleaseTiming
-    m_EventTreshold: 3
+    m_EventTreshold: 25
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2556667527447986431}
   m_Solo: 0

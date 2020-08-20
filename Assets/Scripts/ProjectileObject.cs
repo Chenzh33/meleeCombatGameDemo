@@ -39,11 +39,11 @@ namespace meleeDemo {
                     PoolManager.Instance.ReturnToPool (pobj);
                     ProjectileInfo.Clear ();
                 }
-                Death ();
+                Dead ();
             }
         }
 
-        public void Death () {
+        public void Dead () {
             IsMoving = false;
             /*
             if (Owner.ProjectileObjs.Contains (this))

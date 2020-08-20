@@ -13,6 +13,8 @@ namespace meleeDemo {
         [Range (0f, 1f)]
         public float ProjectileLaunchTiming = 0.3f;
 
+        [Range (0f, 1f)]
+        public float ReservedTime = 0.1f;
         //public Transform ProjectileSpawnPoint;
 
         public AttackType attackType = AttackType.PROJECTILE;
@@ -20,6 +22,7 @@ namespace meleeDemo {
         public float Range;
         public float Damage = 1f;
         public float KnockbackForce = 10f;
+        public float HitReactDuration = 0.1f;
 
         //[Range (0.01f, 1f)]
         //public float ComboInputStartTime = 0.3f;
@@ -44,17 +47,18 @@ namespace meleeDemo {
 
             }
             */
+            //Debug.Log ("enter launch projectile: " + stateInfo.normalizedTime.ToString ());
         }
 
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
 
-            if (!CheckInTransitionBetweenSameState(stateEffect.CharacterControl, animator) && stateInfo.normalizedTime >= ProjectileLaunchTiming) {
-            //if (!animator.IsInTransition(0) && stateInfo.normalizedTime >= ProjectileLaunchTiming) {
+            if (!CheckInTransitionBetweenSameState (stateEffect.CharacterControl, animator) && stateInfo.normalizedTime >= ProjectileLaunchTiming && stateInfo.normalizedTime < ProjectileLaunchTiming + ReservedTime) {
+                //if (!animator.IsInTransition(0) && stateInfo.normalizedTime >= ProjectileLaunchTiming) {
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
                     if (!info.IsRegistered && info.ProjectileSkill == this) {
                         info.Register ();
                         Launch (info, stateEffect.CharacterControl);
-                        //Debug.Log (stateInfo.normalizedTime);
+                        Debug.Log ("register projectile : " + stateInfo.normalizedTime.ToString ());
                     }
                 }
             }

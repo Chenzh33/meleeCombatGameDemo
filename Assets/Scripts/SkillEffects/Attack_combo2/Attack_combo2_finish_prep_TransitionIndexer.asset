@@ -10,18 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041a36037495c8b4592e25b5f60b7e83, type: 3}
-  m_Name: Attack_combo1_2_TransitionIndexer
+  m_Name: Attack_combo2_finish_prep_TransitionIndexer
   m_EditorClassIdentifier: 
   TimeIntervals:
   - index: 1
-    st: 0.42
-    ed: 0.7
-  - index: 2
-    st: 0.7
+    st: 0.8
     ed: 1
-  - index: 3
-    st: 1
-    ed: 2
   - index: -1
-    st: 0.45
-    ed: 1.2
+    st: 0.3
+    ed: 0.8

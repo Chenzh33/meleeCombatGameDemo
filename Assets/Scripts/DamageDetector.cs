@@ -6,7 +6,7 @@ namespace meleeDemo {
 
     public class DamageDetector : MonoBehaviour {
         CharacterControl control;
-        public float HitReactDuration = 0.1f;
+        //public float HitReactDuration = 0.1f;
 
         void Awake () {
             control = this.GetComponent<CharacterControl> ();
@@ -93,7 +93,7 @@ namespace meleeDemo {
                 //Debug.Log(hitVector);
                 //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
                 control.TakeDamage (info.Damage);
-                control.TakeKnockback (info.KnockbackForce * hitVector, HitReactDuration);
+                control.TakeKnockback (info.KnockbackForce * hitVector, info.HitReactDuration);
                 int randomIndex = Random.Range (0, 3) + 1;
                 control.Animator.Play ("HitReact" + randomIndex.ToString(), 0, 0f);
                 CameraManager.Instance.ShakeCamera (0.25f);

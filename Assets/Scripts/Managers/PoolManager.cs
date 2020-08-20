@@ -6,7 +6,8 @@ namespace meleeDemo {
 
     public enum PoolObjectType {
         ATTACK_INFO,
-        ATTACK_HOLD_PROJECTILE
+        ATTACK_HOLD_PROJECTILE,
+        BUTTON_SMASHER,
     }
 
     public class PoolManager : Singleton<PoolManager> {
@@ -63,6 +64,11 @@ namespace meleeDemo {
                 case PoolObjectType.ATTACK_HOLD_PROJECTILE:
                     {
                         obj = Instantiate (Resources.Load ("AttackHoldProjectilePrefab", typeof (GameObject)) as GameObject);
+                        break;
+                    }
+                case PoolObjectType.BUTTON_SMASHER:
+                    {
+                        obj = Instantiate (Resources.Load ("ButtonSmasherPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
 

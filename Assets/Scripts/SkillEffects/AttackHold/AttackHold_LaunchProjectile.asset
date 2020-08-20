@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjectileLifeTime: 0.8
   ProjectileSpeed: 18
-  ProjectileLaunchTiming: 0.26
+  ProjectileLaunchTiming: 0.24
+  ReservedTime: 0.1
   attackType: 3
   MaxTargetNum: 5
   Range: 2
   Damage: 1
-  KnockbackForce: 4
+  KnockbackForce: 2.5
+  HitReactDuration: 0.15

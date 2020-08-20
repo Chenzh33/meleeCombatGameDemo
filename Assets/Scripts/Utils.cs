@@ -10,7 +10,9 @@ namespace meleeDemo {
         ForcedTransition,
         Dodge,
         TransitionIndexer,
-        AtkReleaseTiming
+        AtkReleaseTiming,
+        ButtonSmashing,
+        SpeedMultiplier
 
     }
 
@@ -18,10 +20,10 @@ namespace meleeDemo {
     public class TimeInterval {
         public int index;
 
-        [Range (0.01f, 2f)]
+        [Range (0f, 2f)]
         public float st;
 
-        [Range (0.01f, 2f)]
+        [Range (0f, 2f)]
         public float ed;
     }
 

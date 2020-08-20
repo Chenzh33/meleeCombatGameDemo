@@ -32,6 +32,7 @@ namespace meleeDemo {
 
         public void CheckTransition (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             bool inInterval = false;
+            bool ForceTransition = false;
             foreach (TimeInterval t in TimeIntervals) {
                 if (t.index >= 0 && stateInfo.normalizedTime >= t.st && stateInfo.normalizedTime < t.ed) {
                     animator.SetInteger (TransitionParameter.TransitionIndexer.ToString (), t.index);
@@ -40,14 +41,16 @@ namespace meleeDemo {
 
                 if (t.index < 0) {
                     if (stateInfo.normalizedTime >= t.st && stateInfo.normalizedTime < t.ed)
-                        animator.SetBool (TransitionParameter.ForcedTransition.ToString (), true);
-                    else
-                        animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
+                        ForceTransition = true;
                 }
             }
             if (!inInterval)
                 animator.SetInteger (TransitionParameter.TransitionIndexer.ToString (), 0);
 
+            if (ForceTransition)
+                animator.SetBool (TransitionParameter.ForcedTransition.ToString (), true);
+            else
+                animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
         }
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AttackHold_Attack
   m_EditorClassIdentifier: 
   AttackBeginTime: 0.22
-  AttackEndTime: 0.28
+  AttackEndTime: 0.27
   attackType: 1
   MaxTargetNum: 5
   Range: 2
