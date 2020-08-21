@@ -37,7 +37,7 @@ namespace meleeDemo {
         }
         void Smashing () {
             if (routine != null)
-                StopCoroutine (_Smashing ());
+                StopCoroutine (routine);
             routine = StartCoroutine (_Smashing ());
 
         }

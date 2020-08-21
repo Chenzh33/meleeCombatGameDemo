@@ -9,6 +9,7 @@ namespace meleeDemo {
         public LaunchProjectile ProjectileSkill;
         public bool IsRegistered;
         public bool IsFinished;
+        public bool IsAttackForward;
         public int CurrentTargetNum;
         public int MaxTargetNum;
         public CharacterControl Attacker;
@@ -30,6 +31,7 @@ namespace meleeDemo {
             Targets.Clear ();
             ProjectileObject = null;
             if (attackSkill != null) {
+                IsAttackForward = attackSkill.IsAttackForward;
                 Type = attackSkill.attackType;
                 MaxTargetNum = attackSkill.MaxTargetNum;
                 Range = attackSkill.Range;
@@ -37,6 +39,7 @@ namespace meleeDemo {
                 KnockbackForce = attackSkill.KnockbackForce;
                 HitReactDuration = attackSkill.HitReactDuration;
             } else {
+                IsAttackForward = projectileSkill.IsAttackForward;
                 Type = projectileSkill.attackType;
                 MaxTargetNum = projectileSkill.MaxTargetNum;
                 Range = projectileSkill.Range;

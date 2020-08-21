@@ -23,6 +23,7 @@ namespace meleeDemo {
         public float Damage = 1f;
         public float KnockbackForce = 10f;
         public float HitReactDuration = 0.1f;
+        public bool IsAttackForward;
 
         //[Range (0.01f, 1f)]
         //public float ComboInputStartTime = 0.3f;

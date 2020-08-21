@@ -7,11 +7,14 @@ namespace meleeDemo {
     public enum TransitionParameter {
         Move,
         AttackMelee,
+        AttackExecute,
         ForcedTransition,
         Dodge,
         TransitionIndexer,
         AtkReleaseTiming,
+        ExcReleaseTiming,
         ButtonSmashing,
+        ButtonHold,
         SpeedMultiplier
 
     }

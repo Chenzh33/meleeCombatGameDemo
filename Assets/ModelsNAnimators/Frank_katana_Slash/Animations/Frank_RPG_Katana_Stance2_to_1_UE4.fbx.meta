@@ -24,8 +24,8 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: "\nRetargeting quality report for clip 'Unreal
       Take':\n\tLeftHand average position error 0.6 mm and maximum position error
-      1.4 mm at time 0: 6 (25.0%) Frame 6\n\tRightHand average position error 1.1
-      mm and maximum position error 2.4 mm at time 0: 6 (25.0%) Frame 6\n"
+      1.5 mm at time 0:11 (22.0%) Frame 11\n\tRightHand average position error 1.1
+      mm and maximum position error 2.4 mm at time 0:12 (24.0%) Frame 12\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -122,7 +122,7 @@ ModelImporter:
       firstFrame: 0
       lastFrame: 24
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -90
       level: 0
       cycleOffset: 0
       loop: 0

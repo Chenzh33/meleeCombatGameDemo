@@ -20,4 +20,5 @@ MonoBehaviour:
   Damage: 1
   KnockbackForce: 2.5
   HitReactDuration: 0.15
+  IsAttackForward: 0
   FinishedAttacks: []

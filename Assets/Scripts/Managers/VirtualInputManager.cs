@@ -30,7 +30,7 @@ namespace meleeDemo {
 
     public enum InputKeyType {
         KEY_MELEE_ATTACK,
-        KEY_RANGE_ATTACK,
+        KEY_EXECUTE_ATTACK,
         KEY_DODGE,
         KEY_CHARGE
     }
@@ -38,9 +38,9 @@ namespace meleeDemo {
         KEY_MELEE_ATTACK_DOWN,
         KEY_MELEE_ATTACK_UP,
         KEY_MELEE_ATTACK,
-        KEY_RANGE_ATTACK_DOWN,
-        KEY_RANGE_ATTACK_UP,
-        KEY_RANGE_ATTACK,
+        KEY_EXECUTE_ATTACK_DOWN,
+        KEY_EXECUTE_ATTACK_UP,
+        KEY_EXECUTE_ATTACK,
         KEY_DODGE_DOWN,
         KEY_DODGE_UP,
         KEY_DODGE,
@@ -80,7 +80,7 @@ namespace meleeDemo {
         public void SetDefaultKeyConfig () {
             DicKeys.Clear ();
             DicKeys.Add (InputKeyType.KEY_MELEE_ATTACK, KeyCode.I);
-            DicKeys.Add (InputKeyType.KEY_RANGE_ATTACK, KeyCode.J);
+            DicKeys.Add (InputKeyType.KEY_EXECUTE_ATTACK, KeyCode.J);
             DicKeys.Add (InputKeyType.KEY_DODGE, KeyCode.K);
             DicKeys.Add (InputKeyType.KEY_CHARGE, KeyCode.L);
 

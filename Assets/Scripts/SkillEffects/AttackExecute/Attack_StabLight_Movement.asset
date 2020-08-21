@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feb28c08435cea64c812511c41772d7f, type: 3}
-  m_Name: Attack_combo1_1_MoveForward
+  m_Name: Attack_StabLight_Movement
   m_EditorClassIdentifier: 
   speedGraph:
     serializedVersion: 2
@@ -18,43 +18,61 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: -0.083892226
-      outSlope: -0.083892226
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.22725616
+      outWeight: 0
     - serializedVersion: 3
-      time: 0.1
-      value: 1
-      inSlope: 0.0016800493
-      outSlope: 0.0016800493
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.21302027
-      outWeight: 0.18261775
-    - serializedVersion: 3
-      time: 0.2
+      time: 0.18
       value: 0
-      inSlope: -0.036193117
-      outSlope: -0.036193117
+      inSlope: -0
+      outSlope: -0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.26392692
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.22
+      value: 1
+      inSlope: 0.03590283
+      outSlope: 0.03590283
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.6553669
+    - serializedVersion: 3
+      time: 0.28
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.12429374
+    - serializedVersion: 3
+      time: 0.32
+      value: 0
+      inSlope: -0.03296614
+      outSlope: -0.03296614
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
+      inSlope: -0.011665506
+      outSlope: -0.011665506
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.114666484
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 6
+  speed: 12
   smooth: 5
   MoveUnderControl: 0
   ConsiderMomentum: 1
@@ -66,18 +84,27 @@ MonoBehaviour:
       value: 1
       inSlope: 0
       outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.1
+      value: 1
+      inSlope: -0.019485012
+      outSlope: -0.019485012
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.711864
+      outWeight: 0.99701977
     - serializedVersion: 3
-      time: 0.15
+      time: 0.2
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.017941287
+      outSlope: 0.017941287
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.6977404
+      inWeight: 0.913348
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1

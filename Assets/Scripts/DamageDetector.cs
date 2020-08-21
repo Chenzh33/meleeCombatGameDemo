@@ -85,18 +85,20 @@ namespace meleeDemo {
         }
         private void ProcessDamage (AttackInfo info) {
             //Debug.Log ("HIT !!!");
-            if (!info.Targets.Contains (control)) {
+            if (!info.Targets.Contains (control) && !control.CharacterData.IsDead) {
                 info.Targets.Add (control);
                 info.CurrentTargetNum++;
                 Vector3 dirVector = gameObject.transform.position - info.Attacker.gameObject.transform.position;
-                Vector3 hitVector = (new Vector3(dirVector.x, 0, dirVector.z)).normalized;
+                Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
+                if (info.IsAttackForward)
+                    hitVector = info.Attacker.transform.forward;
                 //Debug.Log(hitVector);
                 //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
                 control.TakeDamage (info.Damage);
                 control.TakeKnockback (info.KnockbackForce * hitVector, info.HitReactDuration);
                 int randomIndex = Random.Range (0, 3) + 1;
-                control.Animator.Play ("HitReact" + randomIndex.ToString(), 0, 0f);
-                CameraManager.Instance.ShakeCamera (0.25f);
+                control.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
+                //CameraManager.Instance.ShakeCamera (info.HitReactDuration);
             }
             //control.Dead ();
         }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b2197c81ec85849b3fbc113d7f1892, type: 3}
   m_Name: Attack_combo1_3_ShakeCamera
   m_EditorClassIdentifier: Assembly-CSharp:meleeDemo:CameraShake
-  ShakeBeginTime: 0.25
-  ShakeEndTime: 0.32
+  ShakeBeginTime: 0.4
+  ShakeEndTime: 0.43

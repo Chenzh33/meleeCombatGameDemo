@@ -100,13 +100,13 @@ namespace meleeDemo {
         }
         */
 
-        public void TurnOffCollider() {
+        public void TurnOffCollider () {
             data.IsColliderOff = true;
             foreach (Collider c in RagdollParts) {
                 c.isTrigger = true;
             }
         }
-        public void TurnOnCollider() {
+        public void TurnOnCollider () {
             data.IsColliderOff = false;
             foreach (Collider c in RagdollParts) {
                 c.isTrigger = false;
@@ -185,12 +185,14 @@ namespace meleeDemo {
         }
 
         public void TurnToTarget (float stTime, float smooth) {
+            if (TurnToTargetCoroutine != null)
+                StopCoroutine (TurnToTargetCoroutine);
             float angle = Mathf.Acos (Vector3.Dot (new Vector3 (0, 0, 1), FaceTarget)) * Mathf.Rad2Deg;
             if (FaceTarget.x < 0.0f) { angle = -angle; }
             Quaternion target = Quaternion.Euler (new Vector3 (0, angle, 0));
             if (smooth == 0f)
                 animator.transform.localRotation = target;
-            else if (TurnToTargetCoroutine == null)
+            else //if (TurnToTargetCoroutine == null)
                 TurnToTargetCoroutine = StartCoroutine (_TurnToTarget (stTime, smooth, target));
         }
 
@@ -310,10 +312,10 @@ namespace meleeDemo {
             if (isPlayerControl) {
                 // for test
                 if (Input.GetKeyDown (KeyCode.B)) {
-                    if (animator.GetFloat ("SpeedMultiplier") == 1.0f)
-                        animator.SetFloat ("SpeedMultiplier", 0.1f);
+                    if (animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) == 1.0f)
+                        animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0.1f);
                     else
-                        animator.SetFloat ("SpeedMultiplier", 1f);
+                        animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1f);
                 }
                 inputDataTop = VirtualInputManager.Instance.GetTopInput ();
 
@@ -327,12 +329,16 @@ namespace meleeDemo {
                 if (VirtualInputManager.Instance.CheckCommandInput ()) {
                     if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN))
                         animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
+                    if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_EXECUTE_ATTACK_DOWN))
+                        animator.SetBool (TransitionParameter.AttackExecute.ToString (), true);
                     if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
                         animator.SetBool (TransitionParameter.Dodge.ToString (), true);
                 }
 
                 if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN))
                     animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
+                if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_EXECUTE_ATTACK_DOWN))
+                    animator.SetBool (TransitionParameter.AttackExecute.ToString (), false);
                 if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
                     animator.SetBool (TransitionParameter.Dodge.ToString (), false);
 
@@ -346,12 +352,20 @@ namespace meleeDemo {
                 }
 
                 keysHoldFrames = VirtualInputManager.Instance.GetKeysHoldFrames ();
-                if (keysHoldFrames[0] < 0) {
+                if (keysHoldFrames[0] < 0)
                     animator.SetInteger (TransitionParameter.AtkReleaseTiming.ToString (), -keysHoldFrames[0]);
-                    //Debug.Log("attack release frame: " + -keysHoldFrames[0]);
-
-                } else
+                else
                     animator.SetInteger (TransitionParameter.AtkReleaseTiming.ToString (), 0);
+
+                if (keysHoldFrames[1] > 10)
+                    animator.SetBool (TransitionParameter.ButtonHold.ToString (), true);
+                else
+                    animator.SetBool (TransitionParameter.ButtonHold.ToString (), false);
+
+                if (keysHoldFrames[1] < 0)
+                    animator.SetInteger (TransitionParameter.ExcReleaseTiming.ToString (), -keysHoldFrames[1]);
+                else
+                    animator.SetInteger (TransitionParameter.ExcReleaseTiming.ToString (), 0);
 
             }
 

@@ -20,9 +20,9 @@ namespace meleeDemo {
             inputs.KeysState[(int) InputKeyStateType.KEY_MELEE_ATTACK_UP] = Input.GetKeyUp (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_MELEE_ATTACK]);
             inputs.KeysState[(int) InputKeyStateType.KEY_MELEE_ATTACK] = Input.GetKey (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_MELEE_ATTACK]);
 
-            inputs.KeysState[(int) InputKeyStateType.KEY_RANGE_ATTACK_DOWN] = Input.GetKeyDown (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_RANGE_ATTACK]);
-            inputs.KeysState[(int) InputKeyStateType.KEY_RANGE_ATTACK_UP] = Input.GetKeyUp (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_RANGE_ATTACK]);
-            inputs.KeysState[(int) InputKeyStateType.KEY_RANGE_ATTACK] = Input.GetKey (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_RANGE_ATTACK]);
+            inputs.KeysState[(int) InputKeyStateType.KEY_EXECUTE_ATTACK_DOWN] = Input.GetKeyDown (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_EXECUTE_ATTACK]);
+            inputs.KeysState[(int) InputKeyStateType.KEY_EXECUTE_ATTACK_UP] = Input.GetKeyUp (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_EXECUTE_ATTACK]);
+            inputs.KeysState[(int) InputKeyStateType.KEY_EXECUTE_ATTACK] = Input.GetKey (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_EXECUTE_ATTACK]);
 
             inputs.KeysState[(int) InputKeyStateType.KEY_DODGE_DOWN] = Input.GetKeyDown (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_DODGE]);
             inputs.KeysState[(int) InputKeyStateType.KEY_DODGE_UP] = Input.GetKeyUp (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_DODGE]);
