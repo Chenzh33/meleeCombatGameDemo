@@ -17,7 +17,7 @@ namespace meleeDemo {
         public float ReservedTime = 0.1f;
         //public Transform ProjectileSpawnPoint;
 
-        public AttackType attackType = AttackType.PROJECTILE;
+        public AttackType Type = AttackType.PROJECTILE;
         public int MaxTargetNum;
         public float Range;
         public float Damage = 1f;

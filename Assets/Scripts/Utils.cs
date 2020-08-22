@@ -15,6 +15,7 @@ namespace meleeDemo {
         ExcReleaseTiming,
         ButtonSmashing,
         ButtonHold,
+        GrapplingHit,
         SpeedMultiplier
 
     }

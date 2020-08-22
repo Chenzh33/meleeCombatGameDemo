@@ -10,7 +10,9 @@ namespace meleeDemo {
         public float MaxHP;
         public bool IsColliderOff;
         public bool IsAnimationPause;
+        public bool IsGrappled;
         public bool IsDead;
+        public CharacterControl GrapplingTarget;
 
         public const int STATE_BUFFER_SIZE = 3;
         public int[] StateBuffer = new int[STATE_BUFFER_SIZE];

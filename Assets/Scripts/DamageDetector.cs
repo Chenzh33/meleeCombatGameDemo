@@ -19,6 +19,8 @@ namespace meleeDemo {
         void FixedUpdate () {
             if (AttackManager.Instance.CurrentAttackInfo.Count > 0)
                 CheckAttack ();
+            if (AttackManager.Instance.CurrentGrappler.Count > 0)
+                CheckGrappler ();
 
         }
 
@@ -36,7 +38,7 @@ namespace meleeDemo {
                 }
                 //Debug.Log ("check attack");
                 if (info.Type == AttackType.MUST_COLLIDE) {
-                    if (IsCollided (info)) {
+                    if (IsCollidedWithAttackParts (info)) {
                         //info.IsFinished = true;
                         ProcessDamage (info);
                     }
@@ -56,7 +58,7 @@ namespace meleeDemo {
             }
 
         }
-        private bool IsCollided (AttackInfo info) {
+        private bool IsCollidedWithAttackParts (AttackInfo info) {
             //List<TriggerDetector> triggers = control.GetAllTriggers ();
             TriggerDetector trigger = control.GetTriggerDetector ();
             foreach (Collider c1 in trigger.CollidingParts) {
@@ -69,6 +71,35 @@ namespace meleeDemo {
             }
 
             return false;
+
+        }
+        private bool IsCollidedWithAttackPoint (Grappler info) {
+            /*
+            TriggerDetector trigger = control.GetTriggerDetector ();
+            foreach (Collider c in trigger.CollidingParts) {
+                if (info.Attacker.GetAttackPoint () == c)
+                    return true;
+            }
+            return false;
+            */
+            /*
+            int layerMask = 1 << 9;
+            RaycastHit hit;
+            if (Physics.Raycast (info.Attacker.transform.position, info.Attacker.transform.TransformDirection (Vector3.forward), out hit, Mathf.Infinity, layerMask)) {
+                Debug.DrawRay (info.Attacker.transform.position, info.Attacker.transform.TransformDirection (Vector3.forward) * hit.distance, Color.yellow, 1.0f);
+                if (hit.distance <= 2.0f) {
+                    Debug.Log ("Did Hit");
+                    return true;
+                }
+            }
+            Debug.DrawRay (info.Attacker.transform.position, info.Attacker.transform.TransformDirection (Vector3.forward) * 100, Color.white);
+            Debug.Log ("Did not Hit");
+            return false;
+            */
+            if ((control.transform.position - info.Attacker.GetAttackPoint ().gameObject.transform.position).magnitude <= 1f)
+                return true;
+            else
+                return false;
 
         }
 
@@ -102,5 +133,45 @@ namespace meleeDemo {
             }
             //control.Dead ();
         }
+
+        private void CheckGrappler () {
+            foreach (Grappler info in AttackManager.Instance.CurrentGrappler) {
+                if (!info.IsRegistered || info.IsFinished)
+                    continue;
+                if (info.Target != null)
+                    continue;
+                if (info.Attacker == control)
+                    continue;
+                if (info.Type == GrapplerType.STOP_ANIMATION) {
+                    Debug.Log ("Test Collision !!!");
+                    if (IsCollidedWithAttackPoint (info)) {
+                        Debug.Log ("Collision occurs !!!");
+                        ProcessGrappling (info);
+
+                    }
+
+                }
+            }
+        }
+        private void ProcessGrappling (Grappler info) {
+            if (!control.CharacterData.IsDead && !control.CharacterData.IsGrappled) {
+                info.Target = control;
+                Debug.Log ("Grappler HIT !!!");
+                control.CharacterData.IsGrappled = true;
+                control.HitReactionAndFreeze (info.FreezeStartTiming);
+                Vector3 diffVectorRaw = control.gameObject.transform.position - info.Attacker.gameObject.transform.position;
+                Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0, diffVectorRaw.z);
+                control.FaceTarget = diffVector.normalized;
+                control.TurnToTarget (0f, 0f);
+                info.Attacker.gameObject.transform.position = info.Attacker.gameObject.transform.position + info.Attacker.Animator.gameObject.transform.forward * 0.5f;
+                Vector3 AttackerFront = info.Attacker.gameObject.transform.position + info.Attacker.Animator.gameObject.transform.forward * 1f;
+                control.gameObject.transform.position = new Vector3 (AttackerFront.x, control.gameObject.transform.position.y, AttackerFront.z);
+                control.gameObject.transform.parent = info.Attacker.gameObject.transform;
+                //control.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0f);
+                info.GrapplingHit ();
+            }
+            //control.Dead ();
+        }
+
     }
 }

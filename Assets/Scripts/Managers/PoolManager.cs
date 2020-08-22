@@ -8,6 +8,7 @@ namespace meleeDemo {
         ATTACK_INFO,
         ATTACK_HOLD_PROJECTILE,
         BUTTON_SMASHER,
+        GRAPPLER,
     }
 
     public class PoolManager : Singleton<PoolManager> {
@@ -71,7 +72,11 @@ namespace meleeDemo {
                         obj = Instantiate (Resources.Load ("ButtonSmasherPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
-
+                case PoolObjectType.GRAPPLER:
+                    {
+                        obj = Instantiate (Resources.Load ("GrapplerPrefab", typeof (GameObject)) as GameObject);
+                        break;
+                    }
             }
             return obj;
 

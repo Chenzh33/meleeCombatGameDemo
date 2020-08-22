@@ -96,17 +96,17 @@ ModelImporter:
       takeName: Unreal Take
       internalID: 0
       firstFrame: 73
-      lastFrame: 91
+      lastFrame: 83
       wrapMode: 0
-      orientationOffsetY: -35
+      orientationOffsetY: -150
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1

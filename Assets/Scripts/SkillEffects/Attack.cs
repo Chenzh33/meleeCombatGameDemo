@@ -19,21 +19,13 @@ namespace meleeDemo {
         [Range (0.01f, 1f)]
         public float AttackEndTime = 0.6f;
 
-        public AttackType attackType = AttackType.MUST_COLLIDE;
+        public AttackType Type = AttackType.MUST_COLLIDE;
         public int MaxTargetNum = 5;
         public float Range = 2f;
         public float Damage = 1f;
         public float KnockbackForce = 10f;
         public float HitReactDuration = 0.1f;
         public bool IsAttackForward;
-
-        //[Range (0.01f, 1f)]
-        //public float ComboInputStartTime = 0.3f;
-        //[Range (0.01f, 1f)]
-        //public List<float> ComboInputInterval = new List<float> {0f, 1f};
-        //public float ComboInputEndTime = 0.7f;
-
-        //public List<AttackType> AttackParts = new List<AttackPartType> ();
         public List<AttackInfo> FinishedAttacks = new List<AttackInfo> ();
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {

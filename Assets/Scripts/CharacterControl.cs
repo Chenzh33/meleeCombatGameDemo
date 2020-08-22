@@ -10,12 +10,15 @@ namespace meleeDemo {
         public bool isPlayerControl;
         public List<Collider> RagdollParts = new List<Collider> ();
         public List<Collider> AttackingParts = new List<Collider> ();
+        public Collider AttackPoint;
         //public List<ProjectileObject> ProjectileObjs = new List<ProjectileObject> ();
         //private List<TriggerDetector> TriggerDetectors = new List<TriggerDetector> ();
         private TriggerDetector detector;
         private Coroutine CheckStopCoroutine;
         private Coroutine TurnToTargetCoroutine;
         private Coroutine KnockbackCoroutine;
+        private Coroutine HitReactCoroutine;
+        public AnimationCurve KnockbackSpeedGraph;
         public Vector3 FaceTarget;
         //public float SpeedMultiplyer = 1.0f;
 
@@ -29,6 +32,7 @@ namespace meleeDemo {
         //private float vInput;
         //private Vector3 moveDirection = Vector3.zero;
         public bool AttackTrigger;
+        public bool ExecuteTrigger;
         public bool DodgeTrigger;
         //public int AttackHoldReleaseFrame;
         //public int ExecuteHoldReleaseFrame;
@@ -73,15 +77,42 @@ namespace meleeDemo {
                 Dead ();
         }
 
+        public void HitReactionAndFreeze (float freezeStTime) {
+            if (HitReactCoroutine != null)
+                StopCoroutine (HitReactCoroutine);
+            HitReactCoroutine = StartCoroutine (_HitReactionAndFreeze (freezeStTime));
+        }
+
+        IEnumerator _HitReactionAndFreeze (float freezeStTime) {
+            int randomIndex = Random.Range (0, 3) + 1;
+            this.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
+
+            float t = 0f;
+            while (true) {
+                if (t > freezeStTime) {
+                    /*
+                if (t > freezeStTime && t <= freezeStTime + freezeTime) {
+                        this.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0f);
+                    if (t > freezeStTime + freezeTime) {
+                        */
+                    this.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0f);
+                    yield break;
+                }
+                t = t + Time.deltaTime;
+                yield return null;
+            }
+
+        }
         public void TakeKnockback (Vector3 knockbackVector, float duration) {
-            if (KnockbackCoroutine == null)
-                KnockbackCoroutine = StartCoroutine (_TakeKnockback (knockbackVector, duration));
+            if (KnockbackCoroutine != null)
+                StopCoroutine (KnockbackCoroutine);
+            KnockbackCoroutine = StartCoroutine (_TakeKnockback (knockbackVector, duration));
         }
 
         IEnumerator _TakeKnockback (Vector3 knockbackVector, float duration) {
             float t = 0f;
             while (t < duration) {
-                this.CharacterController.Move (knockbackVector * Time.deltaTime);
+                this.CharacterController.Move (knockbackVector * KnockbackSpeedGraph.Evaluate(t / duration) * Time.deltaTime);
                 t += Time.deltaTime;
                 yield return null;
             }
@@ -146,6 +177,9 @@ namespace meleeDemo {
                             c.isTrigger = true;
                         }
                     }
+                    if (c.GetComponent<WeaponAttackPoint> () != null) {
+                        AttackPoint = c;
+                    }
                 }
             }
 
@@ -153,6 +187,10 @@ namespace meleeDemo {
 
         public List<Collider> GetAttackingPart () {
             return AttackingParts;
+
+        }
+        public Collider GetAttackPoint () {
+            return AttackPoint;
 
         }
         public Transform GetProjectileSpawnPoint () {
@@ -350,6 +388,9 @@ namespace meleeDemo {
                     //VirtualInputManager.Instance.ClearInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN);
                     VirtualInputManager.Instance.ClearAllInputsInBuffer ();
                 }
+                if (ExecuteTrigger) {
+                    VirtualInputManager.Instance.ClearAllInputsInBuffer ();
+                }
 
                 keysHoldFrames = VirtualInputManager.Instance.GetKeysHoldFrames ();
                 if (keysHoldFrames[0] < 0)
@@ -374,6 +415,9 @@ namespace meleeDemo {
             }
             if (AttackTrigger) {
                 AttackTrigger = false;
+            }
+            if (ExecuteTrigger) {
+                ExecuteTrigger = false;
             }
 
         }

@@ -32,7 +32,7 @@ namespace meleeDemo {
             ProjectileObject = null;
             if (attackSkill != null) {
                 IsAttackForward = attackSkill.IsAttackForward;
-                Type = attackSkill.attackType;
+                Type = attackSkill.Type;
                 MaxTargetNum = attackSkill.MaxTargetNum;
                 Range = attackSkill.Range;
                 Damage = attackSkill.Damage;
@@ -40,7 +40,7 @@ namespace meleeDemo {
                 HitReactDuration = attackSkill.HitReactDuration;
             } else {
                 IsAttackForward = projectileSkill.IsAttackForward;
-                Type = projectileSkill.attackType;
+                Type = projectileSkill.Type;
                 MaxTargetNum = projectileSkill.MaxTargetNum;
                 Range = projectileSkill.Range;
                 Damage = projectileSkill.Damage;
