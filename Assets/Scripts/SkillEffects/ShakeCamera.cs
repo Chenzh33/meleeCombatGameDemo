@@ -33,7 +33,7 @@ namespace meleeDemo {
 
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            IsShaking = false;
+            //IsShaking = false;
         }
      
     }

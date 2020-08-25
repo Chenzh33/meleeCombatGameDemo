@@ -1,0 +1,60 @@
+tree("Root")
+	parallel
+		repeat mute tree("BeAlive")
+		repeat mute tree("Die")
+
+tree("BeAlive")
+	fallback
+		tree("ChaseEnemyAndAttack")
+		tree("Idle")
+
+
+tree("ChaseEnemyAndAttack")
+	while HasTarget
+		fallback
+			sequence
+				IsTargetVisible
+				IsTargetInAttackRange
+				StopMove
+				tree("Attack")
+
+			sequence
+				not IsTargetInAttackRange
+				IsTargetVisible
+				ChaseTarget
+					
+			sequence
+				not IsTargetInAttackRange
+				not IsTargetVisible
+				parallel
+					ChaseTarget
+
+					sequence
+						Wait(5.0)
+						Fail
+				
+			sequence
+				Wait(5.0)
+				ClearTarget
+
+
+tree("Idle")
+	while
+		sequence
+			not HasTarget
+			not FindTarget
+
+		repeat
+			Wait(3.0)
+			//WaitRandom(0.5, 2.0)
+
+
+tree("Attack")
+	sequence
+		WaitRandom(0.2, 0.4)
+		AttackCommandInput
+		Wait(0.10)
+		AttackCommandCancel
+
+tree("Die")
+	IsDead

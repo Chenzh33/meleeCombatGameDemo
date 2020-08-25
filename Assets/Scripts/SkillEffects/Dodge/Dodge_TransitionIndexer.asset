@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Dodge_TransitionIndexer
   m_EditorClassIdentifier: 
   TimeIntervals:
-  - index: 1
+  - index: 8
+    st: 0
+    ed: 0.9
+  - index: 9
     st: 0.9
     ed: 2
   - index: -1
-    st: 0.8
+    st: 0.7
     ed: 2

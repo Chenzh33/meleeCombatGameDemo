@@ -75,9 +75,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListSkillEffect:
-  - {fileID: 11400000, guid: 570d0d7b80ac78d43ab3efa6fb5d86fe, type: 2}
-  - {fileID: 11400000, guid: 649b0edcc3a70fb44bd8203ba93ae7f4, type: 2}
-  - {fileID: 11400000, guid: 878647f1a393c85499ea8cd461d88946, type: 2}
+  - {fileID: 11400000, guid: 4f7c0d26d5fef124da1f9da5b37a4c6d, type: 2}
+  - {fileID: 11400000, guid: 003b6bad957b3ff4ba758d7409b06ae7, type: 2}
+  - {fileID: 11400000, guid: 73b3dc2ac1568574888ab71c9f94d7da, type: 2}
+  - {fileID: 11400000, guid: 9cdf3b401ae3ed64aa60c176626782d4, type: 2}
 --- !u!1101 &-2102351621935057815
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -92,9 +93,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.25000024
   m_TransitionOffset: 0
-  m_ExitTime: 0.84210527
+  m_ExitTime: 1.4526933
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -142,37 +143,49 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: AttackMelee
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
+  - m_Name: AttackExecute
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: ForcedTransition
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Dodge
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: SpeedMultiplier
     m_Type: 1
     m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: GrapplingHit
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
+  - m_Name: TransitionIndexer
+    m_Type: 3
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -194,7 +207,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MeleeAttack1
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2977704426117925345}
@@ -208,7 +221,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: dd8abd49755a3404192614423b427124,
+  m_Motion: {fileID: -203655887218126122, guid: d12be8bc8696b4849ad7112fc9e47450,
     type: 3}
   m_Tag: 
   m_SpeedParameter: SpeedMultiplier
@@ -223,18 +236,18 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: ForcedTransition
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: TransitionIndexer
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5454040224192198998}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.21153504
-  m_TransitionOffset: 0.0025508362
-  m_ExitTime: 0.69723976
+  m_TransitionDuration: 0.47592664
+  m_TransitionOffset: 0
+  m_ExitTime: 0.91574514
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -389,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListSkillEffect:
-  - {fileID: 11400000, guid: 99b2babc9f9a3f84596b4e215c62358a, type: 2}
+  - {fileID: 11400000, guid: 64b19dbdf0af8fd43a29fa12d8d9afd3, type: 2}
 --- !u!1101 &5817368289753558480
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -404,9 +417,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.25000012
   m_TransitionOffset: 0
-  m_ExitTime: 0.8584906
+  m_ExitTime: 1.3031743
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -425,7 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListSkillEffect:
-  - {fileID: 11400000, guid: 99b2babc9f9a3f84596b4e215c62358a, type: 2}
+  - {fileID: 11400000, guid: 64b19dbdf0af8fd43a29fa12d8d9afd3, type: 2}
 --- !u!1101 &7105713120042285488
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -517,9 +530,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.25000012
   m_TransitionOffset: 0
-  m_ExitTime: 0.7580645
+  m_ExitTime: 2.2303886
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

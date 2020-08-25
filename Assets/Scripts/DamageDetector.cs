@@ -28,9 +28,9 @@ namespace meleeDemo {
             foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
                 if (!info.IsRegistered || info.IsFinished)
                     continue;
-                if (info.Targets.Contains (control))
+                if (info.Targets.Contains (control) || control.CharacterData.IsInvincible || control.CharacterData.IsDead)
                     continue;
-                if (info.Attacker == control)
+                if (info.Attacker == control || info.Attacker.CharacterData.Team == control.CharacterData.Team)
                     continue;
                 if (info.CurrentTargetNum >= info.MaxTargetNum) {
                     info.IsFinished = true;
@@ -96,7 +96,9 @@ namespace meleeDemo {
             Debug.Log ("Did not Hit");
             return false;
             */
-            if ((control.transform.position - info.Attacker.GetAttackPoint ().gameObject.transform.position).magnitude <= 1f)
+            Vector3 dist = control.transform.position - info.Attacker.GetAttackPoint ().gameObject.transform.position;
+            dist.y = 0f;
+            if (dist.magnitude <= 1f)
                 return true;
             else
                 return false;
@@ -116,21 +118,26 @@ namespace meleeDemo {
         }
         private void ProcessDamage (AttackInfo info) {
             //Debug.Log ("HIT !!!");
-            if (!info.Targets.Contains (control) && !control.CharacterData.IsDead) {
-                info.Targets.Add (control);
-                info.CurrentTargetNum++;
-                Vector3 dirVector = gameObject.transform.position - info.Attacker.gameObject.transform.position;
-                Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
-                if (info.IsAttackForward)
-                    hitVector = info.Attacker.transform.forward;
-                //Debug.Log(hitVector);
-                //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
-                control.TakeDamage (info.Damage);
-                control.TakeKnockback (info.KnockbackForce * hitVector, info.HitReactDuration);
+            info.Targets.Add (control);
+            info.CurrentTargetNum++;
+            Vector3 dirVector = gameObject.transform.position - info.Attacker.gameObject.transform.position;
+            Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
+            if (info.IsAttackForward)
+                hitVector = info.Attacker.transform.forward;
+            //Debug.Log(hitVector);
+            //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
+            control.TakeDamage (info.Damage);
+            control.TakeKnockback (info.KnockbackForce * hitVector, info.HitReactDuration);
+            if (control.isPlayerControl) {
+                //int randomIndex = Random.Range (0, 4) + 1;
+                //control.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
+                control.Animator.Play ("HitReact4", 0, 0f);
+            } else {
                 int randomIndex = Random.Range (0, 3) + 1;
                 control.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
-                //CameraManager.Instance.ShakeCamera (info.HitReactDuration);
+
             }
+            //CameraManager.Instance.ShakeCamera (info.HitReactDuration);
             //control.Dead ();
         }
 
@@ -138,9 +145,11 @@ namespace meleeDemo {
             foreach (Grappler info in AttackManager.Instance.CurrentGrappler) {
                 if (!info.IsRegistered || info.IsFinished)
                     continue;
-                if (info.Target != null)
+                if (info.Target != null || control.CharacterData.IsInvincible)
                     continue;
-                if (info.Attacker == control)
+                if (control.CharacterData.IsDead || control.CharacterData.IsGrappled)
+                    continue;
+                if (info.Attacker == control || info.Attacker.CharacterData.Team == control.CharacterData.Team)
                     continue;
                 if (info.Type == GrapplerType.STOP_ANIMATION) {
                     Debug.Log ("Test Collision !!!");
@@ -154,22 +163,23 @@ namespace meleeDemo {
             }
         }
         private void ProcessGrappling (Grappler info) {
-            if (!control.CharacterData.IsDead && !control.CharacterData.IsGrappled) {
-                info.Target = control;
-                Debug.Log ("Grappler HIT !!!");
-                control.CharacterData.IsGrappled = true;
-                control.HitReactionAndFreeze (info.FreezeStartTiming);
-                Vector3 diffVectorRaw = control.gameObject.transform.position - info.Attacker.gameObject.transform.position;
-                Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0, diffVectorRaw.z);
-                control.FaceTarget = diffVector.normalized;
-                control.TurnToTarget (0f, 0f);
-                info.Attacker.gameObject.transform.position = info.Attacker.gameObject.transform.position + info.Attacker.Animator.gameObject.transform.forward * 0.5f;
-                Vector3 AttackerFront = info.Attacker.gameObject.transform.position + info.Attacker.Animator.gameObject.transform.forward * 1f;
-                control.gameObject.transform.position = new Vector3 (AttackerFront.x, control.gameObject.transform.position.y, AttackerFront.z);
-                control.gameObject.transform.parent = info.Attacker.gameObject.transform;
-                //control.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0f);
-                info.GrapplingHit ();
-            }
+            //if (info.Target == null) {
+            info.Target = control;
+            Debug.Log ("Grappler HIT !!!");
+            control.CharacterData.IsGrappled = true;
+            control.HitReactionAndFreeze (info.FreezeStartTiming);
+            Vector3 diffVectorRaw = control.gameObject.transform.position - info.Attacker.gameObject.transform.position;
+            Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0, diffVectorRaw.z);
+            control.FaceTarget = diffVector.normalized;
+            control.TurnToTarget (0f, 0f);
+            info.Attacker.gameObject.transform.position = info.Attacker.gameObject.transform.position + info.Attacker.Animator.gameObject.transform.forward * 0.5f;
+            Vector3 AttackerFront = info.Attacker.gameObject.transform.position + info.Attacker.Animator.gameObject.transform.forward * 1f;
+            control.gameObject.transform.position = new Vector3 (AttackerFront.x, control.gameObject.transform.position.y, AttackerFront.z);
+            control.gameObject.transform.parent = info.Attacker.gameObject.transform;
+            //control.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0f);
+            info.GrapplingHit ();
+
+            //}
             //control.Dead ();
         }
 

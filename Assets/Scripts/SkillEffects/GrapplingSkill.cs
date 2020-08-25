@@ -30,7 +30,8 @@ namespace meleeDemo {
             grappler.Init (this, stateEffect.CharacterControl);
             obj.SetActive (true);
             AttackManager.Instance.CurrentGrappler.Add (grappler);
-            stateEffect.CharacterControl.ExecuteTrigger = true;
+            if (stateEffect.CharacterControl.gameObject.GetComponent<ManualInput>() != null)
+                stateEffect.CharacterControl.ExecuteTrigger = true;
             //animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
             //Debug.Log ("Enter " + stateInfo.normalizedTime.ToString());
 

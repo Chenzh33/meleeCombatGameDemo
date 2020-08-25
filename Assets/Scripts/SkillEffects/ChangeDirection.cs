@@ -14,15 +14,17 @@ namespace meleeDemo {
         [Range (0f, 1f)]
         public float AutoFaceEnemyTiming = 0f;
 
-        public float CaptureDistance = 5f;
-        public float CaptureAngleRange = 45f;
+        public float CaptureDistanceFar = 5f;
+        public float CaptureAngleRangeFar = 20f;
+        public float CaptureDistanceNear = 2f;
+        public float CaptureAngleRangeNear = 60f;
         public float smoothEarlyTurn = 20f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             bool IsFaceForward = true;
             Vector3 inputDirection = Vector3.zero;
             if (AllowEarlyTurn) {
-                Vector2 inputDirection2d = stateEffect.CharacterControl.inputDataTop.InputVector;
+                Vector2 inputDirection2d = stateEffect.CharacterControl.inputVector;
                 if (inputDirection2d.magnitude > 0.01f) {
                     inputDirection = new Vector3 (inputDirection2d.x, 0, inputDirection2d.y);
                     stateEffect.CharacterControl.FaceTarget = inputDirection;
@@ -56,17 +58,21 @@ namespace meleeDemo {
                     //Debug.Log ("rot = " + Quaternion.Angle (rotEnemy, rotSelf).ToString ());
 
                     float finalDist = Mathf.Infinity;
-                    if (Mathf.Abs (Quaternion.Angle (rotEnemy, rotSelf)) <= CaptureAngleRange) {
-                        float tempDist = diffVector2d.magnitude;
-                        if (tempDist <= CaptureDistance && tempDist < finalDist) {
-                            finalDist = diffVector2d.magnitude;
-                            direction = diffVector.normalized;
+                    float Dist = diffVector2d.magnitude;
+                    float AbsAngle = Mathf.Abs (Quaternion.Angle (rotEnemy, rotSelf));
+                    if (Dist <= CaptureAngleRangeFar && Dist > CaptureAngleRangeNear) {
+                        if (AbsAngle <= CaptureAngleRangeFar && Dist < finalDist) {
                             EnemyCaptured = true;
-
+                            finalDist = Dist;
+                            direction = diffVector.normalized;
                         }
-
+                    } else if (Dist <= CaptureAngleRangeNear) {
+                        if (AbsAngle <= CaptureAngleRangeNear && Dist < finalDist) {
+                            EnemyCaptured = true;
+                            finalDist = Dist;
+                            direction = diffVector.normalized;
+                        }
                     }
-
                 }
                 if (EnemyCaptured) {
                     stateEffect.CharacterControl.FaceTarget = direction;

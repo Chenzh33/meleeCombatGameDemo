@@ -14,9 +14,17 @@ namespace meleeDemo {
         AtkReleaseTiming,
         ExcReleaseTiming,
         ButtonSmashing,
-        ButtonHold,
+        AtkButtonHold,
+        ExcButtonHold,
         GrapplingHit,
         SpeedMultiplier
+
+    }
+
+    public enum TeamTag{
+       Player,
+       Bandit, 
+       
 
     }
 

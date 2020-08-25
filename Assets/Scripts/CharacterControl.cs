@@ -5,8 +5,9 @@ using UnityEngine;
 namespace meleeDemo {
 
     public class CharacterControl : MonoBehaviour {
-        public InputsDataPerFrame inputDataTop = new InputsDataPerFrame ();
-        public int[] keysHoldFrames = new int[4];
+        CharacterController controller;
+        Animator animator;
+
         public bool isPlayerControl;
         public List<Collider> RagdollParts = new List<Collider> ();
         public List<Collider> AttackingParts = new List<Collider> ();
@@ -20,27 +21,32 @@ namespace meleeDemo {
         private Coroutine HitReactCoroutine;
         public AnimationCurve KnockbackSpeedGraph;
         public Vector3 FaceTarget;
+
+        // Command derived from ManualInput or AIProgress
+        public Vector2 inputVector = new Vector3 ();
+        public bool[] inputKeyStates = new bool[12];
+        public bool CommandAttack;
+        public bool CommandExecute;
+        public bool CommandDodge;
+        public int CommandAttackHoldFrame;
+        public int CommandExecuteHoldFrame;
         //public float SpeedMultiplyer = 1.0f;
 
         //[System.Serializable]
         public CharacterData data = new CharacterData ();
 
-        CharacterController controller;
-        Animator animator;
-
-        //private float hInput;
-        //private float vInput;
-        //private Vector3 moveDirection = Vector3.zero;
         public bool AttackTrigger;
         public bool ExecuteTrigger;
         public bool DodgeTrigger;
-        //public int AttackHoldReleaseFrame;
-        //public int ExecuteHoldReleaseFrame;
 
         void Awake () {
             animator = GetComponentInChildren<Animator> ();
             detector = GetComponentInChildren<TriggerDetector> ();
             controller = GetComponent<CharacterController> ();
+            if (GetComponent<ManualInput> () == null)
+                isPlayerControl = false;
+            else
+                isPlayerControl = true;
             // load data process xxxx
             SetRagdollAndAttackingParts ();
         }
@@ -59,7 +65,6 @@ namespace meleeDemo {
                 return controller;
             }
         }
-
         public CharacterData CharacterData {
             get {
                 return data;
@@ -112,7 +117,7 @@ namespace meleeDemo {
         IEnumerator _TakeKnockback (Vector3 knockbackVector, float duration) {
             float t = 0f;
             while (t < duration) {
-                this.CharacterController.Move (knockbackVector * KnockbackSpeedGraph.Evaluate(t / duration) * Time.deltaTime);
+                this.CharacterController.Move (knockbackVector * KnockbackSpeedGraph.Evaluate (t / duration) * Time.deltaTime);
                 t += Time.deltaTime;
                 yield return null;
             }
@@ -236,7 +241,6 @@ namespace meleeDemo {
 
         IEnumerator _CheckStopMove (float time) {
             yield return new WaitForSeconds (time);
-            Vector2 inputVector = inputDataTop.InputVector;
             if (inputVector.magnitude <= 0.01f) {
                 animator.SetBool (TransitionParameter.Move.ToString (), false);
             }
@@ -319,95 +323,49 @@ namespace meleeDemo {
                 this.CharacterController.Move (gravity);
             }
 
-            /*
-                        if (isPlayerControll) {
+            if (inputVector.magnitude > 0.01f) {
+                animator.SetBool (TransitionParameter.Move.ToString (), true);
+            } else {
+                if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Move")) {
+                    CheckStopMove (0.10f);
+                }
+            }
+            if (CommandAttack)
+                animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
+            else
+                animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
 
-                            if (inputDataTop.InputVector.magnitude > 0.01f) {
-                                animator.SetBool (TransitionParameter.Move.ToString (), true);
-                            } else {
-                                if (animator.GetCurrentAnimatorStateInfo(0).IsName ("Move")) {
-                                    CheckStopMove (0.10f);
-                                }
-                            }
-                            if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_MELEE_ATTACK_DOWN]) {
-                                animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
-                                //AttackTrigger = true;
-                            } else {
-                                animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
-                                //AttackTrigger = false;
-                            }
-                            if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_DODGE_DOWN]) {
-                                animator.SetBool (TransitionParameter.Dodge.ToString (), true);
-                                //DodgeTrigger = true;
-                            } else {
-                                animator.SetBool (TransitionParameter.Dodge.ToString (), false);
-                                //DodgeTrigger = false;
-                            }
+            if (CommandExecute)
+                animator.SetBool (TransitionParameter.AttackExecute.ToString (), true);
+            else
+                animator.SetBool (TransitionParameter.AttackExecute.ToString (), false);
 
-                        }
-                        */
+            if (CommandDodge)
+                animator.SetBool (TransitionParameter.Dodge.ToString (), true);
+            else
+                animator.SetBool (TransitionParameter.Dodge.ToString (), false);
 
             if (isPlayerControl) {
-                // for test
-                if (Input.GetKeyDown (KeyCode.B)) {
-                    if (animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) == 1.0f)
-                        animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0.1f);
-                    else
-                        animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1f);
-                }
-                inputDataTop = VirtualInputManager.Instance.GetTopInput ();
 
-                if (inputDataTop.InputVector.magnitude > 0.01f) {
-                    animator.SetBool (TransitionParameter.Move.ToString (), true);
-                } else {
-                    if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Move")) {
-                        CheckStopMove (0.10f);
-                    }
-                }
-                if (VirtualInputManager.Instance.CheckCommandInput ()) {
-                    if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN))
-                        animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
-                    if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_EXECUTE_ATTACK_DOWN))
-                        animator.SetBool (TransitionParameter.AttackExecute.ToString (), true);
-                    if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
-                        animator.SetBool (TransitionParameter.Dodge.ToString (), true);
-                }
+                if (CommandAttackHoldFrame > 10)
+                    animator.SetBool (TransitionParameter.AtkButtonHold.ToString (), true);
+                else
+                    animator.SetBool (TransitionParameter.AtkButtonHold.ToString (), false);
 
-                if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN))
-                    animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
-                if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_EXECUTE_ATTACK_DOWN))
-                    animator.SetBool (TransitionParameter.AttackExecute.ToString (), false);
-                if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
-                    animator.SetBool (TransitionParameter.Dodge.ToString (), false);
-
-                if (DodgeTrigger) {
-                    //VirtualInputManager.Instance.ClearInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN);
-                    VirtualInputManager.Instance.ClearAllInputsInBuffer ();
-                }
-                if (AttackTrigger) {
-                    //VirtualInputManager.Instance.ClearInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN);
-                    VirtualInputManager.Instance.ClearAllInputsInBuffer ();
-                }
-                if (ExecuteTrigger) {
-                    VirtualInputManager.Instance.ClearAllInputsInBuffer ();
-                }
-
-                keysHoldFrames = VirtualInputManager.Instance.GetKeysHoldFrames ();
-                if (keysHoldFrames[0] < 0)
-                    animator.SetInteger (TransitionParameter.AtkReleaseTiming.ToString (), -keysHoldFrames[0]);
+                if (CommandAttackHoldFrame < 0)
+                    animator.SetInteger (TransitionParameter.AtkReleaseTiming.ToString (), -CommandAttackHoldFrame);
                 else
                     animator.SetInteger (TransitionParameter.AtkReleaseTiming.ToString (), 0);
 
-                if (keysHoldFrames[1] > 10)
-                    animator.SetBool (TransitionParameter.ButtonHold.ToString (), true);
+                if (CommandExecuteHoldFrame > 10)
+                    animator.SetBool (TransitionParameter.ExcButtonHold.ToString (), true);
                 else
-                    animator.SetBool (TransitionParameter.ButtonHold.ToString (), false);
+                    animator.SetBool (TransitionParameter.ExcButtonHold.ToString (), false);
 
-                if (keysHoldFrames[1] < 0)
-                    animator.SetInteger (TransitionParameter.ExcReleaseTiming.ToString (), -keysHoldFrames[1]);
+                if (CommandExecuteHoldFrame < 0)
+                    animator.SetInteger (TransitionParameter.ExcReleaseTiming.ToString (), -CommandExecuteHoldFrame);
                 else
                     animator.SetInteger (TransitionParameter.ExcReleaseTiming.ToString (), 0);
-
             }
 
             if (DodgeTrigger) {

@@ -30,10 +30,8 @@ namespace meleeDemo {
         }
 
         public void ControlledMove (CharacterControl control, Animator animator, AnimatorStateInfo animatorStateInfo) {
-            InputsDataPerFrame inputData = control.inputDataTop;
-            Vector2 inputVector = inputData.InputVector;
+            Vector2 inputVector = control.inputVector;
             //Debug.Log(inputVector);
-            bool[] inputKeysState = inputData.KeysState;
 
             if (inputVector.magnitude > 0.01f) {
                 //animator.SetBool (TransitionParameter.Move.ToString (), true);

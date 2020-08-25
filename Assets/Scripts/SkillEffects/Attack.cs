@@ -36,13 +36,14 @@ namespace meleeDemo {
             atkInfo.Init (this, null, stateEffect.CharacterControl);
             obj.SetActive (true);
             AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
-            stateEffect.CharacterControl.AttackTrigger = true;
+            if (stateEffect.CharacterControl.gameObject.GetComponent<ManualInput>() != null)
+                stateEffect.CharacterControl.AttackTrigger = true;
             //animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
             //Debug.Log ("Enter " + stateInfo.normalizedTime.ToString());
 
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
-            if (!CheckInTransitionBetweenSameState(stateEffect.CharacterControl, animator)) {
+            if (!CheckInTransitionBetweenSameState (stateEffect.CharacterControl, animator)) {
                 //Debug.Log ("not in transition");
                 RegisterAttack (stateEffect, animator, animatorStateInfo);
                 DeregisterAttack (stateEffect, animator, animatorStateInfo);

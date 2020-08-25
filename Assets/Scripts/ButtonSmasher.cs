@@ -44,10 +44,18 @@ namespace meleeDemo {
 
         IEnumerator _Smashing () {
             float time = 0f;
+            bool isPlayerControl;
+            if (control.gameObject.GetComponent<ManualInput> () == null)
+                isPlayerControl = false;
+            else
+                isPlayerControl = true;
             while (true) {
-                InputsDataPerFrame inputDataTop = control.inputDataTop;
-                if (inputDataTop.KeysState[(int) SmashKey * 3])
-                    CurrentSmashCount += SmashCountGain;
+                if (isPlayerControl) {
+                    bool[] inputKeyStates = control.inputKeyStates;
+                    if (inputKeyStates[(int) SmashKey * 3])
+                        CurrentSmashCount += SmashCountGain;
+                }
+
                 if (time > MinDuration) {
                     CurrentSmashCount -= SmashCountDecay * Time.deltaTime;
                     if (CurrentSmashCount <= 0 || time >= MaxDuration) {

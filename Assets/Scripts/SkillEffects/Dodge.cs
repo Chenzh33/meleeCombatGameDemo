@@ -9,15 +9,16 @@ namespace meleeDemo {
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
 
-            stateEffect.CharacterControl.DodgeTrigger = true;
-            animator.SetBool(TransitionParameter.ForcedTransition.ToString (), false);
+            if (stateEffect.CharacterControl.gameObject.GetComponent<ManualInput>() != null)
+                stateEffect.CharacterControl.DodgeTrigger = true;
+            animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
 
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
 
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            animator.SetBool(TransitionParameter.Move.ToString (), false);
+            animator.SetBool (TransitionParameter.Move.ToString (), false);
 
         }
 
