@@ -36,7 +36,7 @@ namespace meleeDemo {
             atkInfo.Init (this, null, stateEffect.CharacterControl);
             obj.SetActive (true);
             AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
-            if (stateEffect.CharacterControl.gameObject.GetComponent<ManualInput>() != null)
+            if (stateEffect.CharacterControl.gameObject.GetComponent<ManualInput> () != null)
                 stateEffect.CharacterControl.AttackTrigger = true;
             //animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
             //Debug.Log ("Enter " + stateInfo.normalizedTime.ToString());
@@ -53,14 +53,16 @@ namespace meleeDemo {
 
             //Debug.Log ("Exit " + stateInfo.normalizedTime.ToString ());
             foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
-                if (!info.IsFinished && info.IsRegistered && info.AttackSkill == this) {
-                    info.IsFinished = true;
-                    info.IsRegistered = false;
+                if (info.AttackSkill == this && info.Attacker == stateEffect.CharacterControl) {
+                    //info.IsFinished = true;
+                    //info.IsRegistered = false;
                     FinishedAttacks.Add (info);
                     //Debug.Log (this.name + " deregistered: " + stateInfo.normalizedTime);
 
                 }
             }
+            CleanAttackInfo ();
+            /*
             foreach (AttackInfo info in FinishedAttacks) {
                 if (AttackManager.Instance.CurrentAttackInfo.Contains (info)) {
                     AttackManager.Instance.CurrentAttackInfo.Remove (info);
@@ -70,17 +72,15 @@ namespace meleeDemo {
                 }
             }
             FinishedAttacks.Clear ();
+            */
             animator.SetBool (TransitionParameter.Move.ToString (), false);
             //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
 
         }
         public void RegisterAttack (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             if (stateInfo.normalizedTime >= AttackBeginTime && stateInfo.normalizedTime < AttackEndTime) {
-                //if (stateInfo.normalizedTime >= AttackBeginTime && stateInfo.normalizedTime < AttackEndTime) {
-                //Debug.Log ("about to register");
-                //Debug.Log (stateInfo.normalizedTime);
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
-                    if (!info.IsRegistered && info.AttackSkill == this) {
+                    if (!info.IsRegistered && info.AttackSkill == this && info.Attacker == stateEffect.CharacterControl) {
                         Debug.Log (this.name + " registered: " + stateInfo.normalizedTime);
                         info.Register ();
                         //CameraManager.Instance.ShakeCamera(0.2f);
@@ -91,18 +91,36 @@ namespace meleeDemo {
         }
         public void DeregisterAttack (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             if (stateInfo.normalizedTime >= AttackEndTime) {
+                bool hasFinishedAttackInfo = false;
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
-                    if (!info.IsFinished && info.IsRegistered && info.AttackSkill == this) {
-                        info.IsFinished = true;
-                        info.IsRegistered = false;
+                    if (!info.IsFinished && info.IsRegistered && info.AttackSkill == this && info.Attacker == stateEffect.CharacterControl) {
+                        //info.IsFinished = true;
+                        //info.IsRegistered = false;
                         FinishedAttacks.Add (info);
+                        hasFinishedAttackInfo = true;
                         Debug.Log (this.name + " deregistered: " + stateInfo.normalizedTime);
 
                     }
                 }
+                if (hasFinishedAttackInfo)
+                    CleanAttackInfo ();
 
             }
 
+        }
+
+        public void CleanAttackInfo () {
+            if (FinishedAttacks.Count > 0) {
+                foreach (AttackInfo info in FinishedAttacks) {
+                    if (AttackManager.Instance.CurrentAttackInfo.Contains (info)) {
+                        AttackManager.Instance.CurrentAttackInfo.Remove (info);
+                        PoolObject pobj = info.GetComponent<PoolObject> ();
+                        PoolManager.Instance.ReturnToPool (pobj);
+                        info.Clear ();
+                    }
+                }
+                FinishedAttacks.Clear ();
+            }
         }
 
     }

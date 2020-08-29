@@ -9,7 +9,8 @@ namespace meleeDemo {
         ATTACK_HOLD_PROJECTILE,
         BUTTON_SMASHER,
         GRAPPLER,
-        PATH_FINDING_AGENT
+        PATH_FINDING_AGENT,
+        CAMERA_SHAKER
     }
 
     public class PoolManager : Singleton<PoolManager> {
@@ -81,6 +82,11 @@ namespace meleeDemo {
                 case PoolObjectType.PATH_FINDING_AGENT:
                     {
                         obj = Instantiate (Resources.Load ("PathFindingAgentPrefab", typeof (GameObject)) as GameObject);
+                        break;
+                    }
+                case PoolObjectType.CAMERA_SHAKER:
+                    {
+                        obj = Instantiate (Resources.Load ("CameraShakerPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
             }

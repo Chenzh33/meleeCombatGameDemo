@@ -42,5 +42,10 @@ namespace meleeDemo
         void Update()
         {
         }
+
+        public bool IsShaking()
+        {
+            return animator.GetCurrentAnimatorStateInfo (0).IsName ("Shake");
+        }
     }
 }

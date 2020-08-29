@@ -25,8 +25,10 @@ namespace meleeDemo {
                 MoveForward (stateEffect.CharacterControl, animator, animatorStateInfo);
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
+            /*
             if (MoveUnderControl)
                 animator.SetBool (TransitionParameter.Move.ToString (), false);
+                */
         }
 
         public void ControlledMove (CharacterControl control, Animator animator, AnimatorStateInfo animatorStateInfo) {
@@ -35,10 +37,23 @@ namespace meleeDemo {
 
             if (inputVector.magnitude > 0.01f) {
                 //animator.SetBool (TransitionParameter.Move.ToString (), true);
-                if (animatorStateInfo.IsName ("Move")) {
+                if (animatorStateInfo.IsName ("Move") ||
+                    animatorStateInfo.IsName ("Walk") ||
+                    animatorStateInfo.IsName ("Run")) {
                     Vector3 moveDirection = new Vector3 (inputVector.x, 0, inputVector.y);
                     //MoveForward (moveDirection, speed, 1.0f);
-                    control.CharacterController.Move (moveDirection * animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) * speed * speedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime);
+                    Vector3 deltaMoveAmount = moveDirection * animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) * speed * speedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime;
+                    if (ConsiderMomentum) {
+                        if (control.CharacterData.GetPrevState () == Animator.StringToHash ("Move") ||
+                            control.CharacterData.GetPrevState () == Animator.StringToHash ("Dodge") ||
+                            control.CharacterData.GetPrevState () == Animator.StringToHash ("Run")) {
+                            //Vector3 extraDeltaMove = moveDirection * control.CharacterController.velocity.magnitude;
+                            Vector3 extraDeltaMove = moveDirection * 6.0f;
+                            extraDeltaMove = extraDeltaMove * animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) * extraSpeedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime;
+                            deltaMoveAmount = deltaMoveAmount + extraDeltaMove;
+                        }
+                    }
+                    control.CharacterController.Move (deltaMoveAmount);
                     //animator.transform.root.Translate(moveDirection * speed * Time.deltaTime);
                     //animator.transform.Translate(moveDirection * speed * Time.deltaTime);
                     float angle = Mathf.Acos (Vector3.Dot (new Vector3 (0, 0, 1), moveDirection)) * Mathf.Rad2Deg;

@@ -7,6 +7,7 @@ namespace meleeDemo {
     public class CharacterControl : MonoBehaviour {
         CharacterController controller;
         Animator animator;
+        AIProgress aiProgress;
 
         public bool isPlayerControl;
         public List<Collider> RagdollParts = new List<Collider> ();
@@ -23,7 +24,7 @@ namespace meleeDemo {
         public Vector3 FaceTarget;
 
         // Command derived from ManualInput or AIProgress
-        public Vector2 inputVector = new Vector3 ();
+        public Vector2 inputVector = new Vector2 ();
         public bool[] inputKeyStates = new bool[12];
         public bool CommandAttack;
         public bool CommandExecute;
@@ -43,10 +44,11 @@ namespace meleeDemo {
             animator = GetComponentInChildren<Animator> ();
             detector = GetComponentInChildren<TriggerDetector> ();
             controller = GetComponent<CharacterController> ();
-            if (GetComponent<ManualInput> () == null)
-                isPlayerControl = false;
-            else
+            aiProgress = GetComponent<AIProgress>();
+            if (GetComponent<ManualInput> () != null && (GetComponent<ManualInput> ()).enabled == true)
                 isPlayerControl = true;
+            else
+                isPlayerControl = false;
             // load data process xxxx
             SetRagdollAndAttackingParts ();
         }
@@ -68,6 +70,11 @@ namespace meleeDemo {
         public CharacterData CharacterData {
             get {
                 return data;
+            }
+        }
+        public AIProgress AIProgress{
+            get {
+                return aiProgress;
             }
         }
         public TriggerDetector GetTriggerDetector () {
@@ -155,6 +162,7 @@ namespace meleeDemo {
             foreach (Collider c in RagdollParts) {
                 c.isTrigger = false;
                 c.attachedRigidbody.velocity = Vector3.zero;
+                //c.attachedRigidbody.useGravity = false;
             }
 
         }
@@ -162,6 +170,9 @@ namespace meleeDemo {
         public void Dead () {
             TurnOnRagdoll ();
             data.IsDead = true;
+            AIProgress agent = GetComponent<AIProgress> ();
+            if (agent != null)
+                AIAgentManager.Instance.TotalAIAgent.Remove (agent);
 
         }
         private void SetRagdollAndAttackingParts () {
@@ -318,15 +329,20 @@ namespace meleeDemo {
                  }
              }
              */
+            /*
             if (!this.CharacterController.isGrounded) {
                 Vector3 gravity = new Vector3 (0, -9.8f * Time.deltaTime, 0);
                 this.CharacterController.Move (gravity);
             }
+            */
 
             if (inputVector.magnitude > 0.01f) {
                 animator.SetBool (TransitionParameter.Move.ToString (), true);
             } else {
-                if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Move")) {
+                if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Move") ||
+                    animator.GetCurrentAnimatorStateInfo (0).IsName ("Walk") ||
+                    animator.GetCurrentAnimatorStateInfo (0).IsName ("Run")) {
+                    //Debug.Log("check stop");
                     CheckStopMove (0.10f);
                 }
             }

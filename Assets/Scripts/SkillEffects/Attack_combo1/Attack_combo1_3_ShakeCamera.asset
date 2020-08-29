@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Attack_combo1_3_ShakeCamera
   m_EditorClassIdentifier: Assembly-CSharp:meleeDemo:CameraShake
   ShakeBeginTime: 0.4
-  ShakeEndTime: 0.43
+  ShakeEndTime: 0.5
+  FinishedShakers: []

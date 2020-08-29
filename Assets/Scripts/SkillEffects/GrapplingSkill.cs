@@ -30,7 +30,7 @@ namespace meleeDemo {
             grappler.Init (this, stateEffect.CharacterControl);
             obj.SetActive (true);
             AttackManager.Instance.CurrentGrappler.Add (grappler);
-            if (stateEffect.CharacterControl.gameObject.GetComponent<ManualInput>() != null)
+            if (stateEffect.CharacterControl.gameObject.GetComponent<ManualInput> () != null)
                 stateEffect.CharacterControl.ExecuteTrigger = true;
             //animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
             //Debug.Log ("Enter " + stateInfo.normalizedTime.ToString());
@@ -43,14 +43,16 @@ namespace meleeDemo {
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
 
             foreach (Grappler info in AttackManager.Instance.CurrentGrappler) {
-                if (!info.IsFinished && info.IsRegistered && info.Skill == this) {
-                    info.IsFinished = true;
-                    info.IsRegistered = false;
+                if (info.Skill == this && info.Attacker == stateEffect.CharacterControl) {
+                    //info.IsFinished = true;
+                    //info.IsRegistered = false;
                     FinishedGrapplers.Add (info);
                     //Debug.Log (this.name + " deregistered: " + stateInfo.normalizedTime);
 
                 }
             }
+            CleanGrapplers ();
+            /*
             foreach (Grappler info in FinishedGrapplers) {
                 if (AttackManager.Instance.CurrentGrappler.Contains (info)) {
                     AttackManager.Instance.CurrentGrappler.Remove (info);
@@ -60,6 +62,7 @@ namespace meleeDemo {
                 }
             }
             FinishedGrapplers.Clear ();
+            */
             animator.SetBool (TransitionParameter.Move.ToString (), false);
             //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
 
@@ -67,7 +70,7 @@ namespace meleeDemo {
         public void RegisterGrappler (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             if (stateInfo.normalizedTime >= GrapplingBeginTime && stateInfo.normalizedTime < GrapplingEndTime) {
                 foreach (Grappler info in AttackManager.Instance.CurrentGrappler) {
-                    if (!info.IsRegistered && info.Skill == this) {
+                    if (!info.IsRegistered && info.Skill == this && info.Attacker == stateEffect.CharacterControl) {
                         Debug.Log (this.name + " registered: " + stateInfo.normalizedTime);
                         info.Register ();
                         //CameraManager.Instance.ShakeCamera(0.2f);
@@ -78,19 +81,37 @@ namespace meleeDemo {
         }
         public void DeregisterGrappler (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             if (stateInfo.normalizedTime >= GrapplingEndTime) {
+                bool hasFinishedGrappler = false;
                 foreach (Grappler info in AttackManager.Instance.CurrentGrappler) {
                     //if (!info.IsFinished && info.IsRegistered && info.Skill == this) {
-                    if (info.Target == null && info.IsRegistered && info.Skill == this) {
-                        info.IsFinished = true;
-                        info.IsRegistered = false;
+                    if (info.Target == null && info.IsRegistered && info.Skill == this && info.Attacker == stateEffect.CharacterControl) {
+                        //info.IsFinished = true;
+                        //info.IsRegistered = false;
                         FinishedGrapplers.Add (info);
+                        hasFinishedGrappler = true;
                         Debug.Log (this.name + " deregistered (missed) : " + stateInfo.normalizedTime);
 
                     }
                 }
+                if (hasFinishedGrappler)
+                    CleanGrapplers ();
 
             }
 
+        }
+
+        public void CleanGrapplers () {
+            if (FinishedGrapplers.Count > 0) {
+                foreach (Grappler info in FinishedGrapplers) {
+                    if (AttackManager.Instance.CurrentGrappler.Contains (info)) {
+                        AttackManager.Instance.CurrentGrappler.Remove (info);
+                        PoolObject pobj = info.GetComponent<PoolObject> ();
+                        PoolManager.Instance.ReturnToPool (pobj);
+                        info.Clear ();
+                    }
+                }
+                FinishedGrapplers.Clear ();
+            }
         }
 
     }

@@ -6,6 +6,7 @@ namespace meleeDemo {
 
     public class ManualInput : MonoBehaviour {
 
+        [SerializeField]
         CharacterControl player;
 
         public InputsDataPerFrame inputDataTop = new InputsDataPerFrame ();
@@ -24,6 +25,7 @@ namespace meleeDemo {
             inputDataTop = VirtualInputManager.Instance.GetTopInput ();
             keysHoldFrames = VirtualInputManager.Instance.GetKeysHoldFrames ();
 
+            //Debug.Log(inputDataTop.InputVector);
             player.inputVector = inputDataTop.InputVector;
             player.inputKeyStates = inputDataTop.KeysState;
 
@@ -56,7 +58,6 @@ namespace meleeDemo {
             player.CommandAttackHoldFrame = keysHoldFrames[0];
             player.CommandExecuteHoldFrame = keysHoldFrames[1];
 
-
             // for test
             if (Input.GetKeyDown (KeyCode.B)) {
                 if (player.Animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) == 1.0f)
@@ -64,7 +65,16 @@ namespace meleeDemo {
                 else
                     player.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1f);
             }
-
+            // for test
+            if (Input.GetKeyDown (KeyCode.Y)) {
+                if (!player.Animator.GetBool ("IsRunning")) {
+                    player.Animator.SetBool ("IsRunning", true);
+                    player.CharacterData.IsRunning = true;
+                } else {
+                    player.Animator.SetBool ("IsRunning", false);
+                    player.CharacterData.IsRunning = false;
+                }
+            }
 
         }
     }

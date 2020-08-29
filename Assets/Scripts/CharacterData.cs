@@ -13,6 +13,7 @@ namespace meleeDemo {
         public bool IsGrappled;
         public bool IsDead;
         public bool IsInvincible;
+        public bool IsRunning;
         public CharacterControl GrapplingTarget;
         public TeamTag Team;
 

@@ -503,6 +503,7 @@ MonoBehaviour:
     IsGrappled: 0
     IsDead: 0
     IsInvincible: 0
+    IsRunning: 0
     GrapplingTarget: {fileID: 0}
     Team: 1
     StateBuffer: 000000000000000000000000
@@ -533,13 +534,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd8a16a42c97e0b4aae441aa3cc3ccb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   pathFindingAgent: {fileID: 0}
   aiUnit: {fileID: 0}
   enemyTarget: {fileID: 0}
   team: 1
-  visionRange: 8
   aquisitionInterval: 1
+  visionRange: 8
   attackRange: 1.5
+  WalkRange: 5
 --- !u!114 &9799789
 MonoBehaviour:
   m_ObjectHideFlags: 0

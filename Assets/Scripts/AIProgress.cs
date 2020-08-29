@@ -8,17 +8,20 @@ namespace meleeDemo {
 
     public class AIProgress : MonoBehaviour {
         //public NavMeshAgent navMeshAgent;
+        public Animator animator;
         public PathFindingAgent pathFindingAgent;
         public CharacterControl aiUnit;
         public CharacterControl enemyTarget;
         public TeamTag team;
-        public float visionRange = 15f;
         public float aquisitionInterval = 1f;
+        public float visionRange = 15f;
         public float attackRange = 2f;
+        public float WalkRange = 5f;
 
         void Awake () {
 
             aiUnit = GetComponent<CharacterControl> ();
+            animator = GetComponentInChildren<Animator> ();
             team = aiUnit.CharacterData.Team;
             enemyTarget = null;
 
@@ -80,13 +83,26 @@ namespace meleeDemo {
             pathFindingAgent.Stop ();
             pathFindingAgent.Target = null;
             return true;
+        }
 
+        [Task]
+        public bool RunToWalk () {
+            animator.SetBool ("IsRunning", false);
+            aiUnit.CharacterData.IsRunning = false;
+            return true;
+        }
+
+        [Task]
+        public bool WalkToRun () {
+            animator.SetBool ("IsRunning", true);
+            aiUnit.CharacterData.IsRunning = true;
+            return true;
         }
 
         [Task]
         public void WaitForArrival () {
             var task = Task.current;
-            if (!task.isStarting && IsTargetInAttackRange ()) {
+            if (!task.isStarting && Vector3.Distance (pathFindingAgent.gameObject.transform.position, gameObject.transform.position) < 2f) {
                 //pathFindingAgent.Stop ();
                 task.Succeed ();
             }
@@ -102,16 +118,29 @@ namespace meleeDemo {
                 return false;
 
         }
+
+        [Task]
+        public bool IsTargetInWalkRange () {
+            if (Vector3.Distance (enemyTarget.gameObject.transform.position, gameObject.transform.position) < WalkRange)
+                return true;
+            else
+                return false;
+
+        }
+
+
         void Update () {
 
+/*
             if (!pathFindingAgent.IsStopped ())
                 SetInputVector ();
             else
                 ResetInputVector ();
+                */
 
         }
 
-        private void SetInputVector () {
+        public void SetInputVector () {
             Vector3 dir = pathFindingAgent.gameObject.transform.position - gameObject.transform.position;
             dir.y = 0f;
             dir.Normalize ();
@@ -119,7 +148,7 @@ namespace meleeDemo {
             aiUnit.inputVector.y = dir.z;
 
         }
-        private void ResetInputVector () {
+        public void ResetInputVector () {
             aiUnit.inputVector.x = 0f;
             aiUnit.inputVector.y = 0f;
         }

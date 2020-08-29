@@ -15,14 +15,17 @@ namespace meleeDemo {
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             stateEffect.CharacterControl.CharacterData.GrapplingTarget.gameObject.transform.parent = null;
+            CharacterControl Target = stateEffect.CharacterControl.CharacterData.GrapplingTarget;
+            Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1.0f);
+            //Target.Animator.Play ("Idle");
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             if (stateInfo.normalizedTime > DamageTiming && animator.GetBool (TransitionParameter.GrapplingHit.ToString ())) {
                 if (stateEffect.CharacterControl.CharacterData.GrapplingTarget != null && !stateEffect.CharacterControl.CharacterData.GrapplingTarget.CharacterData.IsDead) {
                     stateEffect.CharacterControl.Animator.SetBool (TransitionParameter.GrapplingHit.ToString (), false);
                     CharacterControl Target = stateEffect.CharacterControl.CharacterData.GrapplingTarget;
-                    Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1.0f);
-                    Target.Animator.Play("Idle");
+                    //Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1.0f);
+                    //Target.Animator.Play ("Idle");
                     Target.TakeDamage (Damage);
                     Vector3 dirVector = Target.transform.position - stateEffect.CharacterControl.transform.position;
                     Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;

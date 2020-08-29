@@ -18,5 +18,5 @@ MonoBehaviour:
   CaptureDistanceFar: 5
   CaptureAngleRangeFar: 20
   CaptureDistanceNear: 2
-  CaptureAngleRangeNear: 60
+  CaptureAngleRangeNear: 90
   smoothEarlyTurn: 20

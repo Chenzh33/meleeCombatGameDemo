@@ -80,6 +80,7 @@ namespace meleeDemo {
             PoolObject pobj = gameObject.GetComponent<PoolObject> ();
             PoolManager.Instance.ReturnToPool (pobj);
             this.Clear ();
+            this.enabled = false;
         }
     }
 }

@@ -5,37 +5,55 @@ tree("Root")
 
 tree("BeAlive")
 	fallback
-		tree("ChaseEnemyAndAttack")
+		tree("WalkAndAttack")
+		tree("ChaseEnemy")
 		tree("Idle")
 
-
-tree("ChaseEnemyAndAttack")
-	while HasTarget
+tree("WalkAndAttack")
+	while
+		sequence
+			HasTarget
+			IsTargetInWalkRange
+			
 		fallback
-			sequence
-				IsTargetVisible
-				IsTargetInAttackRange
-				StopMove
-				tree("Attack")
-
-			sequence
-				not IsTargetInAttackRange
-				IsTargetVisible
-				ChaseTarget
-					
-			sequence
-				not IsTargetInAttackRange
-				not IsTargetVisible
-				parallel
+			repeat
+				sequence
+					not IsTargetInAttackRange 
+					RunToWalk
 					ChaseTarget
-
-					sequence
-						Wait(5.0)
-						Fail
 				
-			sequence
-				Wait(5.0)
-				ClearTarget
+			repeat
+				sequence
+					IsTargetInAttackRange 
+					StopMove
+					//Wait(0.2)
+					tree("Attack")
+						
+				//sequence
+					//not IsTargetInWalkRange
+					//Wait(2.0)
+					//Fail
+
+
+tree("ChaseEnemy")
+	while 
+		sequence
+			HasTarget
+			not IsTargetInWalkRange
+			
+		parallel
+			repeat
+				sequence 
+					IsTargetVisible
+					not IsTargetInWalkRange
+					WalkToRun
+					ChaseTarget
+			repeat
+				sequence
+					not IsTargetVisible
+					Wait(5.0)
+					ClearTarget
+					Fail
 
 
 tree("Idle")
@@ -45,7 +63,7 @@ tree("Idle")
 			not FindTarget
 
 		repeat
-			Wait(3.0)
+			Wait(1.0)
 			//WaitRandom(0.5, 2.0)
 
 
