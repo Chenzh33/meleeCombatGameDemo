@@ -25,7 +25,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.4
+      time: 0.7
       value: 1
       inSlope: 0
       outSlope: 0
@@ -45,9 +45,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 3
+  speed: 4
   smooth: 5
-  LockDirection: 1
-  AllowEarlyTurn: 1
-  smoothEarlyTurn: 20
-  AllowTurnStartTime: 0
+  MoveUnderControl: 0
+  ConsiderMomentum: 0
+  extraSpeedGraph:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

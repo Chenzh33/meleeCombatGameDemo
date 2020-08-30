@@ -48,7 +48,7 @@ MonoBehaviour:
   speed: 2
   smooth: 4
   MoveUnderControl: 1
-  ConsiderMomentum: 1
+  ConsiderMomentum: 0
   extraSpeedGraph:
     serializedVersion: 2
     m_Curve:

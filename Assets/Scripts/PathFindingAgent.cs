@@ -11,6 +11,7 @@ namespace meleeDemo {
 
         public void Init() {
             Target = null;
+            navMeshAgent.enabled = true;
             navMeshAgent.isStopped = true;
 
         }
@@ -42,7 +43,15 @@ namespace meleeDemo {
         }
         public void Stop()
         {
-            navMeshAgent.isStopped = true;
+            if(navMeshAgent.enabled)
+                navMeshAgent.isStopped = true;
+        }
+        public void Dead()
+        {
+            Stop();
+            navMeshAgent.enabled = false;
+            PoolObject pobj = GetComponent<PoolObject>();
+            PoolManager.Instance.ReturnToPool(pobj);
         }
 
         public void StartNav()

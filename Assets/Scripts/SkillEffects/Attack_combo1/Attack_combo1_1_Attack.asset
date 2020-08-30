@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackBeginTime: 0.31
   AttackEndTime: 0.39
-  attackType: 1
+  Type: 1
   MaxTargetNum: 5
   Range: 0
   Damage: 1
-  KnockbackForce: 2.5
+  KnockbackForce: 10
   HitReactDuration: 0.15
   IsAttackForward: 0
   FinishedAttacks: []

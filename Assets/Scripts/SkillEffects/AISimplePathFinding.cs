@@ -13,10 +13,19 @@ namespace meleeDemo {
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
 
-            if (!stateEffect.CharacterControl.AIProgress.pathFindingAgent.IsStopped ())
-                stateEffect.CharacterControl.AIProgress.SetInputVector ();
-            else
-                stateEffect.CharacterControl.AIProgress.ResetInputVector ();
+            if (stateEffect.CharacterControl.AIProgress.enabled)
+            {
+                if (!stateEffect.CharacterControl.AIProgress.pathFindingAgent.IsStopped())
+                    stateEffect.CharacterControl.AIProgress.SetInputVector();
+                else
+                    stateEffect.CharacterControl.AIProgress.ResetInputVector();
+               
+            }
+
+            // test
+            
+                
+
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
            

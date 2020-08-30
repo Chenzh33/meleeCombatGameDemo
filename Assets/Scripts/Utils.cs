@@ -32,10 +32,10 @@ namespace meleeDemo {
     public class TimeInterval {
         public int index;
 
-        [Range (0f, 2f)]
+        [Range (0f, 10f)]
         public float st;
 
-        [Range (0f, 2f)]
+        [Range (0f, 10f)]
         public float ed;
     }
 

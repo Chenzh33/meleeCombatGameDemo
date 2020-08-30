@@ -10,17 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
-  m_Name: AttackMelee_Attack
+  m_Name: AttackHeavy_Finish_Attack
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.5
-  AttackEndTime: 0.75
+  AttackBeginTime: 0.4
+  AttackEndTime: 0.6
   Type: 1
   MaxTargetNum: 5
   Range: 2
   Damage: 1
-  KnockbackForce: 10
-  HitReactDuration: 0.1
+  KnockbackForce: 14
+  HitReactDuration: 0.08
   IsAttackForward: 0
-  FinishedAttacks:
-  - {fileID: 0}
-  - {fileID: 0}
+  FinishedAttacks: []

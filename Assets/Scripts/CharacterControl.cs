@@ -172,7 +172,10 @@ namespace meleeDemo {
             data.IsDead = true;
             AIProgress agent = GetComponent<AIProgress> ();
             if (agent != null)
-                AIAgentManager.Instance.TotalAIAgent.Remove (agent);
+            {
+                agent.Dead();
+                AIAgentManager.Instance.TotalAIAgent.Remove(agent);
+            }
 
         }
         private void SetRagdollAndAttackingParts () {
@@ -229,9 +232,9 @@ namespace meleeDemo {
         IEnumerator _TurnToTarget (float stTime, float smooth, Quaternion target) {
 
             float t = 0f;
-            while (Quaternion.Angle (animator.transform.localRotation, target) > 0.1f) {
+            while (Quaternion.Angle (animator.transform.root.rotation, target) > 0.1f) {
                 if (t >= stTime)
-                    animator.transform.localRotation = Quaternion.Slerp (animator.transform.localRotation, target, smooth * Time.deltaTime);
+                    animator.transform.root.rotation = Quaternion.Slerp (animator.transform.root.rotation, target, smooth * Time.deltaTime);
                 t += Time.deltaTime;
                 yield return null;
             }
@@ -241,11 +244,14 @@ namespace meleeDemo {
         public void TurnToTarget (float stTime, float smooth) {
             if (TurnToTargetCoroutine != null)
                 StopCoroutine (TurnToTargetCoroutine);
+                /*
             float angle = Mathf.Acos (Vector3.Dot (new Vector3 (0, 0, 1), FaceTarget)) * Mathf.Rad2Deg;
             if (FaceTarget.x < 0.0f) { angle = -angle; }
             Quaternion target = Quaternion.Euler (new Vector3 (0, angle, 0));
+            */
+            Quaternion target = Quaternion.LookRotation(FaceTarget, Vector3.up);
             if (smooth == 0f)
-                animator.transform.localRotation = target;
+                animator.transform.root.rotation = target;
             else //if (TurnToTargetCoroutine == null)
                 TurnToTargetCoroutine = StartCoroutine (_TurnToTarget (stTime, smooth, target));
         }
@@ -329,12 +335,14 @@ namespace meleeDemo {
                  }
              }
              */
+            
             /*
             if (!this.CharacterController.isGrounded) {
                 Vector3 gravity = new Vector3 (0, -9.8f * Time.deltaTime, 0);
                 this.CharacterController.Move (gravity);
             }
             */
+            
 
             if (inputVector.magnitude > 0.01f) {
                 animator.SetBool (TransitionParameter.Move.ToString (), true);

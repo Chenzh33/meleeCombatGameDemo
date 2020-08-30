@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80a16233cdcca84493f1e931557408a, type: 3}
   m_Name: Walk_AISwarmMethod
   m_EditorClassIdentifier: 
+  AvoidanceRadius: 4
+  AvoidanceForce: 2
+  KeepoutRadius: 3
+  KeepoutForce: 3
+  Smooth: 5

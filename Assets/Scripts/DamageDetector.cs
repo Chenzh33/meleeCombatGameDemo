@@ -123,7 +123,10 @@ namespace meleeDemo {
             Vector3 dirVector = gameObject.transform.position - info.Attacker.gameObject.transform.position;
             Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
             if (info.IsAttackForward)
+            {
                 hitVector = info.Attacker.transform.forward;
+                hitVector.y = 0f;
+            }
             //Debug.Log(hitVector);
             //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
             control.TakeDamage (info.Damage);

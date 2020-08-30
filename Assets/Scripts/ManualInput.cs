@@ -75,6 +75,19 @@ namespace meleeDemo {
                     player.CharacterData.IsRunning = false;
                 }
             }
+            // for test
+
+
+/*
+            Vector3 forward = gameObject.transform.forward;
+            forward.y = 0f;
+            float angle = (Quaternion.LookRotation(forward, Vector3.up)).eulerAngles.y * Mathf.Deg2Rad;
+            //Debug.Log(forward.ToString() + " " + Mathf.Cos(angle).ToString() + " " + Mathf.Sin(angle).ToString());
+            float blendTreeInputX = player.inputVector.x * Mathf.Cos(angle) - player.inputVector.y * Mathf.Sin(angle);
+            float blendTreeInputY = player.inputVector.x * Mathf.Sin(angle) + player.inputVector.y * Mathf.Cos(angle);
+            player.Animator.SetFloat("InputX", blendTreeInputX);
+            player.Animator.SetFloat("InputY", blendTreeInputY);
+            */
 
         }
     }

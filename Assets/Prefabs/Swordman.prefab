@@ -536,13 +536,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   pathFindingAgent: {fileID: 0}
+  pandaTree: {fileID: 0}
   aiUnit: {fileID: 0}
   enemyTarget: {fileID: 0}
   team: 1
   aquisitionInterval: 1
-  visionRange: 8
-  attackRange: 1.5
-  WalkRange: 5
+  visionRange: 15
+  attackRange: 2
+  RunToWalkRange: 4
+  WalkToRunRange: 8
+  MomentumFactor: 0.1
+  ProbExecute: 0.5
+  ProbAttack: 0.7
+  inputVectorIncremental: {x: 0, y: 0}
 --- !u!114 &9799789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2624,7 +2630,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.09124454, y: -0.06656406, z: -0.00055361306}
+  m_ConnectedAnchor: {x: 0.09124454, y: -0.066564, z: -0.00055361306}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:

@@ -47,8 +47,7 @@ namespace meleeDemo {
                         if (control.CharacterData.GetPrevState () == Animator.StringToHash ("Move") ||
                             control.CharacterData.GetPrevState () == Animator.StringToHash ("Dodge") ||
                             control.CharacterData.GetPrevState () == Animator.StringToHash ("Run")) {
-                            //Vector3 extraDeltaMove = moveDirection * control.CharacterController.velocity.magnitude;
-                            Vector3 extraDeltaMove = moveDirection * 6.0f;
+                            Vector3 extraDeltaMove = moveDirection * control.CharacterController.velocity.magnitude;
                             extraDeltaMove = extraDeltaMove * animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) * extraSpeedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime;
                             deltaMoveAmount = deltaMoveAmount + extraDeltaMove;
                         }
@@ -56,10 +55,17 @@ namespace meleeDemo {
                     control.CharacterController.Move (deltaMoveAmount);
                     //animator.transform.root.Translate(moveDirection * speed * Time.deltaTime);
                     //animator.transform.Translate(moveDirection * speed * Time.deltaTime);
-                    float angle = Mathf.Acos (Vector3.Dot (new Vector3 (0, 0, 1), moveDirection)) * Mathf.Rad2Deg;
-                    if (inputVector.x < 0.0f) { angle = -angle; }
-                    Quaternion target = Quaternion.Euler (new Vector3 (0, angle, 0));
-                    animator.transform.localRotation = Quaternion.Slerp (animator.transform.localRotation, target, Time.deltaTime * smooth);
+
+                    if (!animatorStateInfo.IsName("Walk"))
+                    {
+                        Quaternion rotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+                        animator.gameObject.transform.root.rotation = Quaternion.Slerp(animator.gameObject.transform.root.rotation, rotation, Time.deltaTime * 5f);
+                        //float angle = Mathf.Acos(Vector3.Dot(new Vector3(0, 0, 1), moveDirection)) * Mathf.Rad2Deg;
+                        //if (inputVector.x < 0.0f) { angle = -angle; }
+                        //Quaternion target = Quaternion.Euler(new Vector3(0, angle, 0));
+                        //animator.transform.localRotation = Quaternion.Slerp(animator.transform.localRotation, target, Time.deltaTime * smooth);
+                    }
+
                 }
             }
         }
