@@ -53,8 +53,12 @@ namespace meleeDemo {
                 if (IsTargetVisible () && enemyTarget.CharacterData.Team != team) {
                     pathFindingAgent.SetTarget (enemyTarget.gameObject.transform);
                     Debug.Log ("Find player!");
+                    CameraManager.Instance.AddToTargetGroup(aiUnit);
                 } else
+                {
+                    CameraManager.Instance.RemoveFromTargetGroup(aiUnit);
                     enemyTarget = null;
+                }
                 lastFindTargetTime = Time.time;
             }
             Task.current.Complete (enemyTarget != null);
@@ -280,6 +284,7 @@ namespace meleeDemo {
         {
             pandaTree.enabled = false;
             pathFindingAgent.Dead();
+            CameraManager.Instance.RemoveFromTargetGroup(aiUnit);
 
         }
         void OnDrawGizmos()

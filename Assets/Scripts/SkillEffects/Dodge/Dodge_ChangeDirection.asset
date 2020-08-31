@@ -15,8 +15,9 @@ MonoBehaviour:
   AllowEarlyTurn: 1
   AutoFaceEnemy: 0
   AutoFaceEnemyTiming: 0
-  CaptureDistanceFar: 5
-  CaptureAngleRangeFar: 20
+  AutoFaceEnemyDuration: 0
+  CaptureDistanceFar: 0
+  CaptureAngleRangeFar: 0
   CaptureDistanceNear: 0
   CaptureAngleRangeNear: 0
   smoothEarlyTurn: 20

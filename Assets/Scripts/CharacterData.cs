@@ -12,6 +12,11 @@ namespace meleeDemo {
         public float MaxArmour;
         public float ArmourRegenerationInStun;
         public float ArmourRegeneration;
+
+        public float TargetGroupWeight;
+        public float TargetGroupRadius;
+
+        public bool IsRagdollOn; 
         public bool IsColliderOff;
         public bool IsAnimationPause;
         public bool IsGrappled;

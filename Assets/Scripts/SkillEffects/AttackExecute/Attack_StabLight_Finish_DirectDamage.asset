@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Attack_StabLight_Finish_DirectDamage
   m_EditorClassIdentifier: 
   DamageTiming: 0.3
-  Damage: 8
+  Damage: 2
   KnockbackForce: 10
   HitReactDuration: 0.1
+  Stun: 1

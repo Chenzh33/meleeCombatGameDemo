@@ -13,6 +13,8 @@ namespace meleeDemo {
         public List<Collider> RagdollParts = new List<Collider> ();
         public List<Collider> AttackingParts = new List<Collider> ();
         public Collider AttackPoint;
+        public Transform SpawnPoint;
+        public Transform Spine;
         //public List<ProjectileObject> ProjectileObjs = new List<ProjectileObject> ();
         //private List<TriggerDetector> TriggerDetectors = new List<TriggerDetector> ();
         private TriggerDetector detector;
@@ -174,26 +176,39 @@ namespace meleeDemo {
                 c.isTrigger = false;
             }
         }
-        private void TurnOnRagdoll () {
+        public void TurnOnRagdoll () {
             //Rigidbody rig = GetComponent<Rigidbody>();
             //rig.useGravity = false;
-            animator.enabled = false;
+            //animator.enabled = false;
+
+            controller.enabled = false;
+            this.CharacterData.IsRagdollOn = true;
             foreach (Collider c in RagdollParts) {
-                c.isTrigger = false;
+                //c.isTrigger = false;
                 c.attachedRigidbody.velocity = Vector3.zero;
-                //c.attachedRigidbody.useGravity = false;
+                c.attachedRigidbody.useGravity = false;
             }
+
+            //animator.enabled = false;
 
         }
 
         public void Dead () {
-            TurnOnRagdoll ();
+            //TurnOnRagdoll ();
+            int randomIndex = Random.Range(0, 2) + 1;
+            this.Animator.Play("Dead" + randomIndex.ToString(), 0, 0f);
             data.IsDead = true;
             AIProgress agent = GetComponent<AIProgress> ();
             if (agent != null) {
                 agent.Dead ();
                 AIAgentManager.Instance.TotalAIAgent.Remove (agent);
             }
+
+        }
+        public void DestroyObject()
+        {
+            Destroy(this.gameObject);
+          
 
         }
 
@@ -249,11 +264,25 @@ namespace meleeDemo {
             return AttackPoint;
 
         }
-        public Transform GetProjectileSpawnPoint () {
-
-            ProjectSpawnPoint p = this.gameObject.GetComponentInChildren<ProjectSpawnPoint> ();
-            return p.gameObject.transform;
+        public Transform GetSpine()
+        {
+            if (Spine == null)
+            {
+                SpineTag s = this.gameObject.GetComponentInChildren<SpineTag>();
+                Spine = s.gameObject.transform;
+            }
+            return Spine;
         }
+
+        public Transform GetProjectileSpawnPoint () {
+            if(SpawnPoint == null)
+            {
+                ProjectSpawnPoint p = this.gameObject.GetComponentInChildren<ProjectSpawnPoint>();
+                SpawnPoint = p.gameObject.transform;
+            }
+            return SpawnPoint;
+
+       }
         /*
         public List<ProjectileObject> GetProjectileObjs() {
             return ProjectileObjs;
@@ -373,12 +402,13 @@ namespace meleeDemo {
              }
              */
 
-            /*
+           /* 
             if (!this.CharacterController.isGrounded) {
                 Vector3 gravity = new Vector3 (0, -9.8f * Time.deltaTime, 0);
                 this.CharacterController.Move (gravity);
             }
             */
+            
             this.CharacterData.UpdateData();
 
             if (inputVector.magnitude > 0.01f) {

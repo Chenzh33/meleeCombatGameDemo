@@ -12,7 +12,11 @@ namespace meleeDemo {
 
         public override void Init () {
             controller = GameObject.FindObjectOfType<CameraController> ();
-            //Time.timeScale = 0.5f;
+            CharacterControl[] controls = FindObjectsOfType(typeof(CharacterControl)) as CharacterControl[];
+            foreach (CharacterControl c in controls) {
+                if(c.isPlayerControl)
+                    controller.AddToTargetGroup(c);
+            }
         }
         /*
                 IEnumerator _ShakeCamera(float second)
@@ -23,6 +27,15 @@ namespace meleeDemo {
                 }
                 */
 
+        public void AddToTargetGroup(CharacterControl unit)
+        {
+            controller.AddToTargetGroup(unit);
+        }
+
+        public void RemoveFromTargetGroup(CharacterControl unit)
+        {
+            controller.RemoveFromTargetGroup(unit);
+        }
         public void ShakeCamera () {
             controller.TriggerCamera (CameraType.Shake);
             //controller.ResetTrigger ();

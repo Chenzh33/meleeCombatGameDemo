@@ -50,6 +50,7 @@ namespace meleeDemo {
                     Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1f);
                     Target.CharacterData.IsGrappled = false;
                     Dead ();
+                    Debug.Log("check complete...");
                     yield break;
                 }
                 yield return null;

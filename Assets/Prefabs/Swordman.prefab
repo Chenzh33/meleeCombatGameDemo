@@ -442,10 +442,10 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1.6
   m_Radius: 0.3
-  m_SlopeLimit: 10
+  m_SlopeLimit: 0
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_SkinWidth: 0.03
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!114 &1487620146
 MonoBehaviour:
@@ -463,6 +463,8 @@ MonoBehaviour:
   RagdollParts: []
   AttackingParts: []
   AttackPoint: {fileID: 0}
+  SpawnPoint: {fileID: 0}
+  Spine: {fileID: 0}
   KnockbackSpeedGraph:
     serializedVersion: 2
     m_Curve:
@@ -497,12 +499,15 @@ MonoBehaviour:
   CommandExecuteHoldFrame: 0
   CommandDodgeHoldFrame: 0
   data:
-    HP: 20
-    MaxHP: 20
+    HP: 10
+    MaxHP: 10
     Armour: 3
     MaxArmour: 3
     ArmourRegenerationInStun: 1
     ArmourRegeneration: 0.25
+    TargetGroupWeight: 1
+    TargetGroupRadius: 1
+    IsRagdollOn: 0
     IsColliderOff: 0
     IsAnimationPause: 0
     IsGrappled: 0
@@ -544,10 +549,10 @@ MonoBehaviour:
   enemyTarget: {fileID: 0}
   team: 1
   aquisitionInterval: 1
-  visionRange: 15
+  visionRange: 8
   attackRange: 2
-  RunToWalkRange: 4
-  WalkToRunRange: 8
+  RunToWalkRange: 5
+  WalkToRunRange: 7
   MomentumFactor: 0.1
   ProbExecute: 0.5
   ProbAttack: 0.7
@@ -3296,6 +3301,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2258406773993882316}
+  - component: {fileID: 6708960725049427723}
   m_Layer: 9
   m_Name: mixamorig:Spine1
   m_TagString: Untagged
@@ -3318,6 +3324,18 @@ Transform:
   m_Father: {fileID: 4632731278194529828}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6708960725049427723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8273982784871059151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c108631c39f3a489de5771e7677616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8339030642391530572
 GameObject:
   m_ObjectHideFlags: 0

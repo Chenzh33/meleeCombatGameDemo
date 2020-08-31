@@ -1532,6 +1532,8 @@ MonoBehaviour:
   RagdollParts: []
   AttackingParts: []
   AttackPoint: {fileID: 0}
+  SpawnPoint: {fileID: 0}
+  Spine: {fileID: 0}
   KnockbackSpeedGraph:
     serializedVersion: 2
     m_Curve:
@@ -1572,6 +1574,9 @@ MonoBehaviour:
     MaxArmour: 100
     ArmourRegenerationInStun: 100
     ArmourRegeneration: 100
+    TargetGroupWeight: 3
+    TargetGroupRadius: 1
+    IsRagdollOn: 0
     IsColliderOff: 0
     IsAnimationPause: 0
     IsGrappled: 0
@@ -1597,8 +1602,8 @@ CharacterController:
   m_Radius: 0.3
   m_SlopeLimit: 0
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_SkinWidth: 0.03
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &1710191238806477316
 MonoBehaviour:
@@ -2881,6 +2886,7 @@ GameObject:
   - component: {fileID: 447438487067533819}
   - component: {fileID: 447438487067533818}
   - component: {fileID: 447438487067533820}
+  - component: {fileID: 6670469705150903143}
   m_Layer: 8
   m_Name: spine_01
   m_TagString: Untagged
@@ -2977,6 +2983,18 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &6670469705150903143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4285096103031487147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c108631c39f3a489de5771e7677616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4459635344009766130
 GameObject:
   m_ObjectHideFlags: 0
