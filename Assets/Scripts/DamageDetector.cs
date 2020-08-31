@@ -122,24 +122,18 @@ namespace meleeDemo {
             info.CurrentTargetNum++;
             Vector3 dirVector = gameObject.transform.position - info.Attacker.gameObject.transform.position;
             Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
-            if (info.IsAttackForward)
-            {
+            if (info.IsAttackForward) {
                 hitVector = info.Attacker.transform.forward;
                 hitVector.y = 0f;
             }
             //Debug.Log(hitVector);
             //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
-            control.TakeDamage (info.Damage);
-            control.TakeKnockback (info.KnockbackForce * hitVector, info.HitReactDuration);
-            if (control.isPlayerControl) {
-                //int randomIndex = Random.Range (0, 4) + 1;
-                //control.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
-                control.Animator.Play ("HitReact4", 0, 0f);
-            } else {
-                int randomIndex = Random.Range (0, 3) + 1;
-                control.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
 
-            }
+            control.TakeDamage (info.Damage);
+            if (!control.CharacterData.IsStunned)
+                control.TakeStun (info.Stun);
+            control.TakeKnockback (info.KnockbackForce * hitVector, info.HitReactDuration);
+
             //CameraManager.Instance.ShakeCamera (info.HitReactDuration);
             //control.Dead ();
         }

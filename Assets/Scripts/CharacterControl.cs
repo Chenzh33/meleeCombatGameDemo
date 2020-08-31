@@ -31,20 +31,23 @@ namespace meleeDemo {
         public bool CommandDodge;
         public int CommandAttackHoldFrame;
         public int CommandExecuteHoldFrame;
+        public int CommandDodgeHoldFrame;
         //public float SpeedMultiplyer = 1.0f;
 
         //[System.Serializable]
         public CharacterData data = new CharacterData ();
 
-        public bool AttackTrigger;
-        public bool ExecuteTrigger;
-        public bool DodgeTrigger;
+        /*
+                public bool AttackTrigger;
+                public bool ExecuteTrigger;
+                public bool DodgeTrigger;
+                */
 
         void Awake () {
             animator = GetComponentInChildren<Animator> ();
             detector = GetComponentInChildren<TriggerDetector> ();
             controller = GetComponent<CharacterController> ();
-            aiProgress = GetComponent<AIProgress>();
+            aiProgress = GetComponent<AIProgress> ();
             if (GetComponent<ManualInput> () != null && (GetComponent<ManualInput> ()).enabled == true)
                 isPlayerControl = true;
             else
@@ -72,7 +75,7 @@ namespace meleeDemo {
                 return data;
             }
         }
-        public AIProgress AIProgress{
+        public AIProgress AIProgress {
             get {
                 return aiProgress;
             }
@@ -83,10 +86,26 @@ namespace meleeDemo {
         }
 
         public void TakeDamage (float damage) {
+            if (!this.CharacterData.IsStunned) {
+                if (isPlayerControl) {
+                    this.Animator.Play ("HitReact4", 0, 0f);
+                } else {
+                    int randomIndex = Random.Range (0, 3) + 1;
+                    this.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
+                }
+            }
             this.CharacterData.HP -= damage;
 
             if (this.CharacterData.HP <= 0)
                 Dead ();
+        }
+
+        public void TakeStun (float stun) {
+
+            this.CharacterData.Armour -= stun;
+
+            if (this.CharacterData.Armour <= 0 && !this.CharacterData.IsDead)
+                GetStunned ();
         }
 
         public void HitReactionAndFreeze (float freezeStTime) {
@@ -171,13 +190,31 @@ namespace meleeDemo {
             TurnOnRagdoll ();
             data.IsDead = true;
             AIProgress agent = GetComponent<AIProgress> ();
-            if (agent != null)
-            {
-                agent.Dead();
-                AIAgentManager.Instance.TotalAIAgent.Remove(agent);
+            if (agent != null) {
+                agent.Dead ();
+                AIAgentManager.Instance.TotalAIAgent.Remove (agent);
             }
 
         }
+
+        public void GetStunned () {
+
+            AIProgress agent = GetComponent<AIProgress> ();
+            if (agent != null) {
+                agent.StopMove();
+                //AIAgentManager.Instance.TotalAIAgent.Remove (agent);
+            }
+
+            if (isPlayerControl) {
+                this.Animator.Play ("Stun", 0, 0f);
+            } else {
+                this.Animator.Play ("Stun", 0, 0f);
+                this.CharacterData.IsStunned = true;
+                this.Animator.SetBool(TransitionParameter.Stunned.ToString(), true);
+            }
+
+        }
+
         private void SetRagdollAndAttackingParts () {
             RagdollParts.Clear ();
             AttackingParts.Clear ();
@@ -244,12 +281,12 @@ namespace meleeDemo {
         public void TurnToTarget (float stTime, float smooth) {
             if (TurnToTargetCoroutine != null)
                 StopCoroutine (TurnToTargetCoroutine);
-                /*
+            /*
             float angle = Mathf.Acos (Vector3.Dot (new Vector3 (0, 0, 1), FaceTarget)) * Mathf.Rad2Deg;
             if (FaceTarget.x < 0.0f) { angle = -angle; }
             Quaternion target = Quaternion.Euler (new Vector3 (0, angle, 0));
             */
-            Quaternion target = Quaternion.LookRotation(FaceTarget, Vector3.up);
+            Quaternion target = Quaternion.LookRotation (FaceTarget, Vector3.up);
             if (smooth == 0f)
                 animator.transform.root.rotation = target;
             else //if (TurnToTargetCoroutine == null)
@@ -335,14 +372,14 @@ namespace meleeDemo {
                  }
              }
              */
-            
+
             /*
             if (!this.CharacterController.isGrounded) {
                 Vector3 gravity = new Vector3 (0, -9.8f * Time.deltaTime, 0);
                 this.CharacterController.Move (gravity);
             }
             */
-            
+            this.CharacterData.UpdateData();
 
             if (inputVector.magnitude > 0.01f) {
                 animator.SetBool (TransitionParameter.Move.ToString (), true);
@@ -390,17 +427,29 @@ namespace meleeDemo {
                     animator.SetInteger (TransitionParameter.ExcReleaseTiming.ToString (), -CommandExecuteHoldFrame);
                 else
                     animator.SetInteger (TransitionParameter.ExcReleaseTiming.ToString (), 0);
+
+                if (CommandDodgeHoldFrame > 5)
+                    animator.SetBool (TransitionParameter.DdgButtonHold.ToString (), true);
+                else
+                    animator.SetBool (TransitionParameter.DdgButtonHold.ToString (), false);
+
+                if (CommandDodgeHoldFrame < 0)
+                    animator.SetInteger (TransitionParameter.DdgReleaseTiming.ToString (), -CommandDodgeHoldFrame);
+                else
+                    animator.SetInteger (TransitionParameter.DdgReleaseTiming.ToString (), 0);
             }
 
-            if (DodgeTrigger) {
-                DodgeTrigger = false;
-            }
-            if (AttackTrigger) {
-                AttackTrigger = false;
-            }
-            if (ExecuteTrigger) {
-                ExecuteTrigger = false;
-            }
+            /*
+                        if (DodgeTrigger) {
+                            DodgeTrigger = false;
+                        }
+                        if (AttackTrigger) {
+                            AttackTrigger = false;
+                        }
+                        if (ExecuteTrigger) {
+                            ExecuteTrigger = false;
+                        }
+                        */
 
         }
     }

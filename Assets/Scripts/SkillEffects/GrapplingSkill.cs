@@ -20,18 +20,21 @@ namespace meleeDemo {
         public GrapplerType Type;
         public float Range = 1f;
         public float Damage = 1f;
+        public float Stun = 0f;
         public float FreezeStartTiming = 0.1f;
         public List<Grappler> FinishedGrapplers = new List<Grappler> ();
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             animator.SetBool (TransitionParameter.AttackExecute.ToString (), false);
+            stateEffect.CharacterControl.CommandExecute = false;
             GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.GRAPPLER);
             Grappler grappler = obj.GetComponent<Grappler> ();
             grappler.Init (this, stateEffect.CharacterControl);
             obj.SetActive (true);
             AttackManager.Instance.CurrentGrappler.Add (grappler);
-            if (stateEffect.CharacterControl.gameObject.GetComponent<ManualInput> () != null)
-                stateEffect.CharacterControl.ExecuteTrigger = true;
+            if (stateEffect.CharacterControl.isPlayerControl)
+                VirtualInputManager.Instance.ClearAllInputsInBuffer ();
+                //stateEffect.CharacterControl.ExecuteTrigger = true;
             //animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
             //Debug.Log ("Enter " + stateInfo.normalizedTime.ToString());
 

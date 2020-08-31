@@ -20,6 +20,7 @@ namespace meleeDemo {
         public float Damage;
         public float KnockbackForce;
         public float HitReactDuration;
+        public float Stun;
 
         public void Init (Attack attackSkill, LaunchProjectile projectileSkill, CharacterControl attacker) {
             AttackSkill = attackSkill;
@@ -38,6 +39,7 @@ namespace meleeDemo {
                 Damage = attackSkill.Damage;
                 KnockbackForce = attackSkill.KnockbackForce;
                 HitReactDuration = attackSkill.HitReactDuration;
+                Stun = attackSkill.Stun;
             } else {
                 IsAttackForward = projectileSkill.IsAttackForward;
                 Type = projectileSkill.Type;
@@ -46,6 +48,7 @@ namespace meleeDemo {
                 Damage = projectileSkill.Damage;
                 KnockbackForce = projectileSkill.KnockbackForce;
                 HitReactDuration = projectileSkill.HitReactDuration;
+                Stun = projectileSkill.Stun;
             }
         }
 

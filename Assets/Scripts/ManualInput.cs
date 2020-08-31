@@ -38,6 +38,7 @@ namespace meleeDemo {
                     player.CommandDodge = true;
             }
 
+
             if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN))
                 player.CommandAttack = false;
             if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_EXECUTE_ATTACK_DOWN))
@@ -45,6 +46,7 @@ namespace meleeDemo {
             if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
                 player.CommandDodge = false;
 
+/*
             if (player.DodgeTrigger) {
                 VirtualInputManager.Instance.ClearAllInputsInBuffer ();
             }
@@ -54,9 +56,11 @@ namespace meleeDemo {
             if (player.ExecuteTrigger) {
                 VirtualInputManager.Instance.ClearAllInputsInBuffer ();
             }
+            */
 
             player.CommandAttackHoldFrame = keysHoldFrames[0];
             player.CommandExecuteHoldFrame = keysHoldFrames[1];
+            player.CommandDodgeHoldFrame = keysHoldFrames[2];
 
             // for test
             if (Input.GetKeyDown (KeyCode.B)) {

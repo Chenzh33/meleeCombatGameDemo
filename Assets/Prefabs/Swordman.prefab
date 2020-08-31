@@ -495,21 +495,24 @@ MonoBehaviour:
   CommandDodge: 0
   CommandAttackHoldFrame: 0
   CommandExecuteHoldFrame: 0
+  CommandDodgeHoldFrame: 0
   data:
-    HP: 10
-    MaxHP: 10
+    HP: 20
+    MaxHP: 20
+    Armour: 3
+    MaxArmour: 3
+    ArmourRegenerationInStun: 1
+    ArmourRegeneration: 0.25
     IsColliderOff: 0
     IsAnimationPause: 0
     IsGrappled: 0
     IsDead: 0
     IsInvincible: 0
     IsRunning: 0
+    IsStunned: 0
     GrapplingTarget: {fileID: 0}
     Team: 1
     StateBuffer: 000000000000000000000000
-  AttackTrigger: 0
-  ExecuteTrigger: 0
-  DodgeTrigger: 0
 --- !u!114 &901825142
 MonoBehaviour:
   m_ObjectHideFlags: 0

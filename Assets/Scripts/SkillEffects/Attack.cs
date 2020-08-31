@@ -25,19 +25,22 @@ namespace meleeDemo {
         public float Damage = 1f;
         public float KnockbackForce = 10f;
         public float HitReactDuration = 0.1f;
+        public float Stun = 1f;
         public bool IsAttackForward;
         public List<AttackInfo> FinishedAttacks = new List<AttackInfo> ();
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
+            stateEffect.CharacterControl.CommandAttack = false;
             //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
             GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_INFO);
             AttackInfo atkInfo = obj.GetComponent<AttackInfo> ();
             atkInfo.Init (this, null, stateEffect.CharacterControl);
             obj.SetActive (true);
             AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
-            if (stateEffect.CharacterControl.gameObject.GetComponent<ManualInput> () != null)
-                stateEffect.CharacterControl.AttackTrigger = true;
+            if (stateEffect.CharacterControl.isPlayerControl)
+                VirtualInputManager.Instance.ClearAllInputsInBuffer ();
+            //stateEffect.CharacterControl.AttackTrigger = true;
             //animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
             //Debug.Log ("Enter " + stateInfo.normalizedTime.ToString());
 

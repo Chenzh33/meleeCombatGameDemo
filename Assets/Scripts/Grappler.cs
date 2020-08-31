@@ -12,6 +12,7 @@ namespace meleeDemo {
         public GrapplerType Type;
         public float Range;
         public float Damage;
+        public float Stun;
         public float FreezeStartTiming;
         public float DamageDelay;
         public CharacterControl Attacker;
@@ -26,6 +27,7 @@ namespace meleeDemo {
             Type = grapplingSkill.Type;
             Range = grapplingSkill.Range;
             Damage = grapplingSkill.Damage;
+            Stun = grapplingSkill.Stun;
             FreezeStartTiming = grapplingSkill.FreezeStartTiming;
             Attacker = attacker;
             Target = null;

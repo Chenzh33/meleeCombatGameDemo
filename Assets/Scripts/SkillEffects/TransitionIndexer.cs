@@ -27,30 +27,39 @@ namespace meleeDemo {
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             animator.SetInteger (TransitionParameter.TransitionIndexer.ToString (), 0);
-            animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
+            animator.SetBool (TransitionParameter.ForcedTransitionDodge.ToString (), false);
+            animator.SetBool (TransitionParameter.ForcedTransitionExecute.ToString (), false);
         }
 
         public void CheckTransition (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             bool inInterval = false;
-            bool ForceTransition = false;
+            bool ForcedTransitionDodge = false;
+            bool ForcedTransitionExecute = false;
             foreach (TimeInterval t in TimeIntervals) {
-                if (t.index >= 0 && stateInfo.normalizedTime >= t.st && stateInfo.normalizedTime < t.ed) {
-                    animator.SetInteger (TransitionParameter.TransitionIndexer.ToString (), t.index);
-                    inInterval = true;
+                if (stateInfo.normalizedTime >= t.st && stateInfo.normalizedTime < t.ed) {
+                    if (t.index >= 0) {
+                        animator.SetInteger (TransitionParameter.TransitionIndexer.ToString (), t.index);
+                        inInterval = true;
+                    } else if (t.index == -1)
+                        ForcedTransitionDodge = true;
+                    else if (t.index == -2)
+                        ForcedTransitionExecute = true;
                 }
 
-                if (t.index < 0) {
-                    if (stateInfo.normalizedTime >= t.st && stateInfo.normalizedTime < t.ed)
-                        ForceTransition = true;
-                }
             }
             if (!inInterval)
                 animator.SetInteger (TransitionParameter.TransitionIndexer.ToString (), 0);
 
-            if (ForceTransition)
-                animator.SetBool (TransitionParameter.ForcedTransition.ToString (), true);
+            if (ForcedTransitionDodge)
+                animator.SetBool (TransitionParameter.ForcedTransitionDodge.ToString (), true);
             else
-                animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
+                animator.SetBool (TransitionParameter.ForcedTransitionDodge.ToString (), false);
+
+            if (ForcedTransitionExecute)
+                animator.SetBool (TransitionParameter.ForcedTransitionExecute.ToString (), true);
+            else
+                animator.SetBool (TransitionParameter.ForcedTransitionExecute.ToString (), false);
+
         }
     }
 }

@@ -4,18 +4,10 @@ using UnityEngine;
 
 namespace meleeDemo {
 
-    [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/Dodge")]
-    public class Dodge : SkillEffect {
+    [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/StopMove")]
+    public class StopMove : SkillEffect {
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
-
-            if (stateEffect.CharacterControl.isPlayerControl)
-                VirtualInputManager.Instance.ClearAllInputsInBuffer ();
-                //stateEffect.CharacterControl.DodgeTrigger = true;
-            animator.SetBool (TransitionParameter.ForcedTransitionDodge.ToString (), false);
-
-            animator.SetBool (TransitionParameter.Dodge.ToString (), false);
-            stateEffect.CharacterControl.CommandDodge = false;
 
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {

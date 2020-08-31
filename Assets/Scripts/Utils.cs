@@ -8,16 +8,20 @@ namespace meleeDemo {
         Move,
         AttackMelee,
         AttackExecute,
-        ForcedTransition,
+        ForcedTransitionDodge,
+        ForcedTransitionExecute,
         Dodge,
         TransitionIndexer,
         AtkReleaseTiming,
         ExcReleaseTiming,
+        DdgReleaseTiming,
         ButtonSmashing,
         AtkButtonHold,
         ExcButtonHold,
+        DdgButtonHold,
         GrapplingHit,
-        SpeedMultiplier
+        SpeedMultiplier,
+        Stunned
 
     }
 
