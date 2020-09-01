@@ -68,6 +68,7 @@ namespace meleeDemo {
         }
         public void GrapplingHit () {
             Attacker.Animator.SetBool (TransitionParameter.GrapplingHit.ToString (), true);
+
             Attacker.CharacterData.GrapplingTarget = Target;
             if (CheckCompleteCoroutine != null)
                 StopCoroutine (CheckCompleteCoroutine);

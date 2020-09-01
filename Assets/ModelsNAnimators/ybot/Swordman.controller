@@ -91,8 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b838d496b90d34a4e94a8717f533fea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ListSkillEffect:
-  - {fileID: 11400000, guid: 8357d84cc9a4cc74c86cd45e3fd5bbc1, type: 2}
+  ListSkillEffect: []
 --- !u!1101 &-7458663970471415698
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -894,8 +893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b838d496b90d34a4e94a8717f533fea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ListSkillEffect:
-  - {fileID: 11400000, guid: 8357d84cc9a4cc74c86cd45e3fd5bbc1, type: 2}
+  ListSkillEffect: []
 --- !u!1102 &1554576074041392985
 AnimatorState:
   serializedVersion: 5
@@ -1240,8 +1238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b838d496b90d34a4e94a8717f533fea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ListSkillEffect:
-  - {fileID: 11400000, guid: 8357d84cc9a4cc74c86cd45e3fd5bbc1, type: 2}
+  ListSkillEffect: []
 --- !u!114 &4690905069545024731
 MonoBehaviour:
   m_ObjectHideFlags: 1

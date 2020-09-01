@@ -22,6 +22,7 @@ namespace meleeDemo {
         private Coroutine TurnToTargetCoroutine;
         private Coroutine KnockbackCoroutine;
         private Coroutine HitReactCoroutine;
+        private Coroutine SetFormerTargetCoroutine;
         public AnimationCurve KnockbackSpeedGraph;
         public Vector3 FaceTarget;
 
@@ -136,6 +137,24 @@ namespace meleeDemo {
             }
 
         }
+        public void SetFormerTarget(CharacterControl target, float duration) {
+            if (SetFormerTargetCoroutine != null)
+                StopCoroutine (SetFormerTargetCoroutine);
+            SetFormerTargetCoroutine = StartCoroutine (_SetFormerTarget(target, duration));
+        }
+
+        IEnumerator _SetFormerTarget(CharacterControl target, float duration) {
+            this.CharacterData.FormerAttackTarget = target;
+            float t = 0f;
+            while (t < duration) {
+                t += Time.deltaTime;
+                //Debug.Log(t);
+                yield return null;
+            }
+            this.CharacterData.FormerAttackTarget = null;
+            SetFormerTargetCoroutine = null;
+        }
+
         public void TakeKnockback (Vector3 knockbackVector, float duration) {
             if (KnockbackCoroutine != null)
                 StopCoroutine (KnockbackCoroutine);
@@ -195,8 +214,8 @@ namespace meleeDemo {
 
         public void Dead () {
             //TurnOnRagdoll ();
-            int randomIndex = Random.Range(0, 2) + 1;
-            this.Animator.Play("Dead" + randomIndex.ToString(), 0, 0f);
+            int randomIndex = Random.Range (0, 2) + 1;
+            this.Animator.Play ("Dead" + randomIndex.ToString (), 0, 0f);
             data.IsDead = true;
             AIProgress agent = GetComponent<AIProgress> ();
             if (agent != null) {
@@ -205,10 +224,8 @@ namespace meleeDemo {
             }
 
         }
-        public void DestroyObject()
-        {
-            Destroy(this.gameObject);
-          
+        public void DestroyObject () {
+            Destroy (this.gameObject);
 
         }
 
@@ -216,7 +233,7 @@ namespace meleeDemo {
 
             AIProgress agent = GetComponent<AIProgress> ();
             if (agent != null) {
-                agent.StopMove();
+                agent.StopMove ();
                 //AIAgentManager.Instance.TotalAIAgent.Remove (agent);
             }
 
@@ -225,7 +242,7 @@ namespace meleeDemo {
             } else {
                 this.Animator.Play ("Stun", 0, 0f);
                 this.CharacterData.IsStunned = true;
-                this.Animator.SetBool(TransitionParameter.Stunned.ToString(), true);
+                this.Animator.SetBool (TransitionParameter.Stunned.ToString (), true);
             }
 
         }
@@ -264,25 +281,22 @@ namespace meleeDemo {
             return AttackPoint;
 
         }
-        public Transform GetSpine()
-        {
-            if (Spine == null)
-            {
-                SpineTag s = this.gameObject.GetComponentInChildren<SpineTag>();
+        public Transform GetSpine () {
+            if (Spine == null) {
+                SpineTag s = this.gameObject.GetComponentInChildren<SpineTag> ();
                 Spine = s.gameObject.transform;
             }
             return Spine;
         }
 
         public Transform GetProjectileSpawnPoint () {
-            if(SpawnPoint == null)
-            {
-                ProjectSpawnPoint p = this.gameObject.GetComponentInChildren<ProjectSpawnPoint>();
+            if (SpawnPoint == null) {
+                ProjectSpawnPoint p = this.gameObject.GetComponentInChildren<ProjectSpawnPoint> ();
                 SpawnPoint = p.gameObject.transform;
             }
             return SpawnPoint;
 
-       }
+        }
         /*
         public List<ProjectileObject> GetProjectileObjs() {
             return ProjectileObjs;
@@ -402,14 +416,14 @@ namespace meleeDemo {
              }
              */
 
-           /* 
-            if (!this.CharacterController.isGrounded) {
-                Vector3 gravity = new Vector3 (0, -9.8f * Time.deltaTime, 0);
-                this.CharacterController.Move (gravity);
-            }
-            */
-            
-            this.CharacterData.UpdateData();
+            /* 
+             if (!this.CharacterController.isGrounded) {
+                 Vector3 gravity = new Vector3 (0, -9.8f * Time.deltaTime, 0);
+                 this.CharacterController.Move (gravity);
+             }
+             */
+
+            this.CharacterData.UpdateData ();
 
             if (inputVector.magnitude > 0.01f) {
                 animator.SetBool (TransitionParameter.Move.ToString (), true);

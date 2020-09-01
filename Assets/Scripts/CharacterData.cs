@@ -25,6 +25,7 @@ namespace meleeDemo {
         public bool IsRunning;
         public bool IsStunned;
         public CharacterControl GrapplingTarget;
+        public CharacterControl FormerAttackTarget;
         public TeamTag Team;
 
         public const int STATE_BUFFER_SIZE = 3;

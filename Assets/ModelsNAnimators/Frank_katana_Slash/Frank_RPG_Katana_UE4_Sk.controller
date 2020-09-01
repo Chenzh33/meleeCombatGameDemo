@@ -2262,7 +2262,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ListSkillEffect:
   - {fileID: 11400000, guid: 6c649c105e8020045a5fddad706b4a23, type: 2}
-  - {fileID: 11400000, guid: 8357d84cc9a4cc74c86cd45e3fd5bbc1, type: 2}
 --- !u!1102 &4307882618021422915
 AnimatorState:
   serializedVersion: 5

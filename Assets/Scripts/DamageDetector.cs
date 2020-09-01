@@ -82,7 +82,7 @@ namespace meleeDemo {
             }
             return false;
             */
-            
+
             /*
             int layerMask = 1 << 9;
             RaycastHit hit;
@@ -104,14 +104,12 @@ namespace meleeDemo {
             }
             */
 
-            
             Vector3 dist = control.gameObject.transform.position - info.Attacker.GetAttackPoint ().gameObject.transform.position;
             dist.y = 0f;
             if (dist.magnitude <= info.Range)
                 return true;
             else
                 return false;
-                
 
         }
 
@@ -136,6 +134,9 @@ namespace meleeDemo {
                 hitVector = info.Attacker.transform.forward;
                 hitVector.y = 0f;
             }
+
+            control.FaceTarget = -hitVector;
+            control.TurnToTarget (0f, 0f);
             //Debug.Log(hitVector);
             //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
 
@@ -143,6 +144,7 @@ namespace meleeDemo {
             if (!control.CharacterData.IsStunned)
                 control.TakeStun (info.Stun);
             control.TakeKnockback (info.KnockbackForce * hitVector, info.HitReactDuration);
+            control.CharacterData.FormerAttackTarget = null;
 
             //CameraManager.Instance.ShakeCamera (info.HitReactDuration);
             //control.Dead ();
@@ -175,20 +177,20 @@ namespace meleeDemo {
             Debug.Log ("Grappler HIT !!!");
             control.CharacterData.IsGrappled = true;
             control.HitReactionAndFreeze (info.FreezeStartTiming);
-            
-            Vector3 diffVectorRaw =  info.Attacker.gameObject.transform.position - control.gameObject.transform.position;
-            Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0, diffVectorRaw.z);
-            control.FaceTarget = diffVector.normalized;
+
+            Vector3 dirVector = control.gameObject.transform.position - info.Attacker.gameObject.transform.position;
+            Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
+            control.FaceTarget = -hitVector;
             control.TurnToTarget (0f, 0f);
-            
-            info.Attacker.CharacterController.Move(info.Attacker.gameObject.transform.forward * 0.6f);
+
+            info.Attacker.CharacterController.Move (info.Attacker.gameObject.transform.forward * 0.6f);
             Vector3 AttackerFront = info.Attacker.gameObject.transform.forward * 1.2f;
             AttackerFront.y = 0f;
             Vector3 diff = control.gameObject.transform.position - info.Attacker.gameObject.transform.position;
             diff.y = 0f;
             Vector3 dir = AttackerFront - diff;
-            control.CharacterController.Move(dir);
-            
+            control.CharacterController.Move (dir);
+
             //info.Attacker.gameObject.transform.position = info.Attacker.gameObject.transform.position + info.Attacker.gameObject.transform.forward * 0.6f;
             //Vector3 AttackerFront = info.Attacker.gameObject.transform.position + info.Attacker.gameObject.transform.forward * 1.2f;
             //control.gameObject.transform.position = new Vector3 (AttackerFront.x, control.gameObject.transform.position.y, AttackerFront.z);

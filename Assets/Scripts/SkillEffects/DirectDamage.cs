@@ -34,7 +34,9 @@ namespace meleeDemo {
                     Vector3 dirVector = Target.transform.position - stateEffect.CharacterControl.transform.position;
                     Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
                     Target.TakeKnockback (KnockbackForce * hitVector, HitReactDuration);
-
+                    Target.CharacterData.FormerAttackTarget = null;
+                    Target.FaceTarget = -hitVector;
+                    Target.TurnToTarget (0f, 0f);
                     //int randomIndex = Random.Range (0, 3) + 1;
                     //Target.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
                 }

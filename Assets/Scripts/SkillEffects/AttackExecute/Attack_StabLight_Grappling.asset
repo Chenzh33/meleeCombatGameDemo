@@ -15,7 +15,7 @@ MonoBehaviour:
   GrapplingBeginTime: 0.73
   GrapplingEndTime: 1
   Type: 0
-  Range: 0.5
+  Range: 0.8
   Damage: 1
   Stun: 0
   FreezeStartTiming: 0.15
