@@ -8,6 +8,7 @@ namespace meleeDemo {
         CharacterController controller;
         Animator animator;
         AIProgress aiProgress;
+        ParticleSystem particleSystem;
 
         public bool isPlayerControl;
         public List<Collider> RagdollParts = new List<Collider> ();
@@ -51,6 +52,13 @@ namespace meleeDemo {
             detector = GetComponentInChildren<TriggerDetector> ();
             controller = GetComponent<CharacterController> ();
             aiProgress = GetComponent<AIProgress> ();
+            ParticleSystemTag particleSystemTag = GetComponentInChildren<ParticleSystemTag>();
+            if (particleSystemTag != null)
+            {
+                particleSystem = particleSystemTag.GetComponent<ParticleSystem>();
+                particleSystem.Pause(true);
+                particleSystem.Clear();
+            }
             if (GetComponent<ManualInput> () != null && (GetComponent<ManualInput> ()).enabled == true)
                 isPlayerControl = true;
             else
@@ -86,6 +94,12 @@ namespace meleeDemo {
         public TriggerDetector GetTriggerDetector () {
             return detector;
 
+        }
+        public ParticleSystem ParticleSystem
+        {
+            get {
+                return particleSystem;
+            }
         }
 
         public void TakeDamage (float damage) {

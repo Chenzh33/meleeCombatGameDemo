@@ -22,6 +22,8 @@ namespace meleeDemo {
             AIProgress ai = stateEffect.CharacterControl.AIProgress;
             if (!ai.enabled)
                 return;
+            if (ai.enemyTarget == null)
+                return;
             Vector3 direction = ai.enemyTarget.gameObject.transform.position - ai.gameObject.transform.position;
             direction.y = 0f;
             //Vector3 direction = -ai.gameObject.transform.position;
