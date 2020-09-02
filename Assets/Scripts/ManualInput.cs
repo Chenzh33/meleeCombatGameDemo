@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 namespace meleeDemo {
 
@@ -91,7 +92,15 @@ namespace meleeDemo {
                 EnemyManager.Instance.SpawnEnemy (this.gameObject.transform.position + new Vector3(x, 0f, y), "Swordman");
 
             }
-
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                CinemachineStateDrivenCamera camera = GameObject.FindObjectOfType(typeof(CinemachineStateDrivenCamera)) as CinemachineStateDrivenCamera;
+                Animator anim = camera.m_AnimatedTarget;
+                CinemachineCameraOffset offset = camera.gameObject.GetComponent<CinemachineCameraOffset>();
+                float Offset = anim.GetFloat("ExtraOffset");
+                offset.m_Offset.y += Offset;
+                offset.m_Offset.z += -Offset;
+            }
             /*
                         Vector3 forward = gameObject.transform.forward;
                         forward.y = 0f;

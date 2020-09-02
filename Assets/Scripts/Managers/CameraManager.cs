@@ -32,6 +32,11 @@ namespace meleeDemo {
             controller.AddToTargetGroup(unit);
         }
 
+        public void ZoomCameraPerFrame(float offset)
+        {
+            controller.ZoomCameraPerFrame(offset);
+
+        }
         public void RemoveFromTargetGroup(CharacterControl unit)
         {
             controller.RemoveFromTargetGroup(unit);

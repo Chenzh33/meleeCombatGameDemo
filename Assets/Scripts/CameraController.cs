@@ -16,11 +16,18 @@ namespace meleeDemo
     {
         private Animator animator;
         private CinemachineTargetGroup targetGroup;
+        private CinemachineStateDrivenCamera cameras;
+        private CinemachineCameraOffset cameraOffset;
+
+        public float MaxExtraOffset = 5f;
+        public float MinExtraOffset = 0f;
         
         void Awake()
         {
             animator = GetComponent<Animator>();
             targetGroup = GetComponent<CinemachineTargetGroup>();
+            cameras = GameObject.FindObjectOfType(typeof(CinemachineStateDrivenCamera)) as CinemachineStateDrivenCamera;
+            cameraOffset = cameras.gameObject.GetComponent<CinemachineCameraOffset>();
         }
 
 
@@ -42,8 +49,20 @@ namespace meleeDemo
 
         }
 
+        public void ZoomCameraPerFrame(float offset)
+        {
+            if((offset > 0 && cameraOffset.m_Offset.z > -MaxExtraOffset) ||
+                offset < 0 && cameraOffset.m_Offset.z < -MinExtraOffset)
+            {
+                //cameraOffset.m_Offset.y += offset;
+                cameraOffset.m_Offset.z += -offset;
+            }
+       }
+   
+
         void Update()
         {
+
         }
 
         public void AddToTargetGroup(CharacterControl unit)
