@@ -16,20 +16,20 @@ namespace meleeDemo {
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
 
-            if (stateInfo.normalizedTime > TurnOnTrailTiming && stateInfo.normalizedTime <= TurnOffTrailTiming && stateEffect.CharacterControl.ParticleSystem.isPaused) {
-                stateEffect.CharacterControl.ParticleSystem.Play(true);
+            if (stateInfo.normalizedTime > TurnOnTrailTiming && stateInfo.normalizedTime <= TurnOffTrailTiming && stateEffect.CharacterControl.VFXTrail.isPaused) {
+                stateEffect.CharacterControl.VFXTrail.Play(true);
             }
-            if (stateInfo.normalizedTime > TurnOffTrailTiming && !stateEffect.CharacterControl.ParticleSystem.isPaused) {
-                stateEffect.CharacterControl.ParticleSystem.Pause(true);
-                stateEffect.CharacterControl.ParticleSystem.Clear();
+            if (stateInfo.normalizedTime > TurnOffTrailTiming && !stateEffect.CharacterControl.VFXTrail.isPaused) {
+                stateEffect.CharacterControl.VFXTrail.Pause(true);
+                stateEffect.CharacterControl.VFXTrail.Clear();
             }
 
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            if (!stateEffect.CharacterControl.ParticleSystem.isPaused)
+            if (!stateEffect.CharacterControl.VFXTrail.isPaused)
             {
-                stateEffect.CharacterControl.ParticleSystem.Pause(true);
-                stateEffect.CharacterControl.ParticleSystem.Clear();
+                stateEffect.CharacterControl.VFXTrail.Pause(true);
+                stateEffect.CharacterControl.VFXTrail.Clear();
             }
         }
 

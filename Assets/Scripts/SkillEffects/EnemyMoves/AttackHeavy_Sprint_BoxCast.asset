@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AttackHeavy_Sprint_BoxCast
   m_EditorClassIdentifier: 
   BoxHalfSize: 0.6
-  HitDistance: 2.5
+  HitDistance: 3

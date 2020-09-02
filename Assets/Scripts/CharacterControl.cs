@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace meleeDemo {
 
@@ -8,7 +9,8 @@ namespace meleeDemo {
         CharacterController controller;
         Animator animator;
         AIProgress aiProgress;
-        ParticleSystem particleSystem;
+        public ParticleSystem particleSystemTrail;
+        public ParticleSystem particleSystemHold;
 
         public bool isPlayerControl;
         public List<Collider> RagdollParts = new List<Collider> ();
@@ -52,19 +54,34 @@ namespace meleeDemo {
             detector = GetComponentInChildren<TriggerDetector> ();
             controller = GetComponent<CharacterController> ();
             aiProgress = GetComponent<AIProgress> ();
-            ParticleSystemTag particleSystemTag = GetComponentInChildren<ParticleSystemTag>();
-            if (particleSystemTag != null)
-            {
-                particleSystem = particleSystemTag.GetComponent<ParticleSystem>();
-                particleSystem.Pause(true);
-                particleSystem.Clear();
+            ParticleSystemTag[] particleSystemTags = GetComponentsInChildren<ParticleSystemTag> ();
+            foreach (ParticleSystemTag p in particleSystemTags) {
+                if (p.tag == VFXType.Trail) {
+                    particleSystemTrail = p.GetComponent<ParticleSystem> ();
+                    particleSystemTrail.Pause (true);
+                    particleSystemTrail.Clear ();
+                } else if (p.tag == VFXType.Hold) {
+                    particleSystemHold = p.GetComponent<ParticleSystem> ();
+                    particleSystemHold.Pause (true);
+                    particleSystemHold.Clear ();
+                }
+
             }
+         
             if (GetComponent<ManualInput> () != null && (GetComponent<ManualInput> ()).enabled == true)
                 isPlayerControl = true;
             else
                 isPlayerControl = false;
             // load data process xxxx
             SetRagdollAndAttackingParts ();
+        }
+
+        public void Spawn()
+        {
+            //DOTween.Init(autoKillMode, useSafeMode, logBehaviour);
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 10f, this.gameObject.transform.position.z);
+            this.Animator.Play("Spawn");
+            this.gameObject.transform.DOMoveY(0f, 0.1f);
         }
 
         void Start () {
@@ -95,15 +112,19 @@ namespace meleeDemo {
             return detector;
 
         }
-        public ParticleSystem ParticleSystem
-        {
+        public ParticleSystem VFXTrail {
             get {
-                return particleSystem;
+                return particleSystemTrail;
+            }
+        }
+        public ParticleSystem VFXHold{
+            get {
+                return particleSystemHold;
             }
         }
 
         public void TakeDamage (float damage) {
-            if (!this.CharacterData.IsStunned) {
+            if (!this.CharacterData.IsStunned && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead) {
                 if (isPlayerControl) {
                     this.Animator.Play ("HitReact4", 0, 0f);
                 } else {
@@ -151,13 +172,13 @@ namespace meleeDemo {
             }
 
         }
-        public void SetFormerTarget(CharacterControl target, float duration) {
+        public void SetFormerTarget (CharacterControl target, float duration) {
             if (SetFormerTargetCoroutine != null)
                 StopCoroutine (SetFormerTargetCoroutine);
-            SetFormerTargetCoroutine = StartCoroutine (_SetFormerTarget(target, duration));
+            SetFormerTargetCoroutine = StartCoroutine (_SetFormerTarget (target, duration));
         }
 
-        IEnumerator _SetFormerTarget(CharacterControl target, float duration) {
+        IEnumerator _SetFormerTarget (CharacterControl target, float duration) {
             this.CharacterData.FormerAttackTarget = target;
             float t = 0f;
             while (t < duration) {
@@ -229,7 +250,10 @@ namespace meleeDemo {
         public void Dead () {
             //TurnOnRagdoll ();
             int randomIndex = Random.Range (0, 2) + 1;
-            this.Animator.Play ("Dead" + randomIndex.ToString (), 0, 0f);
+            if (isPlayerControl)
+                this.Animator.Play ("Frank_Dead" + randomIndex.ToString (), 0, 0f);
+            else
+                this.Animator.Play ("Ybot_Dead" + randomIndex.ToString (), 0, 0f);
             data.IsDead = true;
             AIProgress agent = GetComponent<AIProgress> ();
             if (agent != null) {

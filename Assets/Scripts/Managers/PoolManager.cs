@@ -10,7 +10,8 @@ namespace meleeDemo {
         BUTTON_SMASHER,
         GRAPPLER,
         PATH_FINDING_AGENT,
-        CAMERA_SHAKER
+        CAMERA_SHAKER,
+        SLAM_VFX
     }
 
     public class PoolManager : Singleton<PoolManager> {
@@ -89,9 +90,15 @@ namespace meleeDemo {
                         obj = Instantiate (Resources.Load ("CameraShakerPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
+                case PoolObjectType.SLAM_VFX:
+                    {
+                        obj = Instantiate (Resources.Load ("SlamVFXPrefab", typeof (GameObject)) as GameObject);
+                        break;
+                    }
             }
             return obj;
 
         }
+
     }
 }

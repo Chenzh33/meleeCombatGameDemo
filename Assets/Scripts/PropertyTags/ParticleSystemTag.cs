@@ -5,6 +5,7 @@ using UnityEngine;
 namespace meleeDemo {
 
     public class ParticleSystemTag : MonoBehaviour {
+        public VFXType tag;
 
         void Start () {
 

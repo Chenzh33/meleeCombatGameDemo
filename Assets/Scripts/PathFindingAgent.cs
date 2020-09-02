@@ -9,7 +9,7 @@ namespace meleeDemo {
         public Transform Target;
         NavMeshAgent navMeshAgent;
 
-        public void Init() {
+        public void Init () {
             Target = null;
             navMeshAgent.enabled = true;
             navMeshAgent.isStopped = true;
@@ -28,7 +28,6 @@ namespace meleeDemo {
 
         }
 
-        
         public void SetTarget (Transform target) {
             Target = target;
 
@@ -37,25 +36,24 @@ namespace meleeDemo {
             navMeshAgent.SetDestination (Target.position);
         }
 
-        public bool IsStopped()
-        {
-            return navMeshAgent.isStopped;
+        public bool IsStopped () {
+            if (navMeshAgent.enabled)
+                return navMeshAgent.isStopped;
+            else
+                return true;
         }
-        public void Stop()
-        {
-            if(navMeshAgent.enabled)
+        public void Stop () {
+            if (navMeshAgent.enabled)
                 navMeshAgent.isStopped = true;
         }
-        public void Dead()
-        {
-            Stop();
+        public void Dead () {
+            Stop ();
             navMeshAgent.enabled = false;
-            PoolObject pobj = GetComponent<PoolObject>();
-            PoolManager.Instance.ReturnToPool(pobj);
+            PoolObject pobj = GetComponent<PoolObject> ();
+            PoolManager.Instance.ReturnToPool (pobj);
         }
 
-        public void StartNav()
-        {
+        public void StartNav () {
             navMeshAgent.isStopped = false;
         }
 

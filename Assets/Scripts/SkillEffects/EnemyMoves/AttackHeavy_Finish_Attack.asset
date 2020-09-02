@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: AttackHeavy_Finish_Attack
   m_EditorClassIdentifier: 
   AttackBeginTime: 0.4
-  AttackEndTime: 0.6
+  AttackEndTime: 0.48
   Type: 1
   MaxTargetNum: 5
   Range: 2
-  Damage: 1
-  KnockbackForce: 14
-  HitReactDuration: 0.08
+  Damage: 10
+  KnockbackForce: 10
+  HitReactDuration: 0.1
+  Stun: 1
   IsAttackForward: 0
   FinishedAttacks: []

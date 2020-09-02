@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeIntervals:
   - index: 1
-    st: 2.7
-    ed: 3
+    st: 3.5
+    ed: 4
   - index: -1
     st: 0.1
-    ed: 2
+    ed: 10

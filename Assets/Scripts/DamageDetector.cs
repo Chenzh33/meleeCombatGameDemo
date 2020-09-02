@@ -114,15 +114,21 @@ namespace meleeDemo {
         }
 
         private bool IsInProjectileRange (AttackInfo info) {
-            float distance = (this.gameObject.transform.position - info.ProjectileObject.gameObject.transform.position).magnitude;
-            if (distance <= info.Range) {
+            Vector3 distVec = this.gameObject.transform.position - info.ProjectileObject.gameObject.transform.position;
+            float dist = new Vector3 (distVec.x, 0f, distVec.z).magnitude;
+            if (dist <= info.Range) {
                 return true;
             }
             return false;
 
         }
         private bool IsInRange (AttackInfo info) {
-            return true;
+            Vector3 distVec = this.gameObject.transform.position - info.Attacker.GetAttackPoint ().gameObject.transform.position;
+            float dist = new Vector3 (distVec.x, 0f, distVec.z).magnitude;
+            if (dist <= info.Range) {
+                return true;
+            }
+            return false;
         }
         private void ProcessDamage (AttackInfo info) {
             //Debug.Log ("HIT !!!");

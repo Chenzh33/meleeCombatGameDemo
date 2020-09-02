@@ -31,6 +31,11 @@ namespace meleeDemo {
        
 
     }
+    public enum VFXType{
+        Trail,
+        Hold
+
+    }
 
     [System.Serializable]
     public class TimeInterval {

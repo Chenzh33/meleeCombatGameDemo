@@ -13,6 +13,7 @@ namespace meleeDemo {
             AttackManager.Instance.Init ();
             CameraManager.Instance.Init ();
             AIAgentManager.Instance.Init ();
+            EnemyManager.Instance.Init ();
         }
 
         void Update () { }
