@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
-  m_Name: Attack_Main_3_Attack
+  m_Name: Attack_C1_4_Attack_2
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.25
-  AttackEndTime: 0.4
+  AttackBeginTime: 0.4
+  AttackEndTime: 0.46
   Type: 1
   MaxTargetNum: 5
   Range: 2
-  Damage: 2
-  KnockbackForce: 10
-  HitReactDuration: 0.2
+  Damage: 1
+  KnockbackForce: 4
+  HitReactDuration: 0.15
   Stun: 1
   IsAttackForward: 0
   FinishedAttacks: []

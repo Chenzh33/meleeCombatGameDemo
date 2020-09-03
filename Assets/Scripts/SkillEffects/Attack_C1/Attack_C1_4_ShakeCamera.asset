@@ -9,16 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 041a36037495c8b4592e25b5f60b7e83, type: 3}
-  m_Name: Attack_C2_4_TransitionIndexer
+  m_Script: {fileID: 11500000, guid: 31b2197c81ec85849b3fbc113d7f1892, type: 3}
+  m_Name: Attack_C1_4_ShakeCamera
   m_EditorClassIdentifier: 
-  TimeIntervals:
-  - index: 1
-    st: 1.3
-    ed: 2
-  - index: -3
-    st: 0.58
-    ed: 2
-  - index: -4
-    st: 0.43
-    ed: 0.58
+  ShakeBeginTime: 0.45
+  ShakeEndTime: 0.55
+  FinishedShakers: []

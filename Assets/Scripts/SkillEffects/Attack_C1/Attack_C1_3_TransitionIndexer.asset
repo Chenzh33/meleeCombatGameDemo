@@ -10,24 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041a36037495c8b4592e25b5f60b7e83, type: 3}
-  m_Name: Attack_Main_1_TransitionIndexer
+  m_Name: Attack_C1_3_TransitionIndexer
   m_EditorClassIdentifier: 
   TimeIntervals:
   - index: 1
-    st: 0.38
-    ed: 0.6
+    st: 0.8
+    ed: 0.9
   - index: 2
-    st: 0.6
-    ed: 0.95
-  - index: 3
-    st: 0.95
-    ed: 1.2
+    st: 0.9
+    ed: 1.5
   - index: -1
+    st: 1
+    ed: 2
+  - index: -3
     st: 0.45
     ed: 1.2
-  - index: -3
-    st: 0.6
-    ed: 1.2
   - index: -4
-    st: 0.48
-    ed: 0.6
+    st: 0.62
+    ed: 1.2
