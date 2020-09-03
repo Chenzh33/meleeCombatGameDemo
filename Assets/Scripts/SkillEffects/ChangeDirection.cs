@@ -22,7 +22,7 @@ namespace meleeDemo {
         public float CaptureDistanceNear = 2f;
         public float CaptureAngleRangeNear = 60f;
         public float smoothEarlyTurn = 20f;
-        public float LockOnTargetDuration = 3.0f;
+        public float LockOnTargetDuration = 1.0f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             bool IsFaceForward = true;

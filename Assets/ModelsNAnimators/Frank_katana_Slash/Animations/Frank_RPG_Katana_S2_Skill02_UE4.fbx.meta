@@ -69,7 +69,7 @@ ModelImporter:
       firstFrame: 0
       lastFrame: 39
       wrapMode: 0
-      orientationOffsetY: -90
+      orientationOffsetY: 90
       level: 0
       cycleOffset: 0
       loop: 0
@@ -79,7 +79,7 @@ ModelImporter:
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -98,7 +98,7 @@ ModelImporter:
       firstFrame: 73
       lastFrame: 83
       wrapMode: 0
-      orientationOffsetY: -150
+      orientationOffsetY: 90
       level: 0
       cycleOffset: 0
       loop: 0
@@ -108,7 +108,7 @@ ModelImporter:
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -127,7 +127,7 @@ ModelImporter:
       firstFrame: 92
       lastFrame: 100
       wrapMode: 0
-      orientationOffsetY: -35
+      orientationOffsetY: 90
       level: 0
       cycleOffset: 0
       loop: 0
@@ -137,7 +137,7 @@ ModelImporter:
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -156,7 +156,7 @@ ModelImporter:
       firstFrame: 101
       lastFrame: 155
       wrapMode: 0
-      orientationOffsetY: -35
+      orientationOffsetY: 90
       level: 0
       cycleOffset: 0
       loop: 0
@@ -166,7 +166,7 @@ ModelImporter:
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -185,7 +185,7 @@ ModelImporter:
       firstFrame: 40
       lastFrame: 72
       wrapMode: 0
-      orientationOffsetY: -135
+      orientationOffsetY: 90
       level: 0
       cycleOffset: 0
       loop: 0
@@ -195,7 +195,7 @@ ModelImporter:
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0

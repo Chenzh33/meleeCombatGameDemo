@@ -35,6 +35,8 @@ namespace meleeDemo {
             bool inInterval = false;
             bool ForcedTransitionDodge = false;
             bool ForcedTransitionExecute = false;
+            bool ForcedTransitionAttackHold = false;
+            bool ForcedTransitionAttackHoldFS = false;
             foreach (TimeInterval t in TimeIntervals) {
                 if (stateInfo.normalizedTime >= t.st && stateInfo.normalizedTime < t.ed) {
                     if (t.index >= 0) {
@@ -44,6 +46,10 @@ namespace meleeDemo {
                         ForcedTransitionDodge = true;
                     else if (t.index == -2)
                         ForcedTransitionExecute = true;
+                    else if (t.index == -3)
+                        ForcedTransitionAttackHold = true;
+                    else if (t.index == -4)
+                        ForcedTransitionAttackHoldFS = true;
                 }
 
             }
@@ -59,6 +65,17 @@ namespace meleeDemo {
                 animator.SetBool (TransitionParameter.ForcedTransitionExecute.ToString (), true);
             else
                 animator.SetBool (TransitionParameter.ForcedTransitionExecute.ToString (), false);
+
+            if (ForcedTransitionAttackHold)
+                animator.SetBool (TransitionParameter.ForcedTransitionAttackHold.ToString (), true);
+            else
+                animator.SetBool (TransitionParameter.ForcedTransitionAttackHold.ToString (), false);
+
+            if (ForcedTransitionAttackHoldFS)
+                animator.SetBool (TransitionParameter.ForcedTransitionAttackHoldFS.ToString (), true);
+            else
+                animator.SetBool (TransitionParameter.ForcedTransitionAttackHoldFS.ToString (), false);
+
 
         }
     }

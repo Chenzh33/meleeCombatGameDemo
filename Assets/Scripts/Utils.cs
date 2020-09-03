@@ -10,6 +10,8 @@ namespace meleeDemo {
         AttackExecute,
         ForcedTransitionDodge,
         ForcedTransitionExecute,
+        ForcedTransitionAttackHold,
+        ForcedTransitionAttackHoldFS,
         Dodge,
         TransitionIndexer,
         AtkReleaseTiming,

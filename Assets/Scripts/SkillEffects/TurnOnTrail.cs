@@ -10,6 +10,8 @@ namespace meleeDemo {
         public float TurnOnTrailTiming = 0.9f;
         [Range(0f, 3f)]
         public float TurnOffTrailTiming = 3f;
+        [Range(0f, 3f)]
+        public float TurnOffTrailTimingMask = 1f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
 
@@ -19,7 +21,7 @@ namespace meleeDemo {
             if (stateInfo.normalizedTime > TurnOnTrailTiming && stateInfo.normalizedTime <= TurnOffTrailTiming && stateEffect.CharacterControl.VFXTrail.isPaused) {
                 stateEffect.CharacterControl.VFXTrail.Play(true);
             }
-            if (stateInfo.normalizedTime > TurnOffTrailTiming && !stateEffect.CharacterControl.VFXTrail.isPaused) {
+            if (stateInfo.normalizedTime > TurnOffTrailTiming && !stateEffect.CharacterControl.VFXTrail.isPaused && stateInfo.normalizedTime < TurnOffTrailTimingMask) {
                 stateEffect.CharacterControl.VFXTrail.Pause(true);
                 stateEffect.CharacterControl.VFXTrail.Clear();
             }

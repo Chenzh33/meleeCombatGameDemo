@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: 8993902097722301239
-    second: Attack_4
+    second: Attack_Main_5
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -46,7 +46,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Attack_4
+      name: Attack_Main_5
       takeName: Unreal Take
       internalID: 0
       firstFrame: 0

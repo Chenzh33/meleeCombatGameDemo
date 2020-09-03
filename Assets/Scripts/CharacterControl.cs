@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
 namespace meleeDemo {
 
@@ -67,7 +67,7 @@ namespace meleeDemo {
                 }
 
             }
-         
+
             if (GetComponent<ManualInput> () != null && (GetComponent<ManualInput> ()).enabled == true)
                 isPlayerControl = true;
             else
@@ -76,12 +76,18 @@ namespace meleeDemo {
             SetRagdollAndAttackingParts ();
         }
 
-        public void Spawn()
-        {
-            //DOTween.Init(autoKillMode, useSafeMode, logBehaviour);
-            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 10f, this.gameObject.transform.position.z);
-            this.Animator.Play("Spawn");
-            this.gameObject.transform.DOMoveY(0f, 0.1f);
+/*
+        IEnumerator _Spawn () {
+            this.gameObject.transform.position = new Vector3 (this.gameObject.transform.position.x, 10f, this.gameObject.transform.position.z);
+            this.Animator.Play ("Spawn");
+            this.gameObject.transform.DOMoveY (0f, 0.1f);
+        }
+        */
+        public void Spawn () {
+            //StartCoroutine (_Spawn ());
+            this.gameObject.transform.position = new Vector3 (this.gameObject.transform.position.x, 10f, this.gameObject.transform.position.z);
+            this.Animator.Play ("Spawn");
+            this.gameObject.transform.DOMoveY (0f, 0.1f);
         }
 
         void Start () {
@@ -117,7 +123,7 @@ namespace meleeDemo {
                 return particleSystemTrail;
             }
         }
-        public ParticleSystem VFXHold{
+        public ParticleSystem VFXHold {
             get {
                 return particleSystemHold;
             }
