@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1432523142e47469233bd79135a75d, type: 3}
   m_Name: Attack_C1_3_TurnOnTrail_2
   m_EditorClassIdentifier: 
-  TurnOnTrailTiming: 0.6
-  TurnOffTrailTiming: 0.75
+  TurnOnTrailTiming: 0.59
+  TurnOffTrailTiming: 0.73
   TurnOffTrailTimingMask: 0.5

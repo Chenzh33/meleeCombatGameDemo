@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b2197c81ec85849b3fbc113d7f1892, type: 3}
-  m_Name: Attack_C1_4_ShakeCamera
+  m_Script: {fileID: 11500000, guid: de1432523142e47469233bd79135a75d, type: 3}
+  m_Name: Attack_C1_5_TurnOnTrail
   m_EditorClassIdentifier: 
-  ShakeBeginTime: 0.45
-  ShakeEndTime: 0.55
-  FinishedShakers: []
+  TurnOnTrailTiming: 0.14
+  TurnOffTrailTiming: 0.4
+  TurnOffTrailTimingMask: 1

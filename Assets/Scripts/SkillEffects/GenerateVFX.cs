@@ -17,7 +17,7 @@ namespace meleeDemo {
             if (stateInfo.normalizedTime > GenerateVFXTiming && stateEffect.CharacterControl.CharacterData.VFXs.Count == 0) {
                 GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.SLAM_VFX);
                 obj.SetActive (true);
-                obj.transform.position = new Vector3 (stateEffect.CharacterControl.GetAttackPoint ().transform.position.x, 0f, stateEffect.CharacterControl.GetAttackPoint ().transform.position.z);
+                obj.transform.position = new Vector3 (stateEffect.CharacterControl.GetProjectileSpawnPoint().transform.position.x, 0f, stateEffect.CharacterControl.GetProjectileSpawnPoint().transform.position.z);
                 ParticleSystem ps = obj.GetComponent<ParticleSystem> ();
                 ps.Play (true);
                 stateEffect.CharacterControl.CharacterData.VFXs.Add (obj.GetComponent<PoolObject> ());

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
   m_Name: Attack_C1_4_Attack_1
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.08
-  AttackEndTime: 0.18
+  AttackBeginTime: 0.21
+  AttackEndTime: 0.27
   Type: 1
   MaxTargetNum: 5
   Range: 2
@@ -21,5 +21,5 @@ MonoBehaviour:
   KnockbackForce: 18
   HitReactDuration: 0.22
   Stun: 1
-  IsAttackForward: 0
+  IsAttackForward: 1
   FinishedAttacks: []

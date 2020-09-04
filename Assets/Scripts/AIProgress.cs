@@ -36,6 +36,7 @@ namespace meleeDemo {
 
         void Start () {
             GameObject pathFindingAgentObj = PoolManager.Instance.GetObject (PoolObjectType.PATH_FINDING_AGENT);
+            pathFindingAgentObj.SetActive(true);
             pathFindingAgent = pathFindingAgentObj.GetComponent<PathFindingAgent> ();
             pathFindingAgent.transform.position = new Vector3(gameObject.transform.position.x, 0f, gameObject.transform.position.z);
             pathFindingAgent.Init ();

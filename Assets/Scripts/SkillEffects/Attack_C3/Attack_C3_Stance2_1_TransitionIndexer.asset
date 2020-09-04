@@ -19,3 +19,6 @@ MonoBehaviour:
   - index: -1
     st: 0
     ed: 2
+  - index: -3
+    st: 0
+    ed: 2

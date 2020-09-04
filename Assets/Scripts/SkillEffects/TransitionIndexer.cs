@@ -29,6 +29,8 @@ namespace meleeDemo {
             animator.SetInteger (TransitionParameter.TransitionIndexer.ToString (), 0);
             animator.SetBool (TransitionParameter.ForcedTransitionDodge.ToString (), false);
             animator.SetBool (TransitionParameter.ForcedTransitionExecute.ToString (), false);
+            animator.SetBool (TransitionParameter.ForcedTransitionAttackHold.ToString (), false);
+            animator.SetBool (TransitionParameter.ForcedTransitionAttackHoldFS.ToString (), false);
         }
 
         public void CheckTransition (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {

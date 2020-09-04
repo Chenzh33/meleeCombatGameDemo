@@ -76,13 +76,13 @@ namespace meleeDemo {
             SetRagdollAndAttackingParts ();
         }
 
-/*
-        IEnumerator _Spawn () {
-            this.gameObject.transform.position = new Vector3 (this.gameObject.transform.position.x, 10f, this.gameObject.transform.position.z);
-            this.Animator.Play ("Spawn");
-            this.gameObject.transform.DOMoveY (0f, 0.1f);
-        }
-        */
+        /*
+                IEnumerator _Spawn () {
+                    this.gameObject.transform.position = new Vector3 (this.gameObject.transform.position.x, 10f, this.gameObject.transform.position.z);
+                    this.Animator.Play ("Spawn");
+                    this.gameObject.transform.DOMoveY (0f, 0.1f);
+                }
+                */
         public void Spawn () {
             //StartCoroutine (_Spawn ());
             this.gameObject.transform.position = new Vector3 (this.gameObject.transform.position.x, 10f, this.gameObject.transform.position.z);
@@ -226,15 +226,22 @@ namespace meleeDemo {
 
         public void TurnOffCollider () {
             data.IsColliderOff = true;
+            /*
             foreach (Collider c in RagdollParts) {
                 c.isTrigger = true;
             }
+            */
+            controller.enabled = false;
         }
         public void TurnOnCollider () {
             data.IsColliderOff = false;
+            /*
             foreach (Collider c in RagdollParts) {
                 c.isTrigger = false;
             }
+            */
+
+            controller.enabled = true;
         }
         public void TurnOnRagdoll () {
             //Rigidbody rig = GetComponent<Rigidbody>();
@@ -325,6 +332,7 @@ namespace meleeDemo {
             return AttackPoint;
 
         }
+
         public Transform GetSpine () {
             if (Spine == null) {
                 SpineTag s = this.gameObject.GetComponentInChildren<SpineTag> ();

@@ -123,7 +123,8 @@ namespace meleeDemo {
 
         }
         private bool IsInRange (AttackInfo info) {
-            Vector3 distVec = this.gameObject.transform.position - info.Attacker.GetAttackPoint ().gameObject.transform.position;
+            //Vector3 distVec = this.gameObject.transform.position - info.Attacker.GetAttackPoint ().gameObject.transform.position;
+            Vector3 distVec = this.gameObject.transform.position - info.Attacker.GetProjectileSpawnPoint().gameObject.transform.position;
             float dist = new Vector3 (distVec.x, 0f, distVec.z).magnitude;
             if (dist <= info.Range) {
                 return true;

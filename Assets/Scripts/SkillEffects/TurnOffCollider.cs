@@ -26,7 +26,10 @@ namespace meleeDemo {
 
             }
         }
-        public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) { }
+        public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
+            if (stateEffect.CharacterControl.CharacterData.IsColliderOff)
+                stateEffect.CharacterControl.TurnOnCollider ();
+        }
 
     }
 }

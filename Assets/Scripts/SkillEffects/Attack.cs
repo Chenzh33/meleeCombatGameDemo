@@ -27,6 +27,7 @@ namespace meleeDemo {
         public float HitReactDuration = 0.1f;
         public float Stun = 1f;
         public bool IsAttackForward;
+        //public AOEType AOECenter;
         public List<AttackInfo> FinishedAttacks = new List<AttackInfo> ();
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {

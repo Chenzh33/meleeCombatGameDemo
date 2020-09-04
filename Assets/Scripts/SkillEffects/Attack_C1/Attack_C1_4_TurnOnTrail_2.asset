@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Attack_C1_4_TurnOnTrail_2
   m_EditorClassIdentifier: 
   TurnOnTrailTiming: 0.4
-  TurnOffTrailTiming: 0.5
+  TurnOffTrailTiming: 0.55
   TurnOffTrailTimingMask: 1
