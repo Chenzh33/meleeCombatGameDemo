@@ -27,6 +27,10 @@ namespace meleeDemo {
         public float HitReactDuration = 0.1f;
         public float Stun = 1f;
         public bool IsAttackForward;
+        public bool IsAOEAttackTowardsCenter;
+        public float AOEAttackCenterOffset = 3.0f;
+        public VFXType vfxType = VFXType.Null;
+        //public Vector3 AttackPosition;
         //public AOEType AOECenter;
         public List<AttackInfo> FinishedAttacks = new List<AttackInfo> ();
 
@@ -41,6 +45,7 @@ namespace meleeDemo {
             AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
             if (stateEffect.CharacterControl.isPlayerControl)
                 VirtualInputManager.Instance.ClearAllInputsInBuffer ();
+
             //stateEffect.CharacterControl.AttackTrigger = true;
             //animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
             //Debug.Log ("Enter " + stateInfo.normalizedTime.ToString());
@@ -86,8 +91,8 @@ namespace meleeDemo {
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
                     if (!info.IsRegistered && info.AttackSkill == this && info.Attacker == stateEffect.CharacterControl) {
                         Debug.Log (this.name + " registered: " + stateInfo.normalizedTime);
-                        info.Register ();
                         //CameraManager.Instance.ShakeCamera(0.2f);
+                        info.Register ();
                     }
                 }
             }

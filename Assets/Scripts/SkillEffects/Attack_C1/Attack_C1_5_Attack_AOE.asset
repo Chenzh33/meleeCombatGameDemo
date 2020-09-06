@@ -22,4 +22,7 @@ MonoBehaviour:
   HitReactDuration: 0.22
   Stun: 1
   IsAttackForward: 1
+  IsAOEAttackTowardsCenter: 0
+  AOEAttackCenterOffset: 0
+  vfxType: 0
   FinishedAttacks: []

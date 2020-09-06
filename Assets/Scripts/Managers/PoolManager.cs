@@ -4,16 +4,6 @@ using UnityEngine;
 
 namespace meleeDemo {
 
-    public enum PoolObjectType {
-        ATTACK_INFO,
-        ATTACK_HOLD_PROJECTILE,
-        BUTTON_SMASHER,
-        GRAPPLER,
-        PATH_FINDING_AGENT,
-        CAMERA_SHAKER,
-        SLAM_VFX
-    }
-
     public class PoolManager : Singleton<PoolManager> {
         public Dictionary<PoolObjectType, List<GameObject>> Pool = new Dictionary<PoolObjectType, List<GameObject>> ();
 
@@ -93,6 +83,11 @@ namespace meleeDemo {
                 case PoolObjectType.SLAM_VFX:
                     {
                         obj = Instantiate (Resources.Load ("SlamVFXPrefab", typeof (GameObject)) as GameObject);
+                        break;
+                    }
+                case PoolObjectType.ATTACK_HOLD_AOE_VFX:
+                    {
+                        obj = Instantiate (Resources.Load ("AttackHoldVFXPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
             }

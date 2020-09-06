@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Cinemachine;
+using UnityEngine;
 
 namespace meleeDemo {
 
@@ -89,17 +89,25 @@ namespace meleeDemo {
                 float yy = Random.Range (0f, 1f);
                 if (yy > 0.5f)
                     y = -y;
-                EnemyManager.Instance.SpawnEnemy (this.gameObject.transform.position + new Vector3(x, 0f, y), "Swordman");
-
+                EnemyManager.Instance.SpawnEnemy (this.gameObject.transform.position + new Vector3 (x, 0f, y), "Swordman");
             }
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                CinemachineStateDrivenCamera camera = GameObject.FindObjectOfType(typeof(CinemachineStateDrivenCamera)) as CinemachineStateDrivenCamera;
+
+            // for test
+            if (Input.GetKeyDown (KeyCode.T)) {
+                CinemachineStateDrivenCamera camera = GameObject.FindObjectOfType (typeof (CinemachineStateDrivenCamera)) as CinemachineStateDrivenCamera;
                 Animator anim = camera.m_AnimatedTarget;
-                CinemachineCameraOffset offset = camera.gameObject.GetComponent<CinemachineCameraOffset>();
-                float Offset = anim.GetFloat("ExtraOffset");
+                CinemachineCameraOffset offset = camera.gameObject.GetComponent<CinemachineCameraOffset> ();
+                float Offset = anim.GetFloat ("ExtraOffset");
                 offset.m_Offset.y += Offset;
                 offset.m_Offset.z += -Offset;
+            }
+            // for test
+            if (Input.GetKeyDown (KeyCode.N)) {
+                if (player.CharacterData.Energy > 1.0f)
+                    player.TakeEnergy (1.0f);
+            }
+            if (Input.GetKeyDown (KeyCode.M)) {
+                player.TakeEnergy (-1.0f);
             }
             /*
                         Vector3 forward = gameObject.transform.forward;

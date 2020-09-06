@@ -1255,7 +1255,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d8c531c338ad60640b72b2cafb0bf1ea, type: 2}
   - {fileID: 11400000, guid: 5b442efcb699943409492fd87644eac2, type: 2}
   - {fileID: 11400000, guid: 8e72f7953f53ec445b0c9ed739ef24cf, type: 2}
-  - {fileID: 11400000, guid: 58e4c7849d7647a4380131d0994d71a6, type: 2}
   - {fileID: 11400000, guid: 3ff0905386a0b934f9b330a026abf248, type: 2}
 --- !u!1109 &4524522583152395723
 AnimatorTransition:

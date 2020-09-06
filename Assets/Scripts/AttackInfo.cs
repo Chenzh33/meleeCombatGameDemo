@@ -10,6 +10,7 @@ namespace meleeDemo {
         public bool IsRegistered;
         public bool IsFinished;
         public bool IsAttackForward;
+        public bool IsAOEAttackTowardsCenter;
         public int CurrentTargetNum;
         public int MaxTargetNum;
         public CharacterControl Attacker;
@@ -21,6 +22,10 @@ namespace meleeDemo {
         public float KnockbackForce;
         public float HitReactDuration;
         public float Stun;
+        //public float AOEAttackCenterOffset = 3.0f;
+        public Vector3 AttackCenter;
+        public VFXType vfxType = VFXType.Slam;
+        public PoolObject VFXObj;
 
         public void Init (Attack attackSkill, LaunchProjectile projectileSkill, CharacterControl attacker) {
             AttackSkill = attackSkill;
@@ -31,8 +36,10 @@ namespace meleeDemo {
             Attacker = attacker;
             Targets.Clear ();
             ProjectileObject = null;
+
             if (attackSkill != null) {
                 IsAttackForward = attackSkill.IsAttackForward;
+                IsAOEAttackTowardsCenter = attackSkill.IsAOEAttackTowardsCenter;
                 Type = attackSkill.Type;
                 MaxTargetNum = attackSkill.MaxTargetNum;
                 Range = attackSkill.Range;
@@ -40,6 +47,10 @@ namespace meleeDemo {
                 KnockbackForce = attackSkill.KnockbackForce;
                 HitReactDuration = attackSkill.HitReactDuration;
                 Stun = attackSkill.Stun;
+                vfxType = attackSkill.vfxType;
+                VFXObj = null;
+                //AOEAttackCenterOffset = attackSkill.AOEAttackCenterOffset;
+                //AttackCenter = Attacker.CharacterData.AOEAttackCenter;
             } else {
                 IsAttackForward = projectileSkill.IsAttackForward;
                 Type = projectileSkill.Type;
@@ -64,7 +75,19 @@ namespace meleeDemo {
             Type = AttackType.NULL;
             Range = 0f;
             ProjectileObject = null;
+            AttackCenter = Vector3.zero;
+            /*
+            if (VFXObj != null) {
+                ParticleSystem ps = VFXObj.GetComponent<ParticleSystem> ();
+                ps.Clear ();
+                ps.Stop (true);
+                PoolManager.Instance.ReturnToPool (VFXObj);
+                VFXObj = null;
+            }
+            */
+            VFXObj = null;
         }
+
         void Start () {
 
         }
@@ -74,7 +97,33 @@ namespace meleeDemo {
         }
         public void Register () {
             IsRegistered = true;
+            if (Type == AttackType.AOE && vfxType != VFXType.Null) {
+                Vector3 pos = Attacker.gameObject.transform.position + Attacker.gameObject.transform.forward * AttackSkill.AOEAttackCenterOffset;
+                AttackCenter = new Vector3 (pos.x, 0f, pos.z);
+                GameObject obj = GenerateVFXObject ();
+                obj.SetActive (true);
+                obj.transform.position = AttackCenter;
+                ParticleSystem ps = obj.GetComponent<ParticleSystem> ();
+                ps.Play (true);
+                VFXObj = obj.GetComponent<PoolObject> ();
+                VFXObj.WaitAndDestroy(1f);
+                //Attacker.VFXs.Add (obj.GetComponent<PoolObject> ());
+            }
 
+        }
+
+        public GameObject GenerateVFXObject () {
+            GameObject obj = null;
+            switch (vfxType) {
+                case VFXType.Slam:
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.SLAM_VFX);
+                    break;
+                case VFXType.AttackHoldAOE:
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_HOLD_AOE_VFX);
+                    break;
+
+            }
+            return obj;
         }
     }
 }

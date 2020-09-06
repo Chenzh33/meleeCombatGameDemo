@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa8fcbc3dc67b6f429e3ee415d6acb28, type: 3}
   m_Name: AttackHeavy_Finish_VFX
   m_EditorClassIdentifier: 
-  GenerateVFXTiming: 0.46
+  GenerateVFXTiming: 0.48
+  AOEAttackCenterOffset: 1.3
+  Type: 2

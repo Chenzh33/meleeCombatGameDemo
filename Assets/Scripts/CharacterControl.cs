@@ -138,7 +138,7 @@ namespace meleeDemo {
                     this.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
                 }
             }
-            this.CharacterData.HP -= damage;
+            this.CharacterData.TakeDamage (damage);
 
             if (this.CharacterData.HP <= 0)
                 Dead ();
@@ -150,6 +150,16 @@ namespace meleeDemo {
 
             if (this.CharacterData.Armour <= 0 && !this.CharacterData.IsDead)
                 GetStunned ();
+        }
+        public void TakeEnergy (float energy) {
+
+            // assume already checked the energy amount
+            /*
+            if (energy > this.CharacterData.Energy) {
+                return;
+            }
+            */
+            this.CharacterData.TakeEnergy (energy);
         }
 
         public void HitReactionAndFreeze (float freezeStTime) {
@@ -349,6 +359,7 @@ namespace meleeDemo {
             return SpawnPoint;
 
         }
+
         /*
         public List<ProjectileObject> GetProjectileObjs() {
             return ProjectileObjs;

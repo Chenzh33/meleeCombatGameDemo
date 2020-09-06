@@ -124,7 +124,9 @@ namespace meleeDemo {
         }
         private bool IsInRange (AttackInfo info) {
             //Vector3 distVec = this.gameObject.transform.position - info.Attacker.GetAttackPoint ().gameObject.transform.position;
-            Vector3 distVec = this.gameObject.transform.position - info.Attacker.GetProjectileSpawnPoint().gameObject.transform.position;
+            //Vector3 distVec = this.gameObject.transform.position - info.Attacker.GetProjectileSpawnPoint().gameObject.transform.position;
+            //Debug.Log(info.AttackCenter);
+            Vector3 distVec = this.gameObject.transform.position - info.AttackCenter;
             float dist = new Vector3 (distVec.x, 0f, distVec.z).magnitude;
             if (dist <= info.Range) {
                 return true;
@@ -141,9 +143,15 @@ namespace meleeDemo {
                 hitVector = info.Attacker.transform.forward;
                 hitVector.y = 0f;
             }
+            if (info.IsAOEAttackTowardsCenter && info.Type == AttackType.AOE) {
+                hitVector = info.AttackCenter - gameObject.transform.position;
+                hitVector.y = 0f;
+                //Debug.Log("AOE hit! " + Time.time.ToString());
+            }
 
             control.FaceTarget = -hitVector;
             control.TurnToTarget (0f, 0f);
+
             //Debug.Log(hitVector);
             //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
 

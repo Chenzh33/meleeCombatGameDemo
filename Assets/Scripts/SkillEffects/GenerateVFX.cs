@@ -8,6 +8,9 @@ namespace meleeDemo {
     public class GenerateVFX : SkillEffect {
         [Range (0f, 3f)]
         public float GenerateVFXTiming = 0.9f;
+        public float AOEAttackCenterOffset = 1.3f;
+
+        public VFXType Type = VFXType.Slam;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
 
@@ -15,9 +18,11 @@ namespace meleeDemo {
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
 
             if (stateInfo.normalizedTime > GenerateVFXTiming && stateEffect.CharacterControl.CharacterData.VFXs.Count == 0) {
-                GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.SLAM_VFX);
+               
+                GameObject obj = GenerateVFXObject ();
                 obj.SetActive (true);
-                obj.transform.position = new Vector3 (stateEffect.CharacterControl.GetProjectileSpawnPoint().transform.position.x, 0f, stateEffect.CharacterControl.GetProjectileSpawnPoint().transform.position.z);
+                Vector3 pos = stateEffect.CharacterControl.gameObject.transform.position + stateEffect.CharacterControl.gameObject.transform.forward * AOEAttackCenterOffset;
+                obj.transform.position = new Vector3 (pos.x, 0f, pos.z);
                 ParticleSystem ps = obj.GetComponent<ParticleSystem> ();
                 ps.Play (true);
                 stateEffect.CharacterControl.CharacterData.VFXs.Add (obj.GetComponent<PoolObject> ());
@@ -32,6 +37,20 @@ namespace meleeDemo {
                 PoolManager.Instance.ReturnToPool (p);
             }
             stateEffect.CharacterControl.CharacterData.VFXs.Clear ();
+        }
+
+        public GameObject GenerateVFXObject () {
+            GameObject obj = null;
+            switch (Type) {
+                case VFXType.Slam:
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.SLAM_VFX);
+                    break;
+                case VFXType.AttackHoldAOE:
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_HOLD_AOE_VFX);
+                    break;
+
+            }
+            return obj;
         }
 
     }

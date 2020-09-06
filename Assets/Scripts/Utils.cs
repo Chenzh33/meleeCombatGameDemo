@@ -28,15 +28,33 @@ namespace meleeDemo {
 
     }
 
+    public enum PoolObjectType {
+        ATTACK_INFO,
+        ATTACK_HOLD_PROJECTILE,
+        BUTTON_SMASHER,
+        GRAPPLER,
+        PATH_FINDING_AGENT,
+        CAMERA_SHAKER,
+        SLAM_VFX,
+        ATTACK_HOLD_AOE_VFX
+    }
     public enum TeamTag{
        Player,
        Bandit, 
        
 
     }
+    public enum BarImageType{
+        Bound,
+        Fill,
+        Red
+    }
     public enum VFXType{
+        Null,
         Trail,
-        Hold
+        Hold,
+        Slam,
+        AttackHoldAOE
 
     }
 

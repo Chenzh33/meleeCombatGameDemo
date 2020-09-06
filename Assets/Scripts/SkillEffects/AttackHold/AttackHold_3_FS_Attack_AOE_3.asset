@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
-  m_Name: Attack_C1_6_Attack_2_AOE
+  m_Name: AttackHold_3_FS_Attack_AOE_3
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.42
-  AttackEndTime: 0.53
+  AttackBeginTime: 0.6
+  AttackEndTime: 0.85
   Type: 2
   MaxTargetNum: 5
-  Range: 2
-  Damage: 3
-  KnockbackForce: 18
-  HitReactDuration: 0.15
-  Stun: 3
+  Range: 2.5
+  Damage: 1
+  KnockbackForce: 6
+  HitReactDuration: 0.05
+  Stun: 1
   IsAttackForward: 0
-  IsAOEAttackTowardsCenter: 0
-  AOEAttackCenterOffset: 1
-  vfxType: 3
+  IsAOEAttackTowardsCenter: 1
+  AOEAttackCenterOffset: 3
+  vfxType: 4
   FinishedAttacks: []
