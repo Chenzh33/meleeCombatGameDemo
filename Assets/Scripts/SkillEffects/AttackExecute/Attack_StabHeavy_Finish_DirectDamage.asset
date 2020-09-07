@@ -16,4 +16,4 @@ MonoBehaviour:
   Damage: 4
   KnockbackForce: 20
   HitReactDuration: 0.1
-  Stun: 1
+  Stun: 0

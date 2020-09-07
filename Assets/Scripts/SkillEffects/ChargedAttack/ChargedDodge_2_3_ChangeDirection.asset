@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc5dfd2f04d0eb141bcdaf1daa3a1798, type: 3}
-  m_Name: Attack_Main_1_ChangeDirection
+  m_Name: ChargedDodge_2_3_ChangeDirection
   m_EditorClassIdentifier: 
   AllowEarlyTurn: 1
   AutoFaceEnemy: 1
   FacePrevTargetWhenNeutral: 1
   AutoFaceEnemyTiming: 0
   AutoFaceEnemyDuration: 0
-  CaptureDistanceFar: 5
-  CaptureAngleRangeFar: 60
-  CaptureDistanceNear: 3
-  CaptureAngleRangeNear: 120
+  CaptureDistanceFar: 6
+  CaptureAngleRangeFar: 180
+  CaptureDistanceNear: 0
+  CaptureAngleRangeNear: 0
   smoothEarlyTurn: 20
   LockOnTargetDuration: 1

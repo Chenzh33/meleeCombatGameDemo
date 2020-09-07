@@ -19,6 +19,7 @@ namespace meleeDemo {
         public float MaxArmour;
         public float ArmourRegenerationInStun;
         public float ArmourRegeneration;
+        public float ArmourRegenerationDelay;
 
         public float Energy;
         public float MaxEnergy;
@@ -37,9 +38,11 @@ namespace meleeDemo {
         public bool IsSuperArmour;
         public bool IsRunning;
         public bool IsStunned;
+        public bool GetHit;
         public CharacterControl GrapplingTarget;
         public CharacterControl FormerAttackTarget;
         public TeamTag Team;
+
 
         public delegate void StateChangeEvent ();
         public event StateChangeEvent OnHealthChange;
@@ -52,10 +55,11 @@ namespace meleeDemo {
         public List<PoolObject> VFXs;
 
         public void UpdateData () {
-            if (!IsStunned && Armour < MaxArmour)
+            if (!IsStunned && !GetHit && Armour < MaxArmour)
                 Armour += ArmourRegeneration * Time.deltaTime;
             if (Armour > MaxArmour)
                 Armour = MaxArmour;
+
             if (Energy > MaxEnergy) {
                 Energy -= EnergyDecayOverCharge * Time.deltaTime;
                 if (Energy < MaxEnergy)
@@ -108,5 +112,7 @@ namespace meleeDemo {
             }
 
         }
+      
+
     }
 }

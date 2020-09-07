@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: Attack_C1_5_Attack_AOE
   m_EditorClassIdentifier: 
   AttackBeginTime: 0.12
-  AttackEndTime: 0.5
+  AttackEndTime: 0.6
   Type: 2
   MaxTargetNum: 5
   Range: 1.2
   Damage: 1
-  KnockbackForce: 12
+  KnockbackForce: 16
   HitReactDuration: 0.22
-  Stun: 1
+  Stun: 1.8
   IsAttackForward: 1
   IsAOEAttackTowardsCenter: 0
+  IsAOEAttackAttachToPlayer: 1
   AOEAttackCenterOffset: 0
   vfxType: 0
   FinishedAttacks: []

@@ -28,6 +28,7 @@ namespace meleeDemo {
         public float Stun = 1f;
         public bool IsAttackForward;
         public bool IsAOEAttackTowardsCenter;
+        public bool IsAOEAttackAttachToPlayer;
         public float AOEAttackCenterOffset = 3.0f;
         public VFXType vfxType = VFXType.Null;
         //public Vector3 AttackPosition;

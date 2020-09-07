@@ -506,8 +506,13 @@ MonoBehaviour:
     MaxHP: 20
     Armour: 10
     MaxArmour: 10
-    ArmourRegenerationInStun: 1
-    ArmourRegeneration: 0.25
+    ArmourRegenerationInStun: 2.5
+    ArmourRegeneration: 5
+    ArmourRegenerationDelay: 3
+    Energy: 0
+    MaxEnergy: 0
+    EnergyRegeneration: 0
+    EnergyDecayOverCharge: 0
     TargetGroupWeight: 1
     TargetGroupRadius: 1
     IsRagdollOn: 0
@@ -519,6 +524,7 @@ MonoBehaviour:
     IsSuperArmour: 0
     IsRunning: 0
     IsStunned: 0
+    GetHit: 0
     GrapplingTarget: {fileID: 0}
     FormerAttackTarget: {fileID: 0}
     Team: 1

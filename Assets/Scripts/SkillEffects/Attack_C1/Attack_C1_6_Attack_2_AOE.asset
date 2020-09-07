@@ -20,7 +20,7 @@ MonoBehaviour:
   Damage: 3
   KnockbackForce: 18
   HitReactDuration: 0.15
-  Stun: 3
+  Stun: 2.5
   IsAttackForward: 0
   IsAOEAttackTowardsCenter: 0
   AOEAttackCenterOffset: 1

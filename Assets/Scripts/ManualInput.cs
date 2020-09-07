@@ -46,6 +46,11 @@ namespace meleeDemo {
             if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
                 player.CommandDodge = false;
 
+            if (inputDataTop.KeysState[(int)InputKeyStateType.KEY_CHARGE])
+                player.CommandCharge = true;
+            else
+                player.CommandCharge = false;
+
             /*
                         if (player.DodgeTrigger) {
                             VirtualInputManager.Instance.ClearAllInputsInBuffer ();

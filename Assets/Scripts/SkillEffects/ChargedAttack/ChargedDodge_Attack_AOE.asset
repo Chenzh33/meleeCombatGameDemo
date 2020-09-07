@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
-  m_Name: Attack_C2_Main_Attack_1
+  m_Name: ChargedDodge_Attack_AOE
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.17
-  AttackEndTime: 0.3
-  Type: 1
+  AttackBeginTime: 0.12
+  AttackEndTime: 0.5
+  Type: 2
   MaxTargetNum: 5
-  Range: 2
-  Damage: 0.6
-  KnockbackForce: 6
-  HitReactDuration: 0.1
-  Stun: 0.6
+  Range: 1.2
+  Damage: 1
+  KnockbackForce: 0
+  HitReactDuration: 0.22
+  Stun: 1.8
   IsAttackForward: 1
   IsAOEAttackTowardsCenter: 0
-  AOEAttackCenterOffset: 3
+  IsAOEAttackAttachToPlayer: 1
+  AOEAttackCenterOffset: 0
   vfxType: 0
   FinishedAttacks: []

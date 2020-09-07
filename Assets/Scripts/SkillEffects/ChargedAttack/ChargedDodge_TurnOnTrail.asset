@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29d00f9c5075bad4592e0549e3861e65, type: 3}
-  m_Name: Attack_StabLight_Finish_DirectDamage
+  m_Script: {fileID: 11500000, guid: de1432523142e47469233bd79135a75d, type: 3}
+  m_Name: ChargedDodge_TurnOnTrail
   m_EditorClassIdentifier: 
-  DamageTiming: 0.3
-  Damage: 2
-  KnockbackForce: 10
-  HitReactDuration: 0.1
-  Stun: 0
+  TurnOnTrailTiming: 0.14
+  TurnOffTrailTiming: 0.4
+  TurnOffTrailTimingMask: 1

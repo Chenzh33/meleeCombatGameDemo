@@ -26,6 +26,8 @@ namespace meleeDemo {
         private Coroutine KnockbackCoroutine;
         private Coroutine HitReactCoroutine;
         private Coroutine SetFormerTargetCoroutine;
+        private Coroutine TurnOffArmourRegenCoroutine;
+
         public AnimationCurve KnockbackSpeedGraph;
         public Vector3 FaceTarget;
 
@@ -35,6 +37,7 @@ namespace meleeDemo {
         public bool CommandAttack;
         public bool CommandExecute;
         public bool CommandDodge;
+        public bool CommandCharge;
         public int CommandAttackHoldFrame;
         public int CommandExecuteHoldFrame;
         public int CommandDodgeHoldFrame;
@@ -129,6 +132,22 @@ namespace meleeDemo {
             }
         }
 
+        IEnumerator _TurnOffArmourRegen(float delay)
+        {
+            this.CharacterData.GetHit = true;
+            yield return new WaitForSeconds (delay);
+            this.CharacterData.GetHit = false;
+          
+            TurnOffArmourRegenCoroutine = null;
+
+        }
+
+        public void TurnOffArmourRegen(float delay) {
+            if (TurnOffArmourRegenCoroutine != null)
+                StopCoroutine (TurnOffArmourRegenCoroutine);
+            TurnOffArmourRegenCoroutine = StartCoroutine (_TurnOffArmourRegen(delay));
+
+        }
         public void TakeDamage (float damage) {
             if (!this.CharacterData.IsStunned && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead) {
                 if (isPlayerControl) {
@@ -138,6 +157,7 @@ namespace meleeDemo {
                     this.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
                 }
             }
+            TurnOffArmourRegen(this.CharacterData.ArmourRegenerationDelay);
             this.CharacterData.TakeDamage (damage);
 
             if (this.CharacterData.HP <= 0)
@@ -512,6 +532,12 @@ namespace meleeDemo {
                 animator.SetBool (TransitionParameter.Dodge.ToString (), true);
             else
                 animator.SetBool (TransitionParameter.Dodge.ToString (), false);
+
+            if (CommandCharge)
+                animator.SetBool (TransitionParameter.Charge.ToString (), true);
+            else
+                animator.SetBool (TransitionParameter.Charge.ToString (), false);
+
 
             if (isPlayerControl) {
 

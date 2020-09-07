@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52084039be65b449af10228da06890e, type: 3}
   m_Name: Attack_C1_5_LinkCombo
   m_EditorClassIdentifier: 
-  LinkType: 7
+  LinkType: 10
   LinkComboWindowBegin: 0
   LinkComboWindowEnd: 0.9

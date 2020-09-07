@@ -126,7 +126,7 @@ namespace meleeDemo {
             //Vector3 distVec = this.gameObject.transform.position - info.Attacker.GetAttackPoint ().gameObject.transform.position;
             //Vector3 distVec = this.gameObject.transform.position - info.Attacker.GetProjectileSpawnPoint().gameObject.transform.position;
             //Debug.Log(info.AttackCenter);
-            Vector3 distVec = this.gameObject.transform.position - info.AttackCenter;
+            Vector3 distVec = this.gameObject.transform.position - info.gameObject.transform.position;
             float dist = new Vector3 (distVec.x, 0f, distVec.z).magnitude;
             if (dist <= info.Range) {
                 return true;
@@ -144,7 +144,7 @@ namespace meleeDemo {
                 hitVector.y = 0f;
             }
             if (info.IsAOEAttackTowardsCenter && info.Type == AttackType.AOE) {
-                hitVector = info.AttackCenter - gameObject.transform.position;
+                hitVector = info.gameObject.transform.position - gameObject.transform.position;
                 hitVector.y = 0f;
                 //Debug.Log("AOE hit! " + Time.time.ToString());
             }

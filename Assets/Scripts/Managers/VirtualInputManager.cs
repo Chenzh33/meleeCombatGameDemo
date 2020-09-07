@@ -82,7 +82,7 @@ namespace meleeDemo {
             DicKeys.Add (InputKeyType.KEY_MELEE_ATTACK, KeyCode.I);
             DicKeys.Add (InputKeyType.KEY_EXECUTE_ATTACK, KeyCode.J);
             DicKeys.Add (InputKeyType.KEY_DODGE, KeyCode.K);
-            DicKeys.Add (InputKeyType.KEY_CHARGE, KeyCode.L);
+            DicKeys.Add (InputKeyType.KEY_CHARGE, KeyCode.Space);
 
         }
 
