@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de1432523142e47469233bd79135a75d, type: 3}
-  m_Name: ChargedDodge_TurnOnTrail
+  m_Script: {fileID: 11500000, guid: 299ac7ab892522f408eb650f845b604d, type: 3}
+  m_Name: ChargedDodge_2_TakeEnergy
   m_EditorClassIdentifier: 
-  TurnOnTrailTiming: 0.01
-  TurnOffTrailTiming: 0.45
-  TurnOffTrailTimingMask: 1
+  EnergyTakingAmount: 2

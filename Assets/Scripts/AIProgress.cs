@@ -22,24 +22,31 @@ namespace meleeDemo {
         public float MomentumFactor = 0.1f;
         public float ProbExecute = 0.5f;
         public float ProbAttack = 0.3f;
-        public Vector2 inputVectorIncremental = new Vector2();
+        public Vector2 inputVectorIncremental = new Vector2 ();
 
         void Awake () {
 
             aiUnit = GetComponent<CharacterControl> ();
             animator = GetComponentInChildren<Animator> ();
-            pandaTree = GetComponent<PandaBehaviour>();
+            pandaTree = GetComponent<PandaBehaviour> ();
             team = aiUnit.CharacterData.Team;
             enemyTarget = null;
+            AIAgentManager.Instance.TotalAIAgent.Add (this);
 
         }
 
         void Start () {
             GameObject pathFindingAgentObj = PoolManager.Instance.GetObject (PoolObjectType.PATH_FINDING_AGENT);
-            pathFindingAgentObj.SetActive(true);
+            pathFindingAgentObj.SetActive (true);
             pathFindingAgent = pathFindingAgentObj.GetComponent<PathFindingAgent> ();
-            pathFindingAgent.transform.position = new Vector3(gameObject.transform.position.x, 0f, gameObject.transform.position.z);
+            pathFindingAgent.transform.position = new Vector3 (gameObject.transform.position.x, 0f, gameObject.transform.position.z);
             pathFindingAgent.Init ();
+
+            // register event
+            GameObject playerObj = (FindObjectOfType (typeof (ManualInput)) as ManualInput).gameObject;
+            CharacterControl player = playerObj.GetComponent<CharacterControl> ();
+            aiUnit.CharacterData.OnDamage += player.OnEnemyGetDamaged; 
+
         }
 
         // simple version
@@ -54,10 +61,9 @@ namespace meleeDemo {
                 if (IsTargetVisible () && enemyTarget.CharacterData.Team != team) {
                     pathFindingAgent.SetTarget (enemyTarget.gameObject.transform);
                     Debug.Log ("Find player!");
-                    CameraManager.Instance.AddToTargetGroup(aiUnit);
-                } else
-                {
-                    CameraManager.Instance.RemoveFromTargetGroup(aiUnit);
+                    CameraManager.Instance.AddToTargetGroup (aiUnit);
+                } else {
+                    CameraManager.Instance.RemoveFromTargetGroup (aiUnit);
                     enemyTarget = null;
                 }
                 lastFindTargetTime = Time.time;
@@ -152,16 +158,15 @@ namespace meleeDemo {
 
         void Update () {
 
-/*
-            if (!pathFindingAgent.IsStopped ())
-                SetInputVector ();
-            else
-                ResetInputVector ();
-                */
+            /*
+                        if (!pathFindingAgent.IsStopped ())
+                            SetInputVector ();
+                        else
+                            ResetInputVector ();
+                            */
 
         }
-        public void SetInputVectorToFaceTarget()
-        {
+        public void SetInputVectorToFaceTarget () {
             Vector3 dir = enemyTarget.gameObject.transform.position - gameObject.transform.position;
             dir.y = 0f;
             dir.Normalize ();
@@ -169,7 +174,7 @@ namespace meleeDemo {
             aiUnit.inputVector.y = dir.z;
         }
         public void SetInputVector () {
-            Vector3 dir = new Vector3(aiUnit.inputVector.x, 0, aiUnit.inputVector.y);
+            Vector3 dir = new Vector3 (aiUnit.inputVector.x, 0, aiUnit.inputVector.y);
             Vector3 deltaDir = pathFindingAgent.gameObject.transform.position - gameObject.transform.position;
             //Vector3 dir = pathFindingAgent.gameObject.transform.position - gameObject.transform.position;
             deltaDir.y = 0f;
@@ -179,21 +184,21 @@ namespace meleeDemo {
             deltaDir.Normalize ();
             dir.x += deltaDir.x * MomentumFactor;
             dir.z += deltaDir.z * MomentumFactor;
-            dir.Normalize();
+            dir.Normalize ();
             aiUnit.inputVector.x = dir.x;
             aiUnit.inputVector.y = dir.z;
 
             Vector3 forward = gameObject.transform.forward;
             forward.y = 0f;
-            float angle = (Quaternion.LookRotation(forward, Vector3.up)).eulerAngles.y * Mathf.Deg2Rad;
-            float cosA = Mathf.Cos(angle);
-            float sinA = Mathf.Sin(angle);
+            float angle = (Quaternion.LookRotation (forward, Vector3.up)).eulerAngles.y * Mathf.Deg2Rad;
+            float cosA = Mathf.Cos (angle);
+            float sinA = Mathf.Sin (angle);
             //Debug.Log(forward.ToString() + " " + Mathf.Cos(angle).ToString() + " " + Mathf.Sin(angle).ToString());
             float blendTreeInputX = aiUnit.inputVector.x * cosA - aiUnit.inputVector.y * sinA;
             float blendTreeInputY = aiUnit.inputVector.x * sinA + aiUnit.inputVector.y * cosA;
-            animator.SetFloat("InputX", blendTreeInputX);
-            animator.SetFloat("InputY", blendTreeInputY);
-           
+            animator.SetFloat ("InputX", blendTreeInputX);
+            animator.SetFloat ("InputY", blendTreeInputY);
+
             //Vector3 finalDir = new Vector3(aiUnit.inputVector.x, 0, aiUnit.inputVector.y);
             //Debug.DrawRay(gameObject.transform.position, finalDir * 10f, Color.red);
 
@@ -204,25 +209,25 @@ namespace meleeDemo {
         }
 
         [Task]
-        public bool RandomAttack() {
-            float r = Random.Range(0f, 1f);
-            if(r < ProbAttack)
-            {
-                StopMove();
-                AttackCommandInput();
+        public bool RandomAttack () {
+            float r = Random.Range (0f, 1f);
+            if (r < ProbAttack) {
+                StopMove ();
+                AttackCommandInput ();
             }
             return true;
         }
+
         [Task]
-        public bool RandomExecute() {
-            float r = Random.Range(0f, 1f);
-            if(r < ProbExecute)
-            {
-                StopMove();
-                ExecuteCommandInput();
+        public bool RandomExecute () {
+            float r = Random.Range (0f, 1f);
+            if (r < ProbExecute) {
+                StopMove ();
+                ExecuteCommandInput ();
             }
             return true;
         }
+
         [Task]
         public bool ExecuteCommandInput () {
             SetInputVectorToFaceTarget ();
@@ -251,21 +256,24 @@ namespace meleeDemo {
             return true;
 
         }
+
         [Task]
         public bool ExecuteCommandCancel () {
             ResetInputVector ();
             aiUnit.CommandExecute = false;
             return true;
         }
+
         [Task]
         public bool AttackCommandCancel () {
             ResetInputVector ();
             aiUnit.CommandAttack = false;
             return true;
         }
+
         [Task]
-        public bool IsRunning() {
-            return animator.GetBool("IsRunning");
+        public bool IsRunning () {
+            return animator.GetBool ("IsRunning");
         }
 
         [Task]
@@ -281,15 +289,13 @@ namespace meleeDemo {
             return aiUnit.CharacterData.IsDead;
         }
 
-        public void Dead()
-        {
+        public void Dead () {
             pandaTree.enabled = false;
-            pathFindingAgent.Dead();
-            CameraManager.Instance.RemoveFromTargetGroup(aiUnit);
+            pathFindingAgent.Dead ();
+            CameraManager.Instance.RemoveFromTargetGroup (aiUnit);
 
         }
-        void OnDrawGizmos()
-        {
+        void OnDrawGizmos () {
             //Gizmos.DrawWireCube(aiUnit.gameObject.transform.position, aiUnit.gameObject.transform.forward * 1f,  new Vector3(1.0f, 1.0f, 0.2f));
         }
     }

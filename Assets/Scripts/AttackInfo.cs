@@ -77,6 +77,7 @@ namespace meleeDemo {
             Type = AttackType.NULL;
             Range = 0f;
             ProjectileObject = null;
+            this.gameObject.transform.parent = null;
             //AttackCenter = null;
             /*
             if (VFXObj != null) {
@@ -99,22 +100,20 @@ namespace meleeDemo {
         }
         public void Register () {
             IsRegistered = true;
-            if (Type == AttackType.AOE)
-            {
+            if (Type == AttackType.AOE) {
                 Vector3 pos = Attacker.gameObject.transform.position + Attacker.gameObject.transform.forward * AttackSkill.AOEAttackCenterOffset;
-                this.gameObject.transform.position = new Vector3(pos.x, 0f, pos.z);
-                if(IsAOEAttackAttachToPlayer)
+                this.gameObject.transform.position = new Vector3 (pos.x, 0f, pos.z);
+                if (IsAOEAttackAttachToPlayer)
                     this.gameObject.transform.parent = Attacker.gameObject.transform;
-                if (vfxType != VFXType.Null)
-                {
-                    GameObject obj = GenerateVFXObject();
-                    obj.SetActive(true);
+                if (vfxType != VFXType.Null) {
+                    GameObject obj = GenerateVFXObject ();
+                    obj.SetActive (true);
                     obj.transform.position = this.gameObject.transform.position;
                     //obj.transform.parent = this.gameObject.transform;
-                    ParticleSystem ps = obj.GetComponent<ParticleSystem>();
-                    ps.Play(true);
-                    VFXObj = obj.GetComponent<PoolObject>();
-                    VFXObj.WaitAndDestroy(1f);
+                    ParticleSystem ps = obj.GetComponent<ParticleSystem> ();
+                    ps.Play (true);
+                    VFXObj = obj.GetComponent<PoolObject> ();
+                    VFXObj.WaitAndDestroy (1f);
                     //Attacker.VFXs.Add (obj.GetComponent<PoolObject> ());
                 }
             }

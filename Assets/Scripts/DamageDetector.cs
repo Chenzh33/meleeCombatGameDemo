@@ -155,9 +155,9 @@ namespace meleeDemo {
             //Debug.Log(hitVector);
             //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
 
-            control.TakeDamage (info.Damage);
+            control.TakeDamage (info.Damage, info.AttackSkill);
             if (!control.CharacterData.IsStunned)
-                control.TakeStun (info.Stun);
+                control.TakeStun (info.Stun, info.AttackSkill);
             control.TakeKnockback (info.KnockbackForce * hitVector, info.HitReactDuration);
             control.CharacterData.FormerAttackTarget = null;
 

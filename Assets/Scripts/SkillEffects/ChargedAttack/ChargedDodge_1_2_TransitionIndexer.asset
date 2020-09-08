@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041a36037495c8b4592e25b5f60b7e83, type: 3}
-  m_Name: ChargedDodge_TransitionIndexer
+  m_Name: ChargedDodge_1_2_TransitionIndexer
   m_EditorClassIdentifier: 
   TimeIntervals:
-  - index: 1
-    st: 0.6
+  - index: 10
+    st: 0.52
     ed: 0.9
-  - index: 2
+  - index: 11
     st: 0.9
     ed: 1.5
   - index: -1
-    st: 0.9
+    st: 0.52
     ed: 1.5
   - index: -3
     st: 0.62

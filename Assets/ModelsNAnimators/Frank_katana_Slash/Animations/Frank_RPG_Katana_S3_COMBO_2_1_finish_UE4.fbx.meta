@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: 8993902097722301239
-    second: ChargeDodge_3
+    second: ChargedDodge_3
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -47,11 +47,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: ChargeDodge_3
+      name: ChargedDodge_3
       takeName: Unreal Take
       internalID: 0
-      firstFrame: 74
-      lastFrame: 125
+      firstFrame: 75
+      lastFrame: 84
       wrapMode: 0
       orientationOffsetY: 90
       level: 0

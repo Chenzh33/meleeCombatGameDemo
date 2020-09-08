@@ -25,6 +25,10 @@ namespace meleeDemo {
         public float MaxEnergy;
         public float EnergyRegeneration;
         public float EnergyDecayOverCharge;
+        public float EnergyRegenerationDelay;
+        public float EnergyGetOnExecuteHit;
+        //public float EnergyGetOnEnemyDeath;
+        public float EnergyGetOnEnemyDeathByExecute;
 
         public float TargetGroupWeight;
         public float TargetGroupRadius;
@@ -38,15 +42,18 @@ namespace meleeDemo {
         public bool IsSuperArmour;
         public bool IsRunning;
         public bool IsStunned;
-        public bool GetHit;
+        public bool OffEnergyRegen;
+        public bool OffArmourRegen;
         public CharacterControl GrapplingTarget;
         public CharacterControl FormerAttackTarget;
         public TeamTag Team;
 
-
         public delegate void StateChangeEvent ();
         public event StateChangeEvent OnHealthChange;
         public event StateChangeEvent OnEnergyChange;
+
+        public delegate void EnemyGetDamagedEvent (SkillEffect skill, CharacterControl enemy);
+        public event EnemyGetDamagedEvent OnDamage;
 
         public const int STATE_BUFFER_SIZE = 3;
         public int[] StateBuffer = new int[STATE_BUFFER_SIZE];
@@ -55,7 +62,7 @@ namespace meleeDemo {
         public List<PoolObject> VFXs;
 
         public void UpdateData () {
-            if (!IsStunned && !GetHit && Armour < MaxArmour)
+            if (!IsStunned && !OffArmourRegen && Armour < MaxArmour)
                 Armour += ArmourRegeneration * Time.deltaTime;
             if (Armour > MaxArmour)
                 Armour = MaxArmour;
@@ -65,7 +72,7 @@ namespace meleeDemo {
                 if (Energy < MaxEnergy)
                     Energy = MaxEnergy;
                 SendMessage (MessageType.EnergyChange);
-            } else if (Energy < MaxEnergy) {
+            } else if (Energy < MaxEnergy && !OffEnergyRegen) {
                 Energy += EnergyRegeneration * Time.deltaTime;
                 if (Energy > MaxEnergy)
                     Energy = MaxEnergy;
@@ -98,6 +105,30 @@ namespace meleeDemo {
             SendMessage (MessageType.EnergyChange);
         }
 
+        public void GetEnergy (float energy) {
+            this.Energy += energy;
+            SendMessage (MessageType.EnergyChange);
+        }
+        public void GetEnergyToMaxOneUnit (float energy) {
+            if (this.Energy + energy > this.MaxEnergy)
+                this.Energy = Mathf.Max (this.Energy, this.MaxEnergy);
+            else
+                this.Energy += energy;
+
+            SendMessage (MessageType.EnergyChange);
+        }
+
+        public void CurrentEnergyUnitChargeToFull () {
+            int count;
+            if (Energy / MaxEnergy > 1.0f) {
+                count = (int) (Energy / MaxEnergy);
+            } else {
+                count = 0;
+            }
+            Energy = (float) (count + 1) * MaxEnergy;
+            SendMessage (MessageType.EnergyChange);
+        }
+
         public void SendMessage (MessageType type) {
             switch (type) {
                 case MessageType.HealthChange:
@@ -112,7 +143,12 @@ namespace meleeDemo {
             }
 
         }
-      
+
+        public void SendGetDamageEvent (SkillEffect skill, CharacterControl enemy) {
+            if (OnDamage != null)
+                OnDamage (skill, enemy);
+
+        }
 
     }
 }

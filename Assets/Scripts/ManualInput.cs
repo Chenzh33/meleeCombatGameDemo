@@ -109,10 +109,10 @@ namespace meleeDemo {
             // for test
             if (Input.GetKeyDown (KeyCode.N)) {
                 if (player.CharacterData.Energy > 1.0f)
-                    player.TakeEnergy (1.0f);
+                    player.TakeEnergy (1.0f, null);
             }
             if (Input.GetKeyDown (KeyCode.M)) {
-                player.TakeEnergy (-1.0f);
+                player.TakeEnergy (-1.0f, null);
             }
             /*
                         Vector3 forward = gameObject.transform.forward;

@@ -26,6 +26,7 @@ namespace meleeDemo {
         private Coroutine KnockbackCoroutine;
         private Coroutine HitReactCoroutine;
         private Coroutine SetFormerTargetCoroutine;
+        private Coroutine TurnOffEnergyRegenCoroutine;
         private Coroutine TurnOffArmourRegenCoroutine;
 
         public AnimationCurve KnockbackSpeedGraph;
@@ -77,6 +78,8 @@ namespace meleeDemo {
                 isPlayerControl = false;
             // load data process xxxx
             SetRagdollAndAttackingParts ();
+            //this.CharacterData.OnDead += Dead;
+            //this.CharacterData.OnDamage += Dead;
         }
 
         /*
@@ -131,24 +134,37 @@ namespace meleeDemo {
                 return particleSystemHold;
             }
         }
-
-        IEnumerator _TurnOffArmourRegen(float delay)
-        {
-            this.CharacterData.GetHit = true;
+        IEnumerator _TurnOffEnergyRegen (float delay) {
+            this.CharacterData.OffEnergyRegen = true;
             yield return new WaitForSeconds (delay);
-            this.CharacterData.GetHit = false;
-          
+            this.CharacterData.OffEnergyRegen = false;
+
+            TurnOffEnergyRegenCoroutine = null;
+
+        }
+
+        public void TurnOffEnergyRegen (float delay) {
+            if (TurnOffEnergyRegenCoroutine != null)
+                StopCoroutine (TurnOffEnergyRegenCoroutine);
+            TurnOffEnergyRegenCoroutine = StartCoroutine (_TurnOffEnergyRegen (delay));
+
+        }
+        IEnumerator _TurnOffArmourRegen (float delay) {
+            this.CharacterData.OffArmourRegen = true;
+            yield return new WaitForSeconds (delay);
+            this.CharacterData.OffArmourRegen = false;
+
             TurnOffArmourRegenCoroutine = null;
 
         }
 
-        public void TurnOffArmourRegen(float delay) {
+        public void TurnOffArmourRegen (float delay) {
             if (TurnOffArmourRegenCoroutine != null)
                 StopCoroutine (TurnOffArmourRegenCoroutine);
-            TurnOffArmourRegenCoroutine = StartCoroutine (_TurnOffArmourRegen(delay));
+            TurnOffArmourRegenCoroutine = StartCoroutine (_TurnOffArmourRegen (delay));
 
         }
-        public void TakeDamage (float damage) {
+        public void TakeDamage (float damage, SkillEffect skill) {
             if (!this.CharacterData.IsStunned && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead) {
                 if (isPlayerControl) {
                     this.Animator.Play ("HitReact4", 0, 0f);
@@ -157,21 +173,24 @@ namespace meleeDemo {
                     this.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
                 }
             }
-            TurnOffArmourRegen(this.CharacterData.ArmourRegenerationDelay);
+            TurnOffArmourRegen (this.CharacterData.ArmourRegenerationDelay);
             this.CharacterData.TakeDamage (damage);
+
+            this.CharacterData.SendGetDamageEvent (skill, this);
 
             if (this.CharacterData.HP <= 0)
                 Dead ();
+            //this.CharacterData.OnDead (skill);
         }
 
-        public void TakeStun (float stun) {
+        public void TakeStun (float stun, SkillEffect skill) {
 
             this.CharacterData.Armour -= stun;
 
             if (this.CharacterData.Armour <= 0 && !this.CharacterData.IsDead)
                 GetStunned ();
         }
-        public void TakeEnergy (float energy) {
+        public void TakeEnergy (float energy, SkillEffect skill) {
 
             // assume already checked the energy amount
             /*
@@ -179,9 +198,23 @@ namespace meleeDemo {
                 return;
             }
             */
+            TurnOffEnergyRegen (this.CharacterData.EnergyRegenerationDelay);
             this.CharacterData.TakeEnergy (energy);
         }
 
+        public void OnEnemyGetDamaged (SkillEffect skill, CharacterControl enemy) {
+            Debug.Log (skill.GetType ().ToString ());
+            if (enemy.CharacterData.HP <= 0f) {
+
+                this.CharacterData.CurrentEnergyUnitChargeToFull ();
+                if (skill.GetType ().ToString () == "meleeDemo.DirectDamage") {
+                    this.CharacterData.GetEnergy (this.CharacterData.EnergyGetOnEnemyDeathByExecute);
+                }
+            } else if (skill.GetType ().ToString () == "meleeDemo.DirectDamage") {
+                this.CharacterData.GetEnergyToMaxOneUnit (this.CharacterData.EnergyGetOnExecuteHit);
+            }
+
+        }
         public void HitReactionAndFreeze (float freezeStTime) {
             if (HitReactCoroutine != null)
                 StopCoroutine (HitReactCoroutine);
@@ -537,7 +570,6 @@ namespace meleeDemo {
                 animator.SetBool (TransitionParameter.Charge.ToString (), true);
             else
                 animator.SetBool (TransitionParameter.Charge.ToString (), false);
-
 
             if (isPlayerControl) {
 

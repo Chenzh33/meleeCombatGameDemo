@@ -25,26 +25,35 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.38905236
     - serializedVersion: 3
-      time: 0.167
+      time: 0.02
       value: 0.31
-      inSlope: 5.6704626
-      outSlope: 5.6704626
+      inSlope: 10.44014
+      outSlope: 10.44014
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.42831245
+      outWeight: 0.22373447
     - serializedVersion: 3
-      time: 0.21238898
-      value: 0.8410473
-      inSlope: 6.757108
-      outSlope: 6.757108
+      time: 0.04
+      value: 0.8457734
+      inSlope: 18.984308
+      outSlope: 18.984308
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.3
-      value: 1
+      time: 0.0539079
+      value: 1.001263
+      inSlope: -0.02417334
+      outSlope: -0.02417334
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.17429335
+      value: 1.0000013
       inSlope: -0.00070307264
       outSlope: -0.00070307264
       tangentMode: 0
@@ -52,22 +61,22 @@ MonoBehaviour:
       inWeight: 1
       outWeight: 0.7570619
     - serializedVersion: 3
-      time: 0.33121225
-      value: 0.4409661
-      inSlope: -13.130593
-      outSlope: -13.130593
+      time: 0.25
+      value: 0.6
+      inSlope: -12.529262
+      outSlope: -12.529262
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.13059632
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.4
-      value: 0.1
-      inSlope: -0.83200014
-      outSlope: -0.83200014
+      time: 0.3
+      value: 0.25
+      inSlope: -1.9564883
+      outSlope: -1.9564883
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.9691647
+      inWeight: 1
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.6
@@ -90,4 +99,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 45
+  speed: 40
