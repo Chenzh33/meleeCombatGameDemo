@@ -66,6 +66,8 @@ namespace meleeDemo {
             player.CommandAttackHoldFrame = keysHoldFrames[0];
             player.CommandExecuteHoldFrame = keysHoldFrames[1];
             player.CommandDodgeHoldFrame = keysHoldFrames[2];
+            player.InputAxisHoldFrame = keysHoldFrames[4];
+
 
             // for test
             if (Input.GetKeyDown (KeyCode.B)) {

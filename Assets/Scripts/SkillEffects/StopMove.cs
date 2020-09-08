@@ -8,6 +8,7 @@ namespace meleeDemo {
     public class StopMove : SkillEffect {
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
+            //animator.SetBool (TransitionParameter.Move.ToString (), false);
 
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
@@ -15,6 +16,7 @@ namespace meleeDemo {
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             animator.SetBool (TransitionParameter.Move.ToString (), false);
+            stateEffect.CharacterControl.DodgeCoolDown();
 
         }
 

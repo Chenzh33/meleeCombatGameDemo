@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageTiming: 0.1
   Damage: 4
-  KnockbackForce: 20
-  HitReactDuration: 0.1
+  KnockbackForce: 30
+  HitReactDuration: 0.25
   Stun: 0

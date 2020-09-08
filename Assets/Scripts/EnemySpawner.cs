@@ -18,8 +18,10 @@ namespace meleeDemo {
         public void SpawnEnemy (Vector3 position, string prefabName) {
 
             GameObject obj = Instantiate (Resources.Load (prefabName, typeof (GameObject)) as GameObject);
+            obj.SetActive(true);
             obj.transform.position = position;
             CharacterControl control = obj.GetComponent<CharacterControl>();
+            control.Init();
             control.Spawn();
 
         }

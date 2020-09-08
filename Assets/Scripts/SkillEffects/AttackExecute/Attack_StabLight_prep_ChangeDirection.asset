@@ -17,9 +17,9 @@ MonoBehaviour:
   FacePrevTargetWhenNeutral: 1
   AutoFaceEnemyTiming: 0
   AutoFaceEnemyDuration: 0
-  CaptureDistanceFar: 5
-  CaptureAngleRangeFar: 45
-  CaptureDistanceNear: 2
-  CaptureAngleRangeNear: 90
+  CaptureDistanceFar: 8
+  CaptureAngleRangeFar: 60
+  CaptureDistanceNear: 3
+  CaptureAngleRangeNear: 120
   smoothEarlyTurn: 20
   LockOnTargetDuration: 1

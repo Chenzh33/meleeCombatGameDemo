@@ -25,7 +25,9 @@ namespace meleeDemo {
         DdgButtonHold,
         GrapplingHit,
         SpeedMultiplier,
-        Stunned
+        Stunned,
+        MoveHold,
+        ForbidDodge
 
     }
 

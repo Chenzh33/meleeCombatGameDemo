@@ -56,7 +56,7 @@ namespace meleeDemo {
         public const int MAX_HOLD_FRAME = 600;
         private int curIndex = 0;
         private InputsDataPerFrame[] inputBuffer = new InputsDataPerFrame[INPUT_BUFFER_SIZE];
-        private int[] KeysHoldFrames = new int[4];
+        private int[] KeysHoldFrames = new int[5];
 
         public override void Init () {
             SetDefaultKeyConfig ();
@@ -71,7 +71,7 @@ namespace meleeDemo {
                 //inputBuffer[i].KeysState = new bool[12];
             }
 
-            for (int i = 0; i != System.Enum.GetValues (typeof (InputKeyType)).Length; ++i) {
+            for (int i = 0; i != System.Enum.GetValues (typeof (InputKeyType)).Length + 1; ++i) {
                 KeysHoldFrames[i] = 0;
 
             }
@@ -162,6 +162,13 @@ namespace meleeDemo {
 
                 }
             }
+            if (data.InputVector.magnitude > 0.01f)
+            {
+                if (KeysHoldFrames[4] != VirtualInputManager.MAX_HOLD_FRAME)
+                    ++KeysHoldFrames[4];
+            }
+            else
+                KeysHoldFrames[4] = 0;
 
         }
 

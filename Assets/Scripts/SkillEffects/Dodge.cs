@@ -15,7 +15,9 @@ namespace meleeDemo {
             animator.SetBool (TransitionParameter.ForcedTransitionDodge.ToString (), false);
 
             animator.SetBool (TransitionParameter.Dodge.ToString (), false);
+            //animator.SetBool (TransitionParameter.Dodge.ToString (), false);
             stateEffect.CharacterControl.CommandDodge = false;
+            //animator.SetBool (TransitionParameter.Move.ToString (), false);
 
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {

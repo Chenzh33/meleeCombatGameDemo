@@ -104,7 +104,7 @@ namespace meleeDemo {
             }
             */
 
-            Vector3 dist = control.gameObject.transform.position - info.Attacker.GetAttackPoint ().gameObject.transform.position;
+            Vector3 dist = control.gameObject.transform.position - info.Attacker.GetProjectileSpawnPoint().gameObject.transform.position;
             dist.y = 0f;
             if (dist.magnitude <= info.Range)
                 return true;

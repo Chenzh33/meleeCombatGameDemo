@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b9c327d110f9b44f8949720e3fd1b1a, type: 3}
   m_Name: Dodge_Tumbling_Invincible
   m_EditorClassIdentifier: 
-  InvincibleBeginTiming: 0.2
+  InvincibleBeginTiming: 0
   InvincibleEndTiming: 0.8

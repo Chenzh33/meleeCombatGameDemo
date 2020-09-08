@@ -33,6 +33,8 @@ namespace meleeDemo {
         public float TargetGroupWeight;
         public float TargetGroupRadius;
 
+        public float DodgeCoolDown;
+
         public bool IsRagdollOn;
         public bool IsColliderOff;
         public bool IsAnimationPause;

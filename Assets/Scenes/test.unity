@@ -17506,6 +17506,11 @@ PrefabInstance:
       propertyPath: data.EnergyGetOnEnemyDeathByExecute
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8025092262141336795, guid: 3f3cbdc260c5cea439c7083b2bbf9a67,
+        type: 3}
+      propertyPath: data.DodgeCoolDown
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 8025092262718460864, guid: 3f3cbdc260c5cea439c7083b2bbf9a67,
         type: 3}
       propertyPath: m_LocalPosition.x
