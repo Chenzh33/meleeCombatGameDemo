@@ -91,7 +91,7 @@ namespace meleeDemo {
             if (stateInfo.normalizedTime >= AttackBeginTime && stateInfo.normalizedTime < AttackEndTime) {
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
                     if (!info.IsRegistered && info.AttackSkill == this && info.Attacker == stateEffect.CharacterControl) {
-                        Debug.Log (this.name + " registered: " + stateInfo.normalizedTime);
+                        //Debug.Log (this.name + " registered: " + stateInfo.normalizedTime);
                         //CameraManager.Instance.ShakeCamera(0.2f);
                         info.Register ();
                     }
@@ -108,7 +108,7 @@ namespace meleeDemo {
                         //info.IsRegistered = false;
                         FinishedAttacks.Add (info);
                         hasFinishedAttackInfo = true;
-                        Debug.Log (this.name + " deregistered: " + stateInfo.normalizedTime);
+                        //Debug.Log (this.name + " deregistered: " + stateInfo.normalizedTime);
 
                     }
                 }

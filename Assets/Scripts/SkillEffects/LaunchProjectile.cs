@@ -107,11 +107,11 @@ namespace meleeDemo {
             projectileVFX.transform.rotation = Quaternion.Euler (tileAngle, -90f, 0);
 
             obj.transform.parent = control.GetProjectileSpawnPoint ();
+            //obj.transform.localRotation = Quaternion.identity;
             obj.transform.localPosition = Vector3.zero;
-            obj.transform.localRotation = Quaternion.identity;
             obj.transform.parent = null;
             obj.SetActive (true);
-            //obj.transform.rotation.x = ProjectileTileAngle;
+            obj.transform.rotation = Quaternion.LookRotation(control.FaceTarget, Vector3.up);
 
             ProjectileObject projectileObject = obj.GetComponent<ProjectileObject> ();
             projectileObject.Init (info, ProjectileLifeTime, ProjectileSpeed);

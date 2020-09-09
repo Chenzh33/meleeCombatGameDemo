@@ -353,10 +353,14 @@ namespace meleeDemo {
             else
                 this.Animator.Play ("Ybot_Dead" + randomIndex.ToString (), 0, 0f);
             data.IsDead = true;
-            AIProgress agent = GetComponent<AIProgress> ();
-            if (agent != null) {
-                agent.Dead ();
-                AIAgentManager.Instance.TotalAIAgent.Remove (agent);
+
+            gameObject.layer = LayerMask.NameToLayer("Default");
+
+            AIProgress agent = GetComponent<AIProgress>();
+            if (agent != null)
+            {
+                agent.Dead();
+                AIAgentManager.Instance.TotalAIAgent.Remove(agent);
             }
 
         }
@@ -457,6 +461,13 @@ namespace meleeDemo {
                 yield return null;
             }
             TurnToTargetCoroutine = null;
+        }
+
+        public void StopTurnToTarget() {
+            if (TurnToTargetCoroutine != null)
+                StopCoroutine(TurnToTargetCoroutine);
+            FaceTarget = gameObject.transform.forward;
+
         }
 
         public void TurnToTarget (float stTime, float smooth) {

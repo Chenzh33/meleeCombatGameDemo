@@ -24,6 +24,7 @@ namespace meleeDemo {
         public float CaptureAngleRangeNear = 60f;
         public float smoothEarlyTurn = 20f;
         public float LockOnTargetDuration = 1.0f;
+        public float CaptureAngleThreshold = 15f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             bool IsFaceForward = true;
@@ -96,6 +97,9 @@ namespace meleeDemo {
         public bool FaceEnemy (Vector3 initFaceDirection, StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             Vector3 direction = Vector3.zero;
             bool EnemyCaptured = false;
+            CharacterControl capturedTarget = null;
+
+            /*
             List<GameObject> enemyObjs = new List<GameObject> ();
             if (stateEffect.CharacterControl.isPlayerControl) {
                 CharacterControl[] characterControls = FindObjectsOfType (typeof (CharacterControl)) as CharacterControl[];
@@ -110,8 +114,9 @@ namespace meleeDemo {
 
             // need update
             // get enemy list
-            CharacterControl capturedTarget = null;
-            foreach (GameObject enemy in enemyObjs) {
+
+            foreach (GameObject enemy in enemyObjs)
+            {
                 Vector3 diffVectorRaw = enemy.transform.position - stateEffect.CharacterControl.gameObject.transform.position;
                 Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0f, diffVectorRaw.z);
                 Vector2 diffVector2d = new Vector2 (diffVector.x, diffVector.z);
@@ -119,12 +124,7 @@ namespace meleeDemo {
                 Quaternion rotSelf = Quaternion.LookRotation (initFaceDirection, Vector3.up);
 
                 CharacterControl currentTarget = enemy.GetComponent<CharacterControl> ();
-                /*
-                if (!IsFaceForward)
-                    rotSelf = Quaternion.LookRotation(inputDirection, Vector3.up);
-                else
-                    rotSelf = Quaternion.LookRotation(animator.transform.forward, Vector3.up);
-                    */
+             
                 //Debug.Log ("dist = " + diffVector2d.magnitude.ToString ());
                 //Debug.Log ("rot = " + Quaternion.Angle (rotEnemy, rotSelf).ToString ());
 
@@ -146,7 +146,31 @@ namespace meleeDemo {
                         capturedTarget = currentTarget;
                     }
                 }
+               
             }
+            */
+
+            RaycastHit rayCastHit;
+            int layerMask = 0;
+            if (stateEffect.CharacterControl.gameObject.layer == LayerMask.NameToLayer("player"))
+                layerMask = 1 << 9;
+            else if(stateEffect.CharacterControl.gameObject.layer == LayerMask.NameToLayer("enemy"))
+                layerMask = 1 << 8;
+            bool hit = Physics.BoxCast(stateEffect.CharacterControl.gameObject.transform.position, 2.0f * new Vector3(1.0f, 1.0f, 0.5f),
+            initFaceDirection,
+            out rayCastHit,
+            Quaternion.LookRotation(initFaceDirection, Vector3.up),
+            CaptureDistanceFar, layerMask);
+            Debug.Log(hit);
+            if (hit)
+            {
+                EnemyCaptured = true;
+                capturedTarget = rayCastHit.collider.transform.root.gameObject.GetComponent<CharacterControl>();
+                Vector3 diffVectorRaw = capturedTarget.transform.position - stateEffect.CharacterControl.gameObject.transform.position;
+                Vector3 diffVector = new Vector3(diffVectorRaw.x, 0f, diffVectorRaw.z);
+                direction = diffVector.normalized;
+            }
+
             if (EnemyCaptured) {
                 stateEffect.CharacterControl.FaceTarget = direction;
                 Debug.DrawRay (stateEffect.CharacterControl.gameObject.transform.position, direction * 10f, Color.red);
