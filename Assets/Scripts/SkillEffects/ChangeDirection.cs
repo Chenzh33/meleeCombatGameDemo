@@ -9,6 +9,7 @@ namespace meleeDemo {
         public bool AllowEarlyTurn;
         public bool AutoFaceEnemy;
         public bool FacePrevTargetWhenNeutral;
+        public bool FacePrevTargetRegardlessOfPosition;
         //public bool ContinuallyFacing;
         //[Range (0f, 1f)]
         //public float AllowEarlyTurnTiming = 0f;
@@ -42,12 +43,13 @@ namespace meleeDemo {
                     Quaternion rotSelf = Quaternion.LookRotation (animator.transform.root.forward, Vector3.up);
                     float Dist = diffVector2d.magnitude;
                     float AbsAngle = Mathf.Abs (Quaternion.Angle (rotEnemy, rotSelf));
-                    if ((Dist <= CaptureDistanceFar && Dist > CaptureDistanceNear && AbsAngle <= CaptureAngleRangeFar) ||
+                    if (FacePrevTargetRegardlessOfPosition ||
+                        (Dist <= CaptureDistanceFar && Dist > CaptureDistanceNear && AbsAngle <= CaptureAngleRangeFar) ||
                         (Dist <= CaptureDistanceNear && AbsAngle <= CaptureAngleRangeNear)) {
                         stateEffect.CharacterControl.FaceTarget = diffVector.normalized;
                         KeepFaceFormerTarget = true;
                         IsFaceForward = false;
-                        stateEffect.CharacterControl.SetFormerTarget(stateEffect.CharacterControl.CharacterData.FormerAttackTarget, LockOnTargetDuration);
+                        stateEffect.CharacterControl.SetFormerTarget (stateEffect.CharacterControl.CharacterData.FormerAttackTarget, LockOnTargetDuration);
                     } else {
                         stateEffect.CharacterControl.CharacterData.FormerAttackTarget = null;
                     }
@@ -152,7 +154,7 @@ namespace meleeDemo {
                 //if (!FacePrevTargetWhenNeutral)
                 if (FacePrevTargetWhenNeutral)
                     //stateEffect.CharacterControl.CharacterData.FormerAttackTarget = capturedTarget;
-                    stateEffect.CharacterControl.SetFormerTarget(capturedTarget, LockOnTargetDuration);
+                    stateEffect.CharacterControl.SetFormerTarget (capturedTarget, LockOnTargetDuration);
                 return true;
                 //IsFaceForward = false;
             } else

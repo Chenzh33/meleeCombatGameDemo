@@ -11,6 +11,7 @@ namespace meleeDemo {
         private float Speed;
         private float CurrentTime;
         private bool IsMoving;
+        private AnimationCurve SpeedGraph;
 
         public void Init (AttackInfo projectileInfo, float duration, float speed) {
             ProjectileInfo = projectileInfo;
@@ -19,6 +20,7 @@ namespace meleeDemo {
             Duration = duration;
             Speed = speed;
             IsMoving = true;
+            SpeedGraph = projectileInfo.ProjectileSkill.SpeedGraph;
 
         }
         void Start () {
@@ -27,8 +29,8 @@ namespace meleeDemo {
 
         void Update () {
             if (IsMoving && CurrentTime < Duration) {
-                Debug.DrawRay(transform.position, transform.forward, Color.red);
-                transform.Translate (transform.forward * Speed * Time.deltaTime, Space.World);
+                //Debug.DrawRay(transform.position, transform.forward, Color.red);
+                transform.Translate (transform.forward * Speed * SpeedGraph.Evaluate(CurrentTime / Duration) * Time.deltaTime, Space.World);
                 CurrentTime += Time.deltaTime;
             } else {
                 ProjectileInfo.IsFinished = true;

@@ -55,10 +55,10 @@ namespace meleeDemo {
                 public bool DodgeTrigger;
                 */
 
-        void Awake() {
-            Init();
+        void Awake () {
+            Init ();
         }
-        public void Init() {
+        public void Init () {
             animator = GetComponentInChildren<Animator> ();
             detector = GetComponentInChildren<TriggerDetector> ();
             controller = GetComponent<CharacterController> ();
@@ -101,11 +101,11 @@ namespace meleeDemo {
             this.gameObject.transform.DOMoveY (0f, 0.1f);
         }
 
-/*
-        void Start () {
+        /*
+                void Start () {
 
-        }
-        */
+                }
+                */
 
         public Animator Animator {
             get {
@@ -171,20 +171,19 @@ namespace meleeDemo {
             TurnOffArmourRegenCoroutine = StartCoroutine (_TurnOffArmourRegen (delay));
 
         }
-        IEnumerator _DodgeCoolDown(float cd)
-        {
-            this.Animator.SetBool(TransitionParameter.ForbidDodge.ToString(), true);
+        IEnumerator _DodgeCoolDown (float cd) {
+            this.Animator.SetBool (TransitionParameter.ForbidDodge.ToString (), true);
             yield return new WaitForSeconds (cd);
-            this.Animator.SetBool(TransitionParameter.ForbidDodge.ToString(), false);
+            this.Animator.SetBool (TransitionParameter.ForbidDodge.ToString (), false);
 
             DodgeCoolDownCoroutine = null;
 
         }
 
-        public void DodgeCoolDown() {
+        public void DodgeCoolDown () {
             if (DodgeCoolDownCoroutine != null)
                 StopCoroutine (DodgeCoolDownCoroutine);
-            DodgeCoolDownCoroutine = StartCoroutine (_DodgeCoolDown(this.CharacterData.DodgeCoolDown));
+            DodgeCoolDownCoroutine = StartCoroutine (_DodgeCoolDown (this.CharacterData.DodgeCoolDown));
 
         }
         public void TakeDamage (float damage, SkillEffect skill) {
@@ -562,20 +561,26 @@ namespace meleeDemo {
              }
              */
 
+            if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Move") ||
+                animator.GetCurrentAnimatorStateInfo (0).IsName ("Idle"))
+                animator.SetBool (TransitionParameter.IdleState.ToString (), true);
+            else
+                animator.SetBool (TransitionParameter.IdleState.ToString (), false);
+
             this.CharacterData.UpdateData ();
 
             if (inputVector.magnitude > 0.01f) {
                 animator.SetBool (TransitionParameter.Move.ToString (), true);
             } else {
                 //animator.SetBool (TransitionParameter.Move.ToString (), false);
-                
+
                 if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Move") ||
                     animator.GetCurrentAnimatorStateInfo (0).IsName ("Walk") ||
                     animator.GetCurrentAnimatorStateInfo (0).IsName ("Run")) {
                     //Debug.Log("check stop");
                     CheckStopMove (0.05f);
                 }
-                
+
             }
             if (CommandAttack)
                 animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
@@ -634,7 +639,6 @@ namespace meleeDemo {
                 else
                     animator.SetBool (TransitionParameter.MoveHold.ToString (), false);
 
- 
             }
 
             /*

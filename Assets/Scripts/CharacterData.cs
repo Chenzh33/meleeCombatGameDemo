@@ -6,7 +6,10 @@ namespace meleeDemo {
 
     public enum MessageType {
         HealthChange,
-        EnergyChange
+        EnergyChange,
+        EnergyGet,
+        EnergyNotEnough,
+        EnergyTake
 
     }
 
@@ -34,7 +37,7 @@ namespace meleeDemo {
         public float TargetGroupRadius;
 
         public float DodgeCoolDown;
-
+        public float DamageMultiplier = 1.0f;
         public bool IsRagdollOn;
         public bool IsColliderOff;
         public bool IsAnimationPause;
@@ -53,6 +56,9 @@ namespace meleeDemo {
         public delegate void StateChangeEvent ();
         public event StateChangeEvent OnHealthChange;
         public event StateChangeEvent OnEnergyChange;
+        public event StateChangeEvent OnEnergyTake;
+        public event StateChangeEvent OnEnergyNotEnough;
+        public event StateChangeEvent OnEnergyGet;
 
         public delegate void EnemyGetDamagedEvent (SkillEffect skill, CharacterControl enemy);
         public event EnemyGetDamagedEvent OnDamage;
@@ -98,18 +104,20 @@ namespace meleeDemo {
         }
 
         public void TakeDamage (float damage) {
-            this.HP -= damage;
+            this.HP -= (damage * DamageMultiplier);
             SendMessage (MessageType.HealthChange);
         }
 
         public void TakeEnergy (float energy) {
             this.Energy -= energy;
             SendMessage (MessageType.EnergyChange);
+            SendMessage (MessageType.EnergyTake);
         }
 
         public void GetEnergy (float energy) {
             this.Energy += energy;
             SendMessage (MessageType.EnergyChange);
+            SendMessage (MessageType.EnergyGet);
         }
         public void GetEnergyToMaxOneUnit (float energy) {
             if (this.Energy + energy > this.MaxEnergy)
@@ -118,6 +126,7 @@ namespace meleeDemo {
                 this.Energy += energy;
 
             SendMessage (MessageType.EnergyChange);
+            SendMessage (MessageType.EnergyGet);
         }
 
         public void CurrentEnergyUnitChargeToFull () {
@@ -129,6 +138,7 @@ namespace meleeDemo {
             }
             Energy = (float) (count + 1) * MaxEnergy;
             SendMessage (MessageType.EnergyChange);
+            SendMessage (MessageType.EnergyGet);
         }
 
         public void SendMessage (MessageType type) {
@@ -142,6 +152,22 @@ namespace meleeDemo {
                     if (OnEnergyChange != null)
                         OnEnergyChange ();
                     break;
+
+                case MessageType.EnergyNotEnough:
+                    if (OnEnergyNotEnough != null)
+                        OnEnergyNotEnough();
+                    break;
+
+                case MessageType.EnergyGet:
+                    if (OnEnergyGet != null)
+                        OnEnergyGet();
+                    break;
+
+                case MessageType.EnergyTake:
+                    if (OnEnergyTake != null)
+                        OnEnergyTake();
+                    break;
+ 
             }
 
         }

@@ -104,7 +104,7 @@ namespace meleeDemo {
             }
             */
 
-            Vector3 dist = control.gameObject.transform.position - info.Attacker.GetProjectileSpawnPoint().gameObject.transform.position;
+            Vector3 dist = control.gameObject.transform.position - info.Attacker.GetProjectileSpawnPoint ().gameObject.transform.position;
             dist.y = 0f;
             if (dist.magnitude <= info.Range)
                 return true;
@@ -155,9 +155,16 @@ namespace meleeDemo {
             //Debug.Log(hitVector);
             //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
 
-            control.TakeDamage (info.Damage, info.AttackSkill);
-            if (!control.CharacterData.IsStunned)
-                control.TakeStun (info.Stun, info.AttackSkill);
+            if (info.AttackSkill != null) {
+                control.TakeDamage (info.Damage, info.AttackSkill);
+                if (!control.CharacterData.IsStunned)
+                    control.TakeStun (info.Stun, info.AttackSkill);
+            } else if (info.ProjectileSkill != null) {
+                control.TakeDamage (info.Damage, info.ProjectileSkill);
+                if (!control.CharacterData.IsStunned)
+                    control.TakeStun (info.Stun, info.ProjectileSkill);
+            }
+           
             control.TakeKnockback (info.KnockbackForce * hitVector, info.HitReactDuration);
             control.CharacterData.FormerAttackTarget = null;
 

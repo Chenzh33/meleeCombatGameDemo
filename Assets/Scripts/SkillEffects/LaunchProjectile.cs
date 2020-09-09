@@ -6,9 +6,12 @@ namespace meleeDemo {
 
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/LaunchProjectile")]
     public class LaunchProjectile : SkillEffect {
+        public float EnergyTaken = 1f;
 
         public float ProjectileLifeTime = 2f;
         public float ProjectileSpeed = 10f;
+        public float ProjectileTileAngle = 30f;
+        public float ProjectileTileAngleNoise = 15f;
 
         [Range (0f, 1f)]
         public float ProjectileLaunchTiming = 0.3f;
@@ -25,6 +28,7 @@ namespace meleeDemo {
         public float HitReactDuration = 0.1f;
         public float Stun = 1f;
         public bool IsAttackForward;
+        public AnimationCurve SpeedGraph;
 
         //[Range (0.01f, 1f)]
         //public float ComboInputStartTime = 0.3f;
@@ -36,11 +40,19 @@ namespace meleeDemo {
         //public List<AttackInfo> FinishedAttacks = new List<AttackInfo> ();
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_INFO);
-            AttackInfo atkInfo = obj.GetComponent<AttackInfo> ();
-            atkInfo.Init (null, this, stateEffect.CharacterControl);
-            obj.SetActive (true);
-            AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
+            if (animator.GetBool (TransitionParameter.Charge.ToString ())) {
+                if (stateEffect.CharacterControl.CharacterData.Energy >= EnergyTaken) {
+                    stateEffect.CharacterControl.TakeEnergy (EnergyTaken, this);
+                    GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_INFO);
+                    AttackInfo atkInfo = obj.GetComponent<AttackInfo> ();
+                    atkInfo.Init (null, this, stateEffect.CharacterControl);
+                    obj.SetActive (true);
+                    AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
+                } else {
+                    stateEffect.CharacterControl.CharacterData.SendMessage (MessageType.EnergyNotEnough);
+                }
+            }
+
             //ProjectileSpawnPoint = stateEffect.CharacterControl.GetProjectileSpawnPoint();
             /*
             if(stateEffect.CharacterControl.CharacterData.GetPrevState() == Animator.StringToHash("AttackHold"))
@@ -90,11 +102,17 @@ namespace meleeDemo {
         }
         public void Launch (AttackInfo info, CharacterControl control) {
             GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_HOLD_PROJECTILE);
+            ProjectileVFX projectileVFX = obj.GetComponentInChildren<ProjectileVFX> ();
+            float tileAngle = ProjectileTileAngle + Random.Range(-ProjectileTileAngleNoise, ProjectileTileAngleNoise);
+            projectileVFX.transform.rotation = Quaternion.Euler (tileAngle, -90f, 0);
+
             obj.transform.parent = control.GetProjectileSpawnPoint ();
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localRotation = Quaternion.identity;
             obj.transform.parent = null;
             obj.SetActive (true);
+            //obj.transform.rotation.x = ProjectileTileAngle;
+
             ProjectileObject projectileObject = obj.GetComponent<ProjectileObject> ();
             projectileObject.Init (info, ProjectileLifeTime, ProjectileSpeed);
             info.ProjectileObject = projectileObject;

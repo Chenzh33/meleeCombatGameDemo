@@ -16,6 +16,7 @@ namespace meleeDemo {
             }
             else
             {
+                stateEffect.CharacterControl.CharacterData.SendMessage(MessageType.EnergyNotEnough);
                 animator.CrossFade("NotEnoughEnergy", 0.25f);
 
             }

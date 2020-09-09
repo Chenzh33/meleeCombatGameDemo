@@ -7467,8 +7467,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.3, z: 0.3}
-  m_Center: {x: -0.55, y: 0, z: -0.05}
+  m_Size: {x: 1.25, y: 0.3, z: 0.3}
+  m_Center: {x: -0.6, y: 0, z: -0.05}
 --- !u!1 &4869151002273135734
 GameObject:
   m_ObjectHideFlags: 0
@@ -13017,7 +13017,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6533285070693162592}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 1}
+  m_LocalPosition: {x: 0, y: 0.7, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8795042397950453055}
@@ -38083,9 +38083,11 @@ MonoBehaviour:
   CommandAttack: 0
   CommandExecute: 1
   CommandDodge: 0
+  CommandCharge: 0
   CommandAttackHoldFrame: 0
   CommandExecuteHoldFrame: 0
   CommandDodgeHoldFrame: 0
+  InputAxisHoldFrame: 0
   data:
     HP: 20
     MaxHP: 20
@@ -38093,12 +38095,18 @@ MonoBehaviour:
     MaxArmour: 100
     ArmourRegenerationInStun: 100
     ArmourRegeneration: 100
+    ArmourRegenerationDelay: 3
     Energy: 4
     MaxEnergy: 4
-    EnergyRegeneration: 1
-    EnergyDecayOverCharge: 2
+    EnergyRegeneration: 0.2
+    EnergyDecayOverCharge: 0.5
+    EnergyRegenerationDelay: 1.5
+    EnergyGetOnExecuteHit: 1
+    EnergyGetOnEnemyDeathByExecute: 4
     TargetGroupWeight: 3
     TargetGroupRadius: 1
+    DodgeCoolDown: 0.35
+    DamageMultiplier: 1
     IsRagdollOn: 0
     IsColliderOff: 0
     IsAnimationPause: 0
@@ -38108,6 +38116,8 @@ MonoBehaviour:
     IsSuperArmour: 0
     IsRunning: 0
     IsStunned: 0
+    OffEnergyRegen: 0
+    OffArmourRegen: 0
     GrapplingTarget: {fileID: 0}
     FormerAttackTarget: {fileID: 0}
     Team: 0

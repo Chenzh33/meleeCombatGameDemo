@@ -28,3 +28,6 @@ MonoBehaviour:
   - index: -4
     st: 0.4
     ed: 0.62
+  - index: -2
+    st: 0.45
+    ed: 1

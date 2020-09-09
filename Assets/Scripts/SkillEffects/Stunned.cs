@@ -7,8 +7,10 @@ namespace meleeDemo {
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/Stunned")]
     public class Stunned : SkillEffect {
 
-        public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
+        public float StunnedDamageMultiplier = 1.3f;
 
+        public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
+            stateEffect.CharacterControl.CharacterData.DamageMultiplier *= StunnedDamageMultiplier;
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             if (stateEffect.CharacterControl.CharacterData.Armour >= stateEffect.CharacterControl.CharacterData.MaxArmour) {
@@ -21,7 +23,7 @@ namespace meleeDemo {
 
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-
+            stateEffect.CharacterControl.CharacterData.DamageMultiplier /= StunnedDamageMultiplier;
         }
 
     }

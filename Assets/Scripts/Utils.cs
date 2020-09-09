@@ -27,7 +27,8 @@ namespace meleeDemo {
         SpeedMultiplier,
         Stunned,
         MoveHold,
-        ForbidDodge
+        ForbidDodge,
+        IdleState
 
     }
 

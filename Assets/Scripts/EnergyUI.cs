@@ -14,6 +14,7 @@ namespace meleeDemo {
         public Image BarFill;
         public Image BarBound;
         public TextMeshProUGUI Count;
+        Animator BarBoundAnim;
 
         void Start () {
             GameObject player = (FindObjectOfType (typeof (ManualInput)) as ManualInput).gameObject;
@@ -28,7 +29,11 @@ namespace meleeDemo {
                     BarFill = im.GetComponent<Image> ();
             }
             Count = this.GetComponentInChildren<TextMeshProUGUI> ();
+            BarBoundAnim = BarBound.GetComponent<Animator>();
             playerControl.CharacterData.OnEnergyChange += EnergyChange;
+            playerControl.CharacterData.OnEnergyTake += PlayTakeEnergy;
+            playerControl.CharacterData.OnEnergyNotEnough += PlayNotEnoughEnergy;
+            playerControl.CharacterData.OnEnergyGet += PlayGetEnergy;
 
         }
 
@@ -43,6 +48,24 @@ namespace meleeDemo {
                 Count.text = "";
             }
             BarFill.fillAmount = (data.Energy - (float) count * data.MaxEnergy) / data.MaxEnergy;
+        }
+
+        void PlayNotEnoughEnergy()
+        {
+            BarBoundAnim.Play("NotEnoughEnergy");
+
+        }
+
+        void PlayTakeEnergy()
+        {
+            BarBoundAnim.Play("TakeEnergy");
+
+        }
+
+        void PlayGetEnergy()
+        {
+            BarBoundAnim.Play("GetEnergy");
+
         }
     }
 }
