@@ -17,10 +17,10 @@ MonoBehaviour:
   Type: 2
   MaxTargetNum: 5
   Range: 1.5
-  Damage: 2
+  Damage: 3
   KnockbackForce: 0
   HitReactDuration: 0.22
-  Stun: 3
+  Stun: 3.6
   IsAttackForward: 1
   IsAOEAttackTowardsCenter: 0
   IsAOEAttackAttachToPlayer: 1

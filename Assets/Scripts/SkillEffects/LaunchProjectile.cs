@@ -12,6 +12,7 @@ namespace meleeDemo {
         public float ProjectileSpeed = 10f;
         public float ProjectileTileAngle = 30f;
         public float ProjectileTileAngleNoise = 15f;
+        public bool NotNeedCharge;
 
         [Range (0f, 1f)]
         public float ProjectileLaunchTiming = 0.3f;
@@ -20,7 +21,8 @@ namespace meleeDemo {
         public float ReservedTime = 0.1f;
         //public Transform ProjectileSpawnPoint;
 
-        public AttackType Type = AttackType.PROJECTILE;
+        public AttackType Type = AttackType.Projectile;
+        public ProjectileType ProjType = ProjectileType.ChargedAttack;
         public int MaxTargetNum;
         public float Range;
         public float Damage = 1f;
@@ -40,14 +42,15 @@ namespace meleeDemo {
         //public List<AttackInfo> FinishedAttacks = new List<AttackInfo> ();
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            if (animator.GetBool (TransitionParameter.Charge.ToString ())) {
+            if (animator.GetBool (TransitionParameter.Charge.ToString ()) || NotNeedCharge) {
                 if (stateEffect.CharacterControl.CharacterData.Energy >= EnergyTaken) {
                     stateEffect.CharacterControl.TakeEnergy (EnergyTaken, this);
-                    GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_INFO);
+                    GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.AttackInfo);
                     AttackInfo atkInfo = obj.GetComponent<AttackInfo> ();
                     atkInfo.Init (null, this, stateEffect.CharacterControl);
                     obj.SetActive (true);
                     AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
+                    animator.SetBool (TransitionParameter.EnergyTaken.ToString (), true);
                 } else {
                     stateEffect.CharacterControl.CharacterData.SendMessage (MessageType.EnergyNotEnough);
                 }
@@ -72,7 +75,7 @@ namespace meleeDemo {
                     if (!info.IsRegistered && info.ProjectileSkill == this) {
                         info.Register ();
                         Launch (info, stateEffect.CharacterControl);
-                        Debug.Log ("register projectile : " + stateInfo.normalizedTime.ToString ());
+                        //Debug.Log ("register projectile : " + stateInfo.normalizedTime.ToString ());
                     }
                 }
             }
@@ -80,6 +83,7 @@ namespace meleeDemo {
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
 
+            animator.SetBool (TransitionParameter.EnergyTaken.ToString (), false);
             /*
             foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
                 if (!info.IsFinished && info.AttackSkill == this) {
@@ -101,17 +105,28 @@ namespace meleeDemo {
 
         }
         public void Launch (AttackInfo info, CharacterControl control) {
-            GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_HOLD_PROJECTILE);
+            GameObject obj = null;
+            switch (ProjType) {
+                case ProjectileType.ChargedAttack:
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.ProjectileChargedAttack);
+                    break;
+                case ProjectileType.Bullet:
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.ProjectileBullet);
+                    break;
+
+            }
             ProjectileVFX projectileVFX = obj.GetComponentInChildren<ProjectileVFX> ();
-            float tileAngle = ProjectileTileAngle + Random.Range(-ProjectileTileAngleNoise, ProjectileTileAngleNoise);
-            projectileVFX.transform.rotation = Quaternion.Euler (tileAngle, -90f, 0);
+            if (projectileVFX != null) {
+                float tileAngle = ProjectileTileAngle + Random.Range (-ProjectileTileAngleNoise, ProjectileTileAngleNoise);
+                projectileVFX.transform.rotation = Quaternion.Euler (tileAngle, -90f, 0);
+            }
 
             obj.transform.parent = control.GetProjectileSpawnPoint ();
             //obj.transform.localRotation = Quaternion.identity;
             obj.transform.localPosition = Vector3.zero;
             obj.transform.parent = null;
             obj.SetActive (true);
-            obj.transform.rotation = Quaternion.LookRotation(control.FaceTarget, Vector3.up);
+            obj.transform.rotation = Quaternion.LookRotation (control.FaceTarget, Vector3.up);
 
             ProjectileObject projectileObject = obj.GetComponent<ProjectileObject> ();
             projectileObject.Init (info, ProjectileLifeTime, ProjectileSpeed);

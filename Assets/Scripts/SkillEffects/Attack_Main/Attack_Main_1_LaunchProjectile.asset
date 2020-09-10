@@ -22,7 +22,7 @@ MonoBehaviour:
   Type: 3
   MaxTargetNum: 10
   Range: 1.5
-  Damage: 1
+  Damage: 0.65
   KnockbackForce: 10
   HitReactDuration: 0.1
   Stun: 1

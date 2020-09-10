@@ -43,10 +43,10 @@ namespace meleeDemo {
             GameObject obj = null;
             switch (Type) {
                 case VFXType.Slam:
-                    obj = PoolManager.Instance.GetObject (PoolObjectType.SLAM_VFX);
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.VFXSlam);
                     break;
                 case VFXType.AttackHoldAOE:
-                    obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_HOLD_AOE_VFX);
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.VFXAttackHold);
                     break;
 
             }

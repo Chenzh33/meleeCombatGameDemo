@@ -25,7 +25,7 @@ MonoBehaviour:
   Damage: 1
   KnockbackForce: 10
   HitReactDuration: 0.1
-  Stun: 1
+  Stun: 0.83
   IsAttackForward: 0
   SpeedGraph:
     serializedVersion: 2

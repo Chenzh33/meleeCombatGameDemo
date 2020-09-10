@@ -18,7 +18,7 @@ namespace meleeDemo {
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
 
-            if (stateInfo.normalizedTime >= ZoomTiming) {
+            if (!animator.GetBool(TransitionParameter.EnergyTaken.ToString()) && stateInfo.normalizedTime >= ZoomTiming) {
                 CameraManager.Instance.ZoomCameraPerFrame(ZoomSpeedGraph.Evaluate(stateInfo.normalizedTime) * ZoomSpeed * Time.deltaTime);
             }
             

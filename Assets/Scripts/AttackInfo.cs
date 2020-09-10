@@ -74,7 +74,7 @@ namespace meleeDemo {
             MaxTargetNum = 0;
             Attacker = null;
             Targets.Clear ();
-            Type = AttackType.NULL;
+            Type = AttackType.Null;
             Range = 0f;
             ProjectileObject = null;
             this.gameObject.transform.parent = null;
@@ -124,10 +124,10 @@ namespace meleeDemo {
             GameObject obj = null;
             switch (vfxType) {
                 case VFXType.Slam:
-                    obj = PoolManager.Instance.GetObject (PoolObjectType.SLAM_VFX);
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.VFXSlam);
                     break;
                 case VFXType.AttackHoldAOE:
-                    obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_HOLD_AOE_VFX);
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.VFXAttackHold);
                     break;
 
             }

@@ -16,7 +16,7 @@ namespace meleeDemo {
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
             if (!animator.GetBool (TransitionParameter.ButtonSmashing.ToString())) {
-                GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.BUTTON_SMASHER);
+                GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ButtonSmasher);
                 obj.SetActive (true);
                 ButtonSmasher smasher = obj.GetComponent<ButtonSmasher> ();
                 smasher.Init (stateEffect.CharacterControl, SmashKey, MaxDuration, MinDuration, MaxSmashCount, SmashCountGain, SmashCountDecay);

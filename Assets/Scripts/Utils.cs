@@ -28,32 +28,46 @@ namespace meleeDemo {
         Stunned,
         MoveHold,
         ForbidDodge,
-        IdleState
+        IdleState,
+        EnergyTaken
 
     }
 
     public enum PoolObjectType {
-        ATTACK_INFO,
-        ATTACK_HOLD_PROJECTILE,
-        BUTTON_SMASHER,
-        GRAPPLER,
-        PATH_FINDING_AGENT,
-        CAMERA_SHAKER,
-        SLAM_VFX,
-        ATTACK_HOLD_AOE_VFX
+        AttackInfo,
+        ProjectileChargedAttack,
+        ButtonSmasher,
+        Grappler,
+        PathFindingAgent,
+        CameraShaker,
+        VFXSlam,
+        VFXAttackHold,
+        ProjectileBullet
     }
-    public enum TeamTag{
-       Player,
-       Bandit, 
-       
+    public enum TeamTag {
+        Player,
+        Bandit,
 
     }
-    public enum BarImageType{
+
+    public enum AttackType {
+        Null,
+        MustCollide,
+        AOE,
+        Projectile
+
+    }
+    public enum ProjectileType {
+        ChargedAttack,
+        Bullet
+
+    }
+    public enum BarImageType {
         Bound,
         Fill,
         Red
     }
-    public enum VFXType{
+    public enum VFXType {
         Null,
         Trail,
         Hold,

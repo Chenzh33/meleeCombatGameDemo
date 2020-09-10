@@ -36,7 +36,7 @@ namespace meleeDemo {
         }
 
         void Start () {
-            GameObject pathFindingAgentObj = PoolManager.Instance.GetObject (PoolObjectType.PATH_FINDING_AGENT);
+            GameObject pathFindingAgentObj = PoolManager.Instance.GetObject (PoolObjectType.PathFindingAgent);
             pathFindingAgentObj.SetActive (true);
             pathFindingAgent = pathFindingAgentObj.GetComponent<PathFindingAgent> ();
             pathFindingAgent.transform.position = new Vector3 (gameObject.transform.position.x, 0f, gameObject.transform.position.z);
@@ -60,7 +60,7 @@ namespace meleeDemo {
                 enemyTarget = player.GetComponent<CharacterControl> ();
                 if (IsTargetVisible () && enemyTarget.CharacterData.Team != team) {
                     pathFindingAgent.SetTarget (enemyTarget.gameObject.transform);
-                    Debug.Log ("Find player!");
+                    //Debug.Log ("Find player!");
                     CameraManager.Instance.AddToTargetGroup (aiUnit);
                 } else {
                     CameraManager.Instance.RemoveFromTargetGroup (aiUnit);
@@ -166,6 +166,18 @@ namespace meleeDemo {
                             */
 
         }
+
+        public void TurnOnHighlight (float factor)
+        {
+            aiUnit.CharacterData.TargetGroupWeight *= factor;
+            CameraManager.Instance.UpdateTargetWeight (aiUnit);
+        }
+        public void TurnOffHighlight (float factor)
+        {
+            aiUnit.CharacterData.TargetGroupWeight /= factor;
+            CameraManager.Instance.UpdateTargetWeight (aiUnit);
+        }
+ 
         public void SetInputVectorToFaceTarget () {
             Vector3 dir = enemyTarget.gameObject.transform.position - gameObject.transform.position;
             dir.y = 0f;

@@ -46,7 +46,7 @@ namespace meleeDemo {
             if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
                 player.CommandDodge = false;
 
-            if (inputDataTop.KeysState[(int)InputKeyStateType.KEY_CHARGE])
+            if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_CHARGE])
                 player.CommandCharge = true;
             else
                 player.CommandCharge = false;
@@ -67,7 +67,6 @@ namespace meleeDemo {
             player.CommandExecuteHoldFrame = keysHoldFrames[1];
             player.CommandDodgeHoldFrame = keysHoldFrames[2];
             player.InputAxisHoldFrame = keysHoldFrames[4];
-
 
             // for test
             if (Input.GetKeyDown (KeyCode.B)) {
@@ -96,7 +95,8 @@ namespace meleeDemo {
                 float yy = Random.Range (0f, 1f);
                 if (yy > 0.5f)
                     y = -y;
-                EnemyManager.Instance.SpawnEnemy (this.gameObject.transform.position + new Vector3 (x, 0f, y), "Swordman");
+                //EnemyManager.Instance.SpawnEnemy (this.gameObject.transform.position + new Vector3 (x, 0f, y), "Swordman");
+                EnemyManager.Instance.SpawnEnemy (this.gameObject.transform.position + new Vector3 (x, 0f, y), "Gunman");
             }
 
             // for test
@@ -116,18 +116,22 @@ namespace meleeDemo {
             if (Input.GetKeyDown (KeyCode.M)) {
                 player.TakeEnergy (-1.0f, null);
             }
-            /*
-                        Vector3 forward = gameObject.transform.forward;
-                        forward.y = 0f;
-                        float angle = (Quaternion.LookRotation(forward, Vector3.up)).eulerAngles.y * Mathf.Deg2Rad;
-                        //Debug.Log(forward.ToString() + " " + Mathf.Cos(angle).ToString() + " " + Mathf.Sin(angle).ToString());
-                        float blendTreeInputX = player.inputVector.x * Mathf.Cos(angle) - player.inputVector.y * Mathf.Sin(angle);
-                        float blendTreeInputY = player.inputVector.x * Mathf.Sin(angle) + player.inputVector.y * Mathf.Cos(angle);
-                        player.Animator.SetFloat("InputX", blendTreeInputX);
-                        player.Animator.SetFloat("InputY", blendTreeInputY);
-                        */
 
+            Vector3 forward = gameObject.transform.forward;
+            forward.y = 0f;
+            float angle = (Quaternion.LookRotation (forward, Vector3.up)).eulerAngles.y * Mathf.Deg2Rad;
+            //Debug.Log(forward.ToString() + " " + Mathf.Cos(angle).ToString() + " " + Mathf.Sin(angle).ToString());
+            float blendTreeInputX = player.inputVector.x * Mathf.Cos (angle) - player.inputVector.y * Mathf.Sin (angle);
+            float blendTreeInputY = player.inputVector.x * Mathf.Sin (angle) + player.inputVector.y * Mathf.Cos (angle);
+            player.Animator.SetFloat ("InputX", blendTreeInputX);
+            player.Animator.SetFloat ("InputY", blendTreeInputY);
+
+            if (Input.GetKeyDown (KeyCode.F)) {
+                player.Animator.SetBool ("Fire", true);
+            } else {
+                player.Animator.SetBool ("Fire", false);
+            }
         }
     }
-
 }
+

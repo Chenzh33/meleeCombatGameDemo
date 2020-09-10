@@ -1,0 +1,98 @@
+tree("Root")
+	parallel
+		repeat mute tree("BeAlive")
+		repeat mute tree("Die")
+
+tree("BeAlive")
+	fallback
+		tree("WalkAndAttack")
+		tree("ChaseEnemy")
+		tree("Idle")
+
+tree("WalkAndAttack")
+	while
+		sequence
+			HasTarget
+			not IsRunning
+			
+		fallback
+			while
+				sequence
+					not IsTargetInAttackRange 
+					not IsTargetOutWalkRange
+				race
+					sequence
+						RunToWalk
+						ChaseTarget
+					sequence
+						WaitRandom(2.0,3.0)
+						//StopMove
+						tree("Execute")
+					
+			repeat
+				sequence
+					IsTargetInAttackRange 
+					//StopMove
+					Wait(0.2)
+					tree("Attack")
+			sequence
+				IsTargetOutWalkRange 
+				WalkToRun
+				Fail
+				
+
+
+tree("ChaseEnemy")
+	while 
+		sequence
+			HasTarget
+			IsRunning
+			
+		parallel
+			fallback
+				while not IsTargetInWalkRange
+					sequence 
+						WalkToRun
+						ChaseTarget
+				sequence 
+					IsTargetInWalkRange
+					RunToWalk
+					Fail
+					
+			while not IsTargetVisible
+				sequence
+					Wait(3.0)
+					ClearTarget
+					Fail
+
+
+tree("Idle")
+	while
+		sequence
+			not HasTarget
+			not FindTarget
+
+		repeat
+			Wait(1.0)
+			//WaitRandom(0.5, 2.0)
+
+
+tree("Attack")
+	sequence
+		WaitRandom(0.2, 0.4)
+		//StopMove
+		//AttackCommandInput
+		RandomAttack
+		Wait(0.10)
+		AttackCommandCancel
+
+tree("Execute")
+	sequence
+		RandomExecute
+		//ExecuteCommandInput
+		Wait(0.10)
+		ExecuteCommandCancel
+
+
+tree("Die")
+	IsDead

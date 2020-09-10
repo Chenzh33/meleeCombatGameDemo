@@ -10,6 +10,7 @@ namespace meleeDemo {
         public bool AutoFaceEnemy;
         public bool FacePrevTargetWhenNeutral;
         public bool FacePrevTargetRegardlessOfPosition;
+        public bool CheckFarRange;
         //public bool ContinuallyFacing;
         //[Range (0f, 1f)]
         //public float AllowEarlyTurnTiming = 0f;
@@ -18,13 +19,13 @@ namespace meleeDemo {
         [Range (0f, 3f)]
         public float AutoFaceEnemyDuration = 0f;
 
-        public float CaptureDistanceFar = 5f;
-        public float CaptureAngleRangeFar = 20f;
-        public float CaptureDistanceNear = 2f;
-        public float CaptureAngleRangeNear = 60f;
+        public float CaptureDistanceFar = 8f;
+        public float CaptureAngleRange = 30f;
+
+        public float CaptureDistanceNear = 3f;
+        //public float CaptureAngleRangeNear = 60f;
         public float smoothEarlyTurn = 20f;
         public float LockOnTargetDuration = 1.0f;
-        public float CaptureAngleThreshold = 15f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             bool IsFaceForward = true;
@@ -45,12 +46,12 @@ namespace meleeDemo {
                     float Dist = diffVector2d.magnitude;
                     float AbsAngle = Mathf.Abs (Quaternion.Angle (rotEnemy, rotSelf));
                     if (FacePrevTargetRegardlessOfPosition ||
-                        (Dist <= CaptureDistanceFar && Dist > CaptureDistanceNear && AbsAngle <= CaptureAngleRangeFar) ||
-                        (Dist <= CaptureDistanceNear && AbsAngle <= CaptureAngleRangeNear)) {
+                        (Dist <= CaptureDistanceFar && Dist > CaptureDistanceNear && AbsAngle <= CaptureAngleRange)) {
                         stateEffect.CharacterControl.FaceTarget = diffVector.normalized;
                         KeepFaceFormerTarget = true;
                         IsFaceForward = false;
                         stateEffect.CharacterControl.SetFormerTarget (stateEffect.CharacterControl.CharacterData.FormerAttackTarget, LockOnTargetDuration);
+                        stateEffect.CharacterControl.TurnToTarget (0f, 0f);
                     } else {
                         stateEffect.CharacterControl.CharacterData.FormerAttackTarget = null;
                     }
@@ -99,81 +100,70 @@ namespace meleeDemo {
             bool EnemyCaptured = false;
             CharacterControl capturedTarget = null;
 
-            /*
-            List<GameObject> enemyObjs = new List<GameObject> ();
-            if (stateEffect.CharacterControl.isPlayerControl) {
-                CharacterControl[] characterControls = FindObjectsOfType (typeof (CharacterControl)) as CharacterControl[];
-                foreach (CharacterControl c in characterControls) {
-                    if (!c.isPlayerControl && !c.CharacterData.IsDead)
-                        enemyObjs.Add (c.gameObject);
-                }
-            } else {
-                // AI controlled
-                enemyObjs.Add (stateEffect.CharacterControl.AIProgress.enemyTarget.gameObject);
-            }
-
-            // need update
-            // get enemy list
-
-            foreach (GameObject enemy in enemyObjs)
-            {
-                Vector3 diffVectorRaw = enemy.transform.position - stateEffect.CharacterControl.gameObject.transform.position;
-                Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0f, diffVectorRaw.z);
-                Vector2 diffVector2d = new Vector2 (diffVector.x, diffVector.z);
-                Quaternion rotEnemy = Quaternion.LookRotation (diffVector, Vector3.up);
-                Quaternion rotSelf = Quaternion.LookRotation (initFaceDirection, Vector3.up);
-
-                CharacterControl currentTarget = enemy.GetComponent<CharacterControl> ();
-             
-                //Debug.Log ("dist = " + diffVector2d.magnitude.ToString ());
-                //Debug.Log ("rot = " + Quaternion.Angle (rotEnemy, rotSelf).ToString ());
-
-                float finalDist = Mathf.Infinity;
-                float Dist = diffVector2d.magnitude;
-                float AbsAngle = Mathf.Abs (Quaternion.Angle (rotEnemy, rotSelf));
-                if (Dist <= CaptureDistanceFar && Dist > CaptureDistanceNear) {
-                    if (AbsAngle <= CaptureAngleRangeFar && Dist < finalDist) {
-                        EnemyCaptured = true;
-                        finalDist = Dist;
-                        direction = diffVector.normalized;
-                        capturedTarget = currentTarget;
-                    }
-                } else if (Dist <= CaptureDistanceNear) {
-                    if (AbsAngle <= CaptureAngleRangeNear && Dist < finalDist) {
-                        EnemyCaptured = true;
-                        finalDist = Dist;
-                        direction = diffVector.normalized;
-                        capturedTarget = currentTarget;
-                    }
-                }
-               
-            }
-            */
-
             RaycastHit rayCastHit;
             int layerMask = 0;
-            if (stateEffect.CharacterControl.gameObject.layer == LayerMask.NameToLayer("player"))
+            if (stateEffect.CharacterControl.gameObject.layer == LayerMask.NameToLayer ("player"))
                 layerMask = 1 << 9;
-            else if(stateEffect.CharacterControl.gameObject.layer == LayerMask.NameToLayer("enemy"))
+            else if (stateEffect.CharacterControl.gameObject.layer == LayerMask.NameToLayer ("enemy"))
                 layerMask = 1 << 8;
-            bool hit = Physics.BoxCast(stateEffect.CharacterControl.gameObject.transform.position, 2.0f * new Vector3(1.0f, 1.0f, 0.5f),
-            initFaceDirection,
-            out rayCastHit,
-            Quaternion.LookRotation(initFaceDirection, Vector3.up),
-            CaptureDistanceFar, layerMask);
-            Debug.Log(hit);
-            if (hit)
-            {
+            bool hit = Physics.BoxCast (stateEffect.CharacterControl.gameObject.transform.position, 2.0f * new Vector3 (1.0f, 1.0f, 0.5f),
+                initFaceDirection,
+                out rayCastHit,
+                Quaternion.LookRotation (initFaceDirection, Vector3.up),
+                CaptureDistanceNear, layerMask);
+            //Debug.Log (hit);
+            if (hit) {
                 EnemyCaptured = true;
-                capturedTarget = rayCastHit.collider.transform.root.gameObject.GetComponent<CharacterControl>();
+                capturedTarget = rayCastHit.collider.transform.root.gameObject.GetComponent<CharacterControl> ();
                 Vector3 diffVectorRaw = capturedTarget.transform.position - stateEffect.CharacterControl.gameObject.transform.position;
-                Vector3 diffVector = new Vector3(diffVectorRaw.x, 0f, diffVectorRaw.z);
+                Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0f, diffVectorRaw.z);
                 direction = diffVector.normalized;
+            } else if(animator.GetBool(TransitionParameter.EnergyTaken.ToString()) || CheckFarRange) {
+                Debug.Log("test far range enemy capture");
+                List<GameObject> enemyObjs = new List<GameObject> ();
+                if (stateEffect.CharacterControl.isPlayerControl) {
+                    foreach (AIProgress ai in AIAgentManager.Instance.TotalAIAgent) {
+                        enemyObjs.Add (ai.gameObject);
+                    }
+                } else {
+                    // AI controlled
+                    enemyObjs.Add (stateEffect.CharacterControl.AIProgress.enemyTarget.gameObject);
+                }
+
+                // need update
+                // get enemy list
+
+                foreach (GameObject enemy in enemyObjs) {
+                    Vector3 diffVectorRaw = enemy.transform.position - stateEffect.CharacterControl.gameObject.transform.position;
+                    Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0f, diffVectorRaw.z);
+                    Vector2 diffVector2d = new Vector2 (diffVector.x, diffVector.z);
+                    Quaternion rotEnemy = Quaternion.LookRotation (diffVector, Vector3.up);
+                    Quaternion rotSelf = Quaternion.LookRotation (initFaceDirection, Vector3.up);
+
+                    CharacterControl currentTarget = enemy.GetComponent<CharacterControl> ();
+
+                    //Debug.Log ("dist = " + diffVector2d.magnitude.ToString ());
+                    //Debug.Log ("rot = " + Quaternion.Angle (rotEnemy, rotSelf).ToString ());
+
+                    float finalDist = Mathf.Infinity;
+                    float Dist = diffVector2d.magnitude;
+                    float AbsAngle = Mathf.Abs (Quaternion.Angle (rotEnemy, rotSelf));
+                    if (Dist <= CaptureDistanceFar && Dist > CaptureDistanceNear) {
+                        if (AbsAngle <= CaptureAngleRange && Dist < finalDist) {
+                            EnemyCaptured = true;
+                            finalDist = Dist;
+                            direction = diffVector.normalized;
+                            capturedTarget = currentTarget;
+                            Debug.Log ("enemy captured!");
+                        }
+                    }
+                }
+
             }
 
             if (EnemyCaptured) {
                 stateEffect.CharacterControl.FaceTarget = direction;
-                Debug.DrawRay (stateEffect.CharacterControl.gameObject.transform.position, direction * 10f, Color.red);
+                //Debug.DrawRay (stateEffect.CharacterControl.gameObject.transform.position, direction * 10f, Color.red);
                 stateEffect.CharacterControl.TurnToTarget (0f, 0f);
                 //if (!FacePrevTargetWhenNeutral)
                 if (FacePrevTargetWhenNeutral)
@@ -183,6 +173,7 @@ namespace meleeDemo {
                 //IsFaceForward = false;
             } else
                 return false;
+
         }
     }
 }

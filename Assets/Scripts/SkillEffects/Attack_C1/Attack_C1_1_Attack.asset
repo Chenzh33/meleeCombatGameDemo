@@ -23,6 +23,7 @@ MonoBehaviour:
   Stun: 0.7
   IsAttackForward: 1
   IsAOEAttackTowardsCenter: 0
+  IsAOEAttackAttachToPlayer: 0
   AOEAttackCenterOffset: 3
   vfxType: 0
   FinishedAttacks: []

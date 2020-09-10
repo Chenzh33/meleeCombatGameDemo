@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllowEarlyTurn: 1
   AutoFaceEnemy: 1
+  FacePrevTargetWhenNeutral: 0
+  FacePrevTargetRegardlessOfPosition: 0
+  CheckFarRange: 1
   AutoFaceEnemyTiming: 0
   AutoFaceEnemyDuration: 3
   CaptureDistanceFar: 8
-  CaptureAngleRangeFar: 90
+  CaptureAngleRange: 30
   CaptureDistanceNear: 0
-  CaptureAngleRangeNear: 0
   smoothEarlyTurn: 0
+  LockOnTargetDuration: 1

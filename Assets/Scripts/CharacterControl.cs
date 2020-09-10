@@ -225,7 +225,7 @@ namespace meleeDemo {
         }
 
         public void OnEnemyGetDamaged (SkillEffect skill, CharacterControl enemy) {
-            Debug.Log (skill.GetType ().ToString ());
+            //Debug.Log (skill.GetType ().ToString ());
             if (enemy.CharacterData.HP <= 0f) {
 
                 this.CharacterData.CurrentEnergyUnitChargeToFull ();

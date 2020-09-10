@@ -50,42 +50,47 @@ namespace meleeDemo {
         private GameObject InstantiatePrefab (PoolObjectType type) {
             GameObject obj = null;
             switch (type) {
-                case PoolObjectType.ATTACK_INFO:
+                case PoolObjectType.AttackInfo:
                     {
                         obj = Instantiate (Resources.Load ("AttackInfoPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
-                case PoolObjectType.ATTACK_HOLD_PROJECTILE:
+                case PoolObjectType.ProjectileChargedAttack:
                     {
-                        obj = Instantiate (Resources.Load ("AttackHoldProjectilePrefab", typeof (GameObject)) as GameObject);
+                        obj = Instantiate (Resources.Load ("ChargedAttackProjectilePrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
-                case PoolObjectType.BUTTON_SMASHER:
+                case PoolObjectType.ProjectileBullet:
+                    {
+                        obj = Instantiate (Resources.Load ("BulletProjectilePrefab", typeof (GameObject)) as GameObject);
+                        break;
+                    }
+                case PoolObjectType.ButtonSmasher:
                     {
                         obj = Instantiate (Resources.Load ("ButtonSmasherPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
-                case PoolObjectType.GRAPPLER:
+                case PoolObjectType.Grappler:
                     {
                         obj = Instantiate (Resources.Load ("GrapplerPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
-                case PoolObjectType.PATH_FINDING_AGENT:
+                case PoolObjectType.PathFindingAgent:
                     {
                         obj = Instantiate (Resources.Load ("PathFindingAgentPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
-                case PoolObjectType.CAMERA_SHAKER:
+                case PoolObjectType.CameraShaker:
                     {
                         obj = Instantiate (Resources.Load ("CameraShakerPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
-                case PoolObjectType.SLAM_VFX:
+                case PoolObjectType.VFXSlam:
                     {
                         obj = Instantiate (Resources.Load ("SlamVFXPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
-                case PoolObjectType.ATTACK_HOLD_AOE_VFX:
+                case PoolObjectType.VFXAttackHold:
                     {
                         obj = Instantiate (Resources.Load ("AttackHoldVFXPrefab", typeof (GameObject)) as GameObject);
                         break;

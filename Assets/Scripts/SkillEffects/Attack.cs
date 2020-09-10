@@ -4,13 +4,6 @@ using UnityEngine;
 
 namespace meleeDemo {
 
-    public enum AttackType {
-        NULL,
-        MUST_COLLIDE,
-        AOE,
-        PROJECTILE
-
-    }
 
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/Attack")]
     public class Attack : SkillEffect {
@@ -19,7 +12,7 @@ namespace meleeDemo {
         [Range (0.01f, 1f)]
         public float AttackEndTime = 0.6f;
 
-        public AttackType Type = AttackType.MUST_COLLIDE;
+        public AttackType Type = AttackType.MustCollide;
         public int MaxTargetNum = 5;
         public float Range = 2f;
         public float Damage = 1f;
@@ -39,13 +32,14 @@ namespace meleeDemo {
             animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
             stateEffect.CharacterControl.CommandAttack = false;
             //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
-            GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.ATTACK_INFO);
+            GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.AttackInfo);
             AttackInfo atkInfo = obj.GetComponent<AttackInfo> ();
             atkInfo.Init (this, null, stateEffect.CharacterControl);
             obj.SetActive (true);
             AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
             if (stateEffect.CharacterControl.isPlayerControl)
                 VirtualInputManager.Instance.ClearAllInputsInBuffer ();
+           
 
             //stateEffect.CharacterControl.AttackTrigger = true;
             //animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);

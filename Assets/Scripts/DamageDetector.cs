@@ -37,7 +37,7 @@ namespace meleeDemo {
                     continue;
                 }
                 //Debug.Log ("check attack");
-                if (info.Type == AttackType.MUST_COLLIDE) {
+                if (info.Type == AttackType.MustCollide) {
                     if (IsCollidedWithAttackParts (info)) {
                         //info.IsFinished = true;
                         ProcessDamage (info);
@@ -49,7 +49,7 @@ namespace meleeDemo {
                         ProcessDamage (info);
 
                     }
-                } else if (info.Type == AttackType.PROJECTILE) {
+                } else if (info.Type == AttackType.Projectile) {
                     if (IsInProjectileRange (info)) {
                         ProcessDamage (info);
                     }
@@ -183,9 +183,9 @@ namespace meleeDemo {
                 if (info.Attacker == control || info.Attacker.CharacterData.Team == control.CharacterData.Team)
                     continue;
                 if (info.Type == GrapplerType.STOP_ANIMATION) {
-                    Debug.Log ("Test Collision !!!");
+                    //Debug.Log ("Test Collision !!!");
                     if (IsCollidedWithAttackPoint (info)) {
-                        Debug.Log ("Collision occurs !!!");
+                        //Debug.Log ("Collision occurs !!!");
                         ProcessGrappling (info);
 
                     }
@@ -196,7 +196,7 @@ namespace meleeDemo {
         private void ProcessGrappling (Grappler info) {
             //if (info.Target == null) {
             info.Target = control;
-            Debug.Log ("Grappler HIT !!!");
+            //Debug.Log ("Grappler HIT !!!");
             control.CharacterData.IsGrappled = true;
             control.HitReactionAndFreeze (info.FreezeStartTiming);
 

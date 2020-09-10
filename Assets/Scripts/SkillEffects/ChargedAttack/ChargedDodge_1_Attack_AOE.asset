@@ -17,7 +17,7 @@ MonoBehaviour:
   Type: 2
   MaxTargetNum: 5
   Range: 1.2
-  Damage: 1
+  Damage: 1.5
   KnockbackForce: 0
   HitReactDuration: 0.22
   Stun: 1.8

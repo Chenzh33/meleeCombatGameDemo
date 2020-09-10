@@ -509,8 +509,8 @@ MonoBehaviour:
     Armour: 10
     MaxArmour: 10
     ArmourRegenerationInStun: 2
-    ArmourRegeneration: 3
-    ArmourRegenerationDelay: 3
+    ArmourRegeneration: 1
+    ArmourRegenerationDelay: 5
     Energy: 0
     MaxEnergy: 0
     EnergyRegeneration: 0
@@ -518,7 +518,7 @@ MonoBehaviour:
     EnergyRegenerationDelay: 0
     EnergyGetOnExecuteHit: 0
     EnergyGetOnEnemyDeathByExecute: 0
-    TargetGroupWeight: 1
+    TargetGroupWeight: 0.7
     TargetGroupRadius: 1
     DodgeCoolDown: 0
     DamageMultiplier: 1

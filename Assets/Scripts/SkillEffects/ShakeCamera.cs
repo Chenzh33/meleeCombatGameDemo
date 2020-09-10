@@ -15,7 +15,7 @@ namespace meleeDemo {
         public List<CameraShaker> FinishedShakers = new List<CameraShaker> ();
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.CAMERA_SHAKER);
+            GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.CameraShaker);
             CameraShaker shaker = obj.GetComponent<CameraShaker> ();
             shaker.Init (this, stateEffect.CharacterControl);
             obj.SetActive (true);

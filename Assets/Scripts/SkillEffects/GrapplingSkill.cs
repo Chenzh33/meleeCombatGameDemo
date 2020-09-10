@@ -27,7 +27,7 @@ namespace meleeDemo {
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             animator.SetBool (TransitionParameter.AttackExecute.ToString (), false);
             stateEffect.CharacterControl.CommandExecute = false;
-            GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.GRAPPLER);
+            GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.Grappler);
             Grappler grappler = obj.GetComponent<Grappler> ();
             grappler.Init (this, stateEffect.CharacterControl);
             obj.SetActive (true);
