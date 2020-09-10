@@ -87,16 +87,10 @@ namespace meleeDemo {
             }
             // for test
             if (Input.GetKeyDown (KeyCode.P)) {
-                float x = Random.Range (3f, 6f);
-                float xx = Random.Range (0f, 1f);
-                if (xx > 0.5f)
-                    x = -x;
-                float y = Random.Range (3f, 6f);
-                float yy = Random.Range (0f, 1f);
-                if (yy > 0.5f)
-                    y = -y;
-                //EnemyManager.Instance.SpawnEnemy (this.gameObject.transform.position + new Vector3 (x, 0f, y), "Swordman");
-                EnemyManager.Instance.SpawnEnemy (this.gameObject.transform.position + new Vector3 (x, 0f, y), "Gunman");
+                Dictionary<string,int> dicts = new Dictionary<string, int>();
+                dicts.Add("Swordman", 3);
+                dicts.Add("Gunman", 2);
+                SpawnEnemyGroup(dicts);
             }
 
             // for test
@@ -116,7 +110,7 @@ namespace meleeDemo {
             if (Input.GetKeyDown (KeyCode.M)) {
                 player.TakeEnergy (-1.0f, null);
             }
-
+/*
             Vector3 forward = gameObject.transform.forward;
             forward.y = 0f;
             float angle = (Quaternion.LookRotation (forward, Vector3.up)).eulerAngles.y * Mathf.Deg2Rad;
@@ -131,7 +125,42 @@ namespace meleeDemo {
             } else {
                 player.Animator.SetBool ("Fire", false);
             }
+            */
+            
         }
+
+        public void SpawnAnEnemy(string name)
+        {
+            float x = Random.Range(3f, 6f);
+            float xx = Random.Range(0f, 1f);
+            if (xx > 0.5f)
+                x = -x;
+            float y = Random.Range(3f, 6f);
+            float yy = Random.Range(0f, 1f);
+            if (yy > 0.5f)
+                y = -y;
+            EnemyManager.Instance.SpawnEnemy(this.gameObject.transform.position + new Vector3(x, 0f, y), name);
+        }
+
+        IEnumerator _SpawnEnemyGroup(Dictionary<string, int> dicts)
+        {
+            foreach(var item in dicts)
+            {
+                for (int i = 0; i != item.Value; ++i)
+                {
+                    SpawnAnEnemy(item.Key);
+                    yield return new WaitForSeconds(0.5f);
+                }
+            }
+          
+        }
+
+        public void SpawnEnemyGroup(Dictionary<string, int> dicts)
+        {
+            StartCoroutine(_SpawnEnemyGroup(dicts));
+
+        }
+
     }
 }
 

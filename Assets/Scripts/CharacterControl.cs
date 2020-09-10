@@ -40,6 +40,7 @@ namespace meleeDemo {
         public bool CommandExecute;
         public bool CommandDodge;
         public bool CommandCharge;
+        public bool CommandFire;
         public int CommandAttackHoldFrame;
         public int CommandExecuteHoldFrame;
         public int CommandDodgeHoldFrame;
@@ -608,12 +609,13 @@ namespace meleeDemo {
             else
                 animator.SetBool (TransitionParameter.Dodge.ToString (), false);
 
-            if (CommandCharge)
-                animator.SetBool (TransitionParameter.Charge.ToString (), true);
-            else
-                animator.SetBool (TransitionParameter.Charge.ToString (), false);
-
+          
             if (isPlayerControl) {
+
+                if (CommandCharge)
+                    animator.SetBool(TransitionParameter.Charge.ToString(), true);
+                else
+                    animator.SetBool(TransitionParameter.Charge.ToString(), false);
 
                 if (CommandAttackHoldFrame > 10)
                     animator.SetBool (TransitionParameter.AtkButtonHold.ToString (), true);
@@ -651,7 +653,14 @@ namespace meleeDemo {
                     animator.SetBool (TransitionParameter.MoveHold.ToString (), false);
 
             }
+            else
+            {
+                if (CommandFire)
+                    animator.SetBool(TransitionParameter.Fire.ToString(), true);
+                else
+                    animator.SetBool(TransitionParameter.Fire.ToString(), false);
 
+            }
             /*
                         if (DodgeTrigger) {
                             DodgeTrigger = false;

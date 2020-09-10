@@ -5,40 +5,36 @@ tree("Root")
 
 tree("BeAlive")
 	fallback
-		tree("WalkAndAttack")
+		tree("Confrontation")
 		tree("ChaseEnemy")
 		tree("Idle")
 
-tree("WalkAndAttack")
-	while
-		sequence
-			HasTarget
-			not IsRunning
-			
+tree("Confrontation")
+	sequence
+		HasTarget
 		fallback
-			while
-				sequence
-					not IsTargetInAttackRange 
-					not IsTargetOutWalkRange
-				race
-					sequence
-						RunToWalk
-						ChaseTarget
-					sequence
-						WaitRandom(2.0,3.0)
-						//StopMove
-						tree("Execute")
-					
-			repeat
+			while 
 				sequence
 					IsTargetInAttackRange 
-					//StopMove
-					Wait(0.2)
-					tree("Attack")
+					not IsTargetInCloseRange 
+				race	
+					sequence
+						//not IsTargetInCloseRange 
+						//StopMove
+						WaitRandom(0.2,0.5)
+						tree("FireAndMove")
+					ChaseTarget
+					
 			sequence
-				IsTargetOutWalkRange 
-				WalkToRun
-				Fail
+				IsTargetInCloseRange 
+				WaitRandom(0.2,0.5)
+				tree("RunAway")
+						
+				
+			while not IsTargetInAttackRange
+				sequence
+					Wait(2.0)
+					Fail
 				
 
 
@@ -46,22 +42,18 @@ tree("ChaseEnemy")
 	while 
 		sequence
 			HasTarget
-			IsRunning
 			
 		parallel
 			fallback
-				while not IsTargetInWalkRange
-					sequence 
-						WalkToRun
-						ChaseTarget
+				while not IsTargetInAttackRange 
+					ChaseTarget
 				sequence 
-					IsTargetInWalkRange
-					RunToWalk
+					IsTargetInAttackRange
 					Fail
 					
 			while not IsTargetVisible
 				sequence
-					Wait(3.0)
+					Wait(5.0)
 					ClearTarget
 					Fail
 
@@ -74,24 +66,20 @@ tree("Idle")
 
 		repeat
 			Wait(1.0)
-			//WaitRandom(0.5, 2.0)
 
 
-tree("Attack")
+tree("FireAndMove")
 	sequence
 		WaitRandom(0.2, 0.4)
-		//StopMove
-		//AttackCommandInput
-		RandomAttack
+		RandomFire
 		Wait(0.10)
-		AttackCommandCancel
+		FireCommandCancel
 
-tree("Execute")
+tree("RunAway")
 	sequence
-		RandomExecute
-		//ExecuteCommandInput
+		RandomDodge
 		Wait(0.10)
-		ExecuteCommandCancel
+		DodgeCommandCancel
 
 
 tree("Die")

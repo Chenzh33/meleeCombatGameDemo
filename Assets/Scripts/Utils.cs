@@ -29,7 +29,8 @@ namespace meleeDemo {
         MoveHold,
         ForbidDodge,
         IdleState,
-        EnergyTaken
+        EnergyTaken,
+        Fire,
 
     }
 

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b4355d71cd7084f83c5640c9d5b198, type: 3}
   m_Name: AttackHeavy_Sprint_TurnOnHighlight
   m_EditorClassIdentifier: 
-  HighlightFactor: 3
+  HighlightFactor: 2

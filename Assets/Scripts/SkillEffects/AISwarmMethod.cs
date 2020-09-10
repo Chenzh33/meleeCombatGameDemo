@@ -24,6 +24,8 @@ namespace meleeDemo {
                 return;
             if (ai.enemyTarget == null)
                 return;
+            if (animator.GetBool(TransitionParameter.Dodge.ToString()))
+                return;
             Vector3 direction = ai.enemyTarget.gameObject.transform.position - ai.gameObject.transform.position;
             direction.y = 0f;
             //Vector3 direction = -ai.gameObject.transform.position;

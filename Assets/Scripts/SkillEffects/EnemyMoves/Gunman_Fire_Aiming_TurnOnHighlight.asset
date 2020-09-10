@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 041a36037495c8b4592e25b5f60b7e83, type: 3}
-  m_Name: Fire_Aiming_TransitionIndexer
+  m_Script: {fileID: 11500000, guid: b2b4355d71cd7084f83c5640c9d5b198, type: 3}
+  m_Name: Gunman_Fire_Aiming_TurnOnHighlight
   m_EditorClassIdentifier: 
-  TimeIntervals:
-  - index: 1
-    st: 1
-    ed: 2
+  HighlightFactor: 2

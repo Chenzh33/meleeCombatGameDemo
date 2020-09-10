@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feb28c08435cea64c812511c41772d7f, type: 3}
-  m_Name: Fire_Movement
+  m_Name: Gunman_Fire_Movement
   m_EditorClassIdentifier: 
   speedGraph:
     serializedVersion: 2
@@ -25,7 +25,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.18022461
+      time: 0.14
       value: 0
       inSlope: -0.01657673
       outSlope: -0.01657673
@@ -34,7 +34,7 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 1
     - serializedVersion: 3
-      time: 0.23
+      time: 0.2
       value: 1
       inSlope: -0.049063187
       outSlope: -0.049063187

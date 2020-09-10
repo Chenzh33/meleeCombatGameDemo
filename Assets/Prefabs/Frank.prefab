@@ -38081,9 +38081,10 @@ MonoBehaviour:
   inputVector: {x: 0, y: 0}
   inputKeyStates: 000000000000000000000000
   CommandAttack: 0
-  CommandExecute: 1
+  CommandExecute: 0
   CommandDodge: 0
   CommandCharge: 0
+  CommandFire: 0
   CommandAttackHoldFrame: 0
   CommandExecuteHoldFrame: 0
   CommandDodgeHoldFrame: 0
@@ -38103,7 +38104,7 @@ MonoBehaviour:
     EnergyRegenerationDelay: 1.5
     EnergyGetOnExecuteHit: 1
     EnergyGetOnEnemyDeathByExecute: 4
-    TargetGroupWeight: 3
+    TargetGroupWeight: 5
     TargetGroupRadius: 1
     DodgeCoolDown: 0.35
     DamageMultiplier: 1

@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c80a16233cdcca84493f1e931557408a, type: 3}
-  m_Name: Run_AISwarmMethod
+  m_Script: {fileID: 11500000, guid: 462a6ed28f76c954ea7fdd6ff2d32b19, type: 3}
+  m_Name: Swordman_Run_AISimplePathFinding
   m_EditorClassIdentifier: 
-  AvoidanceRadius: 5
-  AvoidanceForce: 1

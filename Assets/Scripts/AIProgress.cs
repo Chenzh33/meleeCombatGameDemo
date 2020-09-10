@@ -17,11 +17,14 @@ namespace meleeDemo {
         public float aquisitionInterval = 1f;
         public float visionRange = 15f;
         public float attackRange = 2f;
+        public float closeRange = 0f;
         public float RunToWalkRange = 4f;
         public float WalkToRunRange = 8f;
         public float MomentumFactor = 0.1f;
         public float ProbExecute = 0.5f;
         public float ProbAttack = 0.3f;
+        public float ProbFire = 0.5f;
+        public float ProbDodge = 0.8f;
         public Vector2 inputVectorIncremental = new Vector2 ();
 
         void Awake () {
@@ -156,6 +159,16 @@ namespace meleeDemo {
 
         }
 
+        [Task]
+        public bool IsTargetInCloseRange () {
+            if (enemyTarget == null)
+                return false;
+            if (Vector3.Distance (enemyTarget.gameObject.transform.position, gameObject.transform.position) < closeRange)
+                return true;
+            else
+                return false;
+
+        }
         void Update () {
 
             /*
@@ -185,6 +198,18 @@ namespace meleeDemo {
             aiUnit.inputVector.x = dir.x;
             aiUnit.inputVector.y = dir.z;
         }
+ 
+        public void SetInputVectorBackToTarget () {
+            Vector3 dir = enemyTarget.gameObject.transform.position - gameObject.transform.position;
+            dir.y = 0f;
+            dir.Normalize ();
+            Vector3 runawayDir = - dir;
+            aiUnit.inputVector.x = runawayDir.x;
+            aiUnit.inputVector.y = runawayDir.z;
+            animator.SetFloat("InputX", runawayDir.x);
+            animator.SetFloat ("InputY", runawayDir.z);
+        }
+ 
         public void SetInputVector () {
             Vector3 dir = new Vector3 (aiUnit.inputVector.x, 0, aiUnit.inputVector.y);
             Vector3 deltaDir = pathFindingAgent.gameObject.transform.position - gameObject.transform.position;
@@ -211,8 +236,8 @@ namespace meleeDemo {
             animator.SetFloat ("InputX", blendTreeInputX);
             animator.SetFloat ("InputY", blendTreeInputY);
 
-            //Vector3 finalDir = new Vector3(aiUnit.inputVector.x, 0, aiUnit.inputVector.y);
-            //Debug.DrawRay(gameObject.transform.position, finalDir * 10f, Color.red);
+            Vector3 finalDir = new Vector3(aiUnit.inputVector.x, 0, aiUnit.inputVector.y);
+            Debug.DrawRay(gameObject.transform.position, finalDir * 10f, Color.red);
 
         }
         public void ResetInputVector () {
@@ -236,6 +261,26 @@ namespace meleeDemo {
             if (r < ProbExecute) {
                 StopMove ();
                 ExecuteCommandInput ();
+            }
+            return true;
+        }
+
+        [Task]
+        public bool RandomFire() {
+            float r = Random.Range (0f, 1f);
+            if (r < ProbFire) {
+                //StopMove ();
+                FireCommandInput ();
+            }
+            return true;
+        }
+
+        [Task]
+        public bool RandomDodge() {
+            float r = Random.Range (0f, 1f);
+            if (r < ProbDodge) {
+                //StopMove ();
+                DodgeCommandInput();
             }
             return true;
         }
@@ -268,6 +313,21 @@ namespace meleeDemo {
             return true;
 
         }
+        [Task]
+        public bool FireCommandInput () {
+            DodgeCommandCancel();
+            SetInputVectorToFaceTarget ();
+            aiUnit.CommandFire = true;
+            return true;
+        }
+
+        [Task]
+        public bool DodgeCommandInput () {
+            FireCommandCancel();
+            SetInputVectorBackToTarget ();
+            aiUnit.CommandDodge = true;
+            return true;
+        }
 
         [Task]
         public bool ExecuteCommandCancel () {
@@ -283,6 +343,20 @@ namespace meleeDemo {
             return true;
         }
 
+        [Task]
+        public bool FireCommandCancel()
+        {
+            //ResetInputVector ();
+            aiUnit.CommandFire = false;
+            return true;
+        }
+        [Task]
+        public bool DodgeCommandCancel()
+        {
+            //ResetInputVector ();
+            aiUnit.CommandDodge = false;
+            return true;
+        }
         [Task]
         public bool IsRunning () {
             return animator.GetBool ("IsRunning");
