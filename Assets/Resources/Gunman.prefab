@@ -618,6 +618,7 @@ MonoBehaviour:
     FormerAttackTarget: {fileID: 0}
     Team: 1
     StateBuffer: 000000000000000000000000
+    EffectShadow: 0
     VFXs: []
 --- !u!114 &901825142
 MonoBehaviour:

@@ -43,7 +43,7 @@ namespace meleeDemo {
             CharacterControl player = stateEffect.CharacterControl;
             Animator shadowAnimator = shadowObj.GetComponentInChildren<Animator> ();
             shadowObj.SetActive (true);
-
+            matChanger.TurnOffRenderers();
           
             shadowAnimator.Play (player.CharacterData.GetCurrState (), -1, stateInfo.normalizedTime);
             shadowAnimator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0f);
@@ -51,6 +51,7 @@ namespace meleeDemo {
             matChanger.ChangeTransparency (ShadowDuration);
             shadowObj.transform.position = player.gameObject.transform.position;
             shadowObj.transform.rotation = player.gameObject.transform.rotation;
+            matChanger.TurnOnRenderersDelay(0.05f);
         }
 
     }

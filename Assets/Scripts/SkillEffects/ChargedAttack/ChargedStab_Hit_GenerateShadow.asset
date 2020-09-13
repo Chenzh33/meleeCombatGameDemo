@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3abdb6b789225a04c92d97188d0d4c44, type: 3}
-  m_Name: Attack_Main_1_GenerateShadow
+  m_Name: ChargedStab_Hit_GenerateShadow
   m_EditorClassIdentifier: 
-  TurnOnShadowTiming: 0.24
-  TurnOffShadowTiming: 0.42
-  ShadowDuration: 0.6
-  GenerationFrameInterval: 1
+  TurnOnShadowTiming: 0
+  TurnOffShadowTiming: 1
+  ShadowDuration: 0.2
+  GenerationFrameInterval: 0

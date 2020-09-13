@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc5dfd2f04d0eb141bcdaf1daa3a1798, type: 3}
-  m_Name: ChargedStab_Prep_ChangeDirection
+  m_Name: ChargedStab_ChangeDirection
   m_EditorClassIdentifier: 
   AllowEarlyTurn: 1
   AutoFaceEnemy: 1
   FacePrevTargetWhenNeutral: 1
   FacePrevTargetRegardlessOfPosition: 1
   CheckFarRange: 1
+  AutoFaceStunnedEnemy: 1
   AutoFaceEnemyTiming: 0
   AutoFaceEnemyDuration: 0
-  CaptureDistanceFar: 13
-  CaptureAngleRange: 30
+  CaptureDistanceFar: 20
+  CaptureAngleRange: 180
   CaptureDistanceNear: 5
   smoothEarlyTurn: 5
   LockOnTargetDuration: 2

@@ -5,8 +5,8 @@ using UnityEngine;
 namespace meleeDemo {
 
     public enum GrapplerType {
-        STOP_ANIMATION,
-        DEAL_DAMAGE
+        EveryoneInRange,
+        LockedTargetOnly
 
     }
 

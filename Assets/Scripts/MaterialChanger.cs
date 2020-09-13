@@ -51,12 +51,27 @@ namespace meleeDemo {
 
         public void TurnOffRenderers()
         {
-
+            Renderer[] arrMaterial = gameObject.GetComponentsInChildren<Renderer>();
+            foreach (Renderer ms in arrMaterial)
+            {
+                ms.enabled = false;
+            }
         }
 
-        public void TurnOnRenderers()
+        public void TurnOnRenderersDelay(float delay)
         {
+            StartCoroutine(_TurnOnRenderersDelay(delay));
+        }
 
+        IEnumerator _TurnOnRenderersDelay(float delay)
+        {
+            //yield return new WaitForSeconds(delay);
+            yield return null;
+            Renderer[] arrMaterial = gameObject.GetComponentsInChildren<Renderer>();
+            foreach (Renderer ms in arrMaterial)
+            {
+                ms.enabled = true;
+            }
         }
     }
 }

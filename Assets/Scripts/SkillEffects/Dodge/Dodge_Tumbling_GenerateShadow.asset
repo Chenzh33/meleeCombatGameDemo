@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3abdb6b789225a04c92d97188d0d4c44, type: 3}
-  m_Name: Dodge_Begin_GenerateShadow
+  m_Name: Dodge_Tumbling_GenerateShadow
   m_EditorClassIdentifier: 
-  TurnOnShadowTiming: 0
-  TurnOffShadowTiming: 1
-  ShadowDuration: 0.3
-  GenerationFrameInterval: 0
+  TurnOnShadowTiming: 0.12
+  TurnOffShadowTiming: 0.75
+  ShadowDuration: 0.25
+  GenerationFrameInterval: 2

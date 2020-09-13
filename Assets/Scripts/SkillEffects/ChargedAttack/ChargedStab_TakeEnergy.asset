@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 299ac7ab892522f408eb650f845b604d, type: 3}
-  m_Name: ChargedStab_Prep_TakeEnergy
+  m_Name: ChargedStab_TakeEnergy
   m_EditorClassIdentifier: 
   EnergyTakingAmount: 2
