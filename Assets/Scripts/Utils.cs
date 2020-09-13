@@ -43,7 +43,8 @@ namespace meleeDemo {
         CameraShaker,
         VFXSlam,
         VFXAttackHold,
-        ProjectileBullet
+        ProjectileBullet,
+        Shadow
     }
     public enum TeamTag {
         Player,

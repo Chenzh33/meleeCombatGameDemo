@@ -95,6 +95,11 @@ namespace meleeDemo {
                         obj = Instantiate (Resources.Load ("AttackHoldVFXPrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
+                case PoolObjectType.Shadow:
+                    {
+                        obj = Instantiate (Resources.Load ("ShadowPrefab", typeof (GameObject)) as GameObject);
+                        break;
+                    }
             }
             return obj;
 

@@ -66,6 +66,7 @@ namespace meleeDemo {
         public const int STATE_BUFFER_SIZE = 3;
         public int[] StateBuffer = new int[STATE_BUFFER_SIZE];
         private int curIndex = 0;
+        public int EffectShadow;
 
         public List<PoolObject> VFXs;
 

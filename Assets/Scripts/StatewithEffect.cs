@@ -18,22 +18,29 @@ namespace meleeDemo {
             if (characterControl == null)
                 //characterControl = animator.transform.root.GetComponentInChildren<CharacterControl> ();
                 characterControl = animator.transform.root.GetComponent<CharacterControl> ();
-            characterControl.CharacterData.LoadState (stateInfo.shortNameHash);
-            //Debug.Log(stateInfo.shortNameHash);
-            foreach (SkillEffect se in ListSkillEffect) {
-                se.OnEnter (this, animator, stateInfo);
+            if (characterControl != null) {
+                characterControl.CharacterData.LoadState (stateInfo.shortNameHash);
+                //Debug.Log(stateInfo.shortNameHash);
+                foreach (SkillEffect se in ListSkillEffect) {
+                    se.OnEnter (this, animator, stateInfo);
+
+                }
             }
 
         }
         public override void OnStateUpdate (Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-            foreach (SkillEffect se in ListSkillEffect) {
-                se.UpdateEffect (this, animator, stateInfo);
+            if (characterControl != null) {
+                foreach (SkillEffect se in ListSkillEffect) {
+                    se.UpdateEffect (this, animator, stateInfo);
+                }
             }
 
         }
         public override void OnStateExit (Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-            foreach (SkillEffect se in ListSkillEffect) {
-                se.OnExit (this, animator, stateInfo);
+            if (characterControl != null) {
+                foreach (SkillEffect se in ListSkillEffect) {
+                    se.OnExit (this, animator, stateInfo);
+                }
             }
 
         }

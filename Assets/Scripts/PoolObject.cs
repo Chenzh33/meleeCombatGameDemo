@@ -17,8 +17,10 @@ namespace meleeDemo {
         IEnumerator _WaitAndDestroy (float duration) {
             yield return new WaitForSeconds (duration);
             ParticleSystem ps = this.GetComponent<ParticleSystem> ();
-            ps.Clear ();
-            ps.Stop (true);
+            if (ps != null) {
+                ps.Clear ();
+                ps.Stop (true);
+            }
             PoolManager.Instance.ReturnToPool (this);
 
         }

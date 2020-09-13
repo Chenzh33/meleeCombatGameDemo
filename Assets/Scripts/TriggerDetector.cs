@@ -31,12 +31,14 @@ namespace meleeDemo {
         private void OnTriggerEnter (Collider col) {
             attacker = col.GetComponentInParent<CharacterControl> ();
             //if (Control == attacker || attacker.GetTriggerDetector().gameObject == col.gameObject)
+            if (attacker == null)
+                return;
             if (Control == attacker)
                 return;
             if (!attacker.AttackingParts.Contains (col) && attacker.AttackPoint != col)
                 return;
-                //if(Control == attacker)
-                //if (attacker == null || Control == attacker || attacker.GetTriggerDetector().gameObject == col.gameObject)
+            //if(Control == attacker)
+            //if (attacker == null || Control == attacker || attacker.GetTriggerDetector().gameObject == col.gameObject)
 
             if (!CollidingParts.Contains (col))
                 CollidingParts.Add (col);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace meleeDemo {
 
-    [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/DodgeCooldown")]
+    [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/DodgeCoolDown")]
     public class DodgeCoolDown : SkillEffect {
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {

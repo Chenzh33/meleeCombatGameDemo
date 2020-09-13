@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b9c327d110f9b44f8949720e3fd1b1a, type: 3}
-  m_Name: Dodge_Invincible
+  m_Script: {fileID: 11500000, guid: 3abdb6b789225a04c92d97188d0d4c44, type: 3}
+  m_Name: Attack_Main_1_GenerateShadow
   m_EditorClassIdentifier: 
-  InvincibleBeginTiming: 0
-  InvincibleEndTiming: 0.8
+  TurnOnShadowTiming: 0.24
+  TurnOffShadowTiming: 0.42
+  ShadowDuration: 0.6
+  GenerationFrameInterval: 1
