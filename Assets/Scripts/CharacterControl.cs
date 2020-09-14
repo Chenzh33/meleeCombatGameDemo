@@ -627,7 +627,7 @@ namespace meleeDemo {
                 else
                     animator.SetInteger (TransitionParameter.AtkReleaseTiming.ToString (), 0);
 
-                if (CommandExecuteHoldFrame > 10)
+                if (CommandExecuteHoldFrame > 5)
                     animator.SetBool (TransitionParameter.ExcButtonHold.ToString (), true);
                 else
                     animator.SetBool (TransitionParameter.ExcButtonHold.ToString (), false);

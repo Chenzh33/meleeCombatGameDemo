@@ -36,6 +36,10 @@ namespace meleeDemo {
 
         }
         public void GenerateShadow (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
+
+            if (animator.IsInTransition (0)) {
+                return;
+            }
             GameObject shadowObj = PoolManager.Instance.GetObject (PoolObjectType.Shadow);
             PoolObject shadow = shadowObj.GetComponent<PoolObject> ();
             MaterialChanger matChanger = shadowObj.GetComponent<MaterialChanger> ();

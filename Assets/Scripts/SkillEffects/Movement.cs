@@ -43,23 +43,27 @@ namespace meleeDemo {
                     Vector3 moveDirection = new Vector3 (inputVector.x, 0, inputVector.y);
                     //MoveForward (moveDirection, speed, 1.0f);
                     Vector3 deltaMoveAmount = moveDirection * animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) * speed * speedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime;
+                    /*
                     if (ConsiderMomentum) {
                         if (control.CharacterData.GetPrevState () == Animator.StringToHash ("Move") ||
-                            control.CharacterData.GetPrevState () == Animator.StringToHash ("Dodge") ||
+                            control.CharacterData.GetPrevState () == Animator.StringToHash ("Dodge_End") ||
+                            control.CharacterData.GetPrevState () == Animator.StringToHash ("Dodge_Tumbling") ||
                             control.CharacterData.GetPrevState () == Animator.StringToHash ("Run")) {
+                            Debug.Log (control.CharacterData.GetPrevState () == Animator.StringToHash ("Dodge_End"));
+                            Debug.Log (control.CharacterData.GetPrevState () == Animator.StringToHash ("Dodge_Tumbing"));
                             Vector3 extraDeltaMove = moveDirection * control.CharacterController.velocity.magnitude;
                             extraDeltaMove = extraDeltaMove * animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) * extraSpeedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime;
                             deltaMoveAmount = deltaMoveAmount + extraDeltaMove;
                         }
                     }
+                    */
                     control.CharacterController.Move (deltaMoveAmount);
                     //animator.transform.root.Translate(moveDirection * speed * Time.deltaTime);
                     //animator.transform.Translate(moveDirection * speed * Time.deltaTime);
 
-                    if (!animatorStateInfo.IsName("Walk"))
-                    {
-                        Quaternion rotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-                        animator.gameObject.transform.root.rotation = Quaternion.Slerp(animator.gameObject.transform.root.rotation, rotation, Time.deltaTime * 5f);
+                    if (!animatorStateInfo.IsName ("Walk")) {
+                        Quaternion rotation = Quaternion.LookRotation (moveDirection, Vector3.up);
+                        animator.gameObject.transform.root.rotation = Quaternion.Slerp (animator.gameObject.transform.root.rotation, rotation, Time.deltaTime * 5f);
                         //float angle = Mathf.Acos(Vector3.Dot(new Vector3(0, 0, 1), moveDirection)) * Mathf.Rad2Deg;
                         //if (inputVector.x < 0.0f) { angle = -angle; }
                         //Quaternion target = Quaternion.Euler(new Vector3(0, angle, 0));
@@ -74,7 +78,11 @@ namespace meleeDemo {
             Vector3 moveDirection = control.FaceTarget;
             Vector3 deltaMoveAmount = moveDirection * animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) * speed * speedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime;
             if (ConsiderMomentum) {
-                if (control.CharacterData.GetPrevState () == Animator.StringToHash ("Move") || control.CharacterData.GetPrevState () == Animator.StringToHash ("Dodge")) {
+                if (control.CharacterData.GetPrevState () == Animator.StringToHash ("Move") ||
+                    control.CharacterData.GetPrevState () == Animator.StringToHash ("Dodge_End") ||
+                    control.CharacterData.GetPrevState () == Animator.StringToHash ("Dodge_Tumbling") ||
+                    control.CharacterData.GetPrevState () == Animator.StringToHash ("Run")) {
+
                     Vector3 extraDeltaMove = moveDirection * control.CharacterController.velocity.magnitude;
                     extraDeltaMove = extraDeltaMove * animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) * extraSpeedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime;
                     deltaMoveAmount = deltaMoveAmount + extraDeltaMove;

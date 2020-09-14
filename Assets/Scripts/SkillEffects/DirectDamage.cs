@@ -27,12 +27,12 @@ namespace meleeDemo {
                     CharacterControl Target = stateEffect.CharacterControl.CharacterData.GrapplingTarget;
                     //Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1.0f);
                     //Target.Animator.Play ("Idle");
+                    if (!Target.CharacterData.IsStunned)
+                        Target.TakeStun (Stun, this);
                     if (Target.CharacterData.IsStunned)
                         Target.TakeDamage (Target.CharacterData.HP, this);
                     else
                         Target.TakeDamage (Damage, this);
-                    if (!Target.CharacterData.IsStunned)
-                        Target.TakeStun (Stun, this);
                     Vector3 dirVector = Target.transform.position - stateEffect.CharacterControl.transform.position;
                     Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
                     Target.TakeKnockback (KnockbackForce * hitVector, HitReactDuration);

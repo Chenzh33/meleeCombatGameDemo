@@ -190,15 +190,15 @@ namespace meleeDemo
 
             if (info.AttackSkill != null)
             {
-                control.TakeDamage(info.Damage, info.AttackSkill);
                 if (!control.CharacterData.IsStunned)
                     control.TakeStun(info.Stun, info.AttackSkill);
+                control.TakeDamage(info.Damage, info.AttackSkill);
             }
             else if (info.ProjectileSkill != null)
             {
-                control.TakeDamage(info.Damage, info.ProjectileSkill);
                 if (!control.CharacterData.IsStunned)
                     control.TakeStun(info.Stun, info.ProjectileSkill);
+                control.TakeDamage(info.Damage, info.ProjectileSkill);
             }
 
             control.TakeKnockback(info.KnockbackForce * hitVector, info.HitReactDuration);
