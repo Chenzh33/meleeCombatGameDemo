@@ -9,65 +9,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfc7ac518a5ab3f43b1c034d378b57ea, type: 3}
-  m_Name: Attack_C2_Main_LaunchProjectile_1
+  m_Script: {fileID: 11500000, guid: adc87bbb3aafc764780b3d170a645277, type: 3}
+  m_Name: ChargedSlam_SpeedGraph
   m_EditorClassIdentifier: 
-  EnergyTaken: 0.2
-  ProjectileLifeTime: 2
-  ProjectileSpeed: 20
-  ProjectileTileAngle: 105
-  ProjectileTileAngleNoise: 15
-  NotNeedCharge: 0
-  ProjectileLaunchTiming: 0.18
-  ReservedTime: 0.1
-  Type: 3
-  ProjType: 0
-  MaxTargetNum: 10
-  Range: 0
-  Damage: 0.3
-  KnockbackForce: 10
-  HitReactDuration: 0.1
-  Stun: 0.45
-  ProjectileScale: 0.6
-  IsAttackForward: 0
-  SpeedGraph:
+  graph:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.1
+      value: 1
+      inSlope: -0.043799195
+      outSlope: -0.043799195
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.30769107
+    - serializedVersion: 3
+      time: 0.36000213
+      value: 0.24822998
+      inSlope: -0.023397168
+      outSlope: -0.023397168
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.625
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.15
-      value: 0
-      inSlope: -0.03216186
-      outSlope: -0.03216186
-      tangentMode: 0
-      weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.4877589
-    - serializedVersion: 3
-      time: 0.3
-      value: 1
-      inSlope: -0
-      outSlope: -0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.7457627
-      outWeight: 0.33333334
+      outWeight: 0.1
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

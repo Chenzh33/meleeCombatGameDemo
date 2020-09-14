@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 041a36037495c8b4592e25b5f60b7e83, type: 3}
-  m_Name: ChargedSlam_Loop_TransitionIndexer
+  m_Script: {fileID: 11500000, guid: 3abdb6b789225a04c92d97188d0d4c44, type: 3}
+  m_Name: ChargedSlam_GenerateShadow
   m_EditorClassIdentifier: 
-  TimeIntervals:
-  - index: 1
-    st: 0.6
-    ed: 3
+  TurnOnShadowTiming: 0.4
+  TurnOffShadowTiming: 0.55
+  ShadowDuration: 0.15
+  GenerationFrameInterval: 0

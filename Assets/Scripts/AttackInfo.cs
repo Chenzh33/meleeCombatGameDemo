@@ -23,6 +23,7 @@ namespace meleeDemo {
         public float KnockbackForce;
         public float HitReactDuration;
         public float Stun;
+        public float VFXScale;
         //public float AOEAttackCenterOffset = 3.0f;
         //public Transform AttackCenter;
         public VFXType vfxType = VFXType.Slam;
@@ -51,6 +52,7 @@ namespace meleeDemo {
                 Stun = attackSkill.Stun;
                 vfxType = attackSkill.vfxType;
                 VFXObj = null;
+                VFXScale = attackSkill.VFXScale;
                 //AOEAttackCenterOffset = attackSkill.AOEAttackCenterOffset;
                 //AttackCenter = Attacker.CharacterData.AOEAttackCenter;
             } else {
@@ -62,6 +64,7 @@ namespace meleeDemo {
                 KnockbackForce = projectileSkill.KnockbackForce;
                 HitReactDuration = projectileSkill.HitReactDuration;
                 Stun = projectileSkill.Stun;
+                VFXScale = projectileSkill.ProjectileScale;
             }
         }
 
@@ -110,8 +113,12 @@ namespace meleeDemo {
                     obj.SetActive (true);
                     obj.transform.position = this.gameObject.transform.position;
                     //obj.transform.parent = this.gameObject.transform;
-                    ParticleSystem ps = obj.GetComponent<ParticleSystem> ();
-                    ps.Play (true);
+                    ParticleSystem[] pss = obj.GetComponentsInChildren<ParticleSystem> ();
+                    foreach(ParticleSystem ps in pss)
+                    {
+                        ps.gameObject.transform.localScale = Vector3.one * VFXScale;
+                        ps.Play(true);
+                    }
                     VFXObj = obj.GetComponent<PoolObject> ();
                     VFXObj.WaitAndDestroy (1f);
                     //Attacker.VFXs.Add (obj.GetComponent<PoolObject> ());
@@ -129,7 +136,9 @@ namespace meleeDemo {
                 case VFXType.AttackHoldAOE:
                     obj = PoolManager.Instance.GetObject (PoolObjectType.VFXAttackHold);
                     break;
-
+                case VFXType.ChargedSlam:
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.VFXChargedSlam);
+                    break;
             }
             return obj;
         }

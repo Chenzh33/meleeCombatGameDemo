@@ -17,15 +17,18 @@ MonoBehaviour:
   ProjectileSpeed: 20
   ProjectileTileAngle: 90
   ProjectileTileAngleNoise: 15
+  NotNeedCharge: 0
   ProjectileLaunchTiming: 0.29
   ReservedTime: 0.1
   Type: 3
+  ProjType: 0
   MaxTargetNum: 10
   Range: 0
   Damage: 1.25
   KnockbackForce: 10
   HitReactDuration: 0.1
   Stun: 2.25
+  ProjectileScale: 1.4
   IsAttackForward: 0
   SpeedGraph:
     serializedVersion: 2

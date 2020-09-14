@@ -44,7 +44,8 @@ namespace meleeDemo {
         VFXSlam,
         VFXAttackHold,
         ProjectileBullet,
-        Shadow
+        Shadow,
+        VFXChargedSlam
     }
     public enum TeamTag {
         Player,
@@ -74,7 +75,8 @@ namespace meleeDemo {
         Trail,
         Hold,
         Slam,
-        AttackHoldAOE
+        AttackHoldAOE,
+        ChargedSlam
 
     }
 

@@ -18,7 +18,7 @@ MonoBehaviour:
     ed: 0.3
   - index: 2
     st: 0.3
-    ed: 3
+    ed: 2
   - index: 3
-    st: 3
-    ed: 4
+    st: 2
+    ed: 3

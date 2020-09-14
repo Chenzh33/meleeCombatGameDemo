@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 041a36037495c8b4592e25b5f60b7e83, type: 3}
-  m_Name: ChargedSlam_Loop_TransitionIndexer
+  m_Script: {fileID: 11500000, guid: 9b9c327d110f9b44f8949720e3fd1b1a, type: 3}
+  m_Name: ChargedSlam_Loop_Invincible
   m_EditorClassIdentifier: 
-  TimeIntervals:
-  - index: 1
-    st: 0.6
-    ed: 3
+  InvincibleBeginTiming: 0
+  InvincibleEndTiming: 1

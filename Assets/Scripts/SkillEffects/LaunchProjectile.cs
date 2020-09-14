@@ -29,6 +29,7 @@ namespace meleeDemo {
         public float KnockbackForce = 10f;
         public float HitReactDuration = 0.1f;
         public float Stun = 1f;
+        public float ProjectileScale = 1f;
         public bool IsAttackForward;
         public AnimationCurve SpeedGraph;
 
@@ -127,6 +128,12 @@ namespace meleeDemo {
             obj.transform.parent = null;
             obj.SetActive (true);
             obj.transform.rotation = Quaternion.LookRotation (control.FaceTarget, Vector3.up);
+
+            ParticleSystem[] pss = obj.GetComponentsInChildren<ParticleSystem> ();
+            foreach(ParticleSystem ps in pss)
+            {
+                ps.gameObject.transform.localScale = Vector3.one * ProjectileScale;
+            }
 
             ProjectileObject projectileObject = obj.GetComponent<ProjectileObject> ();
             projectileObject.Init (info, ProjectileLifeTime, ProjectileSpeed);
