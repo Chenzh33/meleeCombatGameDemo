@@ -16,13 +16,17 @@ namespace meleeDemo {
         public int MaxTargetNum = 5;
         public float Range = 2f;
         public float Damage = 1f;
+        public float DamageInterval = 1f;
         public float KnockbackForce = 10f;
+        public float KnockbackTime = 0.1f;
         public float HitReactDuration = 0.1f;
         public float Stun = 1f;
         public bool IsAttackForward;
         public bool IsAOEAttackTowardsCenter;
         public bool IsAOEAttackAttachToPlayer;
+        public bool IsLethalToStunnedEnemy;
         public float AOEAttackCenterOffset = 3.0f;
+        public float EnergyGetWhenHit = 0f;
         public float VFXScale = 1f;
         public VFXType vfxType = VFXType.Null;
         //public Vector3 AttackPosition;

@@ -11,8 +11,10 @@ namespace meleeDemo {
 
         public float Damage = 1f;
         public float KnockbackForce = 10f;
+        public float KnockbackTime = 0.1f;
         public float HitReactDuration = 0.1f;
         public float Stun = 1f;
+        public float EnergyGetWhenHit = 1f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             stateEffect.CharacterControl.CharacterData.GrapplingTarget.gameObject.transform.parent = null;
@@ -28,14 +30,14 @@ namespace meleeDemo {
                     //Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1.0f);
                     //Target.Animator.Play ("Idle");
                     if (!Target.CharacterData.IsStunned)
-                        Target.TakeStun (Stun, this);
+                        Target.TakeStun (Stun, HitReactDuration, this);
                     if (Target.CharacterData.IsStunned)
                         Target.TakeDamage (Target.CharacterData.HP, this);
                     else
                         Target.TakeDamage (Damage, this);
                     Vector3 dirVector = Target.transform.position - stateEffect.CharacterControl.transform.position;
                     Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
-                    Target.TakeKnockback (KnockbackForce * hitVector, HitReactDuration);
+                    Target.TakeKnockback (KnockbackForce * hitVector, KnockbackTime);
                     Target.CharacterData.FormerAttackTarget = null;
                     Target.FaceTarget = -hitVector;
                     Target.TurnToTarget (0f, 0f);

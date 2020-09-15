@@ -70,6 +70,7 @@ tree("Idle")
 
 tree("FireAndMove")
 	sequence
+		StopMove
 		WaitRandom(0.2, 0.4)
 		RandomFire
 		Wait(0.10)

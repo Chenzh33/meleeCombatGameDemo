@@ -197,7 +197,8 @@ namespace meleeDemo {
                     }
                 } else {
                     // AI controlled
-                    enemyObjs.Add (stateEffect.CharacterControl.AIProgress.enemyTarget.gameObject);
+                    if (stateEffect.CharacterControl.AIProgress.enemyTarget != null)
+                        enemyObjs.Add (stateEffect.CharacterControl.AIProgress.enemyTarget.gameObject);
                 }
 
                 // need update
@@ -258,8 +259,8 @@ namespace meleeDemo {
 
             if (EnemyCaptured) {
                 stateEffect.CharacterControl.FaceTarget = direction;
-                //Debug.DrawRay (stateEffect.CharacterControl.gameObject.transform.position, direction * 10f, Color.red);
                 stateEffect.CharacterControl.TurnToTarget (0f, 0f);
+                //Debug.DrawRay (stateEffect.CharacterControl.gameObject.transform.position, direction * 10f, Color.red);
                 //if (!FacePrevTargetWhenNeutral)
                 if (FacePrevTargetWhenNeutral || AutoFaceStunnedEnemy)
                     //stateEffect.CharacterControl.CharacterData.FormerAttackTarget = capturedTarget;

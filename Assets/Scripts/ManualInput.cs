@@ -87,10 +87,10 @@ namespace meleeDemo {
             }
             // for test
             if (Input.GetKeyDown (KeyCode.P)) {
-                Dictionary<string,int> dicts = new Dictionary<string, int>();
-                dicts.Add("Swordman", 3);
-                dicts.Add("Gunman", 2);
-                SpawnEnemyGroup(dicts);
+                Dictionary<string, int> dicts = new Dictionary<string, int> ();
+                dicts.Add ("Swordman", 1);
+                //dicts.Add ("Gunman", 2);
+                SpawnEnemyGroup (dicts);
             }
 
             // for test
@@ -108,59 +108,53 @@ namespace meleeDemo {
                     player.TakeEnergy (1.0f, null);
             }
             if (Input.GetKeyDown (KeyCode.M)) {
-                player.CharacterData.GetEnergy(4.0f);
+                player.CharacterData.GetEnergy (4.0f);
             }
-/*
-            Vector3 forward = gameObject.transform.forward;
-            forward.y = 0f;
-            float angle = (Quaternion.LookRotation (forward, Vector3.up)).eulerAngles.y * Mathf.Deg2Rad;
-            //Debug.Log(forward.ToString() + " " + Mathf.Cos(angle).ToString() + " " + Mathf.Sin(angle).ToString());
-            float blendTreeInputX = player.inputVector.x * Mathf.Cos (angle) - player.inputVector.y * Mathf.Sin (angle);
-            float blendTreeInputY = player.inputVector.x * Mathf.Sin (angle) + player.inputVector.y * Mathf.Cos (angle);
-            player.Animator.SetFloat ("InputX", blendTreeInputX);
-            player.Animator.SetFloat ("InputY", blendTreeInputY);
+            /*
+                        Vector3 forward = gameObject.transform.forward;
+                        forward.y = 0f;
+                        float angle = (Quaternion.LookRotation (forward, Vector3.up)).eulerAngles.y * Mathf.Deg2Rad;
+                        //Debug.Log(forward.ToString() + " " + Mathf.Cos(angle).ToString() + " " + Mathf.Sin(angle).ToString());
+                        float blendTreeInputX = player.inputVector.x * Mathf.Cos (angle) - player.inputVector.y * Mathf.Sin (angle);
+                        float blendTreeInputY = player.inputVector.x * Mathf.Sin (angle) + player.inputVector.y * Mathf.Cos (angle);
+                        player.Animator.SetFloat ("InputX", blendTreeInputX);
+                        player.Animator.SetFloat ("InputY", blendTreeInputY);
 
-            if (Input.GetKeyDown (KeyCode.F)) {
-                player.Animator.SetBool ("Fire", true);
-            } else {
-                player.Animator.SetBool ("Fire", false);
-            }
-            */
-            
+                        if (Input.GetKeyDown (KeyCode.F)) {
+                            player.Animator.SetBool ("Fire", true);
+                        } else {
+                            player.Animator.SetBool ("Fire", false);
+                        }
+                        */
+
         }
 
-        public void SpawnAnEnemy(string name)
-        {
-            float x = Random.Range(3f, 6f);
-            float xx = Random.Range(0f, 1f);
+        public void SpawnAnEnemy (string name) {
+            float x = Random.Range (3f, 5f);
+            float xx = Random.Range (0f, 1f);
             if (xx > 0.5f)
                 x = -x;
-            float y = Random.Range(3f, 6f);
-            float yy = Random.Range(0f, 1f);
-            if (yy > 0.5f)
-                y = -y;
-            EnemyManager.Instance.SpawnEnemy(this.gameObject.transform.position + new Vector3(x, 0f, y), name);
+            float y = Random.Range (3f, 5f);
+            //float yy = Random.Range (0f, 1f);
+            //if (yy > 0.5f)
+            //   y = -y;
+            EnemyManager.Instance.SpawnEnemy (this.gameObject.transform.position + new Vector3 (x, 0f, y), name);
         }
 
-        IEnumerator _SpawnEnemyGroup(Dictionary<string, int> dicts)
-        {
-            foreach(var item in dicts)
-            {
-                for (int i = 0; i != item.Value; ++i)
-                {
-                    SpawnAnEnemy(item.Key);
-                    yield return new WaitForSeconds(0.5f);
+        IEnumerator _SpawnEnemyGroup (Dictionary<string, int> dicts) {
+            foreach (var item in dicts) {
+                for (int i = 0; i != item.Value; ++i) {
+                    SpawnAnEnemy (item.Key);
+                    yield return new WaitForSeconds (0.5f);
                 }
             }
-          
+
         }
 
-        public void SpawnEnemyGroup(Dictionary<string, int> dicts)
-        {
-            StartCoroutine(_SpawnEnemyGroup(dicts));
+        public void SpawnEnemyGroup (Dictionary<string, int> dicts) {
+            StartCoroutine (_SpawnEnemyGroup (dicts));
 
         }
 
     }
 }
-

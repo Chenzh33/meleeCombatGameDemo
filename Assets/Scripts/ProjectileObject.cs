@@ -10,6 +10,7 @@ namespace meleeDemo {
         private float Duration;
         private float Speed;
         private float CurrentTime;
+        private float CurrentTimeToDamage;
         private bool IsMoving;
         private AnimationCurve SpeedGraph;
 
@@ -30,8 +31,17 @@ namespace meleeDemo {
         void Update () {
             if (IsMoving && CurrentTime < Duration) {
                 //Debug.DrawRay(transform.position, transform.forward, Color.red);
-                transform.Translate (transform.forward * Speed * SpeedGraph.Evaluate(CurrentTime / Duration) * Time.deltaTime, Space.World);
+                transform.Translate (transform.forward * Speed * SpeedGraph.Evaluate (CurrentTime / Duration) * Time.deltaTime, Space.World);
+                ProjectileInfo.gameObject.transform.parent = gameObject.transform;
+                ProjectileInfo.transform.localPosition = Vector3.zero;
+                ProjectileInfo.transform.localRotation = Quaternion.identity;
                 CurrentTime += Time.deltaTime;
+                CurrentTimeToDamage += Time.deltaTime;
+                if (CurrentTimeToDamage > ProjectileInfo.DamageInterval) {
+                    ProjectileInfo.Targets.Clear ();
+                    ProjectileInfo.CurrentTargetNum = 0;
+                    CurrentTimeToDamage = 0f;
+                }
             } else {
                 ProjectileInfo.IsFinished = true;
                 ProjectileInfo.IsRegistered = false;

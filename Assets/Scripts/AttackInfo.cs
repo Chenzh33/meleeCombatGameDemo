@@ -12,6 +12,7 @@ namespace meleeDemo {
         public bool IsAttackForward;
         public bool IsAOEAttackTowardsCenter;
         public bool IsAOEAttackAttachToPlayer;
+        public bool IsLethalToStunnedEnemy;
         public int CurrentTargetNum;
         public int MaxTargetNum;
         public CharacterControl Attacker;
@@ -20,7 +21,9 @@ namespace meleeDemo {
         public float Range;
         public ProjectileObject ProjectileObject;
         public float Damage;
+        public float DamageInterval;
         public float KnockbackForce;
+        public float KnockbackTime;
         public float HitReactDuration;
         public float Stun;
         public float VFXScale;
@@ -43,28 +46,34 @@ namespace meleeDemo {
                 IsAttackForward = attackSkill.IsAttackForward;
                 IsAOEAttackTowardsCenter = attackSkill.IsAOEAttackTowardsCenter;
                 IsAOEAttackAttachToPlayer = attackSkill.IsAOEAttackAttachToPlayer;
+                IsLethalToStunnedEnemy = attackSkill.IsLethalToStunnedEnemy;
                 Type = attackSkill.Type;
                 MaxTargetNum = attackSkill.MaxTargetNum;
                 Range = attackSkill.Range;
                 Damage = attackSkill.Damage;
                 KnockbackForce = attackSkill.KnockbackForce;
+                KnockbackTime = attackSkill.KnockbackTime;
                 HitReactDuration = attackSkill.HitReactDuration;
                 Stun = attackSkill.Stun;
                 vfxType = attackSkill.vfxType;
                 VFXObj = null;
                 VFXScale = attackSkill.VFXScale;
+                DamageInterval = attackSkill.DamageInterval;
                 //AOEAttackCenterOffset = attackSkill.AOEAttackCenterOffset;
                 //AttackCenter = Attacker.CharacterData.AOEAttackCenter;
             } else {
                 IsAttackForward = projectileSkill.IsAttackForward;
+                IsAOEAttackTowardsCenter = projectileSkill.IsAOEAttackTowardsCenter;
                 Type = projectileSkill.Type;
                 MaxTargetNum = projectileSkill.MaxTargetNum;
                 Range = projectileSkill.Range;
                 Damage = projectileSkill.Damage;
                 KnockbackForce = projectileSkill.KnockbackForce;
+                KnockbackTime = projectileSkill.KnockbackTime;
                 HitReactDuration = projectileSkill.HitReactDuration;
                 Stun = projectileSkill.Stun;
                 VFXScale = projectileSkill.ProjectileScale;
+                DamageInterval = projectileSkill.DamageInterval;
             }
         }
 

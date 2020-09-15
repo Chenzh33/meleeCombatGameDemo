@@ -12,19 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
   m_Name: SlamHeavy_Attack_AOE
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.42
-  AttackEndTime: 0.53
+  AttackBeginTime: 0.48
+  AttackEndTime: 0.58
   Type: 2
   MaxTargetNum: 5
   Range: 2
   Damage: 2.5
-  KnockbackForce: 18
+  KnockbackForce: 15
   HitReactDuration: 0.15
   Stun: 2.5
   IsAttackForward: 0
   IsAOEAttackTowardsCenter: 0
   IsAOEAttackAttachToPlayer: 0
+  IsLethalToStunnedEnemy: 0
   AOEAttackCenterOffset: 1.2
+  EnergyGetWhenHit: 0.75
   VFXScale: 1
   vfxType: 3
   FinishedAttacks: []

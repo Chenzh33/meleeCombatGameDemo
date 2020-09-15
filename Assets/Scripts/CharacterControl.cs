@@ -206,9 +206,10 @@ namespace meleeDemo {
             //this.CharacterData.OnDead (skill);
         }
 
-        public void TakeStun (float stun, SkillEffect skill) {
+        public void TakeStun (float stun, float hitReactionTime, SkillEffect skill) {
 
             this.CharacterData.Armour -= stun;
+            this.CharacterData.GetHitTime = hitReactionTime;
 
             if (this.CharacterData.Armour <= 0 && !this.CharacterData.IsDead)
                 GetStunned ();
@@ -232,9 +233,22 @@ namespace meleeDemo {
                 this.CharacterData.CurrentEnergyUnitChargeToFull ();
                 if (skill.GetType ().ToString () == "meleeDemo.DirectDamage") {
                     this.CharacterData.GetEnergy (this.CharacterData.EnergyGetOnEnemyDeathByExecute);
+                } else if (skill.GetType ().ToString () == "meleeDemo.Attack") {
+                    if (((Attack) skill).IsLethalToStunnedEnemy) {
+                        this.CharacterData.GetEnergy (this.CharacterData.EnergyGetOnEnemyDeathByExecute);
+                    }
                 }
-            } else if (skill.GetType ().ToString () == "meleeDemo.DirectDamage") {
-                this.CharacterData.GetEnergyToMaxOneUnit (this.CharacterData.EnergyGetOnExecuteHit);
+            } else {
+                if (skill.GetType ().ToString () == "meleeDemo.DirectDamage") {
+
+                    float EnergyGet = ((DirectDamage) skill).EnergyGetWhenHit;
+                    if (EnergyGet > 0)
+                        this.CharacterData.GetEnergyToMaxOneUnit (EnergyGet);
+                } else if (skill.GetType ().ToString () == "meleeDemo.Attack") {
+                    float EnergyGet = ((Attack) skill).EnergyGetWhenHit;
+                    if (EnergyGet > 0)
+                        this.CharacterData.GetEnergyToMaxOneUnit (EnergyGet);
+                }
             }
 
         }
@@ -252,10 +266,10 @@ namespace meleeDemo {
             while (true) {
                 if (t > freezeStTime) {
                     /*
-                if (t > freezeStTime && t <= freezeStTime + freezeTime) {
-                        this.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0f);
-                    if (t > freezeStTime + freezeTime) {
-                        */
+                    if (t > freezeStTime && t <= freezeStTime + freezeTime) {
+                            this.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0f);
+                        if (t > freezeStTime + freezeTime) {
+                            */
                     this.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0f);
                     yield break;
                 }
@@ -355,13 +369,12 @@ namespace meleeDemo {
                 this.Animator.Play ("Ybot_Dead" + randomIndex.ToString (), 0, 0f);
             data.IsDead = true;
 
-            gameObject.layer = LayerMask.NameToLayer("Default");
+            gameObject.layer = LayerMask.NameToLayer ("Default");
 
-            AIProgress agent = GetComponent<AIProgress>();
-            if (agent != null)
-            {
-                agent.Dead();
-                AIAgentManager.Instance.TotalAIAgent.Remove(agent);
+            AIProgress agent = GetComponent<AIProgress> ();
+            if (agent != null) {
+                agent.Dead ();
+                AIAgentManager.Instance.TotalAIAgent.Remove (agent);
             }
 
         }
@@ -464,9 +477,9 @@ namespace meleeDemo {
             TurnToTargetCoroutine = null;
         }
 
-        public void StopTurnToTarget() {
+        public void StopTurnToTarget () {
             if (TurnToTargetCoroutine != null)
-                StopCoroutine(TurnToTargetCoroutine);
+                StopCoroutine (TurnToTargetCoroutine);
             FaceTarget = gameObject.transform.forward;
 
         }
@@ -609,13 +622,12 @@ namespace meleeDemo {
             else
                 animator.SetBool (TransitionParameter.Dodge.ToString (), false);
 
-          
             if (isPlayerControl) {
 
                 if (CommandCharge)
-                    animator.SetBool(TransitionParameter.Charge.ToString(), true);
+                    animator.SetBool (TransitionParameter.Charge.ToString (), true);
                 else
-                    animator.SetBool(TransitionParameter.Charge.ToString(), false);
+                    animator.SetBool (TransitionParameter.Charge.ToString (), false);
 
                 if (CommandAttackHoldFrame > 10)
                     animator.SetBool (TransitionParameter.AtkButtonHold.ToString (), true);
@@ -652,13 +664,11 @@ namespace meleeDemo {
                 else
                     animator.SetBool (TransitionParameter.MoveHold.ToString (), false);
 
-            }
-            else
-            {
+            } else {
                 if (CommandFire)
-                    animator.SetBool(TransitionParameter.Fire.ToString(), true);
+                    animator.SetBool (TransitionParameter.Fire.ToString (), true);
                 else
-                    animator.SetBool(TransitionParameter.Fire.ToString(), false);
+                    animator.SetBool (TransitionParameter.Fire.ToString (), false);
 
             }
             /*

@@ -67,6 +67,7 @@ namespace meleeDemo {
         public int[] StateBuffer = new int[STATE_BUFFER_SIZE];
         private int curIndex = 0;
         public int EffectShadow;
+        public float GetHitTime;
 
         public List<PoolObject> VFXs;
 
@@ -137,9 +138,12 @@ namespace meleeDemo {
             } else {
                 count = 0;
             }
-            Energy = (float) (count + 1) * MaxEnergy;
-            SendMessage (MessageType.EnergyChange);
-            SendMessage (MessageType.EnergyGet);
+            if ((Energy - count * MaxEnergy) > 0f || Energy == 0f) {
+                Energy = (float) (count + 1) * MaxEnergy;
+                SendMessage (MessageType.EnergyChange);
+                SendMessage (MessageType.EnergyGet);
+
+            }
         }
 
         public void SendMessage (MessageType type) {
@@ -156,19 +160,19 @@ namespace meleeDemo {
 
                 case MessageType.EnergyNotEnough:
                     if (OnEnergyNotEnough != null)
-                        OnEnergyNotEnough();
+                        OnEnergyNotEnough ();
                     break;
 
                 case MessageType.EnergyGet:
                     if (OnEnergyGet != null)
-                        OnEnergyGet();
+                        OnEnergyGet ();
                     break;
 
                 case MessageType.EnergyTake:
                     if (OnEnergyTake != null)
-                        OnEnergyTake();
+                        OnEnergyTake ();
                     break;
- 
+
             }
 
         }

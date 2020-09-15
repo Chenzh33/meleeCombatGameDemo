@@ -26,11 +26,14 @@ namespace meleeDemo {
         public int MaxTargetNum;
         public float Range;
         public float Damage = 1f;
+        public float DamageInterval = 0.5f;
         public float KnockbackForce = 10f;
+        public float KnockbackTime = 0.1f;
         public float HitReactDuration = 0.1f;
         public float Stun = 1f;
         public float ProjectileScale = 1f;
         public bool IsAttackForward;
+        public bool IsAOEAttackTowardsCenter;
         public AnimationCurve SpeedGraph;
 
         //[Range (0.01f, 1f)]
@@ -114,7 +117,9 @@ namespace meleeDemo {
                 case ProjectileType.Bullet:
                     obj = PoolManager.Instance.GetObject (PoolObjectType.ProjectileBullet);
                     break;
-
+                case ProjectileType.ChargedAttackHold:
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.ProjectileChargedAttackHold);
+                    break;
             }
             ProjectileVFX projectileVFX = obj.GetComponentInChildren<ProjectileVFX> ();
             if (projectileVFX != null) {
@@ -130,8 +135,7 @@ namespace meleeDemo {
             obj.transform.rotation = Quaternion.LookRotation (control.FaceTarget, Vector3.up);
 
             ParticleSystem[] pss = obj.GetComponentsInChildren<ParticleSystem> ();
-            foreach(ParticleSystem ps in pss)
-            {
+            foreach (ParticleSystem ps in pss) {
                 ps.gameObject.transform.localScale = Vector3.one * ProjectileScale;
             }
 

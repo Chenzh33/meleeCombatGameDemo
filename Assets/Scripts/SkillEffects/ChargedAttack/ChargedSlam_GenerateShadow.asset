@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ChargedSlam_GenerateShadow
   m_EditorClassIdentifier: 
   TurnOnShadowTiming: 0.4
-  TurnOffShadowTiming: 0.55
+  TurnOffShadowTiming: 0.5
   ShadowDuration: 0.15
   GenerationFrameInterval: 0

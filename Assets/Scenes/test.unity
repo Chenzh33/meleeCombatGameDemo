@@ -10885,7 +10885,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610606575}
   m_LocalRotation: {x: 0.39792576, y: -0.0041276137, z: 0.0017903708, w: 0.91740656}
-  m_LocalPosition: {x: 0.022371436, y: 8.731223, z: -6.487748}
+  m_LocalPosition: {x: 0.0030065635, y: 6.431656, z: -4.3357625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -11043,7 +11043,7 @@ GameObject:
   - component: {fileID: 644284094}
   - component: {fileID: 644284093}
   - component: {fileID: 644284092}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: light belt 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11298,7 +11298,7 @@ Transform:
   - {fileID: 1345800393}
   - {fileID: 611402369}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!114 &685231952
 MonoBehaviour:
@@ -11312,7 +11312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0, z: -3.638491}
+  m_Offset: {x: 0, y: 0, z: -0.4889792}
   m_ApplyAfter: 0
   m_PreserveComposition: 1
 --- !u!1 &862991477
@@ -11518,7 +11518,7 @@ GameObject:
   - component: {fileID: 1047808695}
   - component: {fileID: 1047808694}
   - component: {fileID: 1047808693}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: light belt 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16423,7 +16423,7 @@ GameObject:
   - component: {fileID: 1109348332}
   - component: {fileID: 1109348331}
   - component: {fileID: 1109348330}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: light belt 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16801,7 +16801,7 @@ GameObject:
   - component: {fileID: 1627088894}
   - component: {fileID: 1627088893}
   - component: {fileID: 1627088892}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: light belt 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17036,7 +17036,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1890588408}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LightBelts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17556,7 +17556,7 @@ PrefabInstance:
     - target: {fileID: 4636182121404378592, guid: 133eb63fb7d169f429df9aa3f03d3734,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4636182121404378592, guid: 133eb63fb7d169f429df9aa3f03d3734,
         type: 3}
@@ -17665,6 +17665,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Frank
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025092262141336795, guid: 3f3cbdc260c5cea439c7083b2bbf9a67,
+        type: 3}
+      propertyPath: data.EnergyGetOnExecuteHit
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8025092262718460864, guid: 3f3cbdc260c5cea439c7083b2bbf9a67,
         type: 3}

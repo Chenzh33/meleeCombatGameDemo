@@ -25,10 +25,14 @@ MonoBehaviour:
   MaxTargetNum: 10
   Range: 0.7
   Damage: 2
+  DamageInterval: 0.5
   KnockbackForce: 15
-  HitReactDuration: 0.2
+  KnockbackTime: 0.2
+  HitReactDuration: 0.4
   Stun: 1
+  ProjectileScale: 1
   IsAttackForward: 0
+  IsAOEAttackTowardsCenter: 0
   SpeedGraph:
     serializedVersion: 2
     m_Curve:
