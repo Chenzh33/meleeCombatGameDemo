@@ -18,6 +18,7 @@ namespace meleeDemo {
         public CharacterControl Attacker;
         public CharacterControl Target;
         Coroutine CheckCompleteCoroutine;
+        public float MaxGrapplingTime = 3f;
 
         public void Init (GrapplingSkill grapplingSkill, CharacterControl attacker) {
             Skill = grapplingSkill;
@@ -44,13 +45,21 @@ namespace meleeDemo {
             Range = 0f;
             CheckCompleteCoroutine = null;
         }
+  
         IEnumerator _CheckComplete () {
+            float t = 0f;
             while (true) {
                 if (!Attacker.Animator.GetBool (TransitionParameter.GrapplingHit.ToString ()) && !IsFinished) {
-                    Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1f);
-                    Target.CharacterData.IsGrappled = false;
+                    //Target.CharacterData.IsGrappled = false;
+                    //Target.CharacterData.GetHitTime = 0.5f;
                     Dead ();
                     Debug.Log("check complete...");
+                    yield break;
+                }
+                t += Time.deltaTime;
+                if(t > MaxGrapplingTime)
+                {
+                    Dead();
                     yield break;
                 }
                 yield return null;
@@ -77,6 +86,11 @@ namespace meleeDemo {
 
         public void Dead () {
             //Attacker.Animator.SetBool (TransitionParameter.GrapplingHit.ToString (), false);
+
+            Attacker.CharacterData.GrapplingTarget.gameObject.transform.parent = null;
+            Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1.0f);
+            Target.CharacterData.IsGrappled = false;
+            Attacker.Animator.SetBool(TransitionParameter.GrapplingHit.ToString(), false);
             IsFinished = true;
             IsRegistered = false;
             if (AttackManager.Instance.CurrentGrappler.Contains (this))

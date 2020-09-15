@@ -15,6 +15,7 @@ MonoBehaviour:
   DamageTiming: 0.1
   Damage: 3
   KnockbackForce: 30
-  HitReactDuration: 0.25
+  KnockbackTime: 0.25
+  HitReactDuration: 1
   Stun: 1.5
   EnergyGetWhenHit: 0

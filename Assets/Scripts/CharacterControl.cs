@@ -209,7 +209,8 @@ namespace meleeDemo {
         public void TakeStun (float stun, float hitReactionTime, SkillEffect skill) {
 
             this.CharacterData.Armour -= stun;
-            this.CharacterData.GetHitTime = hitReactionTime;
+            if (hitReactionTime > 0f && this.CharacterData.GetHitTime < hitReactionTime && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead)
+                this.CharacterData.GetHitTime = hitReactionTime;
 
             if (this.CharacterData.Armour <= 0 && !this.CharacterData.IsDead)
                 GetStunned ();
@@ -259,8 +260,10 @@ namespace meleeDemo {
         }
 
         IEnumerator _HitReactionAndFreeze (float freezeStTime) {
-            int randomIndex = Random.Range (0, 3) + 1;
-            this.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
+            //this.CharacterData.GetHitTime = 0.5f;
+            //int randomIndex = Random.Range (0, 3) + 1;
+            int randomIndex = 1;
+            this.Animator.Play ("GrapplingHit", 0, 0f);
 
             float t = 0f;
             while (true) {
@@ -274,6 +277,7 @@ namespace meleeDemo {
                     yield break;
                 }
                 t = t + Time.deltaTime;
+                //this.CharacterData.GetHitTime = 0.5f;
                 yield return null;
             }
 
@@ -285,6 +289,7 @@ namespace meleeDemo {
         }
 
         IEnumerator _SetFormerTarget (CharacterControl target, float duration) {
+            this.Animator.SetBool(TransitionParameter.LockOnEnemy.ToString(),true);
             this.CharacterData.FormerAttackTarget = target;
             float t = 0f;
             while (t < duration) {
@@ -294,6 +299,7 @@ namespace meleeDemo {
             }
             this.CharacterData.FormerAttackTarget = null;
             SetFormerTargetCoroutine = null;
+            this.Animator.SetBool(TransitionParameter.LockOnEnemy.ToString(),false);
         }
 
         public void TakeKnockback (Vector3 knockbackVector, float duration) {
@@ -398,6 +404,7 @@ namespace meleeDemo {
                 this.CharacterData.IsStunned = true;
                 this.Animator.SetBool (TransitionParameter.Stunned.ToString (), true);
             }
+            this.CharacterData.GetHitTime = 0f;
 
         }
 

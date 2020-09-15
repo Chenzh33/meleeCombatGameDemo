@@ -148,6 +148,7 @@ namespace meleeDemo {
 
                         //stateEffect.CharacterControl.CharacterData.FormerAttackTarget = null;
                         bool EnemyCaptured = FaceEnemy (initFaceDirection, stateEffect, animator, stateInfo);
+                        Debug.Log("EnemyCaptured: " + EnemyCaptured.ToString());
                         if (EnemyCaptured)
                             IsFaceForward = false;
                     }
@@ -173,12 +174,12 @@ namespace meleeDemo {
                 layerMask = 1 << 9;
             else if (stateEffect.CharacterControl.gameObject.layer == LayerMask.NameToLayer ("enemy"))
                 layerMask = 1 << 8;
-            bool hit = Physics.BoxCast (stateEffect.CharacterControl.gameObject.transform.position, 2.0f * new Vector3 (1.0f, 1.0f, 0.5f),
+            bool hit = Physics.BoxCast (stateEffect.CharacterControl.gameObject.transform.position, new Vector3 (2.0f, 1.0f, 1.0f),
                 initFaceDirection,
                 out rayCastHit,
                 Quaternion.LookRotation (initFaceDirection, Vector3.up),
                 CaptureDistanceNear, layerMask);
-            //Debug.Log (hit);
+            //Debug.Log (rayCastHit.collider.gameObject);
             if (hit) {
                 EnemyCaptured = true;
                 capturedTarget = rayCastHit.collider.transform.root.gameObject.GetComponent<CharacterControl> ();

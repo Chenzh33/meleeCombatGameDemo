@@ -17,10 +17,12 @@ namespace meleeDemo {
         public float EnergyGetWhenHit = 1f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
+            
             stateEffect.CharacterControl.CharacterData.GrapplingTarget.gameObject.transform.parent = null;
             CharacterControl Target = stateEffect.CharacterControl.CharacterData.GrapplingTarget;
             Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1.0f);
             //Target.Animator.Play ("Idle");
+            
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             if (stateInfo.normalizedTime > DamageTiming && animator.GetBool (TransitionParameter.GrapplingHit.ToString ())) {

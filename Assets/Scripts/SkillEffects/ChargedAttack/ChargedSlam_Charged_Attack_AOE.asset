@@ -18,8 +18,10 @@ MonoBehaviour:
   MaxTargetNum: 5
   Range: 3.5
   Damage: 4.2
+  DamageInterval: 1
   KnockbackForce: 30
-  HitReactDuration: 0.2
+  KnockbackTime: 0.25
+  HitReactDuration: 1
   Stun: 4.2
   IsAttackForward: 0
   IsAOEAttackTowardsCenter: 0

@@ -17,10 +17,11 @@ MonoBehaviour:
   FacePrevTargetWhenNeutral: 1
   FacePrevTargetRegardlessOfPosition: 1
   CheckFarRange: 0
+  AutoFaceStunnedEnemy: 0
   AutoFaceEnemyTiming: 0
   AutoFaceEnemyDuration: 0
   CaptureDistanceFar: 15
   CaptureAngleRange: 30
-  CaptureDistanceNear: 3
+  CaptureDistanceNear: 4
   smoothEarlyTurn: 5
   LockOnTargetDuration: 2

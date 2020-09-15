@@ -27,7 +27,8 @@ MonoBehaviour:
   Damage: 0.8
   DamageInterval: 1
   KnockbackForce: 10
-  HitReactDuration: 0.1
+  KnockbackTime: 0.1
+  HitReactDuration: 0.5
   Stun: 1.5
   ProjectileScale: 1.2
   IsAttackForward: 0

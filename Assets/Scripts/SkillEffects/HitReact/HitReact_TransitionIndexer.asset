@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HitReact_TransitionIndexer
   m_EditorClassIdentifier: 
   TimeIntervals:
-  - index: 1
-    st: 0.7
-    ed: 2
+  - index: 9
+    st: 0.8
+    ed: 0.9

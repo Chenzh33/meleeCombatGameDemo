@@ -28,6 +28,8 @@ namespace meleeDemo {
             animator.SetBool (TransitionParameter.AttackExecute.ToString (), false);
             stateEffect.CharacterControl.CommandExecute = false;
             GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.Grappler);
+            //PoolObject poolObj = obj.GetComponent<PoolObject>();
+            //poolObj.WaitAndDestroy(2f);
             Grappler grappler = obj.GetComponent<Grappler> ();
             grappler.Init (this, stateEffect.CharacterControl);
             obj.SetActive (true);

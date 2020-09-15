@@ -211,12 +211,13 @@ namespace meleeDemo {
             info.Target = control;
             //Debug.Log ("Grappler HIT !!!");
             control.CharacterData.IsGrappled = true;
-            control.HitReactionAndFreeze (info.FreezeStartTiming);
 
             Vector3 dirVector = control.gameObject.transform.position - info.Attacker.gameObject.transform.position;
             Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
             control.FaceTarget = -hitVector;
             control.TurnToTarget (0f, 0f);
+
+            control.HitReactionAndFreeze (info.FreezeStartTiming);
 
             info.Attacker.CharacterController.Move (info.Attacker.gameObject.transform.forward * 0.6f);
             Vector3 AttackerFront = info.Attacker.gameObject.transform.forward * 1.2f;
