@@ -29,12 +29,11 @@ tree("WalkAndAttack")
 						//StopMove
 						tree("Execute")
 					
-			repeat
-				sequence
-					IsTargetInAttackRange 
-					//StopMove
-					Wait(0.2)
-					tree("Attack")
+			sequence
+				IsTargetInAttackRange 
+				//StopMove
+				Wait(0.2)
+				tree("Attack")
 			sequence
 				IsTargetOutWalkRange 
 				WalkToRun

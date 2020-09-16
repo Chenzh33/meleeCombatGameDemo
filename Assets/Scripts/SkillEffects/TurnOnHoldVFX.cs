@@ -6,7 +6,7 @@ namespace meleeDemo {
 
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/TurnOnHoldVFX")]
     public class TurnOnHoldVFX : SkillEffect {
-        [Range(0f, 3f)]
+        [Range (0f, 3f)]
         public float TurnOnVFXTiming = 0f;
         /*
         [Range(0f, 3f)]
@@ -20,7 +20,9 @@ namespace meleeDemo {
 
             //if (stateInfo.normalizedTime > TurnOnVFXTiming && stateInfo.normalizedTime <= TurnOffVFXTiming && stateEffect.CharacterControl.VFXHold.isPaused) {
             if (stateInfo.normalizedTime > TurnOnVFXTiming && stateEffect.CharacterControl.VFXHold.isPaused) {
-                stateEffect.CharacterControl.VFXHold.Play(true);
+                stateEffect.CharacterControl.VFXHold.Play (true);
+                WeaponObject weaponObject = stateEffect.CharacterControl.gameObject.GetComponentInChildren<WeaponObject> ();
+                weaponObject.ToggleWeaponMaterial ();
             }
             /*
             if (stateInfo.normalizedTime > TurnOffVFXTiming && !stateEffect.CharacterControl.VFXHold.isPaused) {
@@ -31,10 +33,11 @@ namespace meleeDemo {
 
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            if (!stateEffect.CharacterControl.VFXHold.isPaused)
-            {
-                stateEffect.CharacterControl.VFXHold.Pause(true);
-                stateEffect.CharacterControl.VFXHold.Clear();
+            if (!stateEffect.CharacterControl.VFXHold.isPaused) {
+                stateEffect.CharacterControl.VFXHold.Pause (true);
+                stateEffect.CharacterControl.VFXHold.Clear ();
+                WeaponObject weaponObject = stateEffect.CharacterControl.gameObject.GetComponentInChildren<WeaponObject> ();
+                weaponObject.ToggleWeaponMaterial ();
             }
         }
 

@@ -10885,7 +10885,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610606575}
   m_LocalRotation: {x: 0.39792576, y: -0.0041276137, z: 0.0017903708, w: 0.91740656}
-  m_LocalPosition: {x: 0.0030065635, y: 6.431656, z: -4.3357625}
+  m_LocalPosition: {x: -0.00024604466, y: 6.0454106, z: -3.9743054}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -11312,7 +11312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0, z: -0.4889792}
+  m_Offset: {x: 0, y: 0, z: 0.04002651}
   m_ApplyAfter: 0
   m_PreserveComposition: 1
 --- !u!1001 &798410702
@@ -17739,11 +17739,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Frank
-      objectReference: {fileID: 0}
-    - target: {fileID: 8025092262141336795, guid: 3f3cbdc260c5cea439c7083b2bbf9a67,
-        type: 3}
-      propertyPath: data.EnergyGetOnExecuteHit
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8025092262718460864, guid: 3f3cbdc260c5cea439c7083b2bbf9a67,
         type: 3}

@@ -262,7 +262,7 @@ namespace meleeDemo {
         IEnumerator _HitReactionAndFreeze (float freezeStTime) {
             //this.CharacterData.GetHitTime = 0.5f;
             //int randomIndex = Random.Range (0, 3) + 1;
-            int randomIndex = 1;
+            //int randomIndex = 1;
             this.Animator.Play ("GrapplingHit", 0, 0f);
 
             float t = 0f;
