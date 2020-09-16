@@ -7,15 +7,16 @@ namespace meleeDemo {
     public class SceneLoader : MonoBehaviour {
 
         void Awake () {
-            VirtualInputManager.Instance.Init ();
-            KeyboardManager.Instance.Init ();
-            PoolManager.Instance.Init();
-            AttackManager.Instance.Init ();
-            CameraManager.Instance.Init ();
-            AIAgentManager.Instance.Init ();
-            EnemyManager.Instance.Init ();
+            GameManager.Instance.Init();
+          
         }
 
         void Update () { }
+
+        public void LoadStoryModeLevel(int sceneIndex)
+        {
+            GameManager.Instance.LoadScene("Level" + sceneIndex.ToString(), true);
+        }
+
     }
 }

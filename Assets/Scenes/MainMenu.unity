@@ -2566,7 +2566,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 270761576}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 921382874}
+        m_MethodName: LoadStoryModeLevel
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1390049815
 CanvasRenderer:
   m_ObjectHideFlags: 0
