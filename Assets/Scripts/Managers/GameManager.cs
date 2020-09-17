@@ -33,7 +33,6 @@ namespace meleeDemo {
                 AttackManager.Instance.Init();
                 CameraManager.Instance.Init();
                 AIAgentManager.Instance.Init();
-                EnemyManager.Instance.Init();
 
             }
         }
@@ -66,7 +65,18 @@ namespace meleeDemo {
             InitAllManagers();
 
         }
+        public void SetPlayer(CharacterControl player)
+        {
+            Player = player;
+        }
 
+        public void RegisterAllUnit()
+        {
+            AIAgentManager.Instance.RegisterAllEnemies ();
+            ManualInput playerInput = Player.GetComponent<ManualInput>();
+            playerInput.enabled = true;
+
+        }
 
     }
 }

@@ -44,11 +44,17 @@ namespace meleeDemo {
             pathFindingAgent = pathFindingAgentObj.GetComponent<PathFindingAgent> ();
             pathFindingAgent.transform.position = new Vector3 (gameObject.transform.position.x, 0f, gameObject.transform.position.z);
             pathFindingAgent.Init ();
+            //RegisterDamageEvent ();
 
             // register event
-            GameObject playerObj = (FindObjectOfType (typeof (ManualInput)) as ManualInput).gameObject;
-            CharacterControl player = playerObj.GetComponent<CharacterControl> ();
-            aiUnit.CharacterData.OnDamage += player.OnEnemyGetDamaged; 
+        }
+
+        public void RegisterDamageEvent () {
+            ManualInput playerObjManu = FindObjectOfType (typeof (ManualInput)) as ManualInput;
+            if (playerObjManu != null) {
+                CharacterControl player = playerObjManu.GetComponent<CharacterControl> ();
+                aiUnit.CharacterData.OnDamage += player.OnEnemyGetDamaged;
+            }
 
         }
 
@@ -59,17 +65,21 @@ namespace meleeDemo {
         public void FindTarget () {
             if (Time.time - lastFindTargetTime > aquisitionInterval) {
 
-                GameObject player = (FindObjectOfType (typeof (ManualInput)) as ManualInput).gameObject;
-                enemyTarget = player.GetComponent<CharacterControl> ();
-                if (IsTargetVisible () && enemyTarget.CharacterData.Team != team) {
-                    pathFindingAgent.SetTarget (enemyTarget.gameObject.transform);
-                    //Debug.Log ("Find player!");
-                    CameraManager.Instance.AddToTargetGroup (aiUnit);
-                } else {
-                    CameraManager.Instance.RemoveFromTargetGroup (aiUnit);
-                    enemyTarget = null;
-                }
-                lastFindTargetTime = Time.time;
+                //GameObject player = (FindObjectOfType (typeof (ManualInput)) as ManualInput).gameObject;
+                ManualInput playerObjManu = FindObjectOfType (typeof (ManualInput)) as ManualInput;
+                if (playerObjManu != null && this.enabled == true) {
+                    enemyTarget = playerObjManu.GetComponent<CharacterControl> ();
+                    if (IsTargetVisible () && enemyTarget.CharacterData.Team != team) {
+                        pathFindingAgent.SetTarget (enemyTarget.gameObject.transform);
+                        //Debug.Log ("Find player!");
+                        CameraManager.Instance.AddToTargetGroup (aiUnit);
+                    } else {
+                        CameraManager.Instance.RemoveFromTargetGroup (aiUnit);
+                        enemyTarget = null;
+                    }
+                    lastFindTargetTime = Time.time;
+                } else
+                    Task.current.Fail ();
             }
             Task.current.Complete (enemyTarget != null);
         }
@@ -180,17 +190,15 @@ namespace meleeDemo {
 
         }
 
-        public void TurnOnHighlight (float factor)
-        {
+        public void TurnOnHighlight (float factor) {
             aiUnit.CharacterData.TargetGroupWeight *= factor;
             CameraManager.Instance.UpdateTargetWeight (aiUnit);
         }
-        public void TurnOffHighlight (float factor)
-        {
+        public void TurnOffHighlight (float factor) {
             aiUnit.CharacterData.TargetGroupWeight /= factor;
             CameraManager.Instance.UpdateTargetWeight (aiUnit);
         }
- 
+
         public void SetInputVectorToFaceTarget () {
             Vector3 dir = enemyTarget.gameObject.transform.position - gameObject.transform.position;
             dir.y = 0f;
@@ -198,18 +206,18 @@ namespace meleeDemo {
             aiUnit.inputVector.x = dir.x;
             aiUnit.inputVector.y = dir.z;
         }
- 
+
         public void SetInputVectorBackToTarget () {
             Vector3 dir = enemyTarget.gameObject.transform.position - gameObject.transform.position;
             dir.y = 0f;
             dir.Normalize ();
-            Vector3 runawayDir = - dir;
+            Vector3 runawayDir = -dir;
             aiUnit.inputVector.x = runawayDir.x;
             aiUnit.inputVector.y = runawayDir.z;
-            animator.SetFloat("InputX", runawayDir.x);
+            animator.SetFloat ("InputX", runawayDir.x);
             animator.SetFloat ("InputY", runawayDir.z);
         }
- 
+
         public void SetInputVector () {
             Vector3 dir = new Vector3 (aiUnit.inputVector.x, 0, aiUnit.inputVector.y);
             Vector3 deltaDir = pathFindingAgent.gameObject.transform.position - gameObject.transform.position;
@@ -236,8 +244,8 @@ namespace meleeDemo {
             animator.SetFloat ("InputX", blendTreeInputX);
             animator.SetFloat ("InputY", blendTreeInputY);
 
-            Vector3 finalDir = new Vector3(aiUnit.inputVector.x, 0, aiUnit.inputVector.y);
-            Debug.DrawRay(gameObject.transform.position, finalDir * 10f, Color.red);
+            Vector3 finalDir = new Vector3 (aiUnit.inputVector.x, 0, aiUnit.inputVector.y);
+            Debug.DrawRay (gameObject.transform.position, finalDir * 10f, Color.red);
 
         }
         public void ResetInputVector () {
@@ -266,7 +274,7 @@ namespace meleeDemo {
         }
 
         [Task]
-        public bool RandomFire() {
+        public bool RandomFire () {
             float r = Random.Range (0f, 1f);
             if (r < ProbFire) {
                 //StopMove ();
@@ -276,11 +284,11 @@ namespace meleeDemo {
         }
 
         [Task]
-        public bool RandomDodge() {
+        public bool RandomDodge () {
             float r = Random.Range (0f, 1f);
             if (r < ProbDodge) {
                 //StopMove ();
-                DodgeCommandInput();
+                DodgeCommandInput ();
             }
             return true;
         }
@@ -313,9 +321,10 @@ namespace meleeDemo {
             return true;
 
         }
+
         [Task]
         public bool FireCommandInput () {
-            DodgeCommandCancel();
+            DodgeCommandCancel ();
             SetInputVectorToFaceTarget ();
             aiUnit.CommandFire = true;
             return true;
@@ -323,7 +332,7 @@ namespace meleeDemo {
 
         [Task]
         public bool DodgeCommandInput () {
-            FireCommandCancel();
+            FireCommandCancel ();
             SetInputVectorBackToTarget ();
             aiUnit.CommandDodge = true;
             return true;
@@ -344,19 +353,19 @@ namespace meleeDemo {
         }
 
         [Task]
-        public bool FireCommandCancel()
-        {
+        public bool FireCommandCancel () {
             //ResetInputVector ();
             aiUnit.CommandFire = false;
             return true;
         }
+
         [Task]
-        public bool DodgeCommandCancel()
-        {
+        public bool DodgeCommandCancel () {
             //ResetInputVector ();
             aiUnit.CommandDodge = false;
             return true;
         }
+
         [Task]
         public bool IsRunning () {
             return animator.GetBool ("IsRunning");

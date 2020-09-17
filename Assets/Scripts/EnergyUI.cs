@@ -17,24 +17,32 @@ namespace meleeDemo {
         Animator BarBoundAnim;
 
         void Start () {
-            GameObject player = (FindObjectOfType (typeof (ManualInput)) as ManualInput).gameObject;
-            CharacterControl playerControl = player.GetComponent<CharacterControl> ();
+            Init ();
 
-            data = playerControl.CharacterData;
-            BarImage[] barImages = this.GetComponentsInChildren<BarImage> ();
-            foreach (BarImage im in barImages) {
-                if (im.type == BarImageType.Bound)
-                    BarBound = im.GetComponent<Image> ();
-                else if (im.type == BarImageType.Fill)
-                    BarFill = im.GetComponent<Image> ();
+        }
+
+        public void Init () {
+
+            ManualInput playerObjManu = FindObjectOfType (typeof (ManualInput)) as ManualInput;
+            if (playerObjManu != null) {
+
+                CharacterControl playerControl = playerObjManu.GetComponent<CharacterControl> ();
+
+                data = playerControl.CharacterData;
+                BarImage[] barImages = this.GetComponentsInChildren<BarImage> ();
+                foreach (BarImage im in barImages) {
+                    if (im.type == BarImageType.Bound)
+                        BarBound = im.GetComponent<Image> ();
+                    else if (im.type == BarImageType.Fill)
+                        BarFill = im.GetComponent<Image> ();
+                }
+                Count = this.GetComponentInChildren<TextMeshProUGUI> ();
+                BarBoundAnim = BarBound.GetComponent<Animator> ();
+                playerControl.CharacterData.OnEnergyChange += EnergyChange;
+                playerControl.CharacterData.OnEnergyTake += PlayTakeEnergy;
+                playerControl.CharacterData.OnEnergyNotEnough += PlayNotEnoughEnergy;
+                playerControl.CharacterData.OnEnergyGet += PlayGetEnergy;
             }
-            Count = this.GetComponentInChildren<TextMeshProUGUI> ();
-            BarBoundAnim = BarBound.GetComponent<Animator>();
-            playerControl.CharacterData.OnEnergyChange += EnergyChange;
-            playerControl.CharacterData.OnEnergyTake += PlayTakeEnergy;
-            playerControl.CharacterData.OnEnergyNotEnough += PlayNotEnoughEnergy;
-            playerControl.CharacterData.OnEnergyGet += PlayGetEnergy;
-
         }
 
         void EnergyChange () {
@@ -50,21 +58,18 @@ namespace meleeDemo {
             BarFill.fillAmount = (data.Energy - (float) count * data.MaxEnergy) / data.MaxEnergy;
         }
 
-        void PlayNotEnoughEnergy()
-        {
-            BarBoundAnim.Play("NotEnoughEnergy");
+        void PlayNotEnoughEnergy () {
+            BarBoundAnim.Play ("NotEnoughEnergy");
 
         }
 
-        void PlayTakeEnergy()
-        {
-            BarBoundAnim.Play("TakeEnergy");
+        void PlayTakeEnergy () {
+            BarBoundAnim.Play ("TakeEnergy");
 
         }
 
-        void PlayGetEnergy()
-        {
-            BarBoundAnim.Play("GetEnergy");
+        void PlayGetEnergy () {
+            BarBoundAnim.Play ("GetEnergy");
 
         }
     }

@@ -90,12 +90,14 @@ namespace meleeDemo {
                     }
                 }
                 // for test
+                /*
                 if (Input.GetKeyDown (KeyCode.P)) {
                     Dictionary<string, int> dicts = new Dictionary<string, int> ();
                     dicts.Add ("Swordman", 1);
                     //dicts.Add ("Gunman", 2);
                     SpawnEnemyGroup (dicts);
                 }
+                */
 
                 // for test
                 if (Input.GetKeyDown (KeyCode.T)) {
@@ -138,6 +140,7 @@ namespace meleeDemo {
 
         }
 
+/*
         public void SpawnAnEnemy (string name) {
             float x = Random.Range (3f, 5f);
             float xx = Random.Range (0f, 1f);
@@ -164,6 +167,7 @@ namespace meleeDemo {
             StartCoroutine (_SpawnEnemyGroup (dicts));
 
         }
+        */
 
     }
 }

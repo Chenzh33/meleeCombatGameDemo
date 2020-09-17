@@ -18,5 +18,10 @@ namespace meleeDemo {
             GameManager.Instance.LoadScene("Level" + sceneIndex.ToString(), true);
         }
 
+        public void RegisterAllUnit()
+        {
+            GameManager.Instance.RegisterAllUnit();
+        }
+
     }
 }

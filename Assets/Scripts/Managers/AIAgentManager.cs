@@ -16,19 +16,26 @@ namespace meleeDemo {
             }
         }
 
-/*
-        public List<AIProgress> GetCurrentSwarmAgent (CharacterControl target) {
+        public void RegisterAllEnemies () {
             foreach (AIProgress ai in TotalAIAgent) {
-                if (!ai.aiUnit.CharacterData.IsRunning && ai.enemyTarget == target) {
-                    if (!CurrentSwarmAgent.Contains (ai))
-                        CurrentSwarmAgent.Add (ai);
-                } else
-                if (CurrentSwarmAgent.Contains (ai))
-                    CurrentSwarmAgent.Remove (ai);
+                ai.enabled = true;
+                ai.RegisterDamageEvent ();
             }
-            return CurrentSwarmAgent;
         }
-        */
+
+        /*
+                public List<AIProgress> GetCurrentSwarmAgent (CharacterControl target) {
+                    foreach (AIProgress ai in TotalAIAgent) {
+                        if (!ai.aiUnit.CharacterData.IsRunning && ai.enemyTarget == target) {
+                            if (!CurrentSwarmAgent.Contains (ai))
+                                CurrentSwarmAgent.Add (ai);
+                        } else
+                        if (CurrentSwarmAgent.Contains (ai))
+                            CurrentSwarmAgent.Remove (ai);
+                    }
+                    return CurrentSwarmAgent;
+                }
+                */
 
     }
 }

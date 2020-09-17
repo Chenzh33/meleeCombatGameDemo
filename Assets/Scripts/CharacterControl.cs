@@ -9,6 +9,7 @@ namespace meleeDemo {
         CharacterController controller;
         Animator animator;
         AIProgress aiProgress;
+        ManualInput manualInput;
         public ParticleSystem particleSystemTrail;
         public ParticleSystem particleSystemHold;
 
@@ -64,6 +65,8 @@ namespace meleeDemo {
             detector = GetComponentInChildren<TriggerDetector> ();
             controller = GetComponent<CharacterController> ();
             aiProgress = GetComponent<AIProgress> ();
+            manualInput = GetComponent<ManualInput> ();
+
             ParticleSystemTag[] particleSystemTags = GetComponentsInChildren<ParticleSystemTag> ();
             foreach (ParticleSystemTag p in particleSystemTags) {
                 if (p.tag == VFXType.Trail) {
@@ -78,7 +81,7 @@ namespace meleeDemo {
 
             }
 
-            if (GetComponent<ManualInput> () != null && (GetComponent<ManualInput> ()).enabled == true)
+            if (manualInput != null)
                 isPlayerControl = true;
             else
                 isPlayerControl = false;
@@ -86,6 +89,11 @@ namespace meleeDemo {
             SetRagdollAndAttackingParts ();
             //this.CharacterData.OnDead += Dead;
             //this.CharacterData.OnDamage += Dead;
+            if (aiProgress != null)
+                aiProgress.enabled = false;
+            if (manualInput != null)
+                manualInput.enabled = false;
+
         }
 
         /*
@@ -99,7 +107,7 @@ namespace meleeDemo {
             //StartCoroutine (_Spawn ());
             this.gameObject.transform.position = new Vector3 (this.gameObject.transform.position.x, 10f, this.gameObject.transform.position.z);
             this.Animator.Play ("Spawn");
-            this.gameObject.transform.DOMoveY (0f, 0.1f);
+            this.gameObject.transform.DOMoveY (0f, 0.2f);
         }
 
         /*
@@ -289,7 +297,7 @@ namespace meleeDemo {
         }
 
         IEnumerator _SetFormerTarget (CharacterControl target, float duration) {
-            this.Animator.SetBool(TransitionParameter.LockOnEnemy.ToString(),true);
+            this.Animator.SetBool (TransitionParameter.LockOnEnemy.ToString (), true);
             this.CharacterData.FormerAttackTarget = target;
             float t = 0f;
             while (t < duration) {
@@ -299,7 +307,7 @@ namespace meleeDemo {
             }
             this.CharacterData.FormerAttackTarget = null;
             SetFormerTargetCoroutine = null;
-            this.Animator.SetBool(TransitionParameter.LockOnEnemy.ToString(),false);
+            this.Animator.SetBool (TransitionParameter.LockOnEnemy.ToString (), false);
         }
 
         public void TakeKnockback (Vector3 knockbackVector, float duration) {

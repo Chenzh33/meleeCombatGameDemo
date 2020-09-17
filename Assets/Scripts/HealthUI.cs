@@ -16,21 +16,27 @@ namespace meleeDemo {
         public Image BarBound;
 
         void Start () {
-            GameObject player = (FindObjectOfType (typeof (ManualInput)) as ManualInput).gameObject;
-            CharacterControl playerControl = player.GetComponent<CharacterControl> ();
 
-            data = playerControl.CharacterData;
-            BarImage[] barImages = this.GetComponentsInChildren<BarImage> ();
-            foreach (BarImage im in barImages) {
-                if (im.type == BarImageType.Bound)
-                    BarBound = im.GetComponent<Image> ();
-                else if (im.type == BarImageType.Fill)
-                    BarFill = im.GetComponent<Image> ();
-                else if (im.type == BarImageType.Red)
-                    BarRed = im.GetComponent<Image> ();
+            Init ();
+
+        }
+        public void Init () {
+            ManualInput playerObjManu = FindObjectOfType (typeof (ManualInput)) as ManualInput;
+            if (playerObjManu != null) {
+                CharacterControl playerControl = playerObjManu.GetComponent<CharacterControl> ();
+
+                data = playerControl.CharacterData;
+                BarImage[] barImages = this.GetComponentsInChildren<BarImage> ();
+                foreach (BarImage im in barImages) {
+                    if (im.type == BarImageType.Bound)
+                        BarBound = im.GetComponent<Image> ();
+                    else if (im.type == BarImageType.Fill)
+                        BarFill = im.GetComponent<Image> ();
+                    else if (im.type == BarImageType.Red)
+                        BarRed = im.GetComponent<Image> ();
+                }
+                playerControl.CharacterData.OnHealthChange += HealthChange;
             }
-            playerControl.CharacterData.OnHealthChange += HealthChange;
-
         }
 
         IEnumerator _BarAnimation (float delay, float speed) {
@@ -49,8 +55,7 @@ namespace meleeDemo {
         }
 
         public void BarAnimation (float delay, float speed) {
-            if (BarFill.fillAmount > BarRed.fillAmount)
-            {
+            if (BarFill.fillAmount > BarRed.fillAmount) {
                 BarRed.fillAmount = BarFill.fillAmount;
                 return;
             }

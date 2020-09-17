@@ -13,7 +13,7 @@ namespace meleeDemo {
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
 
-            if (stateEffect.CharacterControl.AIProgress.enabled)
+            if (stateEffect.CharacterControl.AIProgress.enabled && stateEffect.CharacterControl.AIProgress.pathFindingAgent != null)
             {
                 if (!stateEffect.CharacterControl.AIProgress.pathFindingAgent.IsStopped())
                     stateEffect.CharacterControl.AIProgress.SetInputVector();
