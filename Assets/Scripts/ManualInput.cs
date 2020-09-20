@@ -12,7 +12,7 @@ namespace meleeDemo {
         MenuController menu;
 
         public InputsDataPerFrame inputDataTop = new InputsDataPerFrame ();
-        public int[] keysHoldFrames = new int[4];
+        public int[] keysHoldFrames = new int[5];
 
         void Awake () {
             player = GetComponent<CharacterControl> ();
@@ -55,6 +55,10 @@ namespace meleeDemo {
                 else
                     player.CommandCharge = false;
 
+                if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_GUARD])
+                    player.CommandGuard = true;
+                else
+                    player.CommandGuard = false;
                 /*
                             if (player.DodgeTrigger) {
                                 VirtualInputManager.Instance.ClearAllInputsInBuffer ();
@@ -70,7 +74,7 @@ namespace meleeDemo {
                 player.CommandAttackHoldFrame = keysHoldFrames[0];
                 player.CommandExecuteHoldFrame = keysHoldFrames[1];
                 player.CommandDodgeHoldFrame = keysHoldFrames[2];
-                player.InputAxisHoldFrame = keysHoldFrames[4];
+                player.InputAxisHoldFrame = keysHoldFrames[5];
 
                 // for test
                 if (Input.GetKeyDown (KeyCode.B)) {
@@ -140,34 +144,34 @@ namespace meleeDemo {
 
         }
 
-/*
-        public void SpawnAnEnemy (string name) {
-            float x = Random.Range (3f, 5f);
-            float xx = Random.Range (0f, 1f);
-            if (xx > 0.5f)
-                x = -x;
-            float y = Random.Range (3f, 5f);
-            //float yy = Random.Range (0f, 1f);
-            //if (yy > 0.5f)
-            //   y = -y;
-            EnemyManager.Instance.SpawnEnemy (this.gameObject.transform.position + new Vector3 (x, 0f, y), name);
-        }
-
-        IEnumerator _SpawnEnemyGroup (Dictionary<string, int> dicts) {
-            foreach (var item in dicts) {
-                for (int i = 0; i != item.Value; ++i) {
-                    SpawnAnEnemy (item.Key);
-                    yield return new WaitForSeconds (0.5f);
+        /*
+                public void SpawnAnEnemy (string name) {
+                    float x = Random.Range (3f, 5f);
+                    float xx = Random.Range (0f, 1f);
+                    if (xx > 0.5f)
+                        x = -x;
+                    float y = Random.Range (3f, 5f);
+                    //float yy = Random.Range (0f, 1f);
+                    //if (yy > 0.5f)
+                    //   y = -y;
+                    EnemyManager.Instance.SpawnEnemy (this.gameObject.transform.position + new Vector3 (x, 0f, y), name);
                 }
-            }
 
-        }
+                IEnumerator _SpawnEnemyGroup (Dictionary<string, int> dicts) {
+                    foreach (var item in dicts) {
+                        for (int i = 0; i != item.Value; ++i) {
+                            SpawnAnEnemy (item.Key);
+                            yield return new WaitForSeconds (0.5f);
+                        }
+                    }
 
-        public void SpawnEnemyGroup (Dictionary<string, int> dicts) {
-            StartCoroutine (_SpawnEnemyGroup (dicts));
+                }
 
-        }
-        */
+                public void SpawnEnemyGroup (Dictionary<string, int> dicts) {
+                    StartCoroutine (_SpawnEnemyGroup (dicts));
+
+                }
+                */
 
     }
 }

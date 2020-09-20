@@ -2115,8 +2115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa86ab5160c64144b9e2f981106e1677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMenu: {fileID: 571040022}
+  currentSelectedButtonIdx: 0
   inputVector: {x: 0, y: 0}
   inputKeyStates: 000000000000000000000000
+  interval: 0.25
 --- !u!114 &1106157334
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -33,6 +33,10 @@ namespace meleeDemo {
         //public float EnergyGetOnEnemyDeath;
         public float EnergyGetOnEnemyDeathByExecute;
 
+        public float GuardKnockbackReduction;
+        public float GuardDamageReduction;
+        public float GuardStunReduction;
+
         public float TargetGroupWeight;
         public float TargetGroupRadius;
 
@@ -47,6 +51,7 @@ namespace meleeDemo {
         public bool IsSuperArmour;
         public bool IsRunning;
         public bool IsStunned;
+        public bool IsGuarding;
         public bool OffEnergyRegen;
         public bool OffArmourRegen;
         public CharacterControl GrapplingTarget;
@@ -68,6 +73,7 @@ namespace meleeDemo {
         private int curIndex = 0;
         public int EffectShadow;
         public float GetHitTime;
+        public int FirstFramesOfBlock;
 
         public List<PoolObject> VFXs;
 

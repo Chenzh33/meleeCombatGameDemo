@@ -28,6 +28,7 @@ namespace meleeDemo {
         public float AOEAttackCenterOffset = 3.0f;
         public float EnergyGetWhenHit = 0f;
         public float VFXScale = 1f;
+        public int PreciselyBlockedFrame = 10;
         public VFXType vfxType = VFXType.Null;
         //public Vector3 AttackPosition;
         //public AOEType AOECenter;

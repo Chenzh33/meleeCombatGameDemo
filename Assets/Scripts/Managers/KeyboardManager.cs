@@ -32,6 +32,9 @@ namespace meleeDemo {
             inputs.KeysState[(int) InputKeyStateType.KEY_CHARGE_UP] = Input.GetKeyUp (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_CHARGE]);
             inputs.KeysState[(int) InputKeyStateType.KEY_CHARGE] = Input.GetKey (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_CHARGE]);
 
+            inputs.KeysState[(int) InputKeyStateType.KEY_GUARD_DOWN] = Input.GetKeyDown (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_GUARD]);
+            inputs.KeysState[(int) InputKeyStateType.KEY_GUARD_UP] = Input.GetKeyUp (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_GUARD]);
+            inputs.KeysState[(int) InputKeyStateType.KEY_GUARD] = Input.GetKey (VirtualInputManager.Instance.DicKeys[InputKeyType.KEY_GUARD]);
             VirtualInputManager.Instance.LoadInput (inputs);
         }
 

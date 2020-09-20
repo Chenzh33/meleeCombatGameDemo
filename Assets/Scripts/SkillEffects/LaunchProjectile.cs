@@ -32,6 +32,7 @@ namespace meleeDemo {
         public float HitReactDuration = 0.1f;
         public float Stun = 1f;
         public float ProjectileScale = 1f;
+        public int PreciselyBlockedFrame = 10;
         public bool IsAttackForward;
         public bool IsAOEAttackTowardsCenter;
         public AnimationCurve SpeedGraph;

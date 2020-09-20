@@ -27,6 +27,7 @@ namespace meleeDemo {
         public float HitReactDuration;
         public float Stun;
         public float VFXScale;
+        public int PreciselyBlockedFrame;
         //public float AOEAttackCenterOffset = 3.0f;
         //public Transform AttackCenter;
         public VFXType vfxType = VFXType.Slam;
@@ -59,6 +60,7 @@ namespace meleeDemo {
                 VFXObj = null;
                 VFXScale = attackSkill.VFXScale;
                 DamageInterval = attackSkill.DamageInterval;
+                PreciselyBlockedFrame = attackSkill.PreciselyBlockedFrame;
                 //AOEAttackCenterOffset = attackSkill.AOEAttackCenterOffset;
                 //AttackCenter = Attacker.CharacterData.AOEAttackCenter;
             } else {
@@ -74,6 +76,7 @@ namespace meleeDemo {
                 Stun = projectileSkill.Stun;
                 VFXScale = projectileSkill.ProjectileScale;
                 DamageInterval = projectileSkill.DamageInterval;
+                PreciselyBlockedFrame = projectileSkill.PreciselyBlockedFrame;
             }
         }
 

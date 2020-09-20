@@ -41,6 +41,7 @@ namespace meleeDemo {
         public bool CommandExecute;
         public bool CommandDodge;
         public bool CommandCharge;
+        public bool CommandGuard;
         public bool CommandFire;
         public int CommandAttackHoldFrame;
         public int CommandExecuteHoldFrame;
@@ -196,7 +197,7 @@ namespace meleeDemo {
 
         }
         public void TakeDamage (float damage, SkillEffect skill) {
-            if (!this.CharacterData.IsStunned && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead) {
+            if (!this.CharacterData.IsStunned && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead && !this.CharacterData.IsGuarding) {
                 if (isPlayerControl) {
                     this.Animator.Play ("HitReact4", 0, 0f);
                 } else {
@@ -643,6 +644,11 @@ namespace meleeDemo {
                     animator.SetBool (TransitionParameter.Charge.ToString (), true);
                 else
                     animator.SetBool (TransitionParameter.Charge.ToString (), false);
+
+                if (CommandGuard)
+                    animator.SetBool (TransitionParameter.Guard.ToString (), true);
+                else
+                    animator.SetBool (TransitionParameter.Guard.ToString (), false);
 
                 if (CommandAttackHoldFrame > 10)
                     animator.SetBool (TransitionParameter.AtkButtonHold.ToString (), true);

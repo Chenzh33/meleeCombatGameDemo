@@ -7,12 +7,12 @@ namespace meleeDemo {
     public class InputsDataPerFrame {
         public InputsDataPerFrame () {
             InputVector = new Vector2 ();
-            KeysState = new bool[12];
+            KeysState = new bool[15];
         }
         public override string ToString () {
             string str = InputVector.ToString ();
             str += " ";
-            for (int i = 0; i != 12; ++i) {
+            for (int i = 0; i != 15; ++i) {
                 if (KeysState[i])
                     str += "1";
                 else
@@ -32,7 +32,8 @@ namespace meleeDemo {
         KEY_MELEE_ATTACK,
         KEY_EXECUTE_ATTACK,
         KEY_DODGE,
-        KEY_CHARGE
+        KEY_CHARGE,
+        KEY_GUARD
     }
     public enum InputKeyStateType {
         KEY_MELEE_ATTACK_DOWN,
@@ -46,7 +47,10 @@ namespace meleeDemo {
         KEY_DODGE,
         KEY_CHARGE_DOWN,
         KEY_CHARGE_UP,
-        KEY_CHARGE
+        KEY_CHARGE,
+        KEY_GUARD_DOWN,
+        KEY_GUARD_UP,
+        KEY_GUARD
     }
 
     public class VirtualInputManager : Singleton<VirtualInputManager> {
@@ -56,7 +60,7 @@ namespace meleeDemo {
         public const int MAX_HOLD_FRAME = 600;
         private int curIndex = 0;
         private InputsDataPerFrame[] inputBuffer = new InputsDataPerFrame[INPUT_BUFFER_SIZE];
-        private int[] KeysHoldFrames = new int[5];
+        private int[] KeysHoldFrames = new int[6];
 
         public override void Init () {
             SetDefaultKeyConfig ();
@@ -83,6 +87,7 @@ namespace meleeDemo {
             DicKeys.Add (InputKeyType.KEY_EXECUTE_ATTACK, KeyCode.J);
             DicKeys.Add (InputKeyType.KEY_DODGE, KeyCode.K);
             DicKeys.Add (InputKeyType.KEY_CHARGE, KeyCode.Space);
+            DicKeys.Add (InputKeyType.KEY_GUARD, KeyCode.L);
 
         }
 
@@ -113,7 +118,7 @@ namespace meleeDemo {
         }
         public void ClearAllInputsInBuffer () {
             for (int i = 0; i != VirtualInputManager.INPUT_BUFFER_SIZE; ++i) { // from old to new
-                for (int k = 0; k != 4; ++k) { // from old to new
+                for (int k = 0; k != System.Enum.GetValues (typeof (InputKeyType)).Length; ++k) { // from old to new
                     inputBuffer[i].KeysState[k * 3] = false;
                 }
             }
@@ -162,13 +167,11 @@ namespace meleeDemo {
 
                 }
             }
-            if (data.InputVector.magnitude > 0.01f)
-            {
-                if (KeysHoldFrames[4] != VirtualInputManager.MAX_HOLD_FRAME)
-                    ++KeysHoldFrames[4];
-            }
-            else
-                KeysHoldFrames[4] = 0;
+            if (data.InputVector.magnitude > 0.01f) {
+                if (KeysHoldFrames[5] != VirtualInputManager.MAX_HOLD_FRAME)
+                    ++KeysHoldFrames[5];
+            } else
+                KeysHoldFrames[5] = 0;
 
         }
 

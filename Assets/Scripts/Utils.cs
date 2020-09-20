@@ -31,7 +31,9 @@ namespace meleeDemo {
         IdleState,
         EnergyTaken,
         Fire,
-        LockOnEnemy
+        LockOnEnemy,
+        GetHitOnGuard,
+        Guard
 
     }
 

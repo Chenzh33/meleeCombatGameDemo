@@ -50,7 +50,7 @@ namespace meleeDemo {
 
                     }
                 } else if (info.Type == AttackType.Projectile) {
-                    if (IsInRange(info)) {
+                    if (IsInRange (info)) {
                         ProcessDamage (info);
                     }
 
@@ -118,17 +118,17 @@ namespace meleeDemo {
 
         }
 
-/*
-        private bool IsInProjectileRange (AttackInfo info) {
-            Vector3 distVec = this.gameObject.transform.position - info.ProjectileObject.gameObject.transform.position;
-            float dist = new Vector3 (distVec.x, 0f, distVec.z).magnitude;
-            if (dist <= info.Range) {
-                return true;
-            }
-            return false;
+        /*
+                private bool IsInProjectileRange (AttackInfo info) {
+                    Vector3 distVec = this.gameObject.transform.position - info.ProjectileObject.gameObject.transform.position;
+                    float dist = new Vector3 (distVec.x, 0f, distVec.z).magnitude;
+                    if (dist <= info.Range) {
+                        return true;
+                    }
+                    return false;
 
-        }
-        */
+                }
+                */
         private bool IsInRange (AttackInfo info) {
             //Vector3 distVec = this.gameObject.transform.position - info.Attacker.GetAttackPoint ().gameObject.transform.position;
             //Vector3 distVec = this.gameObject.transform.position - info.Attacker.GetProjectileSpawnPoint().gameObject.transform.position;
@@ -167,21 +167,43 @@ namespace meleeDemo {
             //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
 
             if (info.AttackSkill != null) {
-                if (!control.CharacterData.IsStunned)
+                if (!control.CharacterData.IsStunned && !control.CharacterData.IsGuarding)
                     control.TakeStun (info.Stun, info.HitReactDuration, info.AttackSkill);
+                else if (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
+                    control.TakeStun (info.Stun * control.CharacterData.GuardStunReduction, info.HitReactDuration, info.AttackSkill);
 
                 if (control.CharacterData.IsStunned && info.IsLethalToStunnedEnemy)
                     control.TakeDamage (control.CharacterData.HP, info.AttackSkill);
-                else
+                else if (!control.CharacterData.IsGuarding)
                     control.TakeDamage (info.Damage, info.AttackSkill);
+                else if (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
+                    control.TakeDamage (info.Damage * control.CharacterData.GuardDamageReduction, info.AttackSkill);
+
             } else if (info.ProjectileSkill != null) {
-                if (!control.CharacterData.IsStunned)
+                if (!control.CharacterData.IsStunned && !control.CharacterData.IsGuarding)
                     control.TakeStun (info.Stun, info.HitReactDuration, info.ProjectileSkill);
-                control.TakeDamage (info.Damage, info.ProjectileSkill);
+                else if (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
+                    control.TakeStun (info.Stun * control.CharacterData.GuardStunReduction, info.HitReactDuration, info.ProjectileSkill);
+
+                if (!control.CharacterData.IsGuarding)
+                    control.TakeDamage (info.Damage, info.ProjectileSkill);
+                else if (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
+                    control.TakeDamage (info.Damage * control.CharacterData.GuardDamageReduction, info.ProjectileSkill);
             }
 
-            control.TakeKnockback (info.KnockbackForce * hitVector, info.KnockbackTime);
+            if (!control.CharacterData.IsGuarding)
+                control.TakeKnockback (info.KnockbackForce * hitVector, info.KnockbackTime);
+            else if (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
+                control.TakeKnockback (info.KnockbackForce * hitVector * control.CharacterData.GuardKnockbackReduction, info.KnockbackTime);
             control.CharacterData.FormerAttackTarget = null;
+
+            if (control.CharacterData.IsGuarding)
+                control.Animator.SetTrigger (TransitionParameter.GetHitOnGuard.ToString ());
+
+            if (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
+            {
+                info.Attacker.Animator.Play("GetParried");
+            }
 
             //CameraManager.Instance.ShakeCamera (info.HitReactDuration);
             //control.Dead ();
