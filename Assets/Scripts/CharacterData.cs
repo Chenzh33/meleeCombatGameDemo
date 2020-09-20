@@ -124,6 +124,7 @@ namespace meleeDemo {
 
         public void GetEnergy (float energy) {
             this.Energy += energy;
+            Debug.Log("get energy : " + energy.ToString());
             SendMessage (MessageType.EnergyChange);
             SendMessage (MessageType.EnergyGet);
         }

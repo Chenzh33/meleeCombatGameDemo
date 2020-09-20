@@ -198,13 +198,38 @@ namespace meleeDemo {
             control.CharacterData.FormerAttackTarget = null;
 
             if (control.CharacterData.IsGuarding)
-                control.Animator.SetTrigger (TransitionParameter.GetHitOnGuard.ToString ());
-
-            if (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
             {
-                info.Attacker.Animator.Play("GetParried");
-            }
+                if (info.AttackSkill != null && info.AttackSkill.Type == AttackType.MustCollide)
+                {
+                    if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
+                        control.Animator.SetTrigger(TransitionParameter.GetHitOnGuard.ToString());
+                    else
+                    {
+                        control.Animator.SetTrigger(TransitionParameter.GetHitOnGuardPrecisely.ToString());
+                        info.Attacker.Animator.Play("GetCountered");
+                        info.Attacker.TakeKnockback((-30f) * hitVector, 0.1f);
+                        info.Attacker.TakeStun(5f, 1.0f, null);
+                    }
+                }
+                if(info.ProjectileSkill != null)
+                {
+                    if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
+                        control.Animator.SetTrigger(TransitionParameter.GetHitOnGuard.ToString());
+                    else
+                    {
+                        control.Animator.SetTrigger(TransitionParameter.GetHitOnGuardPrecisely.ToString());
+                        info.ProjectileObject.Dead();
+                        GameObject obj = PoolManager.Instance.GetObject(PoolObjectType.AttackInfo);
+                        AttackInfo reflectionInfo = obj.GetComponent<AttackInfo>();
+                        reflectionInfo.Init(null, info.ProjectileSkill, control);
+                        obj.SetActive(true);
+                        AttackManager.Instance.CurrentAttackInfo.Add(reflectionInfo);
+                        reflectionInfo.Register();
+                        reflectionInfo.ProjectileSkill.Launch(reflectionInfo, control, control.GetReflectProjSpawnPoint());
+                    }
+                }
 
+            }
             //CameraManager.Instance.ShakeCamera (info.HitReactDuration);
             //control.Dead ();
         }

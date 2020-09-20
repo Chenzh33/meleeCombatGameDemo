@@ -299,6 +299,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 6351611532538276879}
     m_Position: {x: 350, y: 490, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 7606397151800836762}
+    m_Position: {x: 520, y: -190, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -1276,6 +1279,33 @@ MonoBehaviour:
   ListSkillEffect:
   - {fileID: 11400000, guid: c7589056363a0c943b8602c58d8ca59d, type: 2}
   - {fileID: 11400000, guid: 1f465f61b6e3d7f48b6bd4b6a84570a1, type: 2}
+--- !u!1102 &7606397151800836762
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GrapplingHit
+  m_Speed: 2
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 1
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 1
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -203655887218126122, guid: 3c1c33c6f76ace949b8f519ed57f2801,
+    type: 3}
+  m_Tag: 
+  m_SpeedParameter: SpeedMultiplier
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1101 &7864734468051973599
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

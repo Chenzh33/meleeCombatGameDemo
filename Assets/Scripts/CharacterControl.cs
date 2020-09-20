@@ -18,6 +18,7 @@ namespace meleeDemo {
         public List<Collider> AttackingParts = new List<Collider> ();
         public Collider AttackPoint;
         public Transform SpawnPoint;
+        public Transform ReflectSpawnPoint;
         public Transform Spine;
         //public List<ProjectileObject> ProjectileObjs = new List<ProjectileObject> ();
         //private List<TriggerDetector> TriggerDetectors = new List<TriggerDetector> ();
@@ -466,9 +467,17 @@ namespace meleeDemo {
                 SpawnPoint = p.gameObject.transform;
             }
             return SpawnPoint;
-
         }
-
+        public Transform GetReflectProjSpawnPoint()
+        {
+            if (ReflectSpawnPoint == null)
+            {
+                ReflectProjSpawnPoint p = this.gameObject.GetComponentInChildren<ReflectProjSpawnPoint> ();
+                ReflectSpawnPoint = p.gameObject.transform;
+            }
+            return ReflectSpawnPoint;
+        }
+        
         /*
         public List<ProjectileObject> GetProjectileObjs() {
             return ProjectileObjs;

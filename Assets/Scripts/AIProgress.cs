@@ -50,9 +50,18 @@ namespace meleeDemo {
         }
 
         public void RegisterDamageEvent () {
+            Debug.Log("register damage event!");
             ManualInput playerObjManu = FindObjectOfType (typeof (ManualInput)) as ManualInput;
             if (playerObjManu != null) {
                 CharacterControl player = playerObjManu.GetComponent<CharacterControl> ();
+                /*
+                foreach(Delegate exist in aiUnit.CharacterData.OnDamage.GetInvocationList())
+                {
+                    if(player.OnEnemyGetDamaged == exist)
+                        return;
+                }
+                */
+                aiUnit.CharacterData.OnDamage -= player.OnEnemyGetDamaged;
                 aiUnit.CharacterData.OnDamage += player.OnEnemyGetDamaged;
             }
 

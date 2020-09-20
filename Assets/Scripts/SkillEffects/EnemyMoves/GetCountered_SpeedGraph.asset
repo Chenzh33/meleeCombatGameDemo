@@ -9,32 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfc7ac518a5ab3f43b1c034d378b57ea, type: 3}
-  m_Name: Gunman_Fire_LaunchProjectile
+  m_Script: {fileID: 11500000, guid: adc87bbb3aafc764780b3d170a645277, type: 3}
+  m_Name: GetCountered_SpeedGraph
   m_EditorClassIdentifier: 
-  EnergyTaken: 0
-  ProjectileLifeTime: 1
-  ProjectileSpeed: 45
-  ProjectileTileAngle: 0
-  ProjectileTileAngleNoise: 0
-  NotNeedCharge: 1
-  ProjectileLaunchTiming: 0.12
-  ReservedTime: 0.1
-  Type: 3
-  ProjType: 1
-  MaxTargetNum: 10
-  Range: 0.7
-  Damage: 2
-  DamageInterval: 0.5
-  KnockbackForce: 24
-  KnockbackTime: 0.15
-  HitReactDuration: 0.4
-  Stun: 5
-  ProjectileScale: 1
-  PreciselyBlockedFrame: 10
-  IsAttackForward: 0
-  IsAOEAttackTowardsCenter: 0
-  SpeedGraph:
+  graph:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -45,15 +23,33 @@ MonoBehaviour:
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.1
+    - serializedVersion: 3
+      time: 0.8
+      value: 0.2
+      inSlope: -0.04806399
+      outSlope: -0.04806399
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.7375
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1
+      value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

@@ -32,9 +32,7 @@ namespace meleeDemo {
             if (IsMoving && CurrentTime < Duration) {
                 //Debug.DrawRay(transform.position, transform.forward, Color.red);
                 transform.Translate (transform.forward * Speed * SpeedGraph.Evaluate (CurrentTime / Duration) * Time.deltaTime, Space.World);
-                ProjectileInfo.gameObject.transform.parent = gameObject.transform;
-                ProjectileInfo.transform.localPosition = Vector3.zero;
-                ProjectileInfo.transform.localRotation = Quaternion.identity;
+              
                 CurrentTime += Time.deltaTime;
                 CurrentTimeToDamage += Time.deltaTime;
                 if (CurrentTimeToDamage > ProjectileInfo.DamageInterval) {

@@ -62,15 +62,18 @@ namespace meleeDemo {
         }
 
         public void RegisterAllUnit () {
-            AIAgentManager.Instance.RegisterAllEnemies ();
             ManualInput playerInput = null;
-
-            if (Player == null) {
+            if (Player == null)
+            {
                 playerInput = FindObjectOfType (typeof (ManualInput)) as ManualInput;
                 Player = playerInput.GetComponent<CharacterControl> ();
             }
             playerInput = Player.GetComponent<ManualInput> ();
             playerInput.enabled = true;
+
+            AIAgentManager.Instance.RegisterAllEnemies ();
+
+           
 
         }
 

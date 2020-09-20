@@ -20,6 +20,7 @@ namespace meleeDemo {
         public AttackType Type;
         public float Range;
         public ProjectileObject ProjectileObject;
+        public ProjectileType ProjType = ProjectileType.ChargedAttack;
         public float Damage;
         public float DamageInterval;
         public float KnockbackForce;
@@ -77,6 +78,7 @@ namespace meleeDemo {
                 VFXScale = projectileSkill.ProjectileScale;
                 DamageInterval = projectileSkill.DamageInterval;
                 PreciselyBlockedFrame = projectileSkill.PreciselyBlockedFrame;
+                ProjType = projectileSkill.ProjType;
             }
         }
 

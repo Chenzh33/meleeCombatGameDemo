@@ -33,7 +33,8 @@ namespace meleeDemo {
         Fire,
         LockOnEnemy,
         GetHitOnGuard,
-        Guard
+        Guard,
+        GetHitOnGuardPrecisely
 
     }
 

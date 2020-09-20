@@ -78,8 +78,8 @@ namespace meleeDemo {
                 //if (!animator.IsInTransition(0) && stateInfo.normalizedTime >= ProjectileLaunchTiming) {
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
                     if (!info.IsRegistered && info.ProjectileSkill == this) {
+                        Launch (info, stateEffect.CharacterControl, stateEffect.CharacterControl.GetProjectileSpawnPoint());
                         info.Register ();
-                        Launch (info, stateEffect.CharacterControl);
                         //Debug.Log ("register projectile : " + stateInfo.normalizedTime.ToString ());
                     }
                 }
@@ -109,9 +109,9 @@ namespace meleeDemo {
             */
 
         }
-        public void Launch (AttackInfo info, CharacterControl control) {
+        public void Launch (AttackInfo info, CharacterControl control, Transform spawnPoint) {
             GameObject obj = null;
-            switch (ProjType) {
+            switch (info.ProjType) {
                 case ProjectileType.ChargedAttack:
                     obj = PoolManager.Instance.GetObject (PoolObjectType.ProjectileChargedAttack);
                     break;
@@ -128,19 +128,24 @@ namespace meleeDemo {
                 projectileVFX.transform.rotation = Quaternion.Euler (tileAngle, -90f, 0);
             }
 
-            obj.transform.parent = control.GetProjectileSpawnPoint ();
+            //obj.transform.parent = control.GetProjectileSpawnPoint ();
+            obj.transform.parent = spawnPoint;
             //obj.transform.localRotation = Quaternion.identity;
             obj.transform.localPosition = Vector3.zero;
             obj.transform.parent = null;
             obj.SetActive (true);
-            obj.transform.rotation = Quaternion.LookRotation (control.FaceTarget, Vector3.up);
+            obj.transform.rotation = Quaternion.LookRotation(control.FaceTarget, Vector3.up);
 
-            ParticleSystem[] pss = obj.GetComponentsInChildren<ParticleSystem> ();
-            foreach (ParticleSystem ps in pss) {
+            info.gameObject.transform.parent = obj.transform;
+            info.transform.localPosition = Vector3.zero;
+            info.transform.localRotation = Quaternion.identity;
+            ParticleSystem[] pss = obj.GetComponentsInChildren<ParticleSystem>();
+            foreach (ParticleSystem ps in pss)
+            {
                 ps.gameObject.transform.localScale = Vector3.one * ProjectileScale;
             }
 
-            ProjectileObject projectileObject = obj.GetComponent<ProjectileObject> ();
+            ProjectileObject projectileObject = obj.GetComponent<ProjectileObject>();
             projectileObject.Init (info, ProjectileLifeTime, ProjectileSpeed);
             info.ProjectileObject = projectileObject;
             //control.ProjectileObjs.Add(projectileObject);
