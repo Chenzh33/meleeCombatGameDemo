@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29d00f9c5075bad4592e0549e3861e65, type: 3}
-  m_Name: Attack_StabLight_Finish_DirectDamage
+  m_Script: {fileID: 11500000, guid: 31b2197c81ec85849b3fbc113d7f1892, type: 3}
+  m_Name: Attack_StabLight_ShakeCamera
   m_EditorClassIdentifier: 
-  DamageTiming: 0.3
-  Damage: 2
-  KnockbackForce: 30
-  KnockbackTime: 0.2
-  HitReactDuration: 0.8
-  Stun: 1
-  EnergyGetWhenHit: 1.5
+  ShakeBeginTime: 0.1
+  ShakeEndTime: 0.5
+  FinishedShakers: []

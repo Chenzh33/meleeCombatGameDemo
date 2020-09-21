@@ -30,6 +30,7 @@ namespace meleeDemo {
         public float VFXScale = 1f;
         public int PreciselyBlockedFrame = 10;
         public VFXType vfxType = VFXType.Null;
+        public int FreezeFrames = 0;
         //public Vector3 AttackPosition;
         //public AOEType AOECenter;
         public List<AttackInfo> FinishedAttacks = new List<AttackInfo> ();

@@ -15,7 +15,11 @@ namespace meleeDemo {
             CharacterControl[] controls = FindObjectsOfType (typeof (CharacterControl)) as CharacterControl[];
             foreach (CharacterControl c in controls) {
                 if (c.isPlayerControl)
+                {
                     controller.AddToTargetGroup (c);
+                    controller.AddToCloseUpTargetGroup (c);
+
+                }
             }
         }
         /*
@@ -69,6 +73,22 @@ namespace meleeDemo {
         }
         public bool IsShaking () {
             return (controller.IsShaking ());
+
+        }
+
+        public void PlayCloseUp(CharacterControl player)
+        {
+            controller.AddToCloseUpTargetGroup(player);
+            controller.AddToCloseUpTargetGroup(player.CharacterData.GrapplingTarget);
+            controller.TriggerCamera (CameraType.CloseUp);
+
+        }
+        public void ExitCloseUp(CharacterControl player)
+        {
+            controller.RemoveFromCloseUpTargetGroup(player);
+            controller.RemoveFromCloseUpTargetGroup(player.CharacterData.GrapplingTarget);
+            //Debug.Log("trigger default!");
+            //controller.TriggerCamera (CameraType.Default);
 
         }
     }

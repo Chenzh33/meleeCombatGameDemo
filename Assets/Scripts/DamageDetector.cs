@@ -6,6 +6,7 @@ namespace meleeDemo {
 
     public class DamageDetector : MonoBehaviour {
         CharacterControl control;
+        List<AttackInfo> extraAttackInfo = new List<AttackInfo> ();
         //public float HitReactDuration = 0.1f;
 
         void Awake () {
@@ -25,6 +26,7 @@ namespace meleeDemo {
         }
 
         private void CheckAttack () {
+            //List<AttackInfo> currentAttackInfoCache = AttackManager.Instance.CurrentAttackInfo;
             foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
                 if (!info.IsRegistered || info.IsFinished)
                     continue;
@@ -55,6 +57,13 @@ namespace meleeDemo {
                     }
 
                 }
+            }
+            if (extraAttackInfo.Count > 0) {
+
+                foreach (AttackInfo info in extraAttackInfo) {
+                    AttackManager.Instance.CurrentAttackInfo.Add(info);
+                }
+                extraAttackInfo.Clear ();
             }
 
         }
@@ -163,6 +172,12 @@ namespace meleeDemo {
             control.FaceTarget = -hitVector;
             control.TurnToTarget (0f, 0f);
 
+            if (info.FreezeFrames > 0) {
+                control.FreezeForFrames (info.FreezeFrames);
+                info.Attacker.FreezeForFrames (info.FreezeFrames);
+
+            }
+
             //Debug.Log(hitVector);
             //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
 
@@ -197,35 +212,31 @@ namespace meleeDemo {
                 control.TakeKnockback (info.KnockbackForce * hitVector * control.CharacterData.GuardKnockbackReduction, info.KnockbackTime);
             control.CharacterData.FormerAttackTarget = null;
 
-            if (control.CharacterData.IsGuarding)
-            {
-                if (info.AttackSkill != null && info.AttackSkill.Type == AttackType.MustCollide)
-                {
+            if (control.CharacterData.IsGuarding) {
+                if (info.AttackSkill != null && info.AttackSkill.Type == AttackType.MustCollide) {
                     if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
-                        control.Animator.SetTrigger(TransitionParameter.GetHitOnGuard.ToString());
-                    else
-                    {
-                        control.Animator.SetTrigger(TransitionParameter.GetHitOnGuardPrecisely.ToString());
-                        info.Attacker.Animator.Play("GetCountered");
-                        info.Attacker.TakeKnockback((-30f) * hitVector, 0.1f);
-                        info.Attacker.TakeStun(5f, 1.0f, null);
+                        control.Animator.SetTrigger (TransitionParameter.GetHitOnGuard.ToString ());
+                    else {
+                        control.Animator.SetTrigger (TransitionParameter.GetHitOnGuardPrecisely.ToString ());
+                        info.Attacker.Animator.Play ("GetCountered");
+                        info.Attacker.TakeKnockback ((-30f) * hitVector, 0.1f);
+                        info.Attacker.TakeStun (5f, 1.0f, null);
                     }
                 }
-                if(info.ProjectileSkill != null)
-                {
+                if (info.ProjectileSkill != null) {
                     if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
-                        control.Animator.SetTrigger(TransitionParameter.GetHitOnGuard.ToString());
-                    else
-                    {
-                        control.Animator.SetTrigger(TransitionParameter.GetHitOnGuardPrecisely.ToString());
-                        info.ProjectileObject.Dead();
-                        GameObject obj = PoolManager.Instance.GetObject(PoolObjectType.AttackInfo);
-                        AttackInfo reflectionInfo = obj.GetComponent<AttackInfo>();
-                        reflectionInfo.Init(null, info.ProjectileSkill, control);
-                        obj.SetActive(true);
-                        AttackManager.Instance.CurrentAttackInfo.Add(reflectionInfo);
-                        reflectionInfo.Register();
-                        reflectionInfo.ProjectileSkill.Launch(reflectionInfo, control, control.GetReflectProjSpawnPoint());
+                        control.Animator.SetTrigger (TransitionParameter.GetHitOnGuard.ToString ());
+                    else {
+                        control.Animator.SetTrigger (TransitionParameter.GetHitOnGuardPrecisely.ToString ());
+                        info.ProjectileObject.Dead ();
+                        GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.AttackInfo);
+                        AttackInfo reflectionInfo = obj.GetComponent<AttackInfo> ();
+                        reflectionInfo.Init (null, info.ProjectileSkill, control);
+                        obj.SetActive (true);
+                        extraAttackInfo.Add (reflectionInfo);
+                        //AttackManager.Instance.CurrentAttackInfo.Add(reflectionInfo);
+                        reflectionInfo.Register ();
+                        reflectionInfo.ProjectileSkill.Launch (reflectionInfo, control, control.GetReflectProjSpawnPoint ());
                     }
                 }
 

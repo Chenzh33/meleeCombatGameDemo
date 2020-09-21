@@ -31,6 +31,7 @@ namespace meleeDemo {
         private Coroutine TurnOffEnergyRegenCoroutine;
         private Coroutine TurnOffArmourRegenCoroutine;
         private Coroutine DodgeCoolDownCoroutine;
+        private Coroutine FreezeForFramesCoroutine;
 
         public AnimationCurve KnockbackSpeedGraph;
         public Vector3 FaceTarget;
@@ -263,6 +264,24 @@ namespace meleeDemo {
             }
 
         }
+        public void FreezeForFrames (int freezeFrames) {
+            if (FreezeForFramesCoroutine != null)
+                StopCoroutine (FreezeForFramesCoroutine);
+            FreezeForFramesCoroutine = StartCoroutine (_FreezeForFrames (freezeFrames));
+        }
+        IEnumerator _FreezeForFrames (int freezeFrames) {
+            int f = 0;
+            this.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 0f);
+            while (true) {
+                ++f;
+                if (f > freezeFrames) {
+                    this.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1f);
+                    yield break;
+                }
+                yield return new WaitForFixedUpdate ();
+            }
+
+        }
         public void HitReactionAndFreeze (float freezeStTime) {
             if (HitReactCoroutine != null)
                 StopCoroutine (HitReactCoroutine);
@@ -292,6 +311,12 @@ namespace meleeDemo {
             }
 
         }
+        /*
+        public void MoveCharacter()
+        {
+
+        }
+        */
         public void SetFormerTarget (CharacterControl target, float duration) {
             if (SetFormerTargetCoroutine != null)
                 StopCoroutine (SetFormerTargetCoroutine);
@@ -321,7 +346,7 @@ namespace meleeDemo {
         IEnumerator _TakeKnockback (Vector3 knockbackVector, float duration) {
             float t = 0f;
             while (t < duration) {
-                this.CharacterController.Move (knockbackVector * KnockbackSpeedGraph.Evaluate (t / duration) * Time.deltaTime);
+                this.CharacterController.Move (knockbackVector * this.Animator.GetFloat(TransitionParameter.SpeedMultiplier.ToString()) * KnockbackSpeedGraph.Evaluate (t / duration) * Time.deltaTime);
                 t += Time.deltaTime;
                 yield return null;
             }
@@ -468,16 +493,14 @@ namespace meleeDemo {
             }
             return SpawnPoint;
         }
-        public Transform GetReflectProjSpawnPoint()
-        {
-            if (ReflectSpawnPoint == null)
-            {
+        public Transform GetReflectProjSpawnPoint () {
+            if (ReflectSpawnPoint == null) {
                 ReflectProjSpawnPoint p = this.gameObject.GetComponentInChildren<ReflectProjSpawnPoint> ();
                 ReflectSpawnPoint = p.gameObject.transform;
             }
             return ReflectSpawnPoint;
         }
-        
+
         /*
         public List<ProjectileObject> GetProjectileObjs() {
             return ProjectileObjs;

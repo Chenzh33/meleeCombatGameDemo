@@ -45,21 +45,20 @@ namespace meleeDemo {
             Range = 0f;
             CheckCompleteCoroutine = null;
         }
-  
+
         IEnumerator _CheckComplete () {
             float t = 0f;
             while (true) {
                 if (!Attacker.Animator.GetBool (TransitionParameter.GrapplingHit.ToString ()) && !IsFinished) {
                     //Target.CharacterData.IsGrappled = false;
                     //Target.CharacterData.GetHitTime = 0.5f;
+                    Debug.Log ("check complete...");
                     Dead ();
-                    Debug.Log("check complete...");
                     yield break;
                 }
                 t += Time.deltaTime;
-                if(t > MaxGrapplingTime)
-                {
-                    Dead();
+                if (t > MaxGrapplingTime) {
+                    Dead ();
                     yield break;
                 }
                 yield return null;
@@ -77,8 +76,10 @@ namespace meleeDemo {
         }
         public void GrapplingHit () {
             Attacker.Animator.SetBool (TransitionParameter.GrapplingHit.ToString (), true);
+            Debug.Log("Grappling hit!");
 
             Attacker.CharacterData.GrapplingTarget = Target;
+            CameraManager.Instance.PlayCloseUp (Attacker);
             if (CheckCompleteCoroutine != null)
                 StopCoroutine (CheckCompleteCoroutine);
             CheckCompleteCoroutine = StartCoroutine (_CheckComplete ());
@@ -87,10 +88,11 @@ namespace meleeDemo {
         public void Dead () {
             //Attacker.Animator.SetBool (TransitionParameter.GrapplingHit.ToString (), false);
 
-            Attacker.CharacterData.GrapplingTarget.gameObject.transform.parent = null;
+            CameraManager.Instance.ExitCloseUp (Attacker);
+            //Attacker.CharacterData.GrapplingTarget.gameObject.transform.parent = null;
             Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1.0f);
             Target.CharacterData.IsGrappled = false;
-            Attacker.Animator.SetBool(TransitionParameter.GrapplingHit.ToString(), false);
+            Attacker.Animator.SetBool (TransitionParameter.GrapplingHit.ToString (), false);
             IsFinished = true;
             IsRegistered = false;
             if (AttackManager.Instance.CurrentGrappler.Contains (this))

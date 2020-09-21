@@ -50,7 +50,7 @@ namespace meleeDemo {
         }
 
         public void RegisterDamageEvent () {
-            Debug.Log("register damage event!");
+            Debug.Log ("register damage event!");
             ManualInput playerObjManu = FindObjectOfType (typeof (ManualInput)) as ManualInput;
             if (playerObjManu != null) {
                 CharacterControl player = playerObjManu.GetComponent<CharacterControl> ();
@@ -396,6 +396,8 @@ namespace meleeDemo {
         public void Dead () {
             pandaTree.enabled = false;
             pathFindingAgent.Dead ();
+            if (AIAgentManager.Instance.TotalAIAgent.Contains (this))
+                AIAgentManager.Instance.TotalAIAgent.Remove (this);
             CameraManager.Instance.RemoveFromTargetGroup (aiUnit);
 
         }

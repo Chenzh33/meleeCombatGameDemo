@@ -29,6 +29,7 @@ namespace meleeDemo {
         public float Stun;
         public float VFXScale;
         public int PreciselyBlockedFrame;
+        public int FreezeFrames;
         //public float AOEAttackCenterOffset = 3.0f;
         //public Transform AttackCenter;
         public VFXType vfxType = VFXType.Slam;
@@ -62,6 +63,7 @@ namespace meleeDemo {
                 VFXScale = attackSkill.VFXScale;
                 DamageInterval = attackSkill.DamageInterval;
                 PreciselyBlockedFrame = attackSkill.PreciselyBlockedFrame;
+                FreezeFrames = attackSkill.FreezeFrames;
                 //AOEAttackCenterOffset = attackSkill.AOEAttackCenterOffset;
                 //AttackCenter = Attacker.CharacterData.AOEAttackCenter;
             } else {

@@ -10,25 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
-  m_Name: ChargedSlam_Charged_Attack_AOE
+  m_Name: ChargedAttackHold_2_FS_Attack_AOE
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.48
-  AttackEndTime: 0.58
+  AttackBeginTime: 0.86
+  AttackEndTime: 1
   Type: 2
   MaxTargetNum: 5
-  Range: 3.5
-  Damage: 4.2
+  Range: 5.4
+  Damage: 1.5
   DamageInterval: 1
-  KnockbackForce: 30
-  KnockbackTime: 0.25
-  HitReactDuration: 1
-  Stun: 4.2
+  KnockbackForce: 0
+  KnockbackTime: 0.1
+  HitReactDuration: 0.4
+  Stun: 1.5
   IsAttackForward: 0
   IsAOEAttackTowardsCenter: 0
   IsAOEAttackAttachToPlayer: 0
-  IsLethalToStunnedEnemy: 1
-  AOEAttackCenterOffset: 1.2
+  IsLethalToStunnedEnemy: 0
+  AOEAttackCenterOffset: 1
   EnergyGetWhenHit: 0
   VFXScale: 1
-  vfxType: 5
+  PreciselyBlockedFrame: 10
+  vfxType: 0
+  FreezeFrames: 0
   FinishedAttacks: []

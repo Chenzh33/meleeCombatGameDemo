@@ -19,7 +19,7 @@ MonoBehaviour:
   Range: 2
   Damage: 2.5
   DamageInterval: 1
-  KnockbackForce: 15
+  KnockbackForce: 25
   KnockbackTime: 0.2
   HitReactDuration: 0.8
   Stun: 2.5
@@ -30,5 +30,7 @@ MonoBehaviour:
   AOEAttackCenterOffset: 1.2
   EnergyGetWhenHit: 0.75
   VFXScale: 1
+  PreciselyBlockedFrame: 10
   vfxType: 3
+  FreezeFrames: 2
   FinishedAttacks: []

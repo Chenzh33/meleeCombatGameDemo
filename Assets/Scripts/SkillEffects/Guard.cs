@@ -20,6 +20,7 @@ namespace meleeDemo {
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             stateEffect.CharacterControl.CharacterData.IsGuarding = false;
             stateEffect.CharacterControl.CharacterData.FirstFramesOfBlock = 0;
+            animator.SetBool(TransitionParameter.Move.ToString(), false);
 
         }
 

@@ -48,7 +48,7 @@ namespace meleeDemo {
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
 
             foreach (Grappler info in AttackManager.Instance.CurrentGrappler) {
-                if (info.Skill == this && info.Attacker == stateEffect.CharacterControl) {
+                if (info.Skill == this && info.Attacker == stateEffect.CharacterControl && info.IsFinished) {
                     //info.IsFinished = true;
                     //info.IsRegistered = false;
                     FinishedGrapplers.Add (info);
