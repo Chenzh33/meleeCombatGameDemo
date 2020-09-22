@@ -17691,6 +17691,21 @@ PrefabInstance:
       propertyPath: m_Targets.Array.data[1].target
       value: 
       objectReference: {fileID: 738503366}
+    - target: {fileID: 8482438056424922114, guid: e7d4d2add15663f4abb4a78736c75542,
+        type: 3}
+      propertyPath: m_XDamping
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482438056424922114, guid: e7d4d2add15663f4abb4a78736c75542,
+        type: 3}
+      propertyPath: m_YDamping
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482438056424922114, guid: e7d4d2add15663f4abb4a78736c75542,
+        type: 3}
+      propertyPath: m_ZDamping
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8570433778420877608, guid: e7d4d2add15663f4abb4a78736c75542,
         type: 3}
       propertyPath: m_Name
