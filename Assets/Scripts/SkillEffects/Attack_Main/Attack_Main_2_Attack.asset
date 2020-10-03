@@ -19,7 +19,7 @@ MonoBehaviour:
   Range: 0
   Damage: 1.1
   DamageInterval: 1
-  KnockbackForce: 8
+  KnockbackForce: 6
   KnockbackTime: 0.2
   HitReactDuration: 0.6
   Stun: 0.9

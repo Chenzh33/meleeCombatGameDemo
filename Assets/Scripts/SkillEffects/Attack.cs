@@ -7,9 +7,9 @@ namespace meleeDemo {
 
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/Attack")]
     public class Attack : SkillEffect {
-        [Range (0.01f, 1f)]
+        [Range (0f, 1f)]
         public float AttackBeginTime = 0.2f;
-        [Range (0.01f, 1f)]
+        [Range (0f, 1f)]
         public float AttackEndTime = 0.6f;
 
         public AttackType Type = AttackType.MustCollide;

@@ -39,6 +39,7 @@ namespace meleeDemo {
                 //animator.SetBool (TransitionParameter.Move.ToString (), true);
                 if (animatorStateInfo.IsName ("Move") ||
                     animatorStateInfo.IsName ("Walk") ||
+                    animatorStateInfo.IsName ("Dodge_Tumbling") ||
                     animatorStateInfo.IsName ("Run")) {
                     Vector3 moveDirection = new Vector3 (inputVector.x, 0, inputVector.y);
                     //MoveForward (moveDirection, speed, 1.0f);

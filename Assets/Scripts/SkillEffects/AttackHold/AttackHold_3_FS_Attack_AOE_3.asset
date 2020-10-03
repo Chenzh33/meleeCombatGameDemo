@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
   m_Name: AttackHold_3_FS_Attack_AOE_3
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.6
-  AttackEndTime: 0.85
+  AttackBeginTime: 0.061
+  AttackEndTime: 0.091
   Type: 2
   MaxTargetNum: 5
   Range: 2.5
@@ -30,5 +30,7 @@ MonoBehaviour:
   AOEAttackCenterOffset: 3
   EnergyGetWhenHit: 0
   VFXScale: 1
+  PreciselyBlockedFrame: 10
   vfxType: 4
+  FreezeFrames: 0
   FinishedAttacks: []
