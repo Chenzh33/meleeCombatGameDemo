@@ -320,7 +320,11 @@ namespace meleeDemo {
         public void SetFormerTarget (CharacterControl target, float duration) {
             if (SetFormerTargetCoroutine != null)
                 StopCoroutine (SetFormerTargetCoroutine);
-            SetFormerTargetCoroutine = StartCoroutine (_SetFormerTarget (target, duration));
+
+            if (target != null)
+                SetFormerTargetCoroutine = StartCoroutine(_SetFormerTarget(target, duration));
+            else
+                this.CharacterData.FormerAttackTarget = null;
         }
 
         IEnumerator _SetFormerTarget (CharacterControl target, float duration) {

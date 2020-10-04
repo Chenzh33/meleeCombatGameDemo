@@ -8,6 +8,7 @@ namespace meleeDemo {
     public class ChangeDirection : SkillEffect {
         public bool AllowEarlyTurn;
         public bool AutoFaceEnemy;
+        public bool ForceLockOnEnemy;
         public bool FacePrevTargetWhenNeutral;
         public bool FacePrevTargetRegardlessOfPosition;
         public bool CheckFarRange;
@@ -21,10 +22,10 @@ namespace meleeDemo {
         public float AutoFaceEnemyDuration = 0f;
 
         public float CaptureDistanceFar = 8f;
-        public float CaptureAngleRange = 30f;
+        public float CaptureAngleRangeFar = 30f;
 
         public float CaptureDistanceNear = 3f;
-        //public float CaptureAngleRangeNear = 60f;
+        public float CaptureAngleRangeNear = 180f;
         public float smoothEarlyTurn = 20f;
         public float LockOnTargetDuration = 1.0f;
 
@@ -107,12 +108,15 @@ namespace meleeDemo {
         public void ChangeFaceDirection (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             bool IsFaceForward = true;
             bool KeepFaceFormerTarget = false;
+            bool InputNotNeutral = false;
             Vector3 inputDirection = Vector3.zero;
             Vector2 inputDirection2d = stateEffect.CharacterControl.inputVector;
             if (AllowEarlyTurn && inputDirection2d.magnitude > 0.01f) {
                 inputDirection = new Vector3 (inputDirection2d.x, 0, inputDirection2d.y);
                 stateEffect.CharacterControl.FaceTarget = inputDirection;
+                stateEffect.CharacterControl.SetFormerTarget(null, 0f);
                 IsFaceForward = false;
+                InputNotNeutral = true;
             } else if (FacePrevTargetWhenNeutral) {
                 if (stateEffect.CharacterControl.CharacterData.FormerAttackTarget != null && !stateEffect.CharacterControl.CharacterData.FormerAttackTarget.CharacterData.IsDead) {
                     Vector3 diffVectorRaw = stateEffect.CharacterControl.CharacterData.FormerAttackTarget.gameObject.transform.position - stateEffect.CharacterControl.gameObject.transform.position;
@@ -121,14 +125,25 @@ namespace meleeDemo {
                     Quaternion rotEnemy = Quaternion.LookRotation (diffVector, Vector3.up);
                     Quaternion rotSelf = Quaternion.LookRotation (animator.transform.root.forward, Vector3.up);
                     float Dist = diffVector2d.magnitude;
-                    float AbsAngle = Mathf.Abs (Quaternion.Angle (rotEnemy, rotSelf));
-                    if (FacePrevTargetRegardlessOfPosition ||
-                        (Dist <= CaptureDistanceFar && Dist > CaptureDistanceNear && AbsAngle <= CaptureAngleRange)) {
+                    float AbsAngle = Mathf.Abs(Quaternion.Angle(rotEnemy, rotSelf));
+                    bool InRange = false;
+                    if (ForceLockOnEnemy)
+                    {
+                        if (Dist <= CaptureDistanceFar && AbsAngle <= CaptureAngleRangeFar)
+                            InRange = true;
+                    }
+                    else
+                    {
+                        if (Dist < CaptureDistanceNear && AbsAngle <= CaptureAngleRangeNear)
+                            InRange = true;
+                    }
+                    if (FacePrevTargetRegardlessOfPosition || InRange) {
                         stateEffect.CharacterControl.FaceTarget = diffVector.normalized;
                         KeepFaceFormerTarget = true;
                         IsFaceForward = false;
                         stateEffect.CharacterControl.SetFormerTarget (stateEffect.CharacterControl.CharacterData.FormerAttackTarget, LockOnTargetDuration);
-                        stateEffect.CharacterControl.TurnToTarget (0f, 0f);
+                        stateEffect.CharacterControl.TurnToTarget (stateInfo.length * AutoFaceEnemyTiming, smoothEarlyTurn);
+                        //stateEffect.CharacterControl.TurnToTarget (0f, 0f);
                     } else {
                         stateEffect.CharacterControl.CharacterData.FormerAttackTarget = null;
                     }
@@ -141,16 +156,25 @@ namespace meleeDemo {
                 if (!KeepFaceFormerTarget || AutoFaceStunnedEnemy) {
                     if (!FacePrevTargetWhenNeutral || !IsFaceForward || stateEffect.CharacterControl.CharacterData.FormerAttackTarget == null) {
                         Vector3 initFaceDirection = new Vector3 ();
-                        if (!IsFaceForward)
+                        
+                        //if (!IsFaceForward)
+                        if (ForceLockOnEnemy && InputNotNeutral)
                             initFaceDirection = inputDirection;
                         else
                             initFaceDirection = animator.transform.root.forward;
 
-                        //stateEffect.CharacterControl.CharacterData.FormerAttackTarget = null;
-                        bool EnemyCaptured = FaceEnemy (initFaceDirection, stateEffect, animator, stateInfo);
-                        Debug.Log("EnemyCaptured: " + EnemyCaptured.ToString());
-                        if (EnemyCaptured)
+                        if(ForceLockOnEnemy || !InputNotNeutral)
+                        {
+                            //stateEffect.CharacterControl.CharacterData.FormerAttackTarget = null;
+                            bool EnemyCaptured;
+                            if(ForceLockOnEnemy)
+                                EnemyCaptured = FaceEnemy(initFaceDirection, stateEffect, animator, stateInfo, true);
+                            else
+                                EnemyCaptured = FaceEnemy(initFaceDirection, stateEffect, animator, stateInfo, false);
+                            Debug.Log("EnemyCaptured: " + EnemyCaptured.ToString());
+                            if (EnemyCaptured)
                             IsFaceForward = false;
+                        }
                     }
                 }
             }
@@ -161,13 +185,15 @@ namespace meleeDemo {
             }
 
             stateEffect.CharacterControl.TurnToTarget (stateInfo.length * AutoFaceEnemyTiming, smoothEarlyTurn);
+            //stateEffect.CharacterControl.TurnToTarget (0f, 0f);
 
         }
-        public bool FaceEnemy (Vector3 initFaceDirection, StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
+        public bool FaceEnemy(Vector3 initFaceDirection, StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo, bool onlyLongRange) {
             Vector3 direction = Vector3.zero;
             bool EnemyCaptured = false;
             CharacterControl capturedTarget = null;
 
+/*
             RaycastHit rayCastHit;
             int layerMask = 0;
             if (stateEffect.CharacterControl.gameObject.layer == LayerMask.NameToLayer ("player"))
@@ -189,7 +215,9 @@ namespace meleeDemo {
 
                 //Debug.Log ("Capture NEAR Range Enemy!");
             }
-            if ((!hit || AutoFaceStunnedEnemy) && animator.GetBool (TransitionParameter.EnergyTaken.ToString ()) || CheckFarRange) {
+            */
+            //if ((!hit || AutoFaceStunnedEnemy) && animator.GetBool (TransitionParameter.EnergyTaken.ToString ()) || CheckFarRange) {
+            if (true) {
                 //Debug.Log("test far range enemy capture");
                 List<GameObject> enemyObjs = new List<GameObject> ();
                 if (stateEffect.CharacterControl.isPlayerControl) {
@@ -227,8 +255,22 @@ namespace meleeDemo {
                     float AbsAngle = Mathf.Abs (Quaternion.Angle (rotEnemy, rotSelf));
 
                     //Debug.Log (Dist.ToString () + " --- " + AbsAngle.ToString ());
+                    bool InRange = false;
+                    if(onlyLongRange)
+                    {
+                        if (Dist <= CaptureDistanceFar && AbsAngle <= CaptureAngleRangeFar)
+                            InRange = true;
+                    }
+                    else
+                    {
+                        //if ((Dist <= CaptureDistanceFar && AbsAngle <= CaptureAngleRangeFar) ||
+                         //   (Dist < CaptureDistanceNear && AbsAngle <= CaptureAngleRangeNear))
+                        if (Dist < CaptureDistanceNear && AbsAngle <= CaptureAngleRangeNear) 
+                            InRange = true;
+                    }
 
-                    if (Dist <= CaptureDistanceFar && AbsAngle <= CaptureAngleRange) {
+                    if (InRange)
+                    {
                         if (AutoFaceStunnedEnemy && currentTarget.CharacterData.IsStunned && Dist < stunnedEnemyDist) {
                             EnemyCaptured = true;
                             directionStunned = diffVector.normalized;
@@ -250,7 +292,8 @@ namespace meleeDemo {
                     capturedTarget = nearestStunnedEnemy;
                     direction = directionStunned;
                     //Debug.Log ("Capture STUNNED Enemy!");
-                } else if (!hit && EnemyCaptured) {
+                //} else if (!hit && EnemyCaptured) {
+                } else if (EnemyCaptured) {
                     capturedTarget = farRangeCapturedEnemy;
                     direction = directionFar;
                     //Debug.Log ("Capture FAR Range Enemy!");
@@ -260,7 +303,8 @@ namespace meleeDemo {
 
             if (EnemyCaptured) {
                 stateEffect.CharacterControl.FaceTarget = direction;
-                stateEffect.CharacterControl.TurnToTarget (0f, 0f);
+                //stateEffect.CharacterControl.TurnToTarget (0f, 0f);
+                stateEffect.CharacterControl.TurnToTarget (stateInfo.length * AutoFaceEnemyTiming, smoothEarlyTurn);
                 //Debug.DrawRay (stateEffect.CharacterControl.gameObject.transform.position, direction * 10f, Color.red);
                 //if (!FacePrevTargetWhenNeutral)
                 if (FacePrevTargetWhenNeutral || AutoFaceStunnedEnemy)
