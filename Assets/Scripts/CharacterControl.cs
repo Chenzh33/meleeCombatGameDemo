@@ -260,6 +260,7 @@ namespace meleeDemo {
                     float EnergyGet = ((Attack) skill).EnergyGetWhenHit;
                     if (EnergyGet > 0)
                         this.CharacterData.GetEnergyToMaxOneUnit (EnergyGet);
+                    this.SetFormerTarget(enemy, 1f);
                 }
             }
 

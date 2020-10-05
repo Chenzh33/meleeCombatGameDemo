@@ -1649,7 +1649,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0a4ff1542b1051749a80df6737858a29, type: 2}
   - {fileID: 11400000, guid: fac2eb026f784d44a9da1622e1163b06, type: 2}
   - {fileID: 11400000, guid: 7f363f3b37577b94ab072aea29583c76, type: 2}
-  - {fileID: 11400000, guid: 02407fbaaff4d9a4384593a73e799145, type: 2}
+  - {fileID: 11400000, guid: 20ae8ae7958cf1548a2931dfab4d3f2e, type: 2}
 --- !u!1101 &-6107684357285762704
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -2159,7 +2159,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8ff8106f9f4b3a7498a6f5f26c0d1713, type: 2}
   - {fileID: 11400000, guid: 72f21313a179d8542aa77eb6e0ee6d5e, type: 2}
   - {fileID: 11400000, guid: 2749e4fa91302f04d9ac782a128b72ba, type: 2}
-  - {fileID: 11400000, guid: df950f6411a54994da68bafacc9ab797, type: 2}
+  - {fileID: 11400000, guid: abf49c58b0420244d8489c4a1a524bea, type: 2}
   - {fileID: 11400000, guid: 1abc8f7d501c25542b41fc2010ea156e, type: 2}
   - {fileID: 11400000, guid: 674ea994e6d3ed9458b09bbe52168d28, type: 2}
   - {fileID: 11400000, guid: d5a95e09356c1754988992fb7e9a69ce, type: 2}
@@ -2763,8 +2763,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ListSkillEffect:
   - {fileID: 11400000, guid: 80601ef7b6accf94ba320724d951398f, type: 2}
-  - {fileID: 11400000, guid: e975b09b083ba2b4688d4fbe7f738cdd, type: 2}
   - {fileID: 11400000, guid: 77786d4c109e3ab4ba8cdeb14ce296d5, type: 2}
+  - {fileID: 11400000, guid: e80bd313d69e5c746b214731d143d3a5, type: 2}
   - {fileID: 11400000, guid: ea426ab3406248844bf48e5a59169125, type: 2}
   - {fileID: 11400000, guid: 2dd821ff92dae264ebd679e8b4425bf6, type: 2}
   - {fileID: 11400000, guid: 48c9a0141d9ecab42a096f1d7d6b289d, type: 2}
@@ -2871,7 +2871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ListSkillEffect:
   - {fileID: 11400000, guid: 3a4ee5321cf3ac342a1cebd6486cd43a, type: 2}
-  - {fileID: 11400000, guid: 0514428b11d147547a33b38ec169b9cf, type: 2}
+  - {fileID: 11400000, guid: a5f4aac89a9d55844a3aa8e06af82181, type: 2}
   - {fileID: 11400000, guid: 483d2c8380b33734b8c7e21461cb205b, type: 2}
   - {fileID: 11400000, guid: eeb7e5b90819a5b4098d22e5c75f9172, type: 2}
   - {fileID: 11400000, guid: 5775896b894472b4080a2d1b8c489a7c, type: 2}
@@ -3006,7 +3006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListSkillEffect:
-  - {fileID: 11400000, guid: fa58e41ecba46754097bbdbba714ea19, type: 2}
+  - {fileID: 11400000, guid: f1ccdf238a4fa674f985661a47f7aac5, type: 2}
   - {fileID: 11400000, guid: bbe43f0f2c62ec8498e1b1dc2f57f6dd, type: 2}
 --- !u!1101 &-3448623974079686883
 AnimatorStateTransition:
@@ -4052,7 +4052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListSkillEffect:
-  - {fileID: 11400000, guid: 319c7708a8969664c9a25c0346d56d97, type: 2}
+  - {fileID: 11400000, guid: 4876863636414164eb7125885e0427db, type: 2}
   - {fileID: 11400000, guid: 55f24c74977afed4a8afcb8b29eea07e, type: 2}
 --- !u!114 &-1107802146115313417
 MonoBehaviour:
@@ -4494,7 +4494,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf3d266b7c26e2142970d036488ac4b1, type: 2}
   - {fileID: 11400000, guid: 878647f1a393c85499ea8cd461d88946, type: 2}
   - {fileID: 11400000, guid: 7aa9dff6dc935c54c80c8793dca58289, type: 2}
-  - {fileID: 11400000, guid: 265437359bf2588409f04f9a6dbb6758, type: 2}
+  - {fileID: 11400000, guid: 145a9c1d57bfcff43962b21f827fd4a8, type: 2}
   - {fileID: 11400000, guid: e8b10a5f7de33d4468192e02aaea5048, type: 2}
   - {fileID: 11400000, guid: 46574da19cffc7544a5863888482364a, type: 2}
   - {fileID: 11400000, guid: 649b0edcc3a70fb44bd8203ba93ae7f4, type: 2}
@@ -6119,7 +6119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ListSkillEffect:
   - {fileID: 11400000, guid: d1f4975dc8b374848831cc1fd47f34af, type: 2}
-  - {fileID: 11400000, guid: a8631bdb60ac6f341922cce02e11227a, type: 2}
+  - {fileID: 11400000, guid: b049bb7653e823844ab788063d998d19, type: 2}
   - {fileID: 11400000, guid: b674f51540a30e848b3ded094dac5222, type: 2}
   - {fileID: 11400000, guid: 1f0a94dc2a50f364692030a6974b7900, type: 2}
   - {fileID: 11400000, guid: 90d8dec357be7884a8f8f8756023d85e, type: 2}
@@ -6886,7 +6886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ListSkillEffect:
   - {fileID: 11400000, guid: 37e87b5757284ba4a98704ec6b9969ce, type: 2}
-  - {fileID: 11400000, guid: 12e03c7857ed99641abfb56684197be9, type: 2}
+  - {fileID: 11400000, guid: 59506d9312bb3c448899c18c2c3e9380, type: 2}
   - {fileID: 11400000, guid: 483d2c8380b33734b8c7e21461cb205b, type: 2}
   - {fileID: 11400000, guid: 97ad350374ec37a48ab589a489ae3231, type: 2}
   - {fileID: 11400000, guid: 5775896b894472b4080a2d1b8c489a7c, type: 2}
@@ -7719,7 +7719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ListSkillEffect:
   - {fileID: 11400000, guid: d5b31e2614ccf424dabca16991bc94e7, type: 2}
-  - {fileID: 11400000, guid: 12e03c7857ed99641abfb56684197be9, type: 2}
+  - {fileID: 11400000, guid: 59506d9312bb3c448899c18c2c3e9380, type: 2}
   - {fileID: 11400000, guid: 483d2c8380b33734b8c7e21461cb205b, type: 2}
   - {fileID: 11400000, guid: eeb7e5b90819a5b4098d22e5c75f9172, type: 2}
   - {fileID: 11400000, guid: 5775896b894472b4080a2d1b8c489a7c, type: 2}
@@ -7795,7 +7795,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.19822887
   m_TransitionOffset: 0
   m_ExitTime: 0.5588236
   m_HasExitTime: 0
@@ -9538,7 +9538,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d82b059003ae05944b29c261fc946ab9, type: 2}
   - {fileID: 11400000, guid: 24dbd5c3b73990f46b8f6f2b25baf898, type: 2}
   - {fileID: 11400000, guid: f307a52f293589540ad83e0eba9e1c04, type: 2}
-  - {fileID: 11400000, guid: b1ba7b965c5223749a8914b812c22dbd, type: 2}
+  - {fileID: 11400000, guid: 41789d15295d5f04c82e5b9074840110, type: 2}
   - {fileID: 11400000, guid: 6ed48b752259e3740a3809bad29a86c4, type: 2}
   - {fileID: 11400000, guid: af0b47750c214ee4d9d774139c6b2d8e, type: 2}
 --- !u!1101 &7958077373938197192
@@ -9953,7 +9953,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Stance1_2
-  m_Speed: 1.3
+  m_Speed: 1.8
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7970212055993103470}
