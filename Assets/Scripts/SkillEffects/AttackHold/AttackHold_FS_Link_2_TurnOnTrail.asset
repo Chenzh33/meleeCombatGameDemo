@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 041a36037495c8b4592e25b5f60b7e83, type: 3}
-  m_Name: StabDown_Attack_TransitionIndexer
+  m_Script: {fileID: 11500000, guid: de1432523142e47469233bd79135a75d, type: 3}
+  m_Name: AttackHold_FS_Link_2_TurnOnTrail
   m_EditorClassIdentifier: 
-  TimeIntervals:
-  - index: 1
-    st: 0.75
-    ed: 2
+  TurnOnTrailTiming: 0.08
+  TurnOffTrailTiming: 0.8
+  TurnOffTrailTimingMask: 1

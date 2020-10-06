@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
   m_Name: ChargedDodge_3_Attack_AOE
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.01
+  AttackBeginTime: 0.15
   AttackEndTime: 0.45
   Type: 2
   MaxTargetNum: 5

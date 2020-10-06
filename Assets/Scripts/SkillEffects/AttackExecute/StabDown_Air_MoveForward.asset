@@ -9,60 +9,67 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4e8a647373d9834c95ef642c0e665fe, type: 3}
-  m_Name: StabDown_MoveToTarget
+  m_Script: {fileID: 11500000, guid: feb28c08435cea64c812511c41772d7f, type: 3}
+  m_Name: StabDown_Air_MoveForward
   m_EditorClassIdentifier: 
   speedGraph:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.2
-      value: 0
-      inSlope: -0
-      outSlope: -0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 1
-    - serializedVersion: 3
-      time: 0.3
-      value: 1
-      inSlope: -0.027926076
-      outSlope: -0.027926076
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 1
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.9
-      value: 0.9998811
-      inSlope: 0.003596971
-      outSlope: 0.003596971
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: -9.998809
-      outSlope: -9.998809
+      value: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  curveArea: 0.7
-  maxSpeed: 30
-  Type: 1
+  speed: 4
+  smooth: 5
+  MoveUnderControl: 0
+  ConsiderMomentum: 0
+  extraSpeedGraph:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.00084228814
+      value: 1.0070572
+      inSlope: 0.0017675267
+      outSlope: 0.0017675267
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.66482526
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2042749
+      value: 0.2632212
+      inSlope: -1.059893
+      outSlope: -1.059893
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.30669937
+      outWeight: 0.048545904
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.011294107
+      outSlope: -0.011294107
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.14238374
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

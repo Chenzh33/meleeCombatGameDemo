@@ -10,18 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041a36037495c8b4592e25b5f60b7e83, type: 3}
-  m_Name: StabDown_Loop_TransitionIndexer
+  m_Name: AttackHold_FS_Link_2_TransitionIndexer
   m_EditorClassIdentifier: 
   TimeIntervals:
   - index: 1
-    st: 0
-    ed: 0.2
-  - index: 2
-    st: 0.2
-    ed: 0.95
-  - index: 3
     st: 0.95
     ed: 2
   - index: -1
-    st: 0.1
-    ed: 1
+    st: 0.8
+    ed: 3

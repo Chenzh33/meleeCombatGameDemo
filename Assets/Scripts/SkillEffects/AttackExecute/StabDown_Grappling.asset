@@ -16,8 +16,8 @@ MonoBehaviour:
   GrapplingEndTime: 0.75
   Mode: 1
   Type: 1
-  Range: 1
-  Damage: 1
+  Range: 1.6
+  Damage: 0
   Stun: 0
   FreezeStartTiming: 0.2
   FinishedGrapplers: []

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abdb6b789225a04c92d97188d0d4c44, type: 3}
   m_Name: ChargedDodge_3_GenerateShadow
   m_EditorClassIdentifier: 
-  TurnOnShadowTiming: 0.03
-  TurnOffShadowTiming: 0.35
-  ShadowDuration: 0.25
+  TurnOnShadowTiming: 0.15
+  TurnOffShadowTiming: 0.45
+  ShadowDuration: 0.15
   GenerationFrameInterval: 0

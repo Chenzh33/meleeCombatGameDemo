@@ -36,6 +36,7 @@ namespace meleeDemo {
         public bool IsAttackForward;
         public bool IsAOEAttackTowardsCenter;
         public AnimationCurve SpeedGraph;
+        public AnimationCurve ScaleGraph;
 
         //[Range (0.01f, 1f)]
         //public float ComboInputStartTime = 0.3f;
@@ -142,7 +143,7 @@ namespace meleeDemo {
             ParticleSystem[] pss = obj.GetComponentsInChildren<ParticleSystem>();
             foreach (ParticleSystem ps in pss)
             {
-                ps.gameObject.transform.localScale = Vector3.one * ProjectileScale;
+                ps.gameObject.transform.localScale = Vector3.one * ProjectileScale * ScaleGraph.Evaluate(0f);
             }
 
             ProjectileObject projectileObject = obj.GetComponent<ProjectileObject>();

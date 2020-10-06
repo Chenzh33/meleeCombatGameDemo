@@ -11,8 +11,10 @@ namespace meleeDemo {
         private float Speed;
         private float CurrentTime;
         private float CurrentTimeToDamage;
+        private float ProjectileScale;
         private bool IsMoving;
         private AnimationCurve SpeedGraph;
+        private AnimationCurve ScaleGraph;
 
         public void Init (AttackInfo projectileInfo, float duration, float speed) {
             ProjectileInfo = projectileInfo;
@@ -22,6 +24,8 @@ namespace meleeDemo {
             Speed = speed;
             IsMoving = true;
             SpeedGraph = projectileInfo.ProjectileSkill.SpeedGraph;
+            ScaleGraph = projectileInfo.ProjectileSkill.ScaleGraph;
+            ProjectileScale = projectileInfo.ProjectileSkill.ProjectileScale;
 
         }
         void Start () {
@@ -32,7 +36,11 @@ namespace meleeDemo {
             if (IsMoving && CurrentTime < Duration) {
                 //Debug.DrawRay(transform.position, transform.forward, Color.red);
                 transform.Translate (transform.forward * Speed * SpeedGraph.Evaluate (CurrentTime / Duration) * Time.deltaTime, Space.World);
-              
+                ParticleSystem[] pss = GetComponentsInChildren<ParticleSystem>();
+                foreach (ParticleSystem ps in pss)
+                {
+                    ps.gameObject.transform.localScale = Vector3.one * ScaleGraph.Evaluate(CurrentTime / Duration) * ProjectileScale;
+                }
                 CurrentTime += Time.deltaTime;
                 CurrentTimeToDamage += Time.deltaTime;
                 if (CurrentTimeToDamage > ProjectileInfo.DamageInterval) {

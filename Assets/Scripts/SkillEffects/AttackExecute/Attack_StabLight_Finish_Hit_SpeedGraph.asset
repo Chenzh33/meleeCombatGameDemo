@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4e8a647373d9834c95ef642c0e665fe, type: 3}
-  m_Name: StabDown_MoveToTarget
+  m_Script: {fileID: 11500000, guid: adc87bbb3aafc764780b3d170a645277, type: 3}
+  m_Name: Attack_StabLight_Finish_Hit_SpeedGraph
   m_EditorClassIdentifier: 
-  speedGraph:
+  graph:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 34
@@ -25,37 +25,46 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.2
-      value: 0
-      inSlope: -0
-      outSlope: -0
+      time: 0.33
+      value: 1
+      inSlope: -0.043799195
+      outSlope: -0.043799195
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 1
+      outWeight: 0.30769107
     - serializedVersion: 3
-      time: 0.3
-      value: 1
-      inSlope: -0.027926076
-      outSlope: -0.027926076
+      time: 0.37
+      value: 0.2
+      inSlope: -0.010171234
+      outSlope: -0.010171234
       tangentMode: 0
       weightedMode: 0
       inWeight: 1
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.9
-      value: 0.9998811
-      inSlope: 0.003596971
-      outSlope: 0.003596971
+      time: 0.45
+      value: 0.2
+      inSlope: -0.023397168
+      outSlope: -0.023397168
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.625
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 0.65000004
+      value: 0.44675082
+      inSlope: 1.2509742
+      outSlope: 1.2509742
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20000006
+      outWeight: 0.1
+    - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: -9.998809
-      outSlope: -9.998809
+      value: 0.6
+      inSlope: 0.43785492
+      outSlope: 0.43785492
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -63,6 +72,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  curveArea: 0.7
-  maxSpeed: 30
-  Type: 1
