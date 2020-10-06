@@ -17,12 +17,12 @@ MonoBehaviour:
   Type: 2
   MaxTargetNum: 5
   Range: 1.2
-  Damage: 1.5
+  Damage: 1.8
   DamageInterval: 1
   KnockbackForce: 0
   KnockbackTime: 0.1
   HitReactDuration: 0.7
-  Stun: 1.8
+  Stun: 2
   IsAttackForward: 1
   IsAOEAttackTowardsCenter: 0
   IsAOEAttackAttachToPlayer: 1
@@ -30,5 +30,7 @@ MonoBehaviour:
   AOEAttackCenterOffset: 0
   EnergyGetWhenHit: 0
   VFXScale: 1
+  PreciselyBlockedFrame: 10
   vfxType: 0
+  FreezeFrames: 0
   FinishedAttacks: []

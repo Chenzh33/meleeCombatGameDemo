@@ -32,5 +32,5 @@ MonoBehaviour:
   VFXScale: 1
   PreciselyBlockedFrame: 10
   vfxType: 0
-  FreezeFrames: 3
+  FreezeFrames: 2
   FinishedAttacks: []

@@ -21,8 +21,8 @@ MonoBehaviour:
   DamageInterval: 1
   KnockbackForce: 0
   KnockbackTime: 0.1
-  HitReactDuration: 0.85
-  Stun: 2.2
+  HitReactDuration: 0.7
+  Stun: 2
   IsAttackForward: 1
   IsAOEAttackTowardsCenter: 0
   IsAOEAttackAttachToPlayer: 1
@@ -30,5 +30,7 @@ MonoBehaviour:
   AOEAttackCenterOffset: 0
   EnergyGetWhenHit: 0
   VFXScale: 1
+  PreciselyBlockedFrame: 10
   vfxType: 0
+  FreezeFrames: 0
   FinishedAttacks: []

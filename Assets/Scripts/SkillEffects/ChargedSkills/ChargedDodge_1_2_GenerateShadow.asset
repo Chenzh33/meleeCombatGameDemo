@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299ac7ab892522f408eb650f845b604d, type: 3}
-  m_Name: ChargedDodge_2_TakeEnergy
+  m_Script: {fileID: 11500000, guid: 3abdb6b789225a04c92d97188d0d4c44, type: 3}
+  m_Name: ChargedDodge_1_2_GenerateShadow
   m_EditorClassIdentifier: 
-  EnergyTakingAmount: 1.5
+  TurnOnShadowTiming: 0.03
+  TurnOffShadowTiming: 0.35
+  ShadowDuration: 0.15
+  GenerationFrameInterval: 0
