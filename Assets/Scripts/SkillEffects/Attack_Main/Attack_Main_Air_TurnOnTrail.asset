@@ -9,19 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 041a36037495c8b4592e25b5f60b7e83, type: 3}
-  m_Name: Dodge_Tumbling_TransitionIndexer
+  m_Script: {fileID: 11500000, guid: de1432523142e47469233bd79135a75d, type: 3}
+  m_Name: Attack_Main_Air_TurnOnTrail
   m_EditorClassIdentifier: 
-  TimeIntervals:
-  - index: 1
-    st: 0.5
-    ed: 0.8
-  - index: 2
-    st: 0.8
-    ed: 1
-  - index: 3
-    st: 0.9
-    ed: 1
-  - index: -1
-    st: 0.7
-    ed: 1
+  TurnOnTrailTiming: 0.25
+  TurnOffTrailTiming: 0.6
+  TurnOffTrailTimingMask: 1

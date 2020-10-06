@@ -40,6 +40,8 @@ namespace meleeDemo {
         public float TargetGroupWeight;
         public float TargetGroupRadius;
 
+        public float CurrentDisplacementSpeed;
+
         public float DodgeCoolDown;
         public float DamageMultiplier = 1.0f;
         public bool IsRagdollOn;

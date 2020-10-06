@@ -6,8 +6,11 @@ namespace meleeDemo {
 
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/DirectDamage")]
     public class DirectDamage : SkillEffect {
+
         [Range (0f, 1f)]
         public float DamageTiming = 0.2f;
+
+        public GrapplerType Type;
 
         public float Damage = 1f;
         public float KnockbackForce = 10f;
@@ -21,6 +24,7 @@ namespace meleeDemo {
             stateEffect.CharacterControl.CharacterData.GrapplingTarget.gameObject.transform.parent = null;
             CharacterControl Target = stateEffect.CharacterControl.CharacterData.GrapplingTarget;
             Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1.0f);
+            Target.CharacterData.IsInvincible = false;
             //Target.Animator.Play ("Idle");
             
         }

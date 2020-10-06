@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GrapplingBeginTime: 0
   GrapplingEndTime: 1
-  Type: 1
+  Mode: 1
+  Type: 0
   Range: 1.4
   Damage: 4
   Stun: 0

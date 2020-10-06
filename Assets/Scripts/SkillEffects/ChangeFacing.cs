@@ -113,6 +113,7 @@ namespace meleeDemo {
                 Vector3 diffVectorRaw = formerTargetPos - originPos;
                 Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0f, diffVectorRaw.z);
                 FaceTarget = diffVector.normalized;
+                stateEffect.CharacterControl.SetFormerTarget (stateEffect.CharacterControl.CharacterData.FormerAttackTarget, LockOnTargetDuration);
             } else {
                 // find new enemy
                 CharacterControl enemy = CaptureEnemy (initFaceDirection, stateEffect, animator, stateInfo, firstCheckFar);
@@ -123,6 +124,7 @@ namespace meleeDemo {
                     Vector3 diffVectorRaw = enemy.gameObject.transform.position - originPos;
                     Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0f, diffVectorRaw.z);
                     FaceTarget = diffVector.normalized;
+                    stateEffect.CharacterControl.SetFormerTarget (enemy, LockOnTargetDuration);
                 }
 
             }
@@ -209,7 +211,7 @@ namespace meleeDemo {
             } else if (EnemyCaptured) {
                 capturedTarget = CapturedEnemy;
             }
-                //direction = directionFar;
+            //direction = directionFar;
 
             return capturedTarget;
         }

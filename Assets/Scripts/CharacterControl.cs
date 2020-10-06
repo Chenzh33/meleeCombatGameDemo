@@ -203,8 +203,12 @@ namespace meleeDemo {
                 if (isPlayerControl) {
                     this.Animator.Play ("HitReact4", 0, 0f);
                 } else {
-                    int randomIndex = Random.Range (0, 3) + 1;
-                    this.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
+                    if (this.CharacterData.IsGrappled && ((DirectDamage) skill).Type == GrapplerType.DownStab)
+                        this.Animator.Play ("HitReact_Executed", 0, 0f);
+                    else {
+                        int randomIndex = Random.Range (0, 3) + 1;
+                        this.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
+                    }
                 }
             }
             TurnOffArmourRegen (this.CharacterData.ArmourRegenerationDelay);
@@ -213,7 +217,7 @@ namespace meleeDemo {
             this.CharacterData.SendGetDamageEvent (skill, this);
 
             if (this.CharacterData.HP <= 0)
-                Dead ();
+                Dead (skill);
             //this.CharacterData.OnDead (skill);
         }
 
@@ -260,7 +264,7 @@ namespace meleeDemo {
                     float EnergyGet = ((Attack) skill).EnergyGetWhenHit;
                     if (EnergyGet > 0)
                         this.CharacterData.GetEnergyToMaxOneUnit (EnergyGet);
-                    this.SetFormerTarget(enemy, 1f);
+                    this.SetFormerTarget (enemy, 1f);
                 }
             }
 
@@ -283,17 +287,25 @@ namespace meleeDemo {
             }
 
         }
-        public void HitReactionAndFreeze (float freezeStTime) {
+        public void HitReactionAndFreeze (float freezeStTime, GrapplerType type) {
             if (HitReactCoroutine != null)
                 StopCoroutine (HitReactCoroutine);
-            HitReactCoroutine = StartCoroutine (_HitReactionAndFreeze (freezeStTime));
+            HitReactCoroutine = StartCoroutine (_HitReactionAndFreeze (freezeStTime, type));
         }
 
-        IEnumerator _HitReactionAndFreeze (float freezeStTime) {
+        IEnumerator _HitReactionAndFreeze (float freezeStTime, GrapplerType type) {
             //this.CharacterData.GetHitTime = 0.5f;
             //int randomIndex = Random.Range (0, 3) + 1;
             //int randomIndex = 1;
-            this.Animator.Play ("GrapplingHit", 0, 0f);
+            if (type == GrapplerType.FrontStab)
+                this.Animator.Play ("GrapplingHitFrontStab", 0, 0f);
+            else if (type == GrapplerType.DownStab) {
+                if (this.CharacterData.IsStunned)
+                    this.Animator.Play ("GrapplingHitDownStabStunned", 0, 0f);
+                else
+                    this.Animator.Play ("GrapplingHitDownStab", 0, 0f);
+
+            }
 
             float t = 0f;
             while (true) {
@@ -323,7 +335,7 @@ namespace meleeDemo {
                 StopCoroutine (SetFormerTargetCoroutine);
 
             if (target != null)
-                SetFormerTargetCoroutine = StartCoroutine(_SetFormerTarget(target, duration));
+                SetFormerTargetCoroutine = StartCoroutine (_SetFormerTarget (target, duration));
             else
                 this.CharacterData.FormerAttackTarget = null;
         }
@@ -351,7 +363,7 @@ namespace meleeDemo {
         IEnumerator _TakeKnockback (Vector3 knockbackVector, float duration) {
             float t = 0f;
             while (t < duration) {
-                this.CharacterController.Move (knockbackVector * this.Animator.GetFloat(TransitionParameter.SpeedMultiplier.ToString()) * KnockbackSpeedGraph.Evaluate (t / duration) * Time.deltaTime);
+                this.CharacterController.Move (knockbackVector * this.Animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) * KnockbackSpeedGraph.Evaluate (t / duration) * Time.deltaTime);
                 t += Time.deltaTime;
                 yield return null;
             }
@@ -406,13 +418,17 @@ namespace meleeDemo {
 
         }
 
-        public void Dead () {
+        public void Dead (SkillEffect skill) {
             //TurnOnRagdoll ();
             int randomIndex = Random.Range (0, 2) + 1;
             if (isPlayerControl)
                 this.Animator.Play ("Frank_Dead" + randomIndex.ToString (), 0, 0f);
-            else
-                this.Animator.Play ("Ybot_Dead" + randomIndex.ToString (), 0, 0f);
+            else {
+                if (this.CharacterData.IsGrappled && ((DirectDamage) skill).Type == GrapplerType.DownStab) {
+                    this.Animator.Play ("Ybot_Dead_Executed", 0, 0f);
+                } else
+                    this.Animator.Play ("Ybot_Dead" + randomIndex.ToString (), 0, 0f);
+            }
             data.IsDead = true;
 
             gameObject.layer = LayerMask.NameToLayer ("Default");

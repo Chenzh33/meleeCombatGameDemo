@@ -4,9 +4,14 @@ using UnityEngine;
 
 namespace meleeDemo {
 
-    public enum GrapplerType {
+    public enum GrapplerTargetChosingMode {
         EveryoneInRange,
         LockedTargetOnly
+
+    }
+    public enum GrapplerType {
+        FrontStab,
+        DownStab
 
     }
 
@@ -17,6 +22,7 @@ namespace meleeDemo {
         [Range (0f, 1f)]
         public float GrapplingEndTime = 0.6f;
 
+        public GrapplerTargetChosingMode Mode;
         public GrapplerType Type;
         public float Range = 1f;
         public float Damage = 1f;
@@ -36,7 +42,7 @@ namespace meleeDemo {
             AttackManager.Instance.CurrentGrappler.Add (grappler);
             if (stateEffect.CharacterControl.isPlayerControl)
                 VirtualInputManager.Instance.ClearAllInputsInBuffer ();
-                //stateEffect.CharacterControl.ExecuteTrigger = true;
+            //stateEffect.CharacterControl.ExecuteTrigger = true;
             //animator.SetBool (TransitionParameter.ForcedTransition.ToString (), false);
             //Debug.Log ("Enter " + stateInfo.normalizedTime.ToString());
 

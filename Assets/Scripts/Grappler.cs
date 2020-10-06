@@ -10,6 +10,7 @@ namespace meleeDemo {
         public bool IsFinished;
         public int CurrentTargetNum;
         public GrapplerType Type;
+        public GrapplerTargetChosingMode Mode;
         public float Range;
         public float Damage;
         public float Stun;
@@ -26,6 +27,7 @@ namespace meleeDemo {
             IsFinished = false;
             CurrentTargetNum = 0;
             Type = grapplingSkill.Type;
+            Mode = grapplingSkill.Mode;
             Range = grapplingSkill.Range;
             Damage = grapplingSkill.Damage;
             Stun = grapplingSkill.Stun;
@@ -77,8 +79,10 @@ namespace meleeDemo {
         public void GrapplingHit () {
             Attacker.Animator.SetBool (TransitionParameter.GrapplingHit.ToString (), true);
             Debug.Log("Grappling hit!");
+            Target.CharacterData.IsInvincible = true;
 
             Attacker.CharacterData.GrapplingTarget = Target;
+            CameraManager.Instance.ResetTrigger();
             CameraManager.Instance.PlayCloseUp (Attacker);
             if (CheckCompleteCoroutine != null)
                 StopCoroutine (CheckCompleteCoroutine);
@@ -86,12 +90,15 @@ namespace meleeDemo {
         }
 
         public void Dead () {
+            Debug.Log("grappler dead!");
             //Attacker.Animator.SetBool (TransitionParameter.GrapplingHit.ToString (), false);
 
+            CameraManager.Instance.ResetTrigger();
             CameraManager.Instance.ExitCloseUp (Attacker);
             //Attacker.CharacterData.GrapplingTarget.gameObject.transform.parent = null;
             Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1.0f);
             Target.CharacterData.IsGrappled = false;
+            Target.CharacterData.IsInvincible = false;
             Attacker.Animator.SetBool (TransitionParameter.GrapplingHit.ToString (), false);
             IsFinished = true;
             IsRegistered = false;

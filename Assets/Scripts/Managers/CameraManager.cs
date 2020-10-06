@@ -87,8 +87,8 @@ namespace meleeDemo {
         {
             controller.RemoveFromCloseUpTargetGroup(player);
             controller.RemoveFromCloseUpTargetGroup(player.CharacterData.GrapplingTarget);
-            //Debug.Log("trigger default!");
-            //controller.TriggerCamera (CameraType.Default);
+            Debug.Log("trigger default!");
+            controller.TriggerCamera (CameraType.Default);
 
         }
     }
