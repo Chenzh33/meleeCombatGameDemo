@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ChargedDodge_1_2_GenerateShadow
   m_EditorClassIdentifier: 
   TurnOnShadowTiming: 0.03
-  TurnOffShadowTiming: 0.35
+  TurnOffShadowTiming: 0.3
   ShadowDuration: 0.15
   GenerationFrameInterval: 0

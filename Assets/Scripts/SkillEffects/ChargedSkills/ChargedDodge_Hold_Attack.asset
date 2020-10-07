@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
+  m_Name: ChargedDodge_Hold_Attack
+  m_EditorClassIdentifier: 
+  AttackBeginTime: 0.5
+  AttackEndTime: 0.9
+  Type: 1
+  MaxTargetNum: 5
+  Range: 0
+  Damage: 1.8
+  DamageInterval: 1
+  KnockbackForce: 40
+  KnockbackTime: 0.15
+  HitReactDuration: 0.7
+  Stun: 2
+  IsAttackForward: 1
+  IsAOEAttackTowardsCenter: 0
+  IsAOEAttackAttachToPlayer: 1
+  IsLethalToStunnedEnemy: 0
+  AOEAttackCenterOffset: 0
+  EnergyGetWhenHit: 0
+  VFXScale: 1
+  PreciselyBlockedFrame: 10
+  vfxType: 0
+  FreezeFrames: 2
+  FinishedAttacks: []

@@ -44,8 +44,10 @@ namespace meleeDemo {
             atkInfo.Init (this, null, stateEffect.CharacterControl);
             obj.SetActive (true);
             AttackManager.Instance.CurrentAttackInfo.Add (atkInfo);
+            /*
             if (stateEffect.CharacterControl.isPlayerControl)
                 VirtualInputManager.Instance.ClearAllInputsInBuffer ();
+                */
            
 
             //stateEffect.CharacterControl.AttackTrigger = true;

@@ -9,8 +9,10 @@ namespace meleeDemo {
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
 
+/*
             if (stateEffect.CharacterControl.isPlayerControl)
                 VirtualInputManager.Instance.ClearAllInputsInBuffer ();
+                */
                 //stateEffect.CharacterControl.DodgeTrigger = true;
             animator.SetBool (TransitionParameter.ForcedTransitionDodge.ToString (), false);
 

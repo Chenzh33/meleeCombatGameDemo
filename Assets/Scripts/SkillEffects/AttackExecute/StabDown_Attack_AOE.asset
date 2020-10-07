@@ -27,7 +27,7 @@ MonoBehaviour:
   IsAOEAttackTowardsCenter: 0
   IsAOEAttackAttachToPlayer: 0
   IsLethalToStunnedEnemy: 0
-  AOEAttackCenterOffset: 0.9
+  AOEAttackCenterOffset: 0.6
   EnergyGetWhenHit: 0.75
   VFXScale: 1
   PreciselyBlockedFrame: 10

@@ -72,7 +72,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 15
+  speed: 8
   smooth: 5
   MoveUnderControl: 0
   ConsiderMomentum: 1
@@ -81,7 +81,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.3
       inSlope: -0.049063187
       outSlope: -0.049063187
       tangentMode: 0

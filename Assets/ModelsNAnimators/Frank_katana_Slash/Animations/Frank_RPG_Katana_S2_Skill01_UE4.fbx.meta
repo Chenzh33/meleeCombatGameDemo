@@ -27,6 +27,12 @@ ModelImporter:
   - first:
       74: -3306664077196714302
     second: Attack_Slam_fall
+  - first:
+      74: 8394672800931488891
+    second: ChargedDodge_Hold_Rise
+  - first:
+      74: 211695392140896273
+    second: ChargedDodge_Hold_Tumbing
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -284,6 +290,35 @@ ModelImporter:
       lastFrame: 162
       wrapMode: 0
       orientationOffsetY: 90
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: ChargedDodge_Hold_Rise
+      takeName: Unreal Take
+      internalID: 0
+      firstFrame: 126
+      lastFrame: 136
+      wrapMode: 0
+      orientationOffsetY: 135
       level: 0
       cycleOffset: 0
       loop: 0

@@ -155,9 +155,12 @@ namespace meleeDemo {
             info.CurrentTargetNum++;
             Vector3 dirVector = gameObject.transform.position - info.Attacker.gameObject.transform.position;
             Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
-            if (info.IsAttackForward) {
-                //hitVector = info.Attacker.transform.forward;
-                hitVector = info.gameObject.transform.forward;
+            if (info.IsAttackForward)
+            {
+                if (info.IsAOEAttackAttachToPlayer)
+                    hitVector = info.Attacker.transform.forward;
+                else
+                    hitVector = info.gameObject.transform.forward;
                 hitVector.y = 0f;
             }
             if (info.IsAOEAttackTowardsCenter && info.Type == AttackType.AOE) {

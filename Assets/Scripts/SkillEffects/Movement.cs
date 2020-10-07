@@ -12,8 +12,13 @@ namespace meleeDemo {
         public float speed = 6.0f;
         public float smooth = 5.0f;
         public bool MoveUnderControl;
+
         public bool ConsiderMomentum;
         public AnimationCurve extraSpeedGraph;
+
+        public bool MoveY;
+        public float speedY = 6.0f;
+        public AnimationCurve YSpeedGraph;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
 
@@ -29,6 +34,7 @@ namespace meleeDemo {
             if (MoveUnderControl)
                 animator.SetBool (TransitionParameter.Move.ToString (), false);
                 */
+            stateEffect.CharacterControl.gameObject.transform.position = new Vector3(stateEffect.CharacterControl.gameObject.transform.position.x, 0f, stateEffect.CharacterControl.transform.position.z);
         }
 
         public void ControlledMove (CharacterControl control, Animator animator, AnimatorStateInfo animatorStateInfo) {
@@ -88,6 +94,10 @@ namespace meleeDemo {
                     extraDeltaMove = extraDeltaMove * animator.GetFloat (TransitionParameter.SpeedMultiplier.ToString ()) * extraSpeedGraph.Evaluate (animatorStateInfo.normalizedTime) * Time.deltaTime;
                     deltaMoveAmount = deltaMoveAmount + extraDeltaMove;
                 }
+            }
+            if (MoveY)
+            {
+                deltaMoveAmount = deltaMoveAmount + Vector3.up * animator.GetFloat(TransitionParameter.SpeedMultiplier.ToString()) * speedY * YSpeedGraph.Evaluate(animatorStateInfo.normalizedTime) * Time.deltaTime;
             }
             control.CharacterController.Move (deltaMoveAmount);
 

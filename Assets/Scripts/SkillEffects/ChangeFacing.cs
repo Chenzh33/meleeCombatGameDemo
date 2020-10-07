@@ -8,7 +8,7 @@ namespace meleeDemo {
         Never,
         OnlyWhenNeutral,
         Always,
-        Always_FirstCheckFarWhenNotNeutral
+        OnlyCheckFarWhenNotNeutral
     }
 
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/ChangeFacing")]
@@ -33,23 +33,23 @@ namespace meleeDemo {
         public float LockOnTargetDuration = 1.0f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            ChangeFaceDirection (stateEffect, animator, stateInfo, true);
+            ChangeFaceDirection (stateEffect, animator, stateInfo, false);
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             if (AutoFaceDuration > 0f && stateInfo.normalizedTime < AutoFaceTiming + AutoFaceDuration) {
-                ChangeFaceDirection (stateEffect, animator, stateInfo, false);
+                ChangeFaceDirection (stateEffect, animator, stateInfo, true);
             }
 
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) { }
 
-        public void ChangeFaceDirection (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo, bool allowInput) {
+        public void ChangeFaceDirection (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo, bool inUpdate) {
             //bool IsFaceForward = true;
             //bool KeepFaceFormerTarget = false;
             bool InputNotNeutral = false;
-            Vector3 inputDirection = Vector3.zero;
+            Vector3 inputDirection = animator.transform.root.forward;
             Vector2 inputDirection2d = stateEffect.CharacterControl.inputVector;
-            if (AllowEarlyTurn && allowInput && inputDirection2d.magnitude > 0.01f) {
+            if (AllowEarlyTurn && !inUpdate && inputDirection2d.magnitude > 0.01f) {
                 inputDirection = new Vector3 (inputDirection2d.x, 0, inputDirection2d.y);
                 //stateEffect.CharacterControl.FaceTarget = inputDirection;
                 //stateEffect.CharacterControl.SetFormerTarget(null, 0f);
@@ -83,9 +83,9 @@ namespace meleeDemo {
                         initFaceDirection = inputDirection;
                     stateEffect.CharacterControl.FaceTarget = FaceEnemy (stateEffect, animator, stateInfo, initFaceDirection, false);
                     break;
-                case AutoFaceEnemyType.Always_FirstCheckFarWhenNotNeutral:
+                case AutoFaceEnemyType.OnlyCheckFarWhenNotNeutral:
                     Vector3 initDirection = animator.transform.root.forward;
-                    if (InputNotNeutral) {
+                    if (InputNotNeutral || inUpdate) {
                         initDirection = inputDirection;
                         stateEffect.CharacterControl.FaceTarget = FaceEnemy (stateEffect, animator, stateInfo, initDirection, true);
                     } else {

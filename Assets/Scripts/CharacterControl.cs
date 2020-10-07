@@ -238,8 +238,11 @@ namespace meleeDemo {
                 return;
             }
             */
-            TurnOffEnergyRegen (this.CharacterData.EnergyRegenerationDelay);
-            this.CharacterData.TakeEnergy (energy);
+            if(energy > 0f)
+            {
+                TurnOffEnergyRegen(this.CharacterData.EnergyRegenerationDelay);
+                this.CharacterData.TakeEnergy(energy);
+            }
         }
 
         public void OnEnemyGetDamaged (SkillEffect skill, CharacterControl enemy) {
@@ -703,7 +706,7 @@ namespace meleeDemo {
                 else
                     animator.SetBool (TransitionParameter.Guard.ToString (), false);
 
-                if (CommandAttackHoldFrame > 10)
+                if (CommandAttackHoldFrame > 8)
                     animator.SetBool (TransitionParameter.AtkButtonHold.ToString (), true);
                 else
                     animator.SetBool (TransitionParameter.AtkButtonHold.ToString (), false);

@@ -16,7 +16,7 @@ namespace meleeDemo {
             MoveY (stateEffect.CharacterControl, animator, animatorStateInfo);
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
-            stateEffect.CharacterControl.transform.position = new Vector3(stateEffect.CharacterControl.transform.position.x, 0f, stateEffect.CharacterControl.transform.position.z);
+            stateEffect.CharacterControl.gameObject.transform.position = new Vector3(stateEffect.CharacterControl.gameObject.transform.position.x, 0f, stateEffect.CharacterControl.transform.position.z);
 
         }
 

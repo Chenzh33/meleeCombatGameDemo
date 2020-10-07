@@ -15,9 +15,9 @@ MonoBehaviour:
   TimeIntervals:
   - index: 1
     st: 0.15
-    ed: 0.34
+    ed: 0.28
   - index: 2
-    st: 0.34
+    st: 0.28
     ed: 0.7
   - index: 3
     st: 0.7
