@@ -15,5 +15,5 @@ MonoBehaviour:
   AvoidanceRadius: 4
   AvoidanceForce: 2
   KeepoutRadius: 3
-  KeepoutForce: 3
+  KeepoutForce: 2
   Smooth: 5

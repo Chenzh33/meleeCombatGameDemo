@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
-  m_Name: AttackMelee1_Attack
+  m_Name: Swordman_AttackMelee2_Attack
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.33
-  AttackEndTime: 0.45
+  AttackBeginTime: 0.25
+  AttackEndTime: 0.42
   Type: 1
   MaxTargetNum: 5
   Range: 2
-  Damage: 2
+  Damage: 3
   DamageInterval: 1
-  KnockbackForce: 12
+  KnockbackForce: 15
   KnockbackTime: 0.15
-  HitReactDuration: 0.3
+  HitReactDuration: 0.6
   Stun: 1
   IsAttackForward: 0
   IsAOEAttackTowardsCenter: 0

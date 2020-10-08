@@ -13,6 +13,7 @@ namespace meleeDemo {
         public bool IsAOEAttackTowardsCenter;
         public bool IsAOEAttackAttachToPlayer;
         public bool IsLethalToStunnedEnemy;
+        public bool IsRangeChangeWithScaling;
         public int CurrentTargetNum;
         public int MaxTargetNum;
         public CharacterControl Attacker;
@@ -69,6 +70,7 @@ namespace meleeDemo {
             } else {
                 IsAttackForward = projectileSkill.IsAttackForward;
                 IsAOEAttackTowardsCenter = projectileSkill.IsAOEAttackTowardsCenter;
+                IsRangeChangeWithScaling = projectileSkill.IsRangeChangeWithScaling;
                 Type = projectileSkill.Type;
                 MaxTargetNum = projectileSkill.MaxTargetNum;
                 Range = projectileSkill.Range;

@@ -38,6 +38,7 @@ namespace meleeDemo {
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
             animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
             stateEffect.CharacterControl.CommandAttack = false;
+            stateEffect.CharacterControl.CommandExecute = false;
             //animator.SetInteger (TransitionParameter.CheckCombo.ToString (), 0);
             GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.AttackInfo);
             AttackInfo atkInfo = obj.GetComponent<AttackInfo> ();

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b542ecd7e9992c4d88c289a362475ff, type: 3}
-  m_Name: AttackHeavy_Sprint_BoxCast
+  m_Name: Swordman_AttackHeavy_Sprint_BoxCast
   m_EditorClassIdentifier: 
   BoxHalfSize: 0.6
   HitDistance: 3

@@ -444,7 +444,10 @@ namespace meleeDemo {
 
         }
         public void DestroyObject () {
-            Destroy (this.gameObject);
+            if (isPlayerControl)
+                GameManager.Instance.GameOver();
+            else
+                Destroy(this.gameObject);
 
         }
 

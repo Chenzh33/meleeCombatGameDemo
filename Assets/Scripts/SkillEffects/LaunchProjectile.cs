@@ -13,6 +13,7 @@ namespace meleeDemo {
         public float ProjectileTileAngle = 30f;
         public float ProjectileTileAngleNoise = 15f;
         public bool NotNeedCharge;
+        public bool IsRangeChangeWithScaling;
 
         [Range (0f, 1f)]
         public float ProjectileLaunchTiming = 0.3f;
@@ -79,7 +80,7 @@ namespace meleeDemo {
                 //if (!animator.IsInTransition(0) && stateInfo.normalizedTime >= ProjectileLaunchTiming) {
                 foreach (AttackInfo info in AttackManager.Instance.CurrentAttackInfo) {
                     if (!info.IsRegistered && info.ProjectileSkill == this) {
-                        Launch (info, stateEffect.CharacterControl, stateEffect.CharacterControl.GetProjectileSpawnPoint());
+                        Launch (info, stateEffect.CharacterControl, stateEffect.CharacterControl.GetProjectileSpawnPoint(), stateEffect.CharacterControl.FaceTarget);
                         info.Register ();
                         //Debug.Log ("register projectile : " + stateInfo.normalizedTime.ToString ());
                     }
@@ -110,7 +111,7 @@ namespace meleeDemo {
             */
 
         }
-        public void Launch (AttackInfo info, CharacterControl control, Transform spawnPoint) {
+        public void Launch (AttackInfo info, CharacterControl control, Transform spawnPoint, Vector3 direction) {
             GameObject obj = null;
             switch (info.ProjType) {
                 case ProjectileType.ChargedAttack:
@@ -135,7 +136,8 @@ namespace meleeDemo {
             obj.transform.localPosition = Vector3.zero;
             obj.transform.parent = null;
             obj.SetActive (true);
-            obj.transform.rotation = Quaternion.LookRotation(control.FaceTarget, Vector3.up);
+            //obj.transform.rotation = Quaternion.LookRotation(control.FaceTarget, Vector3.up);
+            obj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 
             info.gameObject.transform.parent = obj.transform;
             info.transform.localPosition = Vector3.zero;

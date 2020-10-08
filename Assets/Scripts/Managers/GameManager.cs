@@ -72,8 +72,13 @@ namespace meleeDemo {
             playerInput.enabled = true;
 
             AIAgentManager.Instance.RegisterAllEnemies ();
+            
 
            
+
+        }
+        public void GameOver()
+        {
 
         }
 

@@ -43,7 +43,7 @@ namespace meleeDemo {
             float dist = GetCurrentDist(control);
             RaycastHit hit;
             int layermask = 1 << 10;
-            if ((dist >= 0.6f || dist < 0f) && !Physics.BoxCast (control.transform.position, new Vector3 (0.2f, 1.0f, 0.2f), moveDirection, out hit, control.transform.rotation, 1f, layermask)) {
+            if ((dist >= 0.3f || dist < 0f) && !Physics.BoxCast (control.transform.position, new Vector3 (0.2f, 1.0f, 0.2f), moveDirection, out hit, control.transform.rotation, 1f, layermask)) {
                 control.transform.Translate (deltaMoveAmount, Space.World);
             }
 

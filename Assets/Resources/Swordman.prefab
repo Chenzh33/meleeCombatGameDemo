@@ -467,6 +467,7 @@ MonoBehaviour:
   AttackingParts: []
   AttackPoint: {fileID: 0}
   SpawnPoint: {fileID: 0}
+  ReflectSpawnPoint: {fileID: 0}
   Spine: {fileID: 0}
   KnockbackSpeedGraph:
     serializedVersion: 2
@@ -499,6 +500,8 @@ MonoBehaviour:
   CommandExecute: 0
   CommandDodge: 0
   CommandCharge: 0
+  CommandGuard: 0
+  CommandFire: 0
   CommandAttackHoldFrame: 0
   CommandExecuteHoldFrame: 0
   CommandDodgeHoldFrame: 0
@@ -518,8 +521,12 @@ MonoBehaviour:
     EnergyRegenerationDelay: 0
     EnergyGetOnExecuteHit: 0
     EnergyGetOnEnemyDeathByExecute: 0
+    GuardKnockbackReduction: 0
+    GuardDamageReduction: 0
+    GuardStunReduction: 0
     TargetGroupWeight: 0.7
     TargetGroupRadius: 1
+    CurrentDisplacementSpeed: 0
     DodgeCoolDown: 0
     DamageMultiplier: 1
     IsRagdollOn: 0
@@ -531,12 +538,16 @@ MonoBehaviour:
     IsSuperArmour: 0
     IsRunning: 0
     IsStunned: 0
+    IsGuarding: 0
     OffEnergyRegen: 0
     OffArmourRegen: 0
     GrapplingTarget: {fileID: 0}
     FormerAttackTarget: {fileID: 0}
     Team: 1
     StateBuffer: 000000000000000000000000
+    EffectShadow: 0
+    GetHitTime: 0
+    FirstFramesOfBlock: 0
     VFXs: []
 --- !u!114 &901825142
 MonoBehaviour:
@@ -569,13 +580,16 @@ MonoBehaviour:
   enemyTarget: {fileID: 0}
   team: 1
   aquisitionInterval: 1
-  visionRange: 8
+  visionRange: 999
   attackRange: 2
+  closeRange: 0
   RunToWalkRange: 5
-  WalkToRunRange: 7
+  WalkToRunRange: 9
   MomentumFactor: 0.1
   ProbExecute: 0.5
   ProbAttack: 0.7
+  ProbFire: 0
+  ProbDodge: 0
   inputVectorIncremental: {x: 0, y: 0}
 --- !u!114 &9799789
 MonoBehaviour:

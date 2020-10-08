@@ -13,6 +13,7 @@ namespace meleeDemo {
         private float CurrentTimeToDamage;
         private float ProjectileScale;
         private bool IsMoving;
+        private bool RangeChangeWithScaling;
         private AnimationCurve SpeedGraph;
         private AnimationCurve ScaleGraph;
 
@@ -69,6 +70,15 @@ namespace meleeDemo {
                 */
             PoolObject pobj = gameObject.GetComponent<PoolObject> ();
             PoolManager.Instance.ReturnToPool (pobj);
+        }
+
+        public float GetCurrentScale()
+        {
+            ParticleSystem[] pss = GetComponentsInChildren<ParticleSystem>();
+            if (pss != null)
+                return pss[0].gameObject.transform.localScale.x;
+            else
+                return 0f;
         }
     }
 }

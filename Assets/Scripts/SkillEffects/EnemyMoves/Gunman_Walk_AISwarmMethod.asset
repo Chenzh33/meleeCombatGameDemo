@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gunman_Walk_AISwarmMethod
   m_EditorClassIdentifier: 
   AvoidanceRadius: 5
-  AvoidanceForce: 3
+  AvoidanceForce: 2
   KeepoutRadius: 8
-  KeepoutForce: 5
+  KeepoutForce: 4
   Smooth: 5

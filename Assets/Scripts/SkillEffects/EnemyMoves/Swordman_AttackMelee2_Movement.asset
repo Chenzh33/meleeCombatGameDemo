@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feb28c08435cea64c812511c41772d7f, type: 3}
-  m_Name: AttackMelee1_Movement
+  m_Name: Swordman_AttackMelee2_Movement
   m_EditorClassIdentifier: 
   speedGraph:
     serializedVersion: 2
@@ -25,16 +25,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.2
-      value: 0
-      inSlope: -0.000003925933
-      outSlope: -0.000003925933
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.5499999
-    - serializedVersion: 3
-      time: 0.35
+      time: 0.3
       value: 1
       inSlope: 0
       outSlope: 0
@@ -43,7 +34,7 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.083938584
     - serializedVersion: 3
-      time: 0.45
+      time: 0.4
       value: 0
       inSlope: 0.027220288
       outSlope: 0.027220288
@@ -63,10 +54,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 4
+  speed: 3
   smooth: 5
   MoveUnderControl: 0
-  ConsiderMomentum: 1
+  ConsiderMomentum: 0
   extraSpeedGraph:
     serializedVersion: 2
     m_Curve:
@@ -97,6 +88,14 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0.09879452
       outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  MoveY: 0
+  speedY: 6
+  YSpeedGraph:
+    serializedVersion: 2
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925caf156f426564f89b1cd08df1fbb9, type: 3}
-  m_Name: Attack_StabLight_prep_ChangeFacing
+  m_Name: Swordman_AttackHeavy_Sprint_ChangeFacing
   m_EditorClassIdentifier: 
   AllowEarlyTurn: 1
-  AutoFaceType: 3
-  FaceStunnedEnemyFirst: 1
+  AutoFaceType: 2
+  FaceStunnedEnemyFirst: 0
   FaceFormerTargetFirst: 1
   ForceFaceFormerTarget: 0
   AutoFaceTiming: 0
-  AutoFaceDuration: 0.4
-  CaptureDistanceFar: 5
+  AutoFaceDuration: 2
+  CaptureDistanceFar: 8
   CaptureAngleRangeFar: 45
-  CaptureRadiusNear: 5
+  CaptureRadiusNear: 0
   CaptureCenterOffsetNear: 0
-  smoothEarlyTurn: 40
+  smoothEarlyTurn: 5
   LockOnTargetDuration: 1

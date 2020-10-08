@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a34b9d2d50e924f45b56760ee3b20ed6, type: 3}
-  m_Name: AttackMelee2_Attack
+  m_Name: Swordman_AttackHeavy_Finish_Attack_AOE
   m_EditorClassIdentifier: 
-  AttackBeginTime: 0.25
-  AttackEndTime: 0.42
-  Type: 1
+  AttackBeginTime: 0.48
+  AttackEndTime: 0.55
+  Type: 2
   MaxTargetNum: 5
-  Range: 2
-  Damage: 3
+  Range: 1.5
+  Damage: 10
   DamageInterval: 1
-  KnockbackForce: 15
-  KnockbackTime: 0.15
+  KnockbackForce: 25
+  KnockbackTime: 0.08
   HitReactDuration: 0.6
   Stun: 1
   IsAttackForward: 0
   IsAOEAttackTowardsCenter: 0
   IsAOEAttackAttachToPlayer: 0
   IsLethalToStunnedEnemy: 0
-  AOEAttackCenterOffset: 3
+  AOEAttackCenterOffset: 1.3
   EnergyGetWhenHit: 0
   VFXScale: 1
-  PreciselyBlockedFrame: 5
-  vfxType: 0
+  PreciselyBlockedFrame: 10
+  vfxType: 3
   FreezeFrames: 0
   FinishedAttacks: []

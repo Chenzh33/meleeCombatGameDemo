@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2b4355d71cd7084f83c5640c9d5b198, type: 3}
-  m_Name: AttackMelee1_TurnOnHighlight
+  m_Script: {fileID: 11500000, guid: 041a36037495c8b4592e25b5f60b7e83, type: 3}
+  m_Name: Swordman_AttackMelee2_TransitionIndexer
   m_EditorClassIdentifier: 
-  HighlightFactor: 1.5
+  TimeIntervals:
+  - index: 1
+    st: 0.8
+    ed: 1

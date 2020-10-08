@@ -10,17 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc5dfd2f04d0eb141bcdaf1daa3a1798, type: 3}
-  m_Name: AttackHeavy_Sprint_ChangeDirection
+  m_Name: Swordman_AttackMelee1_ChangeDirection
   m_EditorClassIdentifier: 
   AllowEarlyTurn: 1
   AutoFaceEnemy: 1
-  FacePrevTargetWhenNeutral: 0
-  FacePrevTargetRegardlessOfPosition: 0
+  ForceLockOnEnemy: 0
+  FacePrevTargetWhenNeutral: 1
+  FacePrevTargetRegardlessOfPosition: 1
   CheckFarRange: 1
+  AutoFaceStunnedEnemy: 0
   AutoFaceEnemyTiming: 0
-  AutoFaceEnemyDuration: 3
-  CaptureDistanceFar: 8
-  CaptureAngleRange: 30
-  CaptureDistanceNear: 0
-  smoothEarlyTurn: 0
+  AutoFaceEnemyDuration: 0
+  CaptureDistanceFar: 6
+  CaptureAngleRangeFar: 30
+  CaptureDistanceNear: 3
+  CaptureAngleRangeNear: 180
+  smoothEarlyTurn: 10
   LockOnTargetDuration: 1

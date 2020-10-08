@@ -144,7 +144,13 @@ namespace meleeDemo {
             //Debug.Log(info.AttackCenter);
             Vector3 distVec = this.gameObject.transform.position - info.gameObject.transform.position;
             float dist = new Vector3 (distVec.x, 0f, distVec.z).magnitude;
-            if (dist <= info.Range) {
+            float range = info.Range;
+            if(info.IsRangeChangeWithScaling)
+            {
+                range = range * info.ProjectileObject.GetCurrentScale();
+
+            }
+            if (dist <= range) {
                 return true;
             }
             return false;
@@ -235,6 +241,8 @@ namespace meleeDemo {
                         control.Animator.SetTrigger (TransitionParameter.GetHitOnGuard.ToString ());
                     else {
                         control.Animator.SetTrigger (TransitionParameter.GetHitOnGuardPrecisely.ToString ());
+                        ReflectProjectile(info);
+                        /*
                         info.ProjectileObject.Dead ();
                         GameObject obj = PoolManager.Instance.GetObject (PoolObjectType.AttackInfo);
                         AttackInfo reflectionInfo = obj.GetComponent<AttackInfo> ();
@@ -244,12 +252,27 @@ namespace meleeDemo {
                         //AttackManager.Instance.CurrentAttackInfo.Add(reflectionInfo);
                         reflectionInfo.Register ();
                         reflectionInfo.ProjectileSkill.Launch (reflectionInfo, control, control.GetReflectProjSpawnPoint ());
+                        */
                     }
                 }
 
             }
             //CameraManager.Instance.ShakeCamera (info.HitReactDuration);
             //control.Dead ();
+        }
+        private void ReflectProjectile(AttackInfo info)
+        {
+            info.ProjectileObject.Dead();
+            GameObject obj = PoolManager.Instance.GetObject(PoolObjectType.AttackInfo);
+            AttackInfo reflectionInfo = obj.GetComponent<AttackInfo>();
+            reflectionInfo.Init(null, info.ProjectileSkill, control);
+            obj.SetActive(true);
+            extraAttackInfo.Add(reflectionInfo);
+            //AttackManager.Instance.CurrentAttackInfo.Add(reflectionInfo);
+            reflectionInfo.Register();
+            Vector3 dir = info.Attacker.gameObject.transform.position - control.gameObject.transform.position;
+            dir.y = 0f;
+            reflectionInfo.ProjectileSkill.Launch(reflectionInfo, control, control.GetReflectProjSpawnPoint(), dir.normalized);
         }
 
         private void CheckGrappler () {
