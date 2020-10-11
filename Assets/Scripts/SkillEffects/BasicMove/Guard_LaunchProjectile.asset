@@ -28,10 +28,10 @@ MonoBehaviour:
   MaxTargetNum: 10
   Range: 1
   Damage: 0
-  DamageInterval: 0.1
-  KnockbackForce: 6
-  KnockbackTime: 0.1
-  HitReactDuration: 0.7
+  DamageInterval: 0.05
+  KnockbackForce: 8
+  KnockbackTime: 0.05
+  HitReactDuration: 0.4
   Stun: 0
   ProjectileScale: 1
   PreciselyBlockedFrame: 10
