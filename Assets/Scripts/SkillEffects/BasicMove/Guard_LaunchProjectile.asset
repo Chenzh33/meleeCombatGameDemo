@@ -13,28 +13,33 @@ MonoBehaviour:
   m_Name: Guard_LaunchProjectile
   m_EditorClassIdentifier: 
   EnergyTaken: 1
-  ProjectileLifeTime: 0.6
+  ProjectileLifeTime: 1
   ProjectileSpeed: 0
-  ProjectileTileAngle: 90
+  ProjectileTileAngle: 0
   ProjectileTileAngleNoise: 0
   NotNeedCharge: 0
-  IsRangeChangeWithScaling: 1
+  IsAOERangeChangeWithScaling: 1
+  IsVFXScaleChangeWithScaling: 1
+  IsGeneratedOnSpawnPoint: 0
   ProjectileLaunchTiming: 0
   ReservedTime: 0.1
   Type: 3
-  ProjType: 0
+  ProjType: 3
   MaxTargetNum: 10
-  Range: 1.5
+  Range: 1
   Damage: 0
-  DamageInterval: 1
-  KnockbackForce: 10
+  DamageInterval: 0.1
+  KnockbackForce: 6
   KnockbackTime: 0.1
   HitReactDuration: 0.7
-  Stun: 1
-  ProjectileScale: 5
+  Stun: 0
+  ProjectileScale: 1
   PreciselyBlockedFrame: 10
   IsAttackForward: 0
   IsAOEAttackTowardsCenter: 0
+  CanBeReflected: 0
+  CanReflectProjectile: 1
+  IsAttachedToPlayer: 1
   SpeedGraph:
     serializedVersion: 2
     m_Curve:
@@ -64,7 +69,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 2
       outSlope: 2
       tangentMode: 0
@@ -72,8 +77,17 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
+      time: 0.2
+      value: 2.5
+      inSlope: 0.020020714
+      outSlope: 0.020020714
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.29378507
+    - serializedVersion: 3
       time: 1
-      value: 1
+      value: 2.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0

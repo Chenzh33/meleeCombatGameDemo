@@ -18,6 +18,9 @@ MonoBehaviour:
   ProjectileTileAngle: 0
   ProjectileTileAngleNoise: 0
   NotNeedCharge: 1
+  IsAOERangeChangeWithScaling: 0
+  IsVFXScaleChangeWithScaling: 0
+  IsGeneratedOnSpawnPoint: 0
   ProjectileLaunchTiming: 0.12
   ReservedTime: 0.1
   Type: 3
@@ -34,6 +37,9 @@ MonoBehaviour:
   PreciselyBlockedFrame: 10
   IsAttackForward: 0
   IsAOEAttackTowardsCenter: 0
+  CanBeReflected: 1
+  CanReflectProjectile: 0
+  IsAttachedToPlayer: 0
   SpeedGraph:
     serializedVersion: 2
     m_Curve:

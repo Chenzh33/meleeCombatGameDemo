@@ -7,13 +7,14 @@ namespace meleeDemo {
     public class ProjectileObject : MonoBehaviour {
         public CharacterControl Owner;
         public AttackInfo ProjectileInfo;
-        private float Duration;
-        private float Speed;
-        private float CurrentTime;
-        private float CurrentTimeToDamage;
-        private float ProjectileScale;
-        private bool IsMoving;
-        private bool RangeChangeWithScaling;
+        public float Duration;
+        public float Speed;
+        public float CurrentTime;
+        public float CurrentTimeToDamage;
+        public float ProjectileScale;
+        public bool IsMoving;
+        public bool IsAOERangeChangeWithScaling;
+        public bool IsVFXScaleChangeWithScaling;
         private AnimationCurve SpeedGraph;
         private AnimationCurve ScaleGraph;
 
@@ -27,6 +28,8 @@ namespace meleeDemo {
             SpeedGraph = projectileInfo.ProjectileSkill.SpeedGraph;
             ScaleGraph = projectileInfo.ProjectileSkill.ScaleGraph;
             ProjectileScale = projectileInfo.ProjectileSkill.ProjectileScale;
+            IsAOERangeChangeWithScaling = projectileInfo.IsAOERangeChangeWithScaling;
+            IsVFXScaleChangeWithScaling = projectileInfo.IsVFXScaleChangeWithScaling;
 
         }
         void Start () {
@@ -34,13 +37,16 @@ namespace meleeDemo {
         }
 
         void Update () {
-            if (IsMoving && CurrentTime < Duration) {
+            if (IsMoving && !ProjectileInfo.IsFinished && CurrentTime < Duration) {
                 //Debug.DrawRay(transform.position, transform.forward, Color.red);
-                transform.Translate (transform.forward * Speed * SpeedGraph.Evaluate (CurrentTime / Duration) * Time.deltaTime, Space.World);
-                ParticleSystem[] pss = GetComponentsInChildren<ParticleSystem>();
-                foreach (ParticleSystem ps in pss)
-                {
-                    ps.gameObject.transform.localScale = Vector3.one * ScaleGraph.Evaluate(CurrentTime / Duration) * ProjectileScale;
+                if (Speed > 0f)
+                    transform.Translate (transform.forward * Speed * SpeedGraph.Evaluate (CurrentTime / Duration) * Time.deltaTime, Space.World);
+                ProjectileInfo.transform.localScale = Vector3.one * ScaleGraph.Evaluate (CurrentTime / Duration) * ProjectileScale;
+                if (IsVFXScaleChangeWithScaling) {
+                    ParticleSystem[] pss = GetComponentsInChildren<ParticleSystem> ();
+                    foreach (ParticleSystem ps in pss) {
+                        ps.gameObject.transform.localScale = Vector3.one * ScaleGraph.Evaluate (CurrentTime / Duration) * ProjectileScale;
+                    }
                 }
                 CurrentTime += Time.deltaTime;
                 CurrentTimeToDamage += Time.deltaTime;
@@ -50,35 +56,40 @@ namespace meleeDemo {
                     CurrentTimeToDamage = 0f;
                 }
             } else {
-                ProjectileInfo.IsFinished = true;
-                ProjectileInfo.IsRegistered = false;
+                Dead ();
                 if (AttackManager.Instance.CurrentAttackInfo.Contains (ProjectileInfo)) {
                     AttackManager.Instance.CurrentAttackInfo.Remove (ProjectileInfo);
-                    PoolObject pobj = ProjectileInfo.GetComponent<PoolObject> ();
-                    PoolManager.Instance.ReturnToPool (pobj);
+                    PoolObject infoObj = ProjectileInfo.GetComponent<PoolObject> ();
+                    PoolManager.Instance.ReturnToPool (infoObj);
                     ProjectileInfo.Clear ();
                 }
-                Dead ();
             }
         }
 
         public void Dead () {
+            ProjectileInfo.IsFinished = true;
+            ProjectileInfo.IsRegistered = false;
+
             IsMoving = false;
             /*
             if (Owner.ProjectileObjs.Contains (this))
                 Owner.ProjectileObjs.Remove (this);
                 */
+
             PoolObject pobj = gameObject.GetComponent<PoolObject> ();
             PoolManager.Instance.ReturnToPool (pobj);
+
         }
 
-        public float GetCurrentScale()
-        {
-            ParticleSystem[] pss = GetComponentsInChildren<ParticleSystem>();
+        public float GetCurrentScale () {
+            return ProjectileInfo.transform.localScale.x;
+            /*
+            ParticleSystem[] pss = GetComponentsInChildren<ParticleSystem> ();
             if (pss != null)
                 return pss[0].gameObject.transform.localScale.x;
             else
                 return 0f;
+                */
         }
     }
 }

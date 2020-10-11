@@ -13,7 +13,10 @@ namespace meleeDemo {
         public bool IsAOEAttackTowardsCenter;
         public bool IsAOEAttackAttachToPlayer;
         public bool IsLethalToStunnedEnemy;
-        public bool IsRangeChangeWithScaling;
+        public bool IsAOERangeChangeWithScaling;
+        public bool IsVFXScaleChangeWithScaling;
+        public bool CanBeReflected;
+        public bool CanReflectProjectile;
         public int CurrentTargetNum;
         public int MaxTargetNum;
         public CharacterControl Attacker;
@@ -65,12 +68,15 @@ namespace meleeDemo {
                 DamageInterval = attackSkill.DamageInterval;
                 PreciselyBlockedFrame = attackSkill.PreciselyBlockedFrame;
                 FreezeFrames = attackSkill.FreezeFrames;
+                CanBeReflected = attackSkill.CanBeReflected;
+                CanReflectProjectile = attackSkill.CanReflectProjectile;
                 //AOEAttackCenterOffset = attackSkill.AOEAttackCenterOffset;
                 //AttackCenter = Attacker.CharacterData.AOEAttackCenter;
             } else {
                 IsAttackForward = projectileSkill.IsAttackForward;
                 IsAOEAttackTowardsCenter = projectileSkill.IsAOEAttackTowardsCenter;
-                IsRangeChangeWithScaling = projectileSkill.IsRangeChangeWithScaling;
+                IsAOERangeChangeWithScaling = projectileSkill.IsAOERangeChangeWithScaling;
+                IsVFXScaleChangeWithScaling = projectileSkill.IsVFXScaleChangeWithScaling;
                 Type = projectileSkill.Type;
                 MaxTargetNum = projectileSkill.MaxTargetNum;
                 Range = projectileSkill.Range;
@@ -83,6 +89,8 @@ namespace meleeDemo {
                 DamageInterval = projectileSkill.DamageInterval;
                 PreciselyBlockedFrame = projectileSkill.PreciselyBlockedFrame;
                 ProjType = projectileSkill.ProjType;
+                CanBeReflected = projectileSkill.CanBeReflected;
+                CanReflectProjectile = projectileSkill.CanReflectProjectile;
             }
         }
 
@@ -131,11 +139,12 @@ namespace meleeDemo {
                     obj.SetActive (true);
                     obj.transform.position = this.gameObject.transform.position;
                     //obj.transform.parent = this.gameObject.transform;
-                    ParticleSystem[] pss = obj.GetComponentsInChildren<ParticleSystem> ();
-                    foreach(ParticleSystem ps in pss)
-                    {
-                        ps.gameObject.transform.localScale = Vector3.one * VFXScale;
-                        ps.Play(true);
+                    if (IsVFXScaleChangeWithScaling) {
+                        ParticleSystem[] pss = obj.GetComponentsInChildren<ParticleSystem> ();
+                        foreach (ParticleSystem ps in pss) {
+                            ps.gameObject.transform.localScale = Vector3.one * VFXScale;
+                            ps.Play (true);
+                        }
                     }
                     VFXObj = obj.GetComponent<PoolObject> ();
                     VFXObj.WaitAndDestroy (1f);

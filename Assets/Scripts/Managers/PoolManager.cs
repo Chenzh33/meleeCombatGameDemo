@@ -110,6 +110,11 @@ namespace meleeDemo {
                         obj = Instantiate (Resources.Load ("ChargedAttackHoldProjectilePrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
+                case PoolObjectType.ProjectileChargedGuard:
+                    {
+                        obj = Instantiate (Resources.Load ("ChargedGuardProjectilePrefab", typeof (GameObject)) as GameObject);
+                        break;
+                    }
             }
             return obj;
 
