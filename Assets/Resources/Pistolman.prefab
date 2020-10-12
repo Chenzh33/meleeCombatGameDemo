@@ -527,7 +527,7 @@ MonoBehaviour:
     TargetGroupWeight: 0.4
     TargetGroupRadius: 1
     CurrentDisplacementSpeed: 0
-    DodgeCoolDown: 5
+    DodgeCoolDown: 7
     DamageMultiplier: 1
     IsRagdollOn: 0
     IsColliderOff: 0
@@ -1606,7 +1606,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e526fdcdcd28af24198496ecd1335117, type: 2}
+  - {fileID: 2100000, guid: 07da8de3f58161e45bd34016bed5e58a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -18,25 +18,39 @@ tree("Confrontation")
 			sequence
 				CheckInIdleState 
 				DodgeNotInCooldown
-				IsTargetInRange(3.5)
+				not IsTargetInRange(2.0)
+				IsTargetInRange(4.0)
 				CheckAITransitionInRange(0.0, 0.6)
+				Wait(0.2)
 				tree("WithdrawShoot")
 			sequence
 				CheckInIdleState 
-				IsTargetInRange(2.0)
-				CheckAITransitionInRange(0.0, 0.8)
+				IsTargetInRange(2.5)
+				CheckAITransitionInRange(0.0, 0.6)
 				tree("AttackMelee")
 			sequence
 				CheckInIdleState 
-				CheckAITransitionInRange(0.0, 0.3)
+				IsTargetInRange(4.0)
+				not IsTargetInRange(1.5)
+				CheckAITransitionInRange(0.0, 0.65)
+				tree("OrbitalDodge")
+			sequence
+				CheckInIdleState 
+				not IsTargetInRange(2.5)
+				CheckAITransitionInRange(0.0, 0.25)
+				Wait(0.4)
 				tree("Fire")
 			sequence
 				CheckAITransitionInRange(0.0, 0.85)
 				tree("Surrounding")
 			sequence
+				IsTargetInRange(5.0)
 				StopMove
 				ResetAITransition
-				Wait(0.5)
+				Wait(0.7)
+			sequence
+				ResetAITransition
+				Wait(0.7)
 						
 				
 				
@@ -56,7 +70,7 @@ tree("Surrounding")
 		SetInCrowd(true)
 		ResetAITransition
 		BeginMove	
-		Wait(1.5)
+		Wait(1.0)
 		StopMove
 	
 
@@ -68,6 +82,20 @@ tree("AttackMelee")
 		AttackCommandInput
 		Wait(0.20)
 		AttackCommandCancel
+
+tree("OrbitalDodge")
+	sequence
+		Wait(0.10)
+		StopMove
+		SetInputVectorToFaceTarget 
+		RandomOrbitalDodge
+		ResetAITransition
+		Wait(0.60)
+		GenerateAITransition	
+		sequence
+			CheckAITransitionInRange(0.0, 0.5)
+			tree("Fire")
+		ResetAITransition
 
 tree("WithdrawShoot")
 	sequence

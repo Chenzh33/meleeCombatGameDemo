@@ -29,6 +29,7 @@ namespace meleeDemo {
                 //AI.ResetInputVector ();
                 return;
             }
+            AI.pathFindingAgent.GoToTarget();
 
             if (AlwaysFaceTarget) {
                 Vector3 direction = AI.enemyTarget.gameObject.transform.position - AI.gameObject.transform.position;

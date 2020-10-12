@@ -28,10 +28,14 @@ tree("Confrontation")
 				tree("Fire")
 			
 			sequence
-				CheckAITransitionInRange(0.0, 0.90)
+				CheckAITransitionInRange(0.0, 0.80)
 				tree("Surrounding")
 			sequence
+				not IsTargetInRange(5.0)
 				StopMove
+				ResetAITransition
+				Wait(0.8)
+			sequence
 				ResetAITransition
 				Wait(0.8)
 				

@@ -32,7 +32,7 @@ MonoBehaviour:
   DamageInterval: 0.5
   KnockbackForce: 10
   KnockbackTime: 0.15
-  HitReactDuration: 0.3
+  HitReactDuration: 0.4
   Stun: 3
   ProjectileScale: 1
   PreciselyBlockedFrame: 10

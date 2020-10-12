@@ -144,6 +144,18 @@ namespace meleeDemo {
         }
 
         [Task]
+        public void RandomOrbitalDodge()
+        {
+            int dir = Random.Range(0, 2);
+            if (dir == 0)
+                animator.Play("DodgeLeft");
+            else
+                animator.Play("DodgeRight");
+            Task.current.Succeed();
+
+        }
+
+        [Task]
         public void SetInCrowd(bool inCrowd)
         {
             IsInCrowd = inCrowd;
