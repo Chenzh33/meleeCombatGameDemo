@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnergyTaken: 0
   ProjectileLifeTime: 1
-  ProjectileSpeed: 45
+  ProjectileSpeed: 50
   ProjectileTileAngle: 0
   ProjectileTileAngleNoise: 0
+  DirectionOffset: 0
   NotNeedCharge: 1
   IsAOERangeChangeWithScaling: 0
   IsVFXScaleChangeWithScaling: 0
@@ -27,12 +28,12 @@ MonoBehaviour:
   ProjType: 1
   MaxTargetNum: 10
   Range: 0.7
-  Damage: 2
+  Damage: 3
   DamageInterval: 0.5
   KnockbackForce: 24
   KnockbackTime: 0.15
   HitReactDuration: 0.4
-  Stun: 5
+  Stun: 8
   ProjectileScale: 1
   PreciselyBlockedFrame: 10
   IsAttackForward: 0

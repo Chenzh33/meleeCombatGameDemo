@@ -670,6 +670,8 @@ MonoBehaviour:
   ProbAttack: 0
   ProbFire: 0.35
   ProbDodge: 1
+  AITransition: 0
+  IsInCrowd: 0
   inputVectorIncremental: {x: 0, y: 0}
 --- !u!114 &-4235130198263152179
 MonoBehaviour:

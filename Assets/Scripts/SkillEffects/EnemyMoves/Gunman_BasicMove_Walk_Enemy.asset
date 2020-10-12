@@ -45,7 +45,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 3
+  speed: 2.5
   smooth: 4
   MoveUnderControl: 1
   ConsiderMomentum: 0
@@ -54,49 +54,30 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 0.011007482
-      outSlope: 0.011007482
-      tangentMode: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.5535196
-    - serializedVersion: 3
-      time: 0.148
-      value: 0
-      inSlope: 0.00033615358
-      outSlope: 0.00033615358
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 1
-    - serializedVersion: 3
-      time: 0.14864329
-      value: 0.68547475
-      inSlope: -0.045262277
-      outSlope: -0.045262277
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.4773823
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.4
-      value: 0
-      inSlope: 0.000005814884
-      outSlope: 0.000005814884
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.21610178
-      outWeight: 0.33333334
+      outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: 0.026279757
-      outSlope: 0.026279757
-      tangentMode: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.2984935
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  MoveY: 0
+  speedY: 6
+  YSpeedGraph:
+    serializedVersion: 2
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

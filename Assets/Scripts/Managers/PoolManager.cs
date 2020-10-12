@@ -60,9 +60,9 @@ namespace meleeDemo {
                         obj = Instantiate (Resources.Load ("ChargedAttackProjectilePrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
-                case PoolObjectType.ProjectileBullet:
+                case PoolObjectType.ProjectileBulletRifle:
                     {
-                        obj = Instantiate (Resources.Load ("BulletProjectilePrefab", typeof (GameObject)) as GameObject);
+                        obj = Instantiate (Resources.Load ("RifleBulletProjectilePrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
                 case PoolObjectType.ButtonSmasher:
@@ -113,6 +113,11 @@ namespace meleeDemo {
                 case PoolObjectType.ProjectileChargedGuard:
                     {
                         obj = Instantiate (Resources.Load ("ChargedGuardProjectilePrefab", typeof (GameObject)) as GameObject);
+                        break;
+                    }
+                case PoolObjectType.ProjectileBulletPistol:
+                    {
+                        obj = Instantiate (Resources.Load ("PistolBulletProjectilePrefab", typeof (GameObject)) as GameObject);
                         break;
                     }
             }

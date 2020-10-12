@@ -9,6 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afbc9f369850a4948aeefe912c14f2df, type: 3}
-  m_Name: IdleState
+  m_Script: {fileID: 11500000, guid: 20e7ea9af430c114a842301838b672a1, type: 3}
+  m_Name: Gunman_Walk_AIMovement
   m_EditorClassIdentifier: 
+  UseCrowdMethod: 1
+  AlwaysFaceTarget: 1
+  AvoidanceRadius: 5
+  AvoidanceForce: 2
+  KeepoutRadius: 8
+  KeepoutForce: 4
+  Smooth: 5

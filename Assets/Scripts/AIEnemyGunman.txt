@@ -12,50 +12,66 @@ tree("BeAlive")
 tree("Confrontation")
 	sequence
 		HasTarget
+		IsTargetInRange(12.0)
+		GenerateAITransition	
 		fallback
-			while 
-				sequence
-					IsTargetInAttackRange 
-					not IsTargetInCloseRange 
-				race	
-					sequence
-						//not IsTargetInCloseRange 
-						//StopMove
-						WaitRandom(0.2,0.5)
-						tree("FireAndMove")
-					ChaseTarget
-					
 			sequence
-				IsTargetInCloseRange 
-				WaitRandom(0.2,0.5)
+				CheckInIdleState 
+				DodgeNotInCooldown
+				IsTargetInRange(4.0)
+				CheckAITransitionInRange(0.0, 0.9)
 				tree("RunAway")
-						
+			sequence
+				CheckInIdleState 
+				IsTargetInRange(12.0)
+				CheckAITransitionInRange(0.0, 0.2)
+				tree("Fire")
+			
+			sequence
+				CheckAITransitionInRange(0.0, 0.90)
+				tree("Surrounding")
+			sequence
+				StopMove
+				ResetAITransition
+				Wait(0.8)
 				
-			while not IsTargetInAttackRange
-				sequence
-					Wait(2.0)
-					Fail
-				
-
 
 tree("ChaseEnemy")
-	while 
-		sequence
-			HasTarget
+	sequence
+		HasTarget
+		not IsTargetInRange(12.0)
+		SetInCrowd(false)
+		KeepMove(8.0)
 			
-		parallel
-			fallback
-				while not IsTargetInAttackRange 
-					ChaseTarget
-				sequence 
-					IsTargetInAttackRange
-					Fail
-					
-			while not IsTargetVisible
-				sequence
-					Wait(5.0)
-					ClearTarget
-					Fail
+
+tree("Surrounding")
+	sequence
+		IsTargetInRange(12.0)
+		SetInCrowd(true)
+		ResetAITransition
+		BeginMove	
+		Wait(1.0)
+		StopMove
+	
+
+tree("RunAway")
+	sequence
+		StopMove
+		SetInputVectorBackToTarget 
+		ResetAITransition
+		DodgeCommandInput
+		Wait(0.20)
+		DodgeCommandCancel
+
+tree("Fire")
+	sequence
+		StopMove
+		//WaitRandom(0.2, 0.4)
+		SetInputVectorToFaceTarget 
+		ResetAITransition
+		FireCommandInput
+		Wait(0.20)
+		FireCommandCancel
 
 
 tree("Idle")
@@ -66,21 +82,6 @@ tree("Idle")
 
 		repeat
 			Wait(1.0)
-
-
-tree("FireAndMove")
-	sequence
-		StopMove
-		WaitRandom(0.2, 0.4)
-		RandomFire
-		Wait(0.10)
-		FireCommandCancel
-
-tree("RunAway")
-	sequence
-		RandomDodge
-		Wait(0.10)
-		DodgeCommandCancel
 
 
 tree("Die")

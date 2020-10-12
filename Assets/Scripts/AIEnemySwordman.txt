@@ -5,64 +5,57 @@ tree("Root")
 
 tree("BeAlive")
 	fallback
-		tree("WalkAndAttack")
+		tree("Confrontation")
 		tree("ChaseEnemy")
 		tree("Idle")
 
-tree("WalkAndAttack")
-	while
-		sequence
-			HasTarget
-			not IsRunning
-			
+tree("Confrontation")
+	sequence
+		HasTarget
+		IsTargetInRange(9.0)
+		GenerateAITransition	
+		RunToWalk
 		fallback
-			while
-				sequence
-					not IsTargetInAttackRange 
-					not IsTargetOutWalkRange
-				race
-					sequence
-						RunToWalk
-						ChaseTarget
-					sequence
-						WaitRandom(2.0,3.0)
-						//StopMove
-						tree("Execute")
-					
 			sequence
-				IsTargetInAttackRange 
-				//StopMove
-				Wait(0.2)
+				CheckInIdleState 
+				IsTargetInRange(5.0)
+				CheckAITransitionInRange(0.0, 0.5)
+				tree("Execute")
+			sequence
+				CheckInIdleState 
+				IsTargetInRange(2.0)
+				CheckAITransitionInRange(0.0, 0.7)
 				tree("Attack")
 			sequence
-				IsTargetOutWalkRange 
-				WalkToRun
-				Fail
+				CheckAITransitionInRange(0.0, 0.85)
+				tree("Surrounding")
+			sequence
+				StopMove
+				ResetAITransition
+				Wait(0.5)
+						
+				
 				
 
 
 tree("ChaseEnemy")
-	while 
-		sequence
-			HasTarget
-			IsRunning
+	sequence
+		HasTarget
+		not IsTargetInRange(9.0)
+		WalkToRun
+		SetInCrowd(false)
+		KeepMove(5.0)
 			
-		parallel
-			fallback
-				while not IsTargetInWalkRange
-					sequence 
-						WalkToRun
-						ChaseTarget
-				sequence 
-					IsTargetInWalkRange
-					RunToWalk
-					Fail
-					
-			while not IsTargetVisible
-				sequence
-					Wait(3.0)
-					ClearTarget
-					Fail
+
+tree("Surrounding")
+	sequence
+		IsTargetInRange(9.0)
+		SetInCrowd(true)
+		ResetAITransition
+		BeginMove	
+		Wait(1.0)
+		StopMove
+	
 
 
 tree("Idle")
@@ -73,23 +66,25 @@ tree("Idle")
 
 		repeat
 			Wait(1.0)
-			//WaitRandom(0.5, 2.0)
 
 
 tree("Attack")
 	sequence
+		StopMove
 		WaitRandom(0.2, 0.4)
-		//StopMove
-		//AttackCommandInput
-		RandomAttack
-		Wait(0.10)
+		SetInputVectorToFaceTarget 
+		ResetAITransition
+		AttackCommandInput
+		Wait(0.20)
 		AttackCommandCancel
 
 tree("Execute")
 	sequence
-		RandomExecute
-		//ExecuteCommandInput
-		Wait(0.10)
+		StopMove
+		SetInputVectorToFaceTarget 
+		ResetAITransition
+		ExecuteCommandInput
+		Wait(0.20)
 		ExecuteCommandCancel
 
 

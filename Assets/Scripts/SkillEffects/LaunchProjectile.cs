@@ -12,6 +12,7 @@ namespace meleeDemo {
         public float ProjectileSpeed = 10f;
         public float ProjectileTileAngle = 30f;
         public float ProjectileTileAngleNoise = 15f;
+        public float DirectionOffset = 0f;
         public bool NotNeedCharge;
         public bool IsAOERangeChangeWithScaling;
         public bool IsVFXScaleChangeWithScaling;
@@ -93,7 +94,10 @@ namespace meleeDemo {
                             spawnPoint.y = 0f;
                         }
                         //Launch (info, stateEffect.CharacterControl, spawnPoint, stateEffect.CharacterControl.FaceTarget);
-                        Launch (info, stateEffect.CharacterControl, spawnPoint, animator.transform.root.forward);
+                        Vector3 dir = animator.transform.root.forward;
+                        if (DirectionOffset != 0f)
+                            dir = Quaternion.Euler (0f, DirectionOffset, 0f) * dir;
+                        Launch (info, stateEffect.CharacterControl, spawnPoint, dir);
 
                         info.Register ();
                         //Debug.Log ("register projectile : " + stateInfo.normalizedTime.ToString ());
@@ -131,14 +135,17 @@ namespace meleeDemo {
                 case ProjectileType.ChargedAttack:
                     obj = PoolManager.Instance.GetObject (PoolObjectType.ProjectileChargedAttack);
                     break;
-                case ProjectileType.Bullet:
-                    obj = PoolManager.Instance.GetObject (PoolObjectType.ProjectileBullet);
+                case ProjectileType.RifleBullet:
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.ProjectileBulletRifle);
                     break;
                 case ProjectileType.ChargedAttackHold:
                     obj = PoolManager.Instance.GetObject (PoolObjectType.ProjectileChargedAttackHold);
                     break;
                 case ProjectileType.ChargedGuard:
                     obj = PoolManager.Instance.GetObject (PoolObjectType.ProjectileChargedGuard);
+                    break;
+                case ProjectileType.PistolBullet:
+                    obj = PoolManager.Instance.GetObject (PoolObjectType.ProjectileBulletPistol);
                     break;
             }
             ProjectileVFX projectileVFX = obj.GetComponentInChildren<ProjectileVFX> ();

@@ -7,7 +7,7 @@ namespace meleeDemo {
     public class AIAgentManager : Singleton<AIAgentManager> {
 
         public List<AIProgress> TotalAIAgent = new List<AIProgress> ();
-        public List<AIProgress> CurrentSwarmAgent = new List<AIProgress> ();
+        public List<AIProgress> CurrentAgentCrowd = new List<AIProgress> ();
 
         public override void Init () {
             AIProgress[] allAIAgent = FindObjectsOfType (typeof (AIProgress)) as AIProgress[];

@@ -13,12 +13,15 @@ namespace meleeDemo {
         public float Smooth = 5.0f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
+            /*
             AIProgress ai = stateEffect.CharacterControl.AIProgress;
             if (!AIAgentManager.Instance.CurrentSwarmAgent.Contains (ai))
                 AIAgentManager.Instance.CurrentSwarmAgent.Add (ai);
+                */
 
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
+            /*
             AIProgress ai = stateEffect.CharacterControl.AIProgress;
             if (!ai.enabled)
                 return;
@@ -63,12 +66,15 @@ namespace meleeDemo {
             ai.inputVectorIncremental += avoidanceVector;
             ai.inputVectorIncremental += keepoutVector;
 
+                */
         }
         public override void OnExit (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
+            /*
             AIProgress ai = stateEffect.CharacterControl.AIProgress;
             if (AIAgentManager.Instance.CurrentSwarmAgent.Contains (ai))
                 AIAgentManager.Instance.CurrentSwarmAgent.Remove(ai);
             ai.inputVectorIncremental = new Vector2();
+                */
         }
 
     }

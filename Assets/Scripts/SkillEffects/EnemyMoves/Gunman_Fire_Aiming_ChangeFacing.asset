@@ -20,7 +20,7 @@ MonoBehaviour:
   AutoFaceTiming: 0
   AutoFaceDuration: 1
   CaptureDistanceFar: 12
-  CaptureAngleRangeFar: 45
+  CaptureAngleRangeFar: 90
   CaptureRadiusNear: 2.5
   CaptureCenterOffsetNear: 0.5
   smoothEarlyTurn: 20

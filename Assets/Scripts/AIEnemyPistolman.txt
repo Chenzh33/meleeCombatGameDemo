@@ -1,0 +1,101 @@
+tree("Root")
+	parallel
+		repeat mute tree("BeAlive")
+		repeat mute tree("Die")
+
+tree("BeAlive")
+	fallback
+		tree("Confrontation")
+		tree("ChaseEnemy")
+		tree("Idle")
+
+tree("Confrontation")
+	sequence
+		HasTarget
+		IsTargetInRange(8.0)
+		GenerateAITransition	
+		fallback
+			sequence
+				CheckInIdleState 
+				DodgeNotInCooldown
+				IsTargetInRange(3.5)
+				CheckAITransitionInRange(0.0, 0.6)
+				tree("WithdrawShoot")
+			sequence
+				CheckInIdleState 
+				IsTargetInRange(2.0)
+				CheckAITransitionInRange(0.0, 0.8)
+				tree("AttackMelee")
+			sequence
+				CheckInIdleState 
+				CheckAITransitionInRange(0.0, 0.3)
+				tree("Fire")
+			sequence
+				CheckAITransitionInRange(0.0, 0.85)
+				tree("Surrounding")
+			sequence
+				StopMove
+				ResetAITransition
+				Wait(0.5)
+						
+				
+				
+
+
+tree("ChaseEnemy")
+	sequence
+		HasTarget
+		not IsTargetInRange(8.0)
+		SetInCrowd(false)
+		KeepMove(6.0)
+			
+
+tree("Surrounding")
+	sequence
+		IsTargetInRange(8.0)
+		SetInCrowd(true)
+		ResetAITransition
+		BeginMove	
+		Wait(1.5)
+		StopMove
+	
+
+tree("AttackMelee")
+	sequence
+		StopMove
+		SetInputVectorToFaceTarget 
+		ResetAITransition
+		AttackCommandInput
+		Wait(0.20)
+		AttackCommandCancel
+
+tree("WithdrawShoot")
+	sequence
+		StopMove
+		SetInputVectorToFaceTarget 
+		ResetAITransition
+		DodgeCommandInput
+		Wait(0.20)
+		DodgeCommandCancel
+
+tree("Fire")
+	sequence
+		StopMove
+		SetInputVectorToFaceTarget 
+		ResetAITransition
+		FireCommandInput
+		Wait(0.20)
+		FireCommandCancel
+
+tree("Idle")
+	while
+		sequence
+			not HasTarget
+			not FindTarget
+
+		repeat
+			Wait(1.0)
+
+
+tree("Die")
+	IsDead

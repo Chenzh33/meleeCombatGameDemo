@@ -662,6 +662,8 @@ namespace meleeDemo {
              */
 
             if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Move") ||
+                animator.GetCurrentAnimatorStateInfo (0).IsName ("Walk") ||
+                animator.GetCurrentAnimatorStateInfo (0).IsName ("Run") ||
                 animator.GetCurrentAnimatorStateInfo (0).IsName ("Idle"))
                 animator.SetBool (TransitionParameter.IdleState.ToString (), true);
             else

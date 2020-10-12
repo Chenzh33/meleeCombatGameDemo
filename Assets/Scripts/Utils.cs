@@ -48,11 +48,12 @@ namespace meleeDemo {
         CameraShaker,
         VFXSlam,
         VFXAttackHold,
-        ProjectileBullet,
+        ProjectileBulletRifle,
         Shadow,
         VFXChargedSlam,
         ProjectileChargedAttackHold,
-        ProjectileChargedGuard
+        ProjectileChargedGuard,
+        ProjectileBulletPistol
     }
     public enum TeamTag {
         Player,
@@ -69,9 +70,10 @@ namespace meleeDemo {
     }
     public enum ProjectileType {
         ChargedAttack,
-        Bullet,
+        RifleBullet,
         ChargedAttackHold,
-        ChargedGuard
+        ChargedGuard,
+        PistolBullet,
 
     }
     public enum BarImageType {
