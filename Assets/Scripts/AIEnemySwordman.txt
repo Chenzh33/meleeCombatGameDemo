@@ -23,44 +23,72 @@ tree("Confrontation")
 			sequence
 				CheckInIdleState 
 				not IsTargetInRange(2.0)
-				CheckAITransitionInRange(0.0, 0.2)
+				CheckAITransitionInRange(0.0, 0.15)
 				tree("Execute")
 			sequence
+				CheckInIdleState 
 				CheckAITransitionInRange(0.0, 0.75)
 				tree("Surrounding")
 			sequence
+				CheckInIdleState 
 				IsTargetInRange(5.0)
-				StopMove
 				ResetAITransition
-				Wait(0.5)
+				Random
+					sequence
+						Wait(0.6)
+						StopMove
+						Wait(0.4)
+					sequence
+						Wait(0.2)
+						StopMove
+						Wait(0.8)
 			sequence
 				ResetAITransition
-				Wait(0.5)
+				Wait(1.0)
 						
 				
 				
 
 
+//tree("ChaseEnemy")
+	//sequence
+		//HasTarget
+		//not IsTargetInRange(6.0)
+		//GenerateAITransition	
+		//race	
+			//sequence
+				//CheckAITransitionInRange(0.0, 0.8)
+				//WalkToRun
+				//SetInCrowd(false)
+				//BeginMove	
+				//Wait(1.5)
+				//ResetAITransition
+			//sequence
+				//Wait(1.0)
+				//CheckInIdleState 
+				//not IsTargetInRange(2.0)
+				//CheckAITransitionInRange(0.0, 0.2)
+				//ResetAITransition
+				//tree("Execute")
+				
 tree("ChaseEnemy")
 	sequence
 		HasTarget
 		not IsTargetInRange(6.0)
-		GenerateAITransition	
-		race	
+		parallel
 			sequence
-				CheckAITransitionInRange(0.0, 0.8)
 				WalkToRun
 				SetInCrowd(false)
-				BeginMove	
-				Wait(1.5)
-				ResetAITransition
+				KeepMove(3.0)
 			sequence
 				Wait(1.0)
 				CheckInIdleState 
 				not IsTargetInRange(2.0)
-				CheckAITransitionInRange(0.0, 0.2)
+				GenerateAITransition	
+				CheckAITransitionInRange(0.0, 0.1)
 				ResetAITransition
 				tree("Execute")
+				Succeed
 			
 
 tree("Surrounding")
@@ -71,7 +99,7 @@ tree("Surrounding")
 		ResetAITransition
 		BeginMove	
 		Wait(1.0)
-		StopMove
+		//StopMove
 	
 
 
