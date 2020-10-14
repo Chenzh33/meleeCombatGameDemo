@@ -19,9 +19,9 @@ MonoBehaviour:
   Range: 2
   Damage: 2.5
   DamageInterval: 1
-  KnockbackForce: 25
+  KnockbackForce: 20
   KnockbackTime: 0.15
-  HitReactDuration: 0.3
+  HitReactDuration: 0.5
   Stun: 1
   IsAttackForward: 0
   IsAOEAttackTowardsCenter: 0

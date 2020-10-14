@@ -282,6 +282,14 @@ namespace meleeDemo {
                         info.Attacker.Animator.Play ("GetCountered");
                         info.Attacker.TakeKnockback ((-30f) * hitVector, 0.1f);
                         info.Attacker.TakeStun (5f, 1.0f, null);
+                        info.Attacker.CharacterData.GetHitTime = 0.7f;
+                        /*
+                        AIProgress AI = info.Attacker.GetComponent<AIProgress>();
+                        if(AI != null)
+                        {
+                            AI.ForceEndCurrentTask();
+                        }
+                        */
                     }
                 }
                 if (info.ProjectileSkill != null) {

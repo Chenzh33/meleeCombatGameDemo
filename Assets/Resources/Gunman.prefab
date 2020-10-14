@@ -542,7 +542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleSystemTrail: {fileID: 0}
   particleSystemHold: {fileID: 0}
-  isPlayerControl: 1
+  isPlayerControl: 0
   RagdollParts: []
   AttackingParts: []
   AttackPoint: {fileID: 0}

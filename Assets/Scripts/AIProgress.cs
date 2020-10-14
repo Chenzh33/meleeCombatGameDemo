@@ -107,6 +107,11 @@ namespace meleeDemo {
         }
 
         [Task]
+        public void ForceEndCurrentTask() {
+            Task.current.Fail();
+        }
+
+        [Task]
         public bool HasTarget () {
             return (enemyTarget != null);
         }
@@ -142,6 +147,31 @@ namespace meleeDemo {
                 task.Succeed ();
             }
         }
+
+        [Task]
+        public void WaitForTransition (int index) {
+            var task = Task.current;
+            if (!task.isStarting && animator.GetInteger(TransitionParameter.TransitionIndexer.ToString()) == index) {
+                task.Succeed ();
+            }
+            if (!task.isStarting && aiUnit.CharacterData.GetHitTime > 0f)
+            {
+                task.Fail();
+            }
+        }
+
+        [Task]
+        public void WaitForTransitionNotLessThan (int index) {
+            var task = Task.current;
+            if (!task.isStarting && animator.GetInteger(TransitionParameter.TransitionIndexer.ToString()) >= index) {
+                task.Succeed ();
+            }
+            if (!task.isStarting && aiUnit.CharacterData.GetHitTime > 0f)
+            {
+                task.Fail();
+            }
+        }
+
 
         [Task]
         public void RandomOrbitalDodge () {

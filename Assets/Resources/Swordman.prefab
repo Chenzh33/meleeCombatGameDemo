@@ -413,7 +413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1150906012402949295
 Transform:
   m_ObjectHideFlags: 0
@@ -509,10 +509,10 @@ MonoBehaviour:
   data:
     HP: 30
     MaxHP: 30
-    Armour: 10
-    MaxArmour: 10
-    ArmourRegenerationInStun: 2
-    ArmourRegeneration: 1
+    Armour: 13
+    MaxArmour: 13
+    ArmourRegenerationInStun: 2.5
+    ArmourRegeneration: 1.3
     ArmourRegenerationDelay: 5
     Energy: 0
     MaxEnergy: 0

@@ -413,7 +413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1150906012402949295
 Transform:
   m_ObjectHideFlags: 0
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleSystemTrail: {fileID: 0}
   particleSystemHold: {fileID: 0}
-  isPlayerControl: 1
+  isPlayerControl: 0
   RagdollParts: []
   AttackingParts: []
   AttackPoint: {fileID: 0}
@@ -512,7 +512,7 @@ MonoBehaviour:
     Armour: 6
     MaxArmour: 6
     ArmourRegenerationInStun: 1.5
-    ArmourRegeneration: 2
+    ArmourRegeneration: 3
     ArmourRegenerationDelay: 3
     Energy: 0
     MaxEnergy: 0

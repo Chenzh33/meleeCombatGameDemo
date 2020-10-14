@@ -507,13 +507,13 @@ MonoBehaviour:
   CommandDodgeHoldFrame: 0
   InputAxisHoldFrame: 0
   data:
-    HP: 30
-    MaxHP: 30
+    HP: 25
+    MaxHP: 25
     Armour: 10
     MaxArmour: 10
     ArmourRegenerationInStun: 2
     ArmourRegeneration: 1
-    ArmourRegenerationDelay: 5
+    ArmourRegenerationDelay: 3
     Energy: 0
     MaxEnergy: 0
     EnergyRegeneration: 0

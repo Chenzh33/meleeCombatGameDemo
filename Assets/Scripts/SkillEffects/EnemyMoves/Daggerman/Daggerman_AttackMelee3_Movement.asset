@@ -63,7 +63,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 5
+  speed: 7
   smooth: 5
   MoveUnderControl: 0
   ConsiderMomentum: 0

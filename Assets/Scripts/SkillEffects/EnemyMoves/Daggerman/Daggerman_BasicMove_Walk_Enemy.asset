@@ -46,7 +46,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   speed: 3
-  smooth: 4
+  smooth: 6
   MoveUnderControl: 1
   ConsiderMomentum: 0
   extraSpeedGraph:
