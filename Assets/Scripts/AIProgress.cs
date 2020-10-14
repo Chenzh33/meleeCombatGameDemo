@@ -144,24 +144,37 @@ namespace meleeDemo {
         }
 
         [Task]
-        public void RandomOrbitalDodge()
-        {
-            int dir = Random.Range(0, 2);
+        public void RandomOrbitalDodge () {
+            int dir = Random.Range (0, 2);
             if (dir == 0)
-                animator.Play("DodgeLeft");
+                animator.Play ("DodgeLeft");
             else
-                animator.Play("DodgeRight");
-            Task.current.Succeed();
+                animator.Play ("DodgeRight");
+            Task.current.Succeed ();
 
         }
 
         [Task]
-        public void SetInCrowd(bool inCrowd)
-        {
-            IsInCrowd = inCrowd;
-            Task.current.Succeed();
+        public void DodgeFront () {
+            animator.Play ("DodgeFront");
+            Task.current.Succeed ();
 
         }
+
+        [Task]
+        public void DodgeBack() {
+            animator.Play ("DodgeBack");
+            Task.current.Succeed ();
+
+        }
+
+        [Task]
+        public void SetInCrowd (bool inCrowd) {
+            IsInCrowd = inCrowd;
+            Task.current.Succeed ();
+
+        }
+
         [Task]
         public bool CheckAITransitionInRange (float x1, float x2) {
             if (AITransition > x1 && AITransition <= x2)
@@ -465,12 +478,13 @@ namespace meleeDemo {
             return true;
 
         }
+
         [Task]
-        public bool DodgeNotInCooldown()
-        {
-            return !animator.GetBool(TransitionParameter.ForbidDodge.ToString());
+        public bool DodgeNotInCooldown () {
+            return !animator.GetBool (TransitionParameter.ForbidDodge.ToString ());
 
         }
+
         [Task]
         public bool IsDead () {
             return aiUnit.CharacterData.IsDead;

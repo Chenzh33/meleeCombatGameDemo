@@ -1,0 +1,195 @@
+tree("Root")
+	parallel
+		repeat mute tree("BeAlive")
+		repeat mute tree("Die")
+
+tree("BeAlive")
+	fallback
+		tree("Confrontation")
+		tree("ChaseEnemy")
+		tree("Idle")
+
+tree("Confrontation")
+	sequence
+		HasTarget
+		IsTargetInRange(6.0)
+		GenerateAITransition	
+		fallback
+			sequence
+				CheckInIdleState 
+				IsTargetInRange(2.5)
+				CheckAITransitionInRange(0.0, 0.6)
+				tree("AttackMelee")
+			sequence
+				CheckInIdleState 
+				DodgeNotInCooldown
+				IsTargetInRange(3.0)
+				CheckAITransitionInRange(0.0, 0.4)
+				Wait(0.1)
+				tree("Roll")
+			sequence
+				CheckInIdleState 
+				//IsTargetInRange(4.0)
+				CheckAITransitionInRange(0.0, 0.65)
+				tree("Dodge")
+			sequence
+				CheckInIdleState 
+				not IsTargetInRange(3.0)
+				CheckAITransitionInRange(0.0, 0.25)
+				//Wait(0.4)
+				tree("Execute")
+			sequence
+				CheckAITransitionInRange(0.0, 0.75)
+				tree("Surrounding")
+			sequence
+				//IsTargetInRange(5.0)
+				StopMove
+				ResetAITransition
+				Wait(0.4)
+			sequence
+				ResetAITransition
+				Wait(0.4)
+						
+				
+				
+
+
+tree("ChaseEnemy")
+	sequence
+		HasTarget
+		not IsTargetInRange(6.0)
+		SetInCrowd(false)
+		KeepMove(4.0)
+			
+
+tree("Surrounding")
+	sequence
+		IsTargetInRange(6.0)
+		SetInCrowd(true)
+		ResetAITransition
+		BeginMove	
+		Wait(0.8)
+		StopMove
+		//Wait(0.5)
+	
+
+tree("Dodge")
+	sequence
+		//Wait(0.10)
+		StopMove
+		SetInputVectorToFaceTarget 
+		GenerateAITransition	
+		fallback
+			sequence
+				CheckAITransitionInRange(0.0, 0.7)
+				IsTargetInRange(2.5)
+				DodgeBack
+			sequence
+				CheckAITransitionInRange(0.0, 0.7)
+				IsTargetInRange(4.0)
+				not IsTargetInRange(2.0)
+				RandomOrbitalDodge
+			sequence
+				not IsTargetInRange(3.5)
+				DodgeFront
+			Fail
+		ResetAITransition
+		Wait(0.40)
+		GenerateAITransition	
+		fallback
+			sequence
+				CheckAITransitionInRange(0.0, 0.7)
+				not IsTargetInRange(4.0)
+				tree("Execute")
+			sequence
+				CheckAITransitionInRange(0.0, 0.5)
+				IsTargetInRange(3.0)
+				tree("AttackMelee")
+			ResetAITransition
+
+tree("Roll")
+	sequence
+		StopMove
+		SetInputVectorBackToTarget 
+		ResetAITransition
+		DodgeCommandInput
+		Wait(0.20)
+		DodgeCommandCancel
+		Wait(0.30)
+		GenerateAITransition	
+		fallback
+			sequence
+				CheckAITransitionInRange(0.0, 0.7)
+				not IsTargetInRange(3.0)
+				tree("Execute")
+			sequence
+				IsTargetInRange(3.0)
+				tree("AttackMelee")
+			ResetAITransition
+
+tree("AttackMelee")
+	sequence
+		StopMove
+		//WaitRandom(0.2, 0.4)
+		SetInputVectorToFaceTarget 
+		ResetAITransition
+		AttackCommandInput
+		Wait(0.20)
+		AttackCommandCancel
+		GenerateAITransition	
+		sequence
+			fallback
+				sequence
+					CheckAITransitionInRange(0.0, 0.7)
+					IsTargetInRange(4.0)
+				IsTargetInRange(2.5)
+			Wait(1.00)
+			SetInputVectorToFaceTarget 
+			AttackCommandInput
+			Wait(0.20)
+			AttackCommandCancel
+			GenerateAITransition	
+			sequence
+				fallback
+					sequence
+						CheckAITransitionInRange(0.0, 0.7)
+						IsTargetInRange(4.0)
+					IsTargetInRange(2.5)
+				Wait(0.60)
+				SetInputVectorToFaceTarget 
+				AttackCommandInput
+				Wait(0.20)
+				AttackCommandCancel
+			ResetAITransition
+		ResetAITransition
+
+
+tree("Execute")
+	sequence
+		StopMove
+		SetInputVectorToFaceTarget 
+		ResetAITransition
+		ExecuteCommandInput
+		Wait(0.20)
+		ExecuteCommandCancel
+		sequence
+			Wait(0.60)
+			IsTargetInRange(3.0)
+			SetInputVectorToFaceTarget 
+			ExecuteCommandInput
+			Wait(0.20)
+			ExecuteCommandCancel
+	
+
+tree("Idle")
+	while
+		sequence
+			not HasTarget
+			not FindTarget
+
+		repeat
+			Wait(1.0)
+
+
+tree("Die")
+	IsDead

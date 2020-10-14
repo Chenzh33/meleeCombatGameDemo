@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb28c08435cea64c812511c41772d7f, type: 3}
+  m_Name: Swordman_AttackHeavy_Finish_Movement
+  m_EditorClassIdentifier: 
+  speedGraph:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.072568506
+      outSlope: 0.072568506
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.21378025
+    - serializedVersion: 3
+      time: 0.08271863
+      value: 0.7807738
+      inSlope: -3.8127952
+      outSlope: -3.8127952
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.28905436
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.15
+      value: 0.1
+      inSlope: -0.007746959
+      outSlope: -0.007746959
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.725
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.1
+      inSlope: -0.07097629
+      outSlope: -0.07097629
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3
+      value: 0.6
+      inSlope: -0.04530549
+      outSlope: -0.04530549
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2500001
+      outWeight: 0.22857141
+    - serializedVersion: 3
+      time: 0.55
+      value: 0
+      inSlope: -0.035747726
+      outSlope: -0.035747726
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.23260933
+      outWeight: 0.53750026
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  speed: 8
+  smooth: 5
+  MoveUnderControl: 0
+  ConsiderMomentum: 0
+  extraSpeedGraph:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  MoveY: 0
+  speedY: 6
+  YSpeedGraph:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
