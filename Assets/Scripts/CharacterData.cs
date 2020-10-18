@@ -76,6 +76,7 @@ namespace meleeDemo {
         public int EffectShadow;
         public float GetHitTime;
         public int FirstFramesOfBlock;
+        public float BlockCount; 
 
         public List<PoolObject> VFXs;
 

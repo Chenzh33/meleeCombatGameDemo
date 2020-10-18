@@ -13,8 +13,16 @@ tree("Confrontation")
 	sequence
 		HasTarget
 		IsTargetInRange(7.0)
+		UpdateFearStateTask
 		GenerateAITransition	
 		fallback
+			sequence
+				CheckInIdleState 
+				DodgeNotInCooldown
+				CheckAITransitionInRange(0.0, 0.8)
+				IsTargetInRange(2.2)
+				CheckInFear
+				tree("BackRoll")
 			sequence
 				CheckInIdleState 
 				IsTargetInRange(2.2)
@@ -26,17 +34,26 @@ tree("Confrontation")
 				CheckAITransitionInRange(0.0, 0.4)
 				fallback
 					sequence
-						IsTargetInRange(2.5)
+						IsTargetInRange(2.2)
 						tree("BackRoll")
 					sequence
 						not IsTargetInRange(5.0)
+						not CheckInFear
 						tree("FrontRoll")
 					Fail
 			sequence
 				CheckInIdleState 
 				not IsTargetInRange(3.0)
+				not CheckInFear
 				CheckAITransitionInRange(0.0, 0.15)
 				Wait(0.2)
+				tree("Execute")
+			sequence
+				CheckInIdleState 
+				not IsTargetInRange(3.0)
+				CheckInFear
+				CheckAITransitionInRange(0.0, 0.10)
+				Wait(0.35)
 				tree("Execute")
 			sequence
 				CheckInIdleState 
@@ -57,118 +74,126 @@ tree("Confrontation")
 				Wait(0.4)
 						
 				
-				
+
 
 
 tree("ChaseEnemy")
-	sequence
-		HasTarget
-		not IsTargetInRange(7.0)
-		SetInCrowd(false)
-		KeepMove(4.0)
+	while not GetHit
+		sequence
+			HasTarget
+			not IsTargetInRange(7.0)
+			UpdateFearStateTask
+			SetInCrowd(false)
+			fallback
+				sequence
+					not CheckInFear
+					KeepMove(4.0)
+				sequence
+					KeepMove(5.0)
 			
 
 tree("Surrounding")
-	sequence
-		IsTargetInRange(7.0)
-		SetInCrowd(true)
-		ResetAITransition
-		BeginMove	
-		Wait(0.8)
-		//StopMove
-		//Wait(0.5)
+	while not GetHit
+		sequence
+			IsTargetInRange(7.0)
+			SetInCrowd(true)
+			ResetAITransition
+			BeginMove	
+			fallback
+				sequence
+					not CheckInFear
+					Wait(0.8)
+				sequence
+					Wait(1.2)
 	
 
 tree("Dodge")
-	sequence
-		StopMove
-		Wait(0.10)
-		SetInputVectorToFaceTarget 
-		GenerateAITransition	
-		fallback
-			sequence
-				CheckAITransitionInRange(0.0, 0.6)
-				IsTargetInRange(2.5)
-				DodgeBack
-				WaitForTransition (1)
+	while not GetHit
+		sequence
+			StopMove
+			Wait(0.10)
+			SetInputVectorToFaceTarget 
+			GenerateAITransition	
+			fallback
 				sequence
-					GenerateAITransition	
-					CheckAITransitionInRange(0.0, 0.7)
-					not IsTargetInRange(4.0)
-					tree("Execute")
-			sequence
-				CheckAITransitionInRange(0.0, 0.5)
-				IsTargetInRange(4.0)
-				not IsTargetInRange(2.0)
-				RandomOrbitalDodge
-				WaitForTransition (1)
-			sequence
-				CheckAITransitionInRange(0.0, 0.6)
-				not IsTargetInRange(3.5)
-				DodgeFront
-				WaitForTransition (1)
-				sequence
-					GenerateAITransition	
-					CheckAITransitionInRange(0.0, 0.7)
+					CheckAITransitionInRange(0.0, 0.6)
 					IsTargetInRange(2.5)
-					tree("AttackMelee")
-			Fail
-		ResetAITransition
+					DodgeBack
+					WaitForTransition (1)
+					sequence
+						GenerateAITransition	
+						CheckAITransitionInRange(0.0, 0.7)
+						not IsTargetInRange(4.0)
+						not CheckInFear
+						tree("Execute")
+				sequence
+					CheckAITransitionInRange(0.0, 0.5)
+					IsTargetInRange(4.0)
+					not IsTargetInRange(2.0)
+					RandomOrbitalDodge
+					WaitForTransition (1)
+				sequence
+					CheckAITransitionInRange(0.0, 0.6)
+					not IsTargetInRange(3.5)
+					not CheckInFear
+					DodgeFront
+					WaitForTransition (1)
+					sequence
+						GenerateAITransition	
+						CheckAITransitionInRange(0.0, 0.7)
+						IsTargetInRange(2.5)
+						tree("AttackMelee")
+				sequence
+					ResetAITransition
+					Fail
+			ResetAITransition
 		
 
 tree("FrontRoll")
-	sequence
-		StopMove
-		SetInputVectorToFaceTarget 
-		ResetAITransition
-		DodgeCommandInput
-		Wait(0.20)
-		DodgeCommandCancel
-		WaitForTransitionNotLessThan (1)
-		GenerateAITransition	
-		fallback
-			sequence
-				IsTargetInRange(3.2)
-				SetInputVectorToFaceTarget 
-				tree("AttackMelee")
-			ResetAITransition
-
-tree("BackRoll")
-	sequence
-		StopMove
-		SetInputVectorBackToTarget 
-		ResetAITransition
-		DodgeCommandInput
-		Wait(0.20)
-		DodgeCommandCancel
-		WaitForTransitionNotLessThan (1)
-		GenerateAITransition	
-		fallback
-			sequence
-				CheckAITransitionInRange(0.0, 0.7)
-				not IsTargetInRange(3.0)
-				SetInputVectorToFaceTarget 
-				tree("Execute")
-			ResetAITransition
-
-tree("AttackMelee")
-	sequence
-		StopMove
-		//WaitRandom(0.2, 0.4)
-		SetInputVectorToFaceTarget 
-		ResetAITransition
-		AttackCommandInput
-		Wait(0.20)
-		AttackCommandCancel
-		WaitForTransitionNotLessThan (1)
-		GenerateAITransition	
+	while not GetHit
 		sequence
+			StopMove
+			SetInputVectorToFaceTarget 
+			ResetAITransition
+			DodgeCommandInput
+			Wait(0.20)
+			DodgeCommandCancel
+			WaitForTransitionNotLessThan (1)
+			GenerateAITransition	
 			fallback
 				sequence
+					IsTargetInRange(3.2)
+					SetInputVectorToFaceTarget 
+					tree("AttackMelee")
+				ResetAITransition
+
+tree("BackRoll")
+	while not GetHit
+		sequence
+			StopMove
+			SetInputVectorBackToTarget 
+			ResetAITransition
+			DodgeCommandInput
+			Wait(0.20)
+			DodgeCommandCancel
+			WaitForTransitionNotLessThan (1)
+			GenerateAITransition	
+			fallback
+				sequence
+					not CheckInFear
 					CheckAITransitionInRange(0.0, 0.7)
-					IsTargetInRange(4.0)
-				IsTargetInRange(2.5)
+					not IsTargetInRange(3.0)
+					SetInputVectorToFaceTarget 
+					tree("Execute")
+				ResetAITransition
+
+tree("AttackMelee")
+	while not GetHit
+		sequence
+			StopMove
+			//WaitRandom(0.2, 0.4)
 			SetInputVectorToFaceTarget 
+			ResetAITransition
 			AttackCommandInput
 			Wait(0.20)
 			AttackCommandCancel
@@ -184,29 +209,41 @@ tree("AttackMelee")
 				AttackCommandInput
 				Wait(0.20)
 				AttackCommandCancel
-			ResetAITransition
-		ResetAITransition
+				WaitForTransitionNotLessThan (1)
+				GenerateAITransition	
+				sequence
+					fallback
+						sequence
+							CheckAITransitionInRange(0.0, 0.7)
+							IsTargetInRange(4.0)
+						IsTargetInRange(2.5)
+					SetInputVectorToFaceTarget 
+					AttackCommandInput
+					Wait(0.20)
+					AttackCommandCancel
+				ResetAITransition
 
 
 tree("Execute")
-	sequence
-		StopMove
-		SetInputVectorToFaceTarget 
-		ResetAITransition
-		ExecuteCommandInput
-		Wait(0.20)
-		ExecuteCommandCancel
-		Wait(0.30)
-		WaitForTransitionNotLessThan (1)
-		fallback
-			sequence
-				IsTargetInRange(2.5)
-				SetInputVectorToFaceTarget 
-				ExecuteCommandInput
-				Wait(0.20)
-				ExecuteCommandCancel
-				WaitForTransitionNotLessThan (1)
-			Wait(0.5)
+	while not GetHit
+		sequence
+			StopMove
+			SetInputVectorToFaceTarget 
+			ResetAITransition
+			ExecuteCommandInput
+			Wait(0.20)
+			ExecuteCommandCancel
+			Wait(0.30)
+			WaitForTransitionNotLessThan (1)
+			fallback
+				sequence
+					IsTargetInRange(2.5)
+					SetInputVectorToFaceTarget 
+					ExecuteCommandInput
+					Wait(0.20)
+					ExecuteCommandCancel
+					WaitForTransitionNotLessThan (1)
+				Wait(0.6)
 	
 
 tree("Idle")

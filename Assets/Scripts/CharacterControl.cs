@@ -199,7 +199,8 @@ namespace meleeDemo {
 
         }
         public void TakeDamage (float damage, SkillEffect skill) {
-            if (!this.CharacterData.IsStunned && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead && !this.CharacterData.IsGuarding) {
+            bool CanBeBlocked = (this.CharacterData.IsGuarding && this.CharacterData.BlockCount >= damage);
+            if (!this.CharacterData.IsStunned && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead && !CanBeBlocked) {
                 if (isPlayerControl) {
                     this.Animator.Play ("HitReact4", 0, 0f);
                 } else {
@@ -218,6 +219,12 @@ namespace meleeDemo {
 
             if (this.CharacterData.HP <= 0)
                 Dead (skill);
+
+            if (this.aiProgress != null) {
+                this.aiProgress.UpdateFearState();
+              
+            }
+
             //this.CharacterData.OnDead (skill);
         }
 
@@ -238,10 +245,9 @@ namespace meleeDemo {
                 return;
             }
             */
-            if(energy > 0f)
-            {
-                TurnOffEnergyRegen(this.CharacterData.EnergyRegenerationDelay);
-                this.CharacterData.TakeEnergy(energy);
+            if (energy > 0f) {
+                TurnOffEnergyRegen (this.CharacterData.EnergyRegenerationDelay);
+                this.CharacterData.TakeEnergy (energy);
             }
         }
 
@@ -445,9 +451,9 @@ namespace meleeDemo {
         }
         public void DestroyObject () {
             if (isPlayerControl)
-                GameManager.Instance.GameOver();
+                GameManager.Instance.GameOver ();
             else
-                Destroy(this.gameObject);
+                Destroy (this.gameObject);
 
         }
 

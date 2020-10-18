@@ -12,6 +12,8 @@ namespace meleeDemo {
         public float AvoidanceForce = 2.0f;
         public float KeepoutRadius = 3f;
         public float KeepoutForce = 3.0f;
+        public float FearKeepoutRadius = 5f;
+        public float FearKeepoutForce = 4f;
         public float Smooth = 5.0f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
@@ -29,7 +31,7 @@ namespace meleeDemo {
                 //AI.ResetInputVector ();
                 return;
             }
-            AI.pathFindingAgent.GoToTarget();
+            AI.pathFindingAgent.GoToTarget ();
 
             if (AlwaysFaceTarget) {
                 Vector3 direction = AI.enemyTarget.gameObject.transform.position - AI.gameObject.transform.position;
@@ -63,10 +65,20 @@ namespace meleeDemo {
 
                 Vector2 keepoutVector = new Vector2 ();
                 Vector3 keepoutDir = AI.gameObject.transform.position - AI.enemyTarget.gameObject.transform.position;
-                if (keepoutDir.magnitude < KeepoutRadius) {
-                    float factor = 1.0f - keepoutDir.magnitude / KeepoutRadius;
-                    keepoutVector = (new Vector2 (keepoutDir.x, keepoutDir.z)).normalized * factor * KeepoutForce;
+                float factor = 0f;
+                if (AI.IsInFear) {
+                    if (keepoutDir.magnitude < FearKeepoutRadius) {
+                        factor = 1.0f - keepoutDir.magnitude / FearKeepoutRadius;
+                        keepoutVector = (new Vector2 (keepoutDir.x, keepoutDir.z)).normalized * factor * FearKeepoutForce;
+                    }
+                } else {
+
+                    if (keepoutDir.magnitude < KeepoutRadius) {
+                        factor = 1.0f - keepoutDir.magnitude / KeepoutRadius;
+                        keepoutVector = (new Vector2 (keepoutDir.x, keepoutDir.z)).normalized * factor * KeepoutForce;
+                    }
                 }
+
                 AI.inputVectorIncremental += avoidanceVector;
                 AI.inputVectorIncremental += keepoutVector;
                 // test

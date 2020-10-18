@@ -591,7 +591,10 @@ MonoBehaviour:
   ProbFire: 0
   ProbDodge: 0
   AITransition: 0
+  FearArmourPercentThreshold: 0.4
+  FearHealthPercentThreshold: 0.25
   IsInCrowd: 0
+  IsInFear: 0
   inputVectorIncremental: {x: 0, y: 0}
 --- !u!114 &9799789
 MonoBehaviour:
@@ -1912,7 +1915,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.2740469, y: 0.000000417287, z: -0.000000065192616}
+  m_ConnectedAnchor: {x: -0.2740469, y: 0.00000041728703, z: 0.00000041164455}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -3660,7 +3663,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.18760817, y: 0.3385014, z: -0.049441785}
+  m_ConnectedAnchor: {x: -0.18760817, y: 0.3385014, z: -0.049441308}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:

@@ -17,7 +17,7 @@ MonoBehaviour:
   Type: 1
   MaxTargetNum: 5
   Range: 2
-  Damage: 2.5
+  Damage: 3
   DamageInterval: 1
   KnockbackForce: 15
   KnockbackTime: 0.1

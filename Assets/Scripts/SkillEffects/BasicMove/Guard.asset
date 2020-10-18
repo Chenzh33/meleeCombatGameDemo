@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Guard
   m_EditorClassIdentifier: 
   MaxBlockFrame: 30
+  MaxBlockAttackCount: 2.99

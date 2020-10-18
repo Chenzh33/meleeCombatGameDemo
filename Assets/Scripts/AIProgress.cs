@@ -26,7 +26,10 @@ namespace meleeDemo {
         public float ProbFire = 0.5f;
         public float ProbDodge = 0.8f;
         public float AITransition = 0f;
+        public float FearArmourPercentThreshold = 0.4f;
+        public float FearHealthPercentThreshold = 0.2f;
         public bool IsInCrowd;
+        public bool IsInFear;
         public Vector2 inputVectorIncremental = new Vector2 ();
 
         void Awake () {
@@ -107,8 +110,8 @@ namespace meleeDemo {
         }
 
         [Task]
-        public void ForceEndCurrentTask() {
-            Task.current.Fail();
+        public void ForceEndCurrentTask () {
+            Task.current.Fail ();
         }
 
         [Task]
@@ -149,29 +152,55 @@ namespace meleeDemo {
         }
 
         [Task]
+        public bool HealthPercentLowerThan (float count) {
+            float percent = aiUnit.CharacterData.HP / aiUnit.CharacterData.MaxHP;
+            if (percent > count)
+                return false;
+            else
+                return true;
+        }
+
+        [Task]
+        public bool ArmourPercentLowerThan (float count) {
+            float percent = aiUnit.CharacterData.Armour / aiUnit.CharacterData.MaxArmour;
+            if (percent > count)
+                return false;
+            else
+                return true;
+        }
+
+        [Task]
+        public bool GetHit () {
+            if (aiUnit.CharacterData.GetHitTime > 0f)
+                return true;
+            else
+                return false;
+        }
+
+        [Task]
         public void WaitForTransition (int index) {
             var task = Task.current;
-            if (!task.isStarting && animator.GetInteger(TransitionParameter.TransitionIndexer.ToString()) == index) {
+            if (!task.isStarting && animator.GetInteger (TransitionParameter.TransitionIndexer.ToString ()) == index) {
                 task.Succeed ();
             }
+            /*
             if (!task.isStarting && aiUnit.CharacterData.GetHitTime > 0f)
             {
                 task.Fail();
             }
+            */
         }
 
         [Task]
         public void WaitForTransitionNotLessThan (int index) {
             var task = Task.current;
-            if (!task.isStarting && animator.GetInteger(TransitionParameter.TransitionIndexer.ToString()) >= index) {
+            if (!task.isStarting && animator.GetInteger (TransitionParameter.TransitionIndexer.ToString ()) >= index) {
                 task.Succeed ();
             }
-            if (!task.isStarting && aiUnit.CharacterData.GetHitTime > 0f)
-            {
-                task.Fail();
+            if (!task.isStarting && aiUnit.CharacterData.GetHitTime > 0f) {
+                task.Fail ();
             }
         }
-
 
         [Task]
         public void RandomOrbitalDodge () {
@@ -192,7 +221,7 @@ namespace meleeDemo {
         }
 
         [Task]
-        public void DodgeBack() {
+        public void DodgeBack () {
             animator.Play ("DodgeBack");
             Task.current.Succeed ();
 
@@ -285,6 +314,12 @@ namespace meleeDemo {
             aiUnit.CharacterData.TargetGroupWeight /= factor;
             CameraManager.Instance.UpdateTargetWeight (aiUnit);
         }
+        public void UpdateFearState () {
+            if (HealthPercentLowerThan (FearHealthPercentThreshold) || ArmourPercentLowerThan (FearArmourPercentThreshold))
+                IsInFear = true;
+            else
+                IsInFear = false;
+        }
 
         [Task]
         public bool SetInputVectorToFaceTarget () {
@@ -338,6 +373,19 @@ namespace meleeDemo {
             Vector3 finalDir = new Vector3 (aiUnit.inputVector.x, 0, aiUnit.inputVector.y);
             Debug.DrawRay (gameObject.transform.position, finalDir * 10f, Color.red);
 
+        }
+
+        [Task]
+        public bool CheckInFear () 
+        { 
+            return IsInFear; 
+        }
+
+        [Task]
+        public bool UpdateFearStateTask () 
+        { 
+            UpdateFearState();
+            return true;
         }
 
         [Task]

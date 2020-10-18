@@ -36,11 +36,11 @@ namespace meleeDemo {
 
         }
 
-        void Update () {
+        void FixedUpdate () {
             if (IsMoving && !ProjectileInfo.IsFinished && CurrentTime < Duration) {
                 //Debug.DrawRay(transform.position, transform.forward, Color.red);
                 if (Speed > 0f)
-                    transform.Translate (transform.forward * Speed * SpeedGraph.Evaluate (CurrentTime / Duration) * Time.deltaTime, Space.World);
+                    transform.Translate (transform.forward * Speed * SpeedGraph.Evaluate (CurrentTime / Duration) * Time.fixedDeltaTime, Space.World);
                 ProjectileInfo.transform.localScale = Vector3.one * ScaleGraph.Evaluate (CurrentTime / Duration) * ProjectileScale;
                 if (IsVFXScaleChangeWithScaling) {
                     ParticleSystem[] pss = GetComponentsInChildren<ParticleSystem> ();
@@ -48,8 +48,8 @@ namespace meleeDemo {
                         ps.gameObject.transform.localScale = Vector3.one * ScaleGraph.Evaluate (CurrentTime / Duration) * ProjectileScale;
                     }
                 }
-                CurrentTime += Time.deltaTime;
-                CurrentTimeToDamage += Time.deltaTime;
+                CurrentTime += Time.fixedDeltaTime;
+                CurrentTimeToDamage += Time.fixedDeltaTime;
                 if (CurrentTimeToDamage > ProjectileInfo.DamageInterval) {
                     ProjectileInfo.Targets.Clear ();
                     ProjectileInfo.CurrentTargetNum = 0;
