@@ -48,6 +48,7 @@ namespace meleeDemo {
         public int CommandAttackHoldFrame;
         public int CommandExecuteHoldFrame;
         public int CommandDodgeHoldFrame;
+        public bool CommandGuardHoldOn;
         public int InputAxisHoldFrame;
         //public float SpeedMultiplyer = 1.0f;
 
@@ -198,6 +199,21 @@ namespace meleeDemo {
             DodgeCoolDownCoroutine = StartCoroutine (_DodgeCoolDown (this.CharacterData.DodgeCoolDown));
 
         }
+
+        public void TakeStun (float stun, float hitReactionTime, SkillEffect skill) {
+
+            this.CharacterData.Armour -= stun;
+            if (hitReactionTime > 0f && this.CharacterData.GetHitTime < hitReactionTime && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead)
+                this.CharacterData.GetHitTime = hitReactionTime;
+
+            TurnOffArmourRegen (this.CharacterData.ArmourRegenerationDelay);
+
+            if (this.CharacterData.Armour <= 0 && !this.CharacterData.IsDead)
+                GetStunned ();
+
+          
+        }
+
         public void TakeDamage (float damage, SkillEffect skill) {
             bool CanBeBlocked = (this.CharacterData.IsGuarding && this.CharacterData.BlockCount >= damage);
             if (!this.CharacterData.IsStunned && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead && !CanBeBlocked) {
@@ -212,8 +228,9 @@ namespace meleeDemo {
                     }
                 }
             }
-            TurnOffArmourRegen (this.CharacterData.ArmourRegenerationDelay);
             this.CharacterData.TakeDamage (damage);
+
+            //TurnOffArmourRegen (this.CharacterData.ArmourRegenerationDelay);
 
             this.CharacterData.SendGetDamageEvent (skill, this);
 
@@ -228,15 +245,6 @@ namespace meleeDemo {
             //this.CharacterData.OnDead (skill);
         }
 
-        public void TakeStun (float stun, float hitReactionTime, SkillEffect skill) {
-
-            this.CharacterData.Armour -= stun;
-            if (hitReactionTime > 0f && this.CharacterData.GetHitTime < hitReactionTime && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead)
-                this.CharacterData.GetHitTime = hitReactionTime;
-
-            if (this.CharacterData.Armour <= 0 && !this.CharacterData.IsDead)
-                GetStunned ();
-        }
         public void TakeEnergy (float energy, SkillEffect skill) {
 
             // assume already checked the energy amount
@@ -705,6 +713,7 @@ namespace meleeDemo {
             else
                 animator.SetBool (TransitionParameter.Dodge.ToString (), false);
 
+
             if (isPlayerControl) {
 
                 if (CommandCharge)
@@ -716,6 +725,11 @@ namespace meleeDemo {
                     animator.SetBool (TransitionParameter.Guard.ToString (), true);
                 else
                     animator.SetBool (TransitionParameter.Guard.ToString (), false);
+
+                if (CommandGuardHoldOn)
+                    animator.SetBool (TransitionParameter.GuardHoldOn.ToString (), true);
+                else
+                    animator.SetBool (TransitionParameter.GuardHoldOn.ToString (), false);
 
                 if (CommandAttackHoldFrame > 8)
                     animator.SetBool (TransitionParameter.AtkButtonHold.ToString (), true);

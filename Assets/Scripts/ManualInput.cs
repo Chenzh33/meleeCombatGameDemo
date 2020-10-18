@@ -55,10 +55,18 @@ namespace meleeDemo {
                 else
                     player.CommandCharge = false;
 
-                if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_GUARD])
+                //if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_GUARD])
+                if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_GUARD_DOWN])
                     player.CommandGuard = true;
                 else
                     player.CommandGuard = false;
+
+                if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_GUARD])
+                    player.CommandGuardHoldOn = true;
+                else
+                    player.CommandGuardHoldOn = false;
+
+
                 /*
                             if (player.DodgeTrigger) {
                                 VirtualInputManager.Instance.ClearAllInputsInBuffer ();

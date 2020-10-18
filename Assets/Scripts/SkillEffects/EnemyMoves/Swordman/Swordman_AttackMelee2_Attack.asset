@@ -22,7 +22,7 @@ MonoBehaviour:
   KnockbackForce: 15
   KnockbackTime: 0.15
   HitReactDuration: 0.6
-  Stun: 1
+  Stun: 4
   IsAttackForward: 0
   IsAOEAttackTowardsCenter: 0
   IsAOEAttackAttachToPlayer: 0

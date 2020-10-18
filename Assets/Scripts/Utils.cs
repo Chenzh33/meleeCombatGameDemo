@@ -35,7 +35,8 @@ namespace meleeDemo {
         GetHitOnGuard,
         Guard,
         GetHitOnGuardPrecisely,
-        EnemyCollision
+        EnemyCollision,
+        GuardHoldOn
 
     }
 

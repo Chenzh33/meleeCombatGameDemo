@@ -240,6 +240,7 @@ namespace meleeDemo {
             //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
 
             bool CanBeBlocked = (control.CharacterData.IsGuarding && control.CharacterData.BlockCount >= info.Damage);
+            bool PreciselyBlocked = (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame > control.CharacterData.FirstFramesOfBlock && control.CharacterData.FirstFramesOfBlock > 0);
             if (info.AttackSkill != null) {
                 if (!control.CharacterData.IsStunned && !CanBeBlocked)
                     control.TakeStun (info.Stun, info.HitReactDuration, info.AttackSkill);
@@ -248,7 +249,7 @@ namespace meleeDemo {
 
                 if (control.CharacterData.IsStunned && info.IsLethalToStunnedEnemy)
                     control.TakeDamage (control.CharacterData.HP, info.AttackSkill);
-                else if (!CanBeBlocked)
+                else if (!CanBeBlocked && !PreciselyBlocked)
                     control.TakeDamage (info.Damage, info.AttackSkill);
                 else if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
                     control.TakeDamage (info.Damage * control.CharacterData.GuardDamageReduction, info.AttackSkill);
@@ -259,7 +260,7 @@ namespace meleeDemo {
                 else if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
                     control.TakeStun (info.Stun * control.CharacterData.GuardStunReduction, info.HitReactDuration, info.ProjectileSkill);
 
-                if (!CanBeBlocked)
+                if (!CanBeBlocked && !PreciselyBlocked)
                     control.TakeDamage (info.Damage, info.ProjectileSkill);
                 else if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
                     control.TakeDamage (info.Damage * control.CharacterData.GuardDamageReduction, info.ProjectileSkill);
@@ -267,7 +268,7 @@ namespace meleeDemo {
 
             if (!control.CharacterData.IsSuperArmour) {
 
-                if (!CanBeBlocked)
+                if (!CanBeBlocked && !PreciselyBlocked)
                     control.TakeKnockback (info.KnockbackForce * hitVector, info.KnockbackTime);
                 else if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
                     control.TakeKnockback (info.KnockbackForce * hitVector * control.CharacterData.GuardKnockbackReduction, info.KnockbackTime);
@@ -278,11 +279,12 @@ namespace meleeDemo {
                 if (info.AttackSkill != null && info.AttackSkill.Type == AttackType.MustCollide) {
                     if (CanBeBlocked && info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
                         control.Animator.SetTrigger (TransitionParameter.GetHitOnGuard.ToString ());
-                    else if (CanBeBlocked && info.PreciselyBlockedFrame > 0) {
+                    else if (PreciselyBlocked) {
                         control.Animator.SetTrigger (TransitionParameter.GetHitOnGuardPrecisely.ToString ());
                         info.Attacker.Animator.Play ("GetCountered");
                         info.Attacker.TakeKnockback ((-30f) * hitVector, 0.1f);
-                        info.Attacker.TakeStun (5f, 1.0f, null);
+                        //info.Attacker.TakeStun (5f, 1.0f, null);
+                        info.Attacker.TakeStun (2.0f * info.Stun, 1.0f, null);
                         info.Attacker.CharacterData.GetHitTime = 0.7f;
                         /*
                         AIProgress AI = info.Attacker.GetComponent<AIProgress>();
@@ -296,7 +298,7 @@ namespace meleeDemo {
                 if (info.ProjectileSkill != null) {
                     if (CanBeBlocked && info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
                         control.Animator.SetTrigger (TransitionParameter.GetHitOnGuard.ToString ());
-                    else if (CanBeBlocked && info.PreciselyBlockedFrame > 0) {
+                    else if (PreciselyBlocked) {
                         control.Animator.SetTrigger (TransitionParameter.GetHitOnGuardPrecisely.ToString ());
                         if (info.CanBeReflected) {
                             Vector3 dir = info.Attacker.gameObject.transform.position - control.gameObject.transform.position;
