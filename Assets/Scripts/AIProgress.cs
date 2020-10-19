@@ -254,6 +254,23 @@ namespace meleeDemo {
 
         }
 
+        [Task]
+        public bool IsTargetInFacingRange (float AngleRange) {
+            if (enemyTarget == null)
+                return false;
+            Vector3 diffVectorRaw = enemyTarget.transform.position - aiUnit.transform.position;
+            Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0f, diffVectorRaw.z);
+            Quaternion rotEnemy = Quaternion.LookRotation (diffVector.normalized, Vector3.up);
+            Quaternion rotSelf = Quaternion.LookRotation (aiUnit.transform.forward, Vector3.up);
+            float AbsAngle = Mathf.Abs (Quaternion.Angle (rotEnemy, rotSelf));
+
+            if (AbsAngle <= AngleRange)
+                return true;
+            else
+                return false;
+
+        }
+
         /*
                 [Task]
                 public bool IsTargetInAttackRange () {
@@ -376,15 +393,13 @@ namespace meleeDemo {
         }
 
         [Task]
-        public bool CheckInFear () 
-        { 
-            return IsInFear; 
+        public bool CheckInFear () {
+            return IsInFear;
         }
 
         [Task]
-        public bool UpdateFearStateTask () 
-        { 
-            UpdateFearState();
+        public bool UpdateFearStateTask () {
+            UpdateFearState ();
             return true;
         }
 

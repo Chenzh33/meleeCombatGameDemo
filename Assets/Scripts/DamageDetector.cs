@@ -243,27 +243,27 @@ namespace meleeDemo {
             bool PreciselyBlocked = (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame > control.CharacterData.FirstFramesOfBlock && control.CharacterData.FirstFramesOfBlock > 0);
             if (info.AttackSkill != null) {
                 if (!control.CharacterData.IsStunned && !CanBeBlocked)
-                    control.TakeStun (info.Stun, info.HitReactDuration, info.AttackSkill);
+                    control.TakeStun (info.Stun, info.AttackSkill);
                 else if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
-                    control.TakeStun (info.Stun * control.CharacterData.GuardStunReduction, info.HitReactDuration, info.AttackSkill);
+                    control.TakeStun (info.Stun * control.CharacterData.GuardStunReduction, info.AttackSkill);
 
                 if (control.CharacterData.IsStunned && info.IsLethalToStunnedEnemy)
-                    control.TakeDamage (control.CharacterData.HP, info.AttackSkill);
+                    control.TakeDamage (control.CharacterData.HP, info.HitReactDuration, info.AttackSkill);
                 else if (!CanBeBlocked && !PreciselyBlocked)
-                    control.TakeDamage (info.Damage, info.AttackSkill);
+                    control.TakeDamage (info.Damage, info.HitReactDuration, info.AttackSkill);
                 else if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
-                    control.TakeDamage (info.Damage * control.CharacterData.GuardDamageReduction, info.AttackSkill);
+                    control.TakeDamage (info.Damage * control.CharacterData.GuardDamageReduction, 0f, info.AttackSkill);
 
             } else if (info.ProjectileSkill != null) {
                 if (!control.CharacterData.IsStunned && !CanBeBlocked)
-                    control.TakeStun (info.Stun, info.HitReactDuration, info.ProjectileSkill);
+                    control.TakeStun (info.Stun, info.ProjectileSkill);
                 else if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
-                    control.TakeStun (info.Stun * control.CharacterData.GuardStunReduction, info.HitReactDuration, info.ProjectileSkill);
+                    control.TakeStun (info.Stun * control.CharacterData.GuardStunReduction, info.ProjectileSkill);
 
                 if (!CanBeBlocked && !PreciselyBlocked)
-                    control.TakeDamage (info.Damage, info.ProjectileSkill);
+                    control.TakeDamage (info.Damage, info.HitReactDuration, info.ProjectileSkill);
                 else if (info.PreciselyBlockedFrame <= control.CharacterData.FirstFramesOfBlock)
-                    control.TakeDamage (info.Damage * control.CharacterData.GuardDamageReduction, info.ProjectileSkill);
+                    control.TakeDamage (info.Damage * control.CharacterData.GuardDamageReduction, 0f, info.ProjectileSkill);
             }
 
             if (!control.CharacterData.IsSuperArmour) {
@@ -281,11 +281,13 @@ namespace meleeDemo {
                         control.Animator.SetTrigger (TransitionParameter.GetHitOnGuard.ToString ());
                     else if (PreciselyBlocked) {
                         control.Animator.SetTrigger (TransitionParameter.GetHitOnGuardPrecisely.ToString ());
+                        //info.Attacker.CharacterData.GetHitTime = 0.4f;
+                        info.Attacker.CharacterData.GetHitTime = 0.7f;
                         info.Attacker.Animator.Play ("GetCountered");
                         info.Attacker.TakeKnockback ((-30f) * hitVector, 0.1f);
                         //info.Attacker.TakeStun (5f, 1.0f, null);
-                        info.Attacker.TakeStun (2.0f * info.Stun, 1.0f, null);
-                        info.Attacker.CharacterData.GetHitTime = 0.7f;
+                        info.Attacker.TakeStun (2.0f * info.Stun, null);
+                        //info.Attacker.TakeDamage (0f, 0.7f, null);
                         /*
                         AIProgress AI = info.Attacker.GetComponent<AIProgress>();
                         if(AI != null)

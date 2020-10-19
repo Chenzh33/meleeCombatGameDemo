@@ -41,6 +41,8 @@ namespace meleeDemo {
                         player.CommandExecute = true;
                     if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
                         player.CommandDodge = true;
+                    if (VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_GUARD_DOWN))
+                        player.CommandGuard = true;
                 }
 
                 if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_MELEE_ATTACK_DOWN))
@@ -49,6 +51,8 @@ namespace meleeDemo {
                     player.CommandExecute = false;
                 if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_DODGE_DOWN))
                     player.CommandDodge = false;
+                if (!VirtualInputManager.Instance.CheckInputInBuffer (InputKeyStateType.KEY_GUARD_DOWN))
+                    player.CommandGuard = false;
 
                 if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_CHARGE])
                     player.CommandCharge = true;
@@ -56,16 +60,17 @@ namespace meleeDemo {
                     player.CommandCharge = false;
 
                 //if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_GUARD])
+                /*
                 if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_GUARD_DOWN])
                     player.CommandGuard = true;
                 else
                     player.CommandGuard = false;
+                    */
 
                 if (inputDataTop.KeysState[(int) InputKeyStateType.KEY_GUARD])
                     player.CommandGuardHoldOn = true;
                 else
                     player.CommandGuardHoldOn = false;
-
 
                 /*
                             if (player.DodgeTrigger) {

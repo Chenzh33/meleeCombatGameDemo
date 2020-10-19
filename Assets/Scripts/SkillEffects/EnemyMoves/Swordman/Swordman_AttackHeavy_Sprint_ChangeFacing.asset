@@ -19,9 +19,9 @@ MonoBehaviour:
   ForceFaceFormerTarget: 0
   AutoFaceTiming: 0
   AutoFaceDuration: 2
-  CaptureDistanceFar: 8
+  CaptureDistanceFar: 9
   CaptureAngleRangeFar: 60
-  CaptureRadiusNear: 3
-  CaptureCenterOffsetNear: 0.5
+  CaptureRadiusNear: 6
+  CaptureCenterOffsetNear: 0
   smoothEarlyTurn: 7
   LockOnTargetDuration: 1
