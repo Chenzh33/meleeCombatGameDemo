@@ -200,23 +200,24 @@ namespace meleeDemo {
 
         }
 
-        public void TakeStun (float stun, float hitReactionTime, SkillEffect skill) {
+        public void TakeStun (float stun, SkillEffect skill) {
 
             this.CharacterData.Armour -= stun;
-            if (hitReactionTime > 0f && this.CharacterData.GetHitTime < hitReactionTime && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead)
-                this.CharacterData.GetHitTime = hitReactionTime;
+            //if (hitReactionTime > 0f && this.CharacterData.GetHitTime < hitReactionTime && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead)
+            //   this.CharacterData.GetHitTime = hitReactionTime;
 
             TurnOffArmourRegen (this.CharacterData.ArmourRegenerationDelay);
 
             if (this.CharacterData.Armour <= 0 && !this.CharacterData.IsDead)
                 GetStunned ();
 
-          
         }
 
-        public void TakeDamage (float damage, SkillEffect skill) {
+        public void TakeDamage (float damage, float hitReactionTime, SkillEffect skill) {
             bool CanBeBlocked = (this.CharacterData.IsGuarding && this.CharacterData.BlockCount >= damage);
             if (!this.CharacterData.IsStunned && !this.CharacterData.IsSuperArmour && !this.CharacterData.IsDead && !CanBeBlocked) {
+                if (hitReactionTime > 0f && this.CharacterData.GetHitTime < hitReactionTime)
+                    this.CharacterData.GetHitTime = hitReactionTime;
                 if (isPlayerControl) {
                     this.Animator.Play ("HitReact4", 0, 0f);
                 } else {
@@ -228,19 +229,18 @@ namespace meleeDemo {
                     }
                 }
             }
+
             this.CharacterData.TakeDamage (damage);
-
-            //TurnOffArmourRegen (this.CharacterData.ArmourRegenerationDelay);
-
             this.CharacterData.SendGetDamageEvent (skill, this);
-
             if (this.CharacterData.HP <= 0)
                 Dead (skill);
 
             if (this.aiProgress != null) {
-                this.aiProgress.UpdateFearState();
-              
+                this.aiProgress.UpdateFearState ();
+
             }
+
+            //TurnOffArmourRegen (this.CharacterData.ArmourRegenerationDelay);
 
             //this.CharacterData.OnDead (skill);
         }
@@ -712,7 +712,6 @@ namespace meleeDemo {
                 animator.SetBool (TransitionParameter.Dodge.ToString (), true);
             else
                 animator.SetBool (TransitionParameter.Dodge.ToString (), false);
-
 
             if (isPlayerControl) {
 

@@ -36,11 +36,11 @@ namespace meleeDemo {
                     //Target.Animator.SetFloat (TransitionParameter.SpeedMultiplier.ToString (), 1.0f);
                     //Target.Animator.Play ("Idle");
                     if (!Target.CharacterData.IsStunned)
-                        Target.TakeStun (Stun, HitReactDuration, this);
+                        Target.TakeStun (Stun, this);
                     if (Target.CharacterData.IsStunned)
-                        Target.TakeDamage (Target.CharacterData.HP, this);
+                        Target.TakeDamage (Target.CharacterData.HP, HitReactDuration, this);
                     else
-                        Target.TakeDamage (Damage, this);
+                        Target.TakeDamage (Damage, HitReactDuration, this);
                     Vector3 dirVector = Target.transform.position - stateEffect.CharacterControl.transform.position;
                     Vector3 hitVector = (new Vector3 (dirVector.x, 0, dirVector.z)).normalized;
                     Target.TakeKnockback (KnockbackForce * hitVector, KnockbackTime);

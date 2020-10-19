@@ -75,20 +75,23 @@ tree("ChaseEnemy")
 	sequence
 		HasTarget
 		not IsTargetInRange(6.0)
-		parallel
+		GenerateAITransition	
+		fallback
 			sequence
-				WalkToRun
-				SetInCrowd(false)
-				KeepMove(3.0)
-			sequence
-				Wait(1.0)
+				//Wait(1.0)
 				CheckInIdleState 
+				IsTargetInFacingRange(90.0)
 				not IsTargetInRange(2.0)
-				GenerateAITransition	
-				CheckAITransitionInRange(0.0, 0.1)
+				CheckAITransitionInRange(0.0, 0.15)
 				ResetAITransition
 				tree("Execute")
-				Succeed
+			sequence
+				//CheckAITransitionInRange(0.0, 0.15)
+				WalkToRun
+				SetInCrowd(false)
+				BeginMove	
+				Wait(0.5)
+				//KeepMove(3.0)
 			
 
 tree("Surrounding")
@@ -114,31 +117,36 @@ tree("Idle")
 
 
 tree("Attack")
-	sequence
-		StopMove
-		WaitRandom(0.2, 0.4)
-		SetInputVectorToFaceTarget 
-		ResetAITransition
-		AttackCommandInput
-		Wait(0.20)
-		AttackCommandCancel
-		GenerateAITransition	
+	while not GetHit
 		sequence
-			CheckAITransitionInRange(0.0, 0.5)
-			Wait(0.50)
+			StopMove
+			WaitRandom(0.2, 0.4)
+			SetInputVectorToFaceTarget 
+			ResetAITransition
 			AttackCommandInput
 			Wait(0.20)
 			AttackCommandCancel
-		ResetAITransition
+			WaitForTransitionNotLessThan (1)
+			sequence
+				GenerateAITransition	
+				CheckAITransitionInRange(0.0, 0.5)
+				AttackCommandInput
+				Wait(0.20)
+				AttackCommandCancel
+				ResetAITransition
+				WaitForTransitionNotLessThan (1)
 
 tree("Execute")
-	sequence
-		StopMove
-		SetInputVectorToFaceTarget 
-		ResetAITransition
-		ExecuteCommandInput
-		Wait(0.20)
-		ExecuteCommandCancel
+	while not GetHit
+		sequence
+			StopMove
+			SetInputVectorToFaceTarget 
+			ExecuteCommandInput
+			Wait(0.20)
+			ExecuteCommandCancel
+			WaitForTransitionNotLessThan (1)
+			RunToWalk
+			Wait(0.50)
 
 
 tree("Die")
