@@ -30,6 +30,7 @@ namespace meleeDemo {
         public float FearHealthPercentThreshold = 0.2f;
         public bool IsInCrowd;
         public bool IsInFear;
+        public int HitCountOnGuard;
         public Vector2 inputVectorIncremental = new Vector2 ();
 
         void Awake () {
@@ -430,55 +431,7 @@ namespace meleeDemo {
         }
 
         [Task]
-        public bool RandomAttack () {
-            float r = Random.Range (0f, 1f);
-            if (r < ProbAttack) {
-                StopMove ();
-                AttackCommandInput ();
-            }
-            return true;
-        }
-
-        [Task]
-        public bool RandomExecute () {
-            float r = Random.Range (0f, 1f);
-            if (r < ProbExecute) {
-                StopMove ();
-                ExecuteCommandInput ();
-            }
-            return true;
-        }
-
-        [Task]
-        public bool RandomFire () {
-            float r = Random.Range (0f, 1f);
-            if (r < ProbFire) {
-                //StopMove ();
-                FireCommandInput ();
-            }
-            return true;
-        }
-
-        [Task]
-        public bool RandomDodge () {
-            float r = Random.Range (0f, 1f);
-            if (r < ProbDodge) {
-                //StopMove ();
-                DodgeCommandInput ();
-            }
-            return true;
-        }
-
-        [Task]
         public bool ExecuteCommandInput () {
-            //SetInputVectorToFaceTarget ();
-            /*
-            Vector3 direction = enemyTarget.gameObject.transform.position - gameObject.transform.position;
-            direction.y = 0f;
-            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-            animator.transform.root.rotation = rotation;// Quaternion.Slerp(animator.transform.root.rotation, rotation, Time.deltaTime * 50f);
-           
-            */
             aiUnit.CommandExecute = true;
             return true;
 
@@ -486,13 +439,6 @@ namespace meleeDemo {
 
         [Task]
         public bool AttackCommandInput () {
-            //SetInputVectorToFaceTarget ();
-            /*
-            Vector3 direction = enemyTarget.gameObject.transform.position - gameObject.transform.position;
-            direction.y = 0f;
-            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-            animator.transform.root.rotation = rotation;// Quaternion.Slerp(animator.transform.root.rotation, rotation, Time.deltaTime * 50f);
-            */
             aiUnit.CommandAttack = true;
             return true;
 
@@ -500,49 +446,49 @@ namespace meleeDemo {
 
         [Task]
         public bool FireCommandInput () {
-            //DodgeCommandCancel ();
-            //SetInputVectorToFaceTarget ();
             aiUnit.CommandFire = true;
             return true;
         }
 
         [Task]
         public bool DodgeCommandInput () {
-            //FireCommandCancel ();
-            //SetInputVectorBackToTarget ();
             aiUnit.CommandDodge = true;
-            //Task.current.Succeed();
             return true;
         }
 
         [Task]
+        public bool GuardCommandInput () {
+            aiUnit.CommandGuard = true;
+            return true;
+        }
+        [Task]
         public bool ExecuteCommandCancel () {
-            //ResetInputVector ();
             aiUnit.CommandExecute = false;
             return true;
         }
 
         [Task]
         public bool AttackCommandCancel () {
-            //ResetInputVector ();
             aiUnit.CommandAttack = false;
             return true;
         }
 
         [Task]
         public bool FireCommandCancel () {
-            //ResetInputVector ();
             aiUnit.CommandFire = false;
             return true;
         }
 
         [Task]
         public bool DodgeCommandCancel () {
-            //ResetInputVector ();
             aiUnit.CommandDodge = false;
             return true;
         }
-
+        [Task]
+        public bool GuardCommandCancel () {
+            aiUnit.CommandGuard = false;
+            return true;
+        }
         [Task]
         public bool IsRunning () {
             return animator.GetBool ("IsRunning");

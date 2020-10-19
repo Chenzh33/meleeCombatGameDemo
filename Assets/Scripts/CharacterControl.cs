@@ -713,6 +713,11 @@ namespace meleeDemo {
             else
                 animator.SetBool (TransitionParameter.Dodge.ToString (), false);
 
+            if (CommandGuard)
+                    animator.SetBool (TransitionParameter.Guard.ToString (), true);
+                else
+                    animator.SetBool (TransitionParameter.Guard.ToString (), false);
+
             if (isPlayerControl) {
 
                 if (CommandCharge)
@@ -720,10 +725,6 @@ namespace meleeDemo {
                 else
                     animator.SetBool (TransitionParameter.Charge.ToString (), false);
 
-                if (CommandGuard)
-                    animator.SetBool (TransitionParameter.Guard.ToString (), true);
-                else
-                    animator.SetBool (TransitionParameter.Guard.ToString (), false);
 
                 if (CommandGuardHoldOn)
                     animator.SetBool (TransitionParameter.GuardHoldOn.ToString (), true);

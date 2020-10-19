@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Swordman_Guard
   m_EditorClassIdentifier: 
   State: 0
-  MaxBlockFrame: 4
-  MaxBlockAttackCount: 2.99
+  MaxBlockFrame: 30
+  MaxBlockAttackCount: 1.99
