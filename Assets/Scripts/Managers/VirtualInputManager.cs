@@ -28,30 +28,6 @@ namespace meleeDemo {
         // = new bool[12];
     }
 
-    public enum InputKeyType {
-        KEY_MELEE_ATTACK,
-        KEY_EXECUTE_ATTACK,
-        KEY_DODGE,
-        KEY_CHARGE,
-        KEY_GUARD
-    }
-    public enum InputKeyStateType {
-        KEY_MELEE_ATTACK_DOWN,
-        KEY_MELEE_ATTACK_UP,
-        KEY_MELEE_ATTACK,
-        KEY_EXECUTE_ATTACK_DOWN,
-        KEY_EXECUTE_ATTACK_UP,
-        KEY_EXECUTE_ATTACK,
-        KEY_DODGE_DOWN,
-        KEY_DODGE_UP,
-        KEY_DODGE,
-        KEY_CHARGE_DOWN,
-        KEY_CHARGE_UP,
-        KEY_CHARGE,
-        KEY_GUARD_DOWN,
-        KEY_GUARD_UP,
-        KEY_GUARD
-    }
 
     public class VirtualInputManager : Singleton<VirtualInputManager> {
 

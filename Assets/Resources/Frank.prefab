@@ -33345,6 +33345,7 @@ MonoBehaviour:
   CommandAttackHoldFrame: 0
   CommandExecuteHoldFrame: 0
   CommandDodgeHoldFrame: 0
+  CommandGuardHoldOn: 0
   InputAxisHoldFrame: 0
   data:
     HP: 20
@@ -33366,7 +33367,8 @@ MonoBehaviour:
     GuardStunReduction: 0.1
     TargetGroupWeight: 5
     TargetGroupRadius: 1
-    DodgeCoolDown: 0.35
+    CurrentDisplacementSpeed: 0
+    DodgeCoolDown: 0.25
     DamageMultiplier: 1
     IsRagdollOn: 0
     IsColliderOff: 0
@@ -33387,6 +33389,7 @@ MonoBehaviour:
     EffectShadow: 0
     GetHitTime: 0
     FirstFramesOfBlock: 0
+    BlockCount: 0
     VFXs: []
 --- !u!143 &8025092262141336794
 CharacterController:
@@ -38382,10 +38385,10 @@ PlayableDirector:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8162093567475875717}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_PlayableAsset: {fileID: 0}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0

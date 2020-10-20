@@ -522,13 +522,11 @@ MonoBehaviour:
     EnergyRegenerationDelay: 0
     EnergyGetOnExecuteHit: 0
     EnergyGetOnEnemyDeathByExecute: 0
-    GuardKnockbackReduction: 0
-    GuardDamageReduction: 0
-    GuardStunReduction: 0
     TargetGroupWeight: 0.7
     TargetGroupRadius: 1
     CurrentDisplacementSpeed: 0
     DodgeCoolDown: 0
+    GuardCoolDown: 10
     DamageMultiplier: 1
     IsRagdollOn: 0
     IsColliderOff: 0
@@ -550,6 +548,9 @@ MonoBehaviour:
     GetHitTime: 0
     FirstFramesOfBlock: 0
     BlockCount: 0
+    GuardKnockbackReduction: 0
+    GuardDamageReduction: 0
+    GuardStunReduction: 0
     VFXs: []
 --- !u!114 &901825142
 MonoBehaviour:
@@ -587,7 +588,7 @@ MonoBehaviour:
   closeRange: 0
   RunToWalkRange: 5
   WalkToRunRange: 9
-  MomentumFactor: 0.2
+  MomentumFactor: 0.1
   ProbExecute: 0.5
   ProbAttack: 0.7
   ProbFire: 0
@@ -595,8 +596,14 @@ MonoBehaviour:
   AITransition: 0
   FearArmourPercentThreshold: 0.4
   FearHealthPercentThreshold: 0.2
+  LastGetHitTime: 0
+  LastTargetAttackTime: 0
+  LastTargetExecuteTime: 0
+  LastTargetDodgeTime: 0
+  LastTargetGuardTime: 0
   IsInCrowd: 0
   IsInFear: 0
+  HitCountOnGuard: 0
   inputVectorIncremental: {x: 0, y: 0}
 --- !u!114 &9799789
 MonoBehaviour:

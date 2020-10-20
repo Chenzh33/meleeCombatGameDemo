@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   MaxBlockFrame: 30
-  MaxBlockAttackCount: 1.99
+  InitBlockFrame: 30
+  MaxBlockAttackCount: 2.99
+  GuardKnockbackReduction: 0.5
+  GuardDamageReduction: 0.2
+  GuardStunReduction: 0.1

@@ -15,3 +15,6 @@ MonoBehaviour:
   State: 1
   MaxBlockFrame: 30
   MaxBlockAttackCount: 2.99
+  GuardKnockbackReduction: 0.33
+  GuardDamageReduction: 0.2
+  GuardStunReduction: 0.1

@@ -31,6 +31,7 @@ namespace meleeDemo {
         private Coroutine TurnOffEnergyRegenCoroutine;
         private Coroutine TurnOffArmourRegenCoroutine;
         private Coroutine DodgeCoolDownCoroutine;
+        private Coroutine GuardCoolDownCoroutine;
         private Coroutine FreezeForFramesCoroutine;
 
         public AnimationCurve KnockbackSpeedGraph;
@@ -51,7 +52,8 @@ namespace meleeDemo {
         public bool CommandGuardHoldOn;
         public int InputAxisHoldFrame;
         //public float SpeedMultiplyer = 1.0f;
-
+        public delegate void ActionEvent (InputKeyType type);
+        public event ActionEvent OnAction;
         //[System.Serializable]
         public CharacterData data = new CharacterData ();
 
@@ -200,6 +202,21 @@ namespace meleeDemo {
 
         }
 
+        IEnumerator _GuardCoolDown (float cd) {
+            this.Animator.SetBool (TransitionParameter.ForbidGuard.ToString (), true);
+            yield return new WaitForSeconds (cd);
+            this.Animator.SetBool (TransitionParameter.ForbidGuard.ToString (), false);
+
+            GuardCoolDownCoroutine = null;
+
+        }
+
+        public void GuardCoolDown () {
+            if (GuardCoolDownCoroutine != null)
+                StopCoroutine (GuardCoolDownCoroutine);
+            GuardCoolDownCoroutine = StartCoroutine (_GuardCoolDown (this.CharacterData.GuardCoolDown));
+
+        }
         public void TakeStun (float stun, SkillEffect skill) {
 
             this.CharacterData.Armour -= stun;
@@ -227,6 +244,7 @@ namespace meleeDemo {
                         int randomIndex = Random.Range (0, 3) + 1;
                         this.Animator.Play ("HitReact" + randomIndex.ToString (), 0, 0f);
                     }
+                    aiProgress.LastGetHitTime = Time.time;
                 }
             }
 
@@ -608,6 +626,20 @@ namespace meleeDemo {
 
         }
         */
+        public void SendOnActionMessage (InputKeyType type) {
+            if (OnAction != null)
+                OnAction (type);
+        }
+        public void ResetAllCommand () {
+            //inputVector.x = 0f;
+            //inputVector.y = 0f;
+            CommandAttack = false;
+            CommandExecute = false;
+            CommandDodge = false;
+            CommandGuard = false;
+            CommandFire = false;
+            CommandCharge = false;
+        }
 
         void Update () {
 
@@ -698,25 +730,29 @@ namespace meleeDemo {
                 }
 
             }
-            if (CommandAttack)
+            if (CommandAttack) {
                 animator.SetBool (TransitionParameter.AttackMelee.ToString (), true);
-            else
+                SendOnActionMessage (InputKeyType.KEY_MELEE_ATTACK);
+            } else
                 animator.SetBool (TransitionParameter.AttackMelee.ToString (), false);
 
-            if (CommandExecute)
+            if (CommandExecute) {
                 animator.SetBool (TransitionParameter.AttackExecute.ToString (), true);
-            else
+                SendOnActionMessage (InputKeyType.KEY_EXECUTE_ATTACK);
+            } else
                 animator.SetBool (TransitionParameter.AttackExecute.ToString (), false);
 
-            if (CommandDodge)
+            if (CommandDodge) {
                 animator.SetBool (TransitionParameter.Dodge.ToString (), true);
-            else
+                SendOnActionMessage (InputKeyType.KEY_DODGE);
+            } else
                 animator.SetBool (TransitionParameter.Dodge.ToString (), false);
 
-            if (CommandGuard)
-                    animator.SetBool (TransitionParameter.Guard.ToString (), true);
-                else
-                    animator.SetBool (TransitionParameter.Guard.ToString (), false);
+            if (CommandGuard) {
+                animator.SetBool (TransitionParameter.Guard.ToString (), true);
+                SendOnActionMessage (InputKeyType.KEY_GUARD);
+            } else
+                animator.SetBool (TransitionParameter.Guard.ToString (), false);
 
             if (isPlayerControl) {
 
@@ -724,7 +760,6 @@ namespace meleeDemo {
                     animator.SetBool (TransitionParameter.Charge.ToString (), true);
                 else
                     animator.SetBool (TransitionParameter.Charge.ToString (), false);
-
 
                 if (CommandGuardHoldOn)
                     animator.SetBool (TransitionParameter.GuardHoldOn.ToString (), true);
@@ -736,9 +771,10 @@ namespace meleeDemo {
                 else
                     animator.SetBool (TransitionParameter.AtkButtonHold.ToString (), false);
 
-                if (CommandAttackHoldFrame < 0)
+                if (CommandAttackHoldFrame < 0) {
                     animator.SetInteger (TransitionParameter.AtkReleaseTiming.ToString (), -CommandAttackHoldFrame);
-                else
+                    SendOnActionMessage (InputKeyType.KEY_MELEE_ATTACK);
+                } else
                     animator.SetInteger (TransitionParameter.AtkReleaseTiming.ToString (), 0);
 
                 if (CommandExecuteHoldFrame > 5)
@@ -746,9 +782,10 @@ namespace meleeDemo {
                 else
                     animator.SetBool (TransitionParameter.ExcButtonHold.ToString (), false);
 
-                if (CommandExecuteHoldFrame < 0)
+                if (CommandExecuteHoldFrame < 0) {
                     animator.SetInteger (TransitionParameter.ExcReleaseTiming.ToString (), -CommandExecuteHoldFrame);
-                else
+                    SendOnActionMessage (InputKeyType.KEY_EXECUTE_ATTACK);
+                } else
                     animator.SetInteger (TransitionParameter.ExcReleaseTiming.ToString (), 0);
 
                 if (CommandDodgeHoldFrame > 5)
@@ -756,9 +793,10 @@ namespace meleeDemo {
                 else
                     animator.SetBool (TransitionParameter.DdgButtonHold.ToString (), false);
 
-                if (CommandDodgeHoldFrame < 0)
+                if (CommandDodgeHoldFrame < 0) {
                     animator.SetInteger (TransitionParameter.DdgReleaseTiming.ToString (), -CommandDodgeHoldFrame);
-                else
+                    SendOnActionMessage (InputKeyType.KEY_DODGE);
+                } else
                     animator.SetInteger (TransitionParameter.DdgReleaseTiming.ToString (), 0);
 
                 if (InputAxisHoldFrame > 5)

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925caf156f426564f89b1cd08df1fbb9, type: 3}
-  m_Name: Daggerman_Dodge_Roll_ChangeFacing
+  m_Name: Daggerman_Dodge_Roll_Late_ChangeFacing
   m_EditorClassIdentifier: 
-  AllowEarlyTurn: 1
-  AutoFaceType: 0
+  AllowEarlyTurn: 0
+  AutoFaceType: 2
   FaceStunnedEnemyFirst: 0
   FaceFormerTargetFirst: 0
   ForceFaceFormerTarget: 0
-  AutoFaceTiming: 0
-  AutoFaceDuration: 0
+  AutoFaceTiming: 0.8
+  AutoFaceDuration: 0.2
   CaptureDistanceFar: 0
   CaptureAngleRangeFar: 0
   CaptureRadiusNear: 10
   CaptureCenterOffsetNear: 0
-  smoothEarlyTurn: 0
+  smoothEarlyTurn: 10
   LockOnTargetDuration: 1

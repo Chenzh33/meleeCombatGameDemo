@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925caf156f426564f89b1cd08df1fbb9, type: 3}
-  m_Name: Daggerman_Dodge_Roll_ChangeFacing
+  m_Name: Swordman_Guard_ChangeFacing
   m_EditorClassIdentifier: 
   AllowEarlyTurn: 1
-  AutoFaceType: 0
+  AutoFaceType: 2
   FaceStunnedEnemyFirst: 0
-  FaceFormerTargetFirst: 0
+  FaceFormerTargetFirst: 1
   ForceFaceFormerTarget: 0
   AutoFaceTiming: 0
-  AutoFaceDuration: 0
+  AutoFaceDuration: 2
   CaptureDistanceFar: 0
   CaptureAngleRangeFar: 0
-  CaptureRadiusNear: 10
+  CaptureRadiusNear: 6
   CaptureCenterOffsetNear: 0
-  smoothEarlyTurn: 0
+  smoothEarlyTurn: 6
   LockOnTargetDuration: 1

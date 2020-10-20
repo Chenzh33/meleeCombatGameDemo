@@ -240,7 +240,10 @@ namespace meleeDemo {
             //Debug.DrawRay(gameObject.transform.position, hitVector * 5f, Color.red, 0.5f);
 
             bool CanBeBlocked = (control.CharacterData.IsGuarding && control.CharacterData.BlockCount >= info.Damage);
-            bool PreciselyBlocked = (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame > control.CharacterData.FirstFramesOfBlock && control.CharacterData.FirstFramesOfBlock > 0);
+            //bool PreciselyBlocked = (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame > control.CharacterData.FirstFramesOfBlock && control.CharacterData.FirstFramesOfBlock > 0);
+            bool PreciselyBlocked = (control.CharacterData.IsGuarding && info.PreciselyBlockedFrame > control.CharacterData.FirstFramesOfBlock);
+            if (PreciselyBlocked)
+                Debug.Log ("Precisely blocked!");
             if (info.AttackSkill != null) {
                 if (!control.CharacterData.IsStunned && !CanBeBlocked)
                     control.TakeStun (info.Stun, info.AttackSkill);

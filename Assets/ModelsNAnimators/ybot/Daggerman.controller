@@ -582,6 +582,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8bb071376ef486244bbf5d655a5aaa81, type: 2}
   - {fileID: 11400000, guid: 6796cdd70d23234408e80313c5798a04, type: 2}
   - {fileID: 11400000, guid: b87aa202ab5ab2441a5616b9dd4fb9ef, type: 2}
+  - {fileID: 11400000, guid: 3d7306407502eb34cb3d1eee824f39b3, type: 2}
 --- !u!114 &-4914162299194276711
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -961,6 +962,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 88464496ac4aa2d408a4a1b54e05b429, type: 2}
   - {fileID: 11400000, guid: efde1b31d3ef4c84aa015eb1a3d31b7d, type: 2}
   - {fileID: 11400000, guid: fbeda949b21739b43a081d73500d4c78, type: 2}
+  - {fileID: 11400000, guid: 3d7306407502eb34cb3d1eee824f39b3, type: 2}
 --- !u!1101 &-2842511485361895981
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1867,6 +1869,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8bb071376ef486244bbf5d655a5aaa81, type: 2}
   - {fileID: 11400000, guid: 3a9ffa476a1748d449f1fc3953181868, type: 2}
   - {fileID: 11400000, guid: b87aa202ab5ab2441a5616b9dd4fb9ef, type: 2}
+  - {fileID: 11400000, guid: 3d7306407502eb34cb3d1eee824f39b3, type: 2}
 --- !u!1101 &1961983216825520491
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -2442,6 +2445,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8de749dc9d1f5a244b4adbaf88faa4fd, type: 2}
   - {fileID: 11400000, guid: 3bee845e72b44db4c96b214205438826, type: 2}
   - {fileID: 11400000, guid: 0df6dbb3a1a21644b9d9721fa73b5db2, type: 2}
+  - {fileID: 11400000, guid: 3d7306407502eb34cb3d1eee824f39b3, type: 2}
 --- !u!114 &3234990919091422034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2541,6 +2545,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 93aa233132537904e8a2f8d713357df3, type: 2}
   - {fileID: 11400000, guid: 0d778338a602aaa4dae9ccf20e17cebf, type: 2}
   - {fileID: 11400000, guid: 45b9a5bd7e0104f40aaa88ded469f544, type: 2}
+  - {fileID: 11400000, guid: dc2782b3aaf5e104daaa452aea8e4340, type: 2}
+  - {fileID: 11400000, guid: e11ed574f5435184f808f3b2fed978d8, type: 2}
 --- !u!1109 &4524522583152395723
 AnimatorTransition:
   m_ObjectHideFlags: 1
@@ -2753,7 +2759,7 @@ AnimatorStateTransition:
   m_ExitTime: 0.9191101
   m_HasExitTime: 0
   m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_InterruptionSource: 1
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &6006547874100991471
@@ -2924,7 +2930,7 @@ AnimatorStateTransition:
   m_ExitTime: 0.88049984
   m_HasExitTime: 0
   m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_InterruptionSource: 1
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &7969536516015207977

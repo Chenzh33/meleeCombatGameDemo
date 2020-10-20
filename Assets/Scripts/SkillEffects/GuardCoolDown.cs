@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace meleeDemo {
 
-    [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/DodgeCoolDown")]
-    public class DodgeCoolDown : SkillEffect {
+    [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/GuardCoolDown")]
+    public class GuardCoolDown : SkillEffect {
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {
             //animator.SetBool (TransitionParameter.Move.ToString (), false);
-            stateEffect.CharacterControl.DodgeCoolDown();
+            stateEffect.CharacterControl.GuardCoolDown();
 
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo animatorStateInfo) {

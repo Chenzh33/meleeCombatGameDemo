@@ -30,7 +30,9 @@ MonoBehaviour:
   AOEAttackCenterOffset: 3
   EnergyGetWhenHit: 0
   VFXScale: 1
-  PreciselyBlockedFrame: 10
+  PreciselyBlockedFrame: 15
   vfxType: 0
   FreezeFrames: 2
+  CanBeReflected: 0
+  CanReflectProjectile: 0
   FinishedAttacks: []

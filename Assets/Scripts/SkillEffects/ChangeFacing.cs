@@ -33,10 +33,11 @@ namespace meleeDemo {
         public float LockOnTargetDuration = 1.0f;
 
         public override void OnEnter (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            ChangeFaceDirection (stateEffect, animator, stateInfo, false);
+            if (AutoFaceTiming == 0f)
+                ChangeFaceDirection (stateEffect, animator, stateInfo, false);
         }
         public override void UpdateEffect (StatewithEffect stateEffect, Animator animator, AnimatorStateInfo stateInfo) {
-            if (AutoFaceDuration > 0f && stateInfo.normalizedTime < AutoFaceTiming + AutoFaceDuration) {
+            if (AutoFaceDuration > 0f && stateInfo.normalizedTime > AutoFaceTiming && stateInfo.normalizedTime <= AutoFaceTiming + AutoFaceDuration) {
                 ChangeFaceDirection (stateEffect, animator, stateInfo, true);
             }
 

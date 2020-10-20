@@ -28,6 +28,11 @@ namespace meleeDemo {
         public float AITransition = 0f;
         public float FearArmourPercentThreshold = 0.4f;
         public float FearHealthPercentThreshold = 0.2f;
+        public float LastGetHitTime;
+        public float LastTargetAttackTime;
+        public float LastTargetExecuteTime;
+        public float LastTargetDodgeTime;
+        public float LastTargetGuardTime;
         public bool IsInCrowd;
         public bool IsInFear;
         public int HitCountOnGuard;
@@ -39,6 +44,11 @@ namespace meleeDemo {
             animator = GetComponentInChildren<Animator> ();
             pandaTree = GetComponent<PandaBehaviour> ();
             team = aiUnit.CharacterData.Team;
+            LastGetHitTime = Mathf.NegativeInfinity;
+            LastTargetAttackTime = Mathf.NegativeInfinity;
+            LastTargetExecuteTime = Mathf.NegativeInfinity;
+            LastTargetDodgeTime = Mathf.NegativeInfinity;
+            LastTargetGuardTime = Mathf.NegativeInfinity;
             enemyTarget = null;
             AIAgentManager.Instance.TotalAIAgent.Add (this);
 
@@ -56,7 +66,7 @@ namespace meleeDemo {
         }
 
         public void RegisterDamageEvent () {
-            Debug.Log ("register damage event!");
+            //Debug.Log ("register damage event!");
             ManualInput playerObjManu = FindObjectOfType (typeof (ManualInput)) as ManualInput;
             if (playerObjManu != null) {
                 CharacterControl player = playerObjManu.GetComponent<CharacterControl> ();
@@ -72,7 +82,38 @@ namespace meleeDemo {
             }
 
         }
+        public void RegisterTargetActionEvent (CharacterControl target) {
+            Debug.Log ("register target action event!");
+            if (target != null) {
+                target.OnAction -= this.OnTargetAction;
+                target.OnAction += this.OnTargetAction;
+            }
 
+        }
+        public void DeregisterTargetActionEvent (CharacterControl target) {
+            Debug.Log ("deregister target action event!");
+            if (target != null) {
+                target.OnAction -= this.OnTargetAction;
+            }
+
+        }
+        public void OnTargetAction (InputKeyType type) {
+            switch (type) {
+                case InputKeyType.KEY_MELEE_ATTACK:
+                    LastTargetAttackTime = Time.time;
+                    break;
+                case InputKeyType.KEY_EXECUTE_ATTACK:
+                    LastTargetExecuteTime = Time.time;
+                    break;
+                case InputKeyType.KEY_DODGE:
+                    LastTargetDodgeTime = Time.time;
+                    break;
+                case InputKeyType.KEY_GUARD:
+                    LastTargetGuardTime = Time.time;
+                    break;
+            }
+
+        }
         // simple version
         float lastFindTargetTime = float.NegativeInfinity;
 
@@ -88,8 +129,10 @@ namespace meleeDemo {
                         pathFindingAgent.SetTarget (enemyTarget.gameObject.transform);
                         //Debug.Log ("Find player!");
                         CameraManager.Instance.AddToTargetGroup (aiUnit);
+                        RegisterTargetActionEvent (enemyTarget);
                     } else {
                         CameraManager.Instance.RemoveFromTargetGroup (aiUnit);
+                        DeregisterTargetActionEvent (enemyTarget);
                         enemyTarget = null;
                     }
                     lastFindTargetTime = Time.time;
@@ -184,12 +227,6 @@ namespace meleeDemo {
             if (!task.isStarting && animator.GetInteger (TransitionParameter.TransitionIndexer.ToString ()) == index) {
                 task.Succeed ();
             }
-            /*
-            if (!task.isStarting && aiUnit.CharacterData.GetHitTime > 0f)
-            {
-                task.Fail();
-            }
-            */
         }
 
         [Task]
@@ -198,9 +235,45 @@ namespace meleeDemo {
             if (!task.isStarting && animator.GetInteger (TransitionParameter.TransitionIndexer.ToString ()) >= index) {
                 task.Succeed ();
             }
-            if (!task.isStarting && aiUnit.CharacterData.GetHitTime > 0f) {
-                task.Fail ();
+        }
+
+        [Task]
+        public void WaitForForcedDodgeTransition () {
+            var task = Task.current;
+            if (!task.isStarting && animator.GetBool (TransitionParameter.ForcedTransitionDodge.ToString ())) {
+                task.Succeed ();
             }
+        }
+
+        [Task]
+        public bool LastGetHitTimeLessThan (float duration) {
+            float t = Time.time;
+            return (t - LastGetHitTime < duration);
+
+        }
+
+        [Task]
+        public bool LastTargetAttackTimeLessThan (float duration) {
+            float t = Time.time;
+            return (t - LastTargetAttackTime < duration);
+        }
+
+        [Task]
+        public bool LastTargetExecuteTimeLessThan (float duration) {
+            float t = Time.time;
+            return (t - LastTargetExecuteTime < duration);
+        }
+
+        [Task]
+        public bool LastTargetDodgeTimeLessThan (float duration) {
+            float t = Time.time;
+            return (t - LastTargetDodgeTime < duration);
+        }
+
+        [Task]
+        public bool LastTargetGuardTimeLessThan (float duration) {
+            float t = Time.time;
+            return (t - LastTargetGuardTime < duration);
         }
 
         [Task]
@@ -272,6 +345,22 @@ namespace meleeDemo {
 
         }
 
+        [Task]
+        public bool IsTargetFacingSelf (float AngleRange) {
+            if (enemyTarget == null)
+                return false;
+            Vector3 diffVectorRaw = aiUnit.transform.position - enemyTarget.transform.position;
+            Vector3 diffVector = new Vector3 (diffVectorRaw.x, 0f, diffVectorRaw.z);
+            Quaternion rotEnemy = Quaternion.LookRotation (diffVector.normalized, Vector3.up);
+            Quaternion rotSelf = Quaternion.LookRotation (enemyTarget.transform.forward, Vector3.up);
+            float AbsAngle = Mathf.Abs (Quaternion.Angle (rotEnemy, rotSelf));
+
+            if (AbsAngle <= AngleRange)
+                return true;
+            else
+                return false;
+
+        }
         /*
                 [Task]
                 public bool IsTargetInAttackRange () {
@@ -423,6 +512,17 @@ namespace meleeDemo {
             return true;
 
         }
+
+        [Task]
+        public bool ResetInputTask () {
+            ResetInput ();
+            return true;
+        }
+
+        public void ResetInput () {
+            ResetInputVector ();
+            aiUnit.ResetAllCommand ();
+        }
         public void ResetInputVector () {
             aiUnit.inputVector.x = 0f;
             aiUnit.inputVector.y = 0f;
@@ -461,6 +561,7 @@ namespace meleeDemo {
             aiUnit.CommandGuard = true;
             return true;
         }
+
         [Task]
         public bool ExecuteCommandCancel () {
             aiUnit.CommandExecute = false;
@@ -484,11 +585,13 @@ namespace meleeDemo {
             aiUnit.CommandDodge = false;
             return true;
         }
+
         [Task]
         public bool GuardCommandCancel () {
             aiUnit.CommandGuard = false;
             return true;
         }
+
         [Task]
         public bool IsRunning () {
             return animator.GetBool ("IsRunning");
@@ -523,6 +626,13 @@ namespace meleeDemo {
             return !animator.GetBool (TransitionParameter.ForbidDodge.ToString ());
 
         }
+
+        [Task]
+        public bool GuardNotInCooldown () {
+            return !animator.GetBool (TransitionParameter.ForbidGuard.ToString ());
+
+        }
+
 
         [Task]
         public bool IsDead () {

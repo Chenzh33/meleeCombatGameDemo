@@ -33,16 +33,13 @@ namespace meleeDemo {
         //public float EnergyGetOnEnemyDeath;
         public float EnergyGetOnEnemyDeathByExecute;
 
-        public float GuardKnockbackReduction;
-        public float GuardDamageReduction;
-        public float GuardStunReduction;
-
         public float TargetGroupWeight;
         public float TargetGroupRadius;
 
         public float CurrentDisplacementSpeed;
 
         public float DodgeCoolDown;
+        public float GuardCoolDown;
         public float DamageMultiplier = 1.0f;
         public bool IsRagdollOn;
         public bool IsColliderOff;
@@ -76,7 +73,11 @@ namespace meleeDemo {
         public int EffectShadow;
         public float GetHitTime;
         public int FirstFramesOfBlock;
-        public float BlockCount; 
+        public float BlockCount;
+
+        public float GuardKnockbackReduction;
+        public float GuardDamageReduction;
+        public float GuardStunReduction;
 
         public List<PoolObject> VFXs;
 
@@ -127,7 +128,7 @@ namespace meleeDemo {
 
         public void GetEnergy (float energy) {
             this.Energy += energy;
-            Debug.Log("get energy : " + energy.ToString());
+            Debug.Log ("get energy : " + energy.ToString ());
             SendMessage (MessageType.EnergyChange);
             SendMessage (MessageType.EnergyGet);
         }

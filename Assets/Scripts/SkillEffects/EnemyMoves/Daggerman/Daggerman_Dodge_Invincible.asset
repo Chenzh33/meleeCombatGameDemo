@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2568237f54a6d904da56d3c4a5ae3fc8, type: 3}
-  m_Name: Guard_Prep
+  m_Script: {fileID: 11500000, guid: 9b9c327d110f9b44f8949720e3fd1b1a, type: 3}
+  m_Name: Daggerman_Dodge_Invincible
   m_EditorClassIdentifier: 
-  State: 0
-  MaxBlockFrame: 30
-  MaxBlockAttackCount: 2.99
-  GuardKnockbackReduction: 0.33
-  GuardDamageReduction: 0.2
-  GuardStunReduction: 0.1
+  InvincibleBeginTiming: 0
+  InvincibleEndTiming: 0.6

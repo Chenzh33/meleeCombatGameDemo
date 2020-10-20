@@ -3946,7 +3946,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListSkillEffect:
-  - {fileID: 11400000, guid: 182ef708526a8ef4d98b99f863b98628, type: 2}
   - {fileID: 11400000, guid: 94dc084e65bd8bf43b607d8bef3046e5, type: 2}
 --- !u!1101 &-3448623974079686883
 AnimatorStateTransition:
@@ -9018,7 +9017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListSkillEffect:
-  - {fileID: 11400000, guid: 8c125c4c884f49d4bae7dae962d629b4, type: 2}
+  - {fileID: 11400000, guid: eaa293f869fd2ec4bae803279be4b585, type: 2}
   - {fileID: 11400000, guid: 3a0aef18b7a73f54b877940bb3d4ff14, type: 2}
 --- !u!1107 &4238848674500609033
 AnimatorStateMachine:

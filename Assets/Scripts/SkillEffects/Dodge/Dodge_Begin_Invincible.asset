@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Dodge_Begin_Invincible
   m_EditorClassIdentifier: 
   InvincibleBeginTiming: 0
-  InvincibleEndTiming: 0.8
+  InvincibleEndTiming: 1
