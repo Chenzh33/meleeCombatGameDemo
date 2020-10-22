@@ -41,11 +41,6 @@ tree("HitReaction")
 					CheckAITransitionInRange(0.0, 0.8)
 					IsTargetInRange(2.0)
 					tree("BackRoll")
-				//sequence
-					//CheckAITransitionInRange(0.0, 0.66)
-					//IsTargetInRange(4.0)
-					//not IsTargetInRange(2.0)
-					//tree("OrbitalDodge")
 				sequence
 					IsTargetInRange(2.0)
 					tree("BackDodge")

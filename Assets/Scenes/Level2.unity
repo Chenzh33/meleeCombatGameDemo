@@ -878,11 +878,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Daggerman
       objectReference: {fileID: 0}
-    - target: {fileID: 1150906012402949299, guid: d725a1e1c9d96994abb5e72167b09131,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d725a1e1c9d96994abb5e72167b09131, type: 3}
 --- !u!1001 &175537346
@@ -11808,6 +11803,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Swordman
       objectReference: {fileID: 0}
+    - target: {fileID: 1150906012402949299, guid: 026b833b38ad22b4b94a504695f333af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 026b833b38ad22b4b94a504695f333af, type: 3}
 --- !u!1 &862991477
@@ -12391,7 +12391,7 @@ PrefabInstance:
     - target: {fileID: 1150906012402949299, guid: 026b833b38ad22b4b94a504695f333af,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 026b833b38ad22b4b94a504695f333af, type: 3}
@@ -17884,7 +17884,7 @@ PrefabInstance:
     - target: {fileID: 1150906012402949299, guid: 026b833b38ad22b4b94a504695f333af,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 026b833b38ad22b4b94a504695f333af, type: 3}
@@ -17895,6 +17895,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 322317604, guid: d725a1e1c9d96994abb5e72167b09131, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.18760811
+      objectReference: {fileID: 0}
+    - target: {fileID: 322317604, guid: d725a1e1c9d96994abb5e72167b09131, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: -0.049441785
+      objectReference: {fileID: 0}
+    - target: {fileID: 355241088, guid: d725a1e1c9d96994abb5e72167b09131, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.09124454
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610833594, guid: d725a1e1c9d96994abb5e72167b09131, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.27404684
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610833594, guid: d725a1e1c9d96994abb5e72167b09131, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.000000417287
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610833594, guid: d725a1e1c9d96994abb5e72167b09131, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: -0.000000065192616
+      objectReference: {fileID: 0}
     - target: {fileID: 1150906012402949295, guid: d725a1e1c9d96994abb5e72167b09131,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17958,7 +17982,7 @@ PrefabInstance:
     - target: {fileID: 1150906012402949299, guid: d725a1e1c9d96994abb5e72167b09131,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d725a1e1c9d96994abb5e72167b09131, type: 3}
