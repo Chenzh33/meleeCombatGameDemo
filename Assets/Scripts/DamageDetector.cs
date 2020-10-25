@@ -149,6 +149,10 @@ namespace meleeDemo {
                 if (control != info.Attacker.CharacterData.FormerAttackTarget)
                     return false;
             }
+            if (info.Mode == GrapplerTargetChosingMode.LockedStunnedTargetOnly) {
+                if (control != info.Attacker.CharacterData.FormerAttackTarget && !control.CharacterData.IsStunned)
+                    return false;
+            }
             //Debug.Log("Check Grappling in range!");
             Vector3 dist = control.gameObject.transform.position - info.Attacker.GetProjectileSpawnPoint ().gameObject.transform.position;
             dist.y = 0f;
@@ -369,6 +373,7 @@ namespace meleeDemo {
             info.Target = control;
             //Debug.Log ("Grappler HIT !!!");
             control.CharacterData.IsGrappled = true;
+            control.TurnOffArmourRegen (3f);
 
             if (info.Type == GrapplerType.FrontStab) {
 

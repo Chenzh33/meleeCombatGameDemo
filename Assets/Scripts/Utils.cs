@@ -128,6 +128,17 @@ namespace meleeDemo {
         public float ed;
     }
 
+    public enum GrapplerTargetChosingMode {
+        EveryoneInRange,
+        LockedTargetOnly,
+        LockedStunnedTargetOnly
+
+    }
+    public enum GrapplerType {
+        FrontStab,
+        DownStab
+
+    }
 /*
     static float AreaUnderCurve (AnimationCurve curve, float w, float h) {
         float areaUnderCurve = 0f;

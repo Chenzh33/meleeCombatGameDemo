@@ -4,16 +4,6 @@ using UnityEngine;
 
 namespace meleeDemo {
 
-    public enum GrapplerTargetChosingMode {
-        EveryoneInRange,
-        LockedTargetOnly
-
-    }
-    public enum GrapplerType {
-        FrontStab,
-        DownStab
-
-    }
 
     [CreateAssetMenu (fileName = "New State", menuName = "SkillEffects/GrapplingSkill")]
     public class GrapplingSkill : SkillEffect {

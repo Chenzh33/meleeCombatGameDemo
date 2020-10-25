@@ -9,13 +9,14 @@ namespace meleeDemo {
         //private Coroutine coroutine;
         private CameraController controller;
         public List<CameraShaker> CurrentCameraShakers = new List<CameraShaker> ();
+        private Coroutine PlayCloseUpCoroutine;
+        private Coroutine ExitCloseUpCoroutine;
 
         public override void Init () {
             controller = GameObject.FindObjectOfType<CameraController> ();
             CharacterControl[] controls = FindObjectsOfType (typeof (CharacterControl)) as CharacterControl[];
             foreach (CharacterControl c in controls) {
-                if (c.isPlayerControl)
-                {
+                if (c.isPlayerControl) {
                     controller.AddToTargetGroup (c);
                     controller.AddToCloseUpTargetGroup (c);
 
@@ -76,20 +77,38 @@ namespace meleeDemo {
 
         }
 
-        public void PlayCloseUp(CharacterControl player)
-        {
-            controller.AddToCloseUpTargetGroup(player);
-            controller.AddToCloseUpTargetGroup(player.CharacterData.GrapplingTarget);
-            controller.TriggerCamera (CameraType.CloseUp);
+        public void PlayCloseUp (CharacterControl player) {
+            if (PlayCloseUpCoroutine != null)
+                StopCoroutine (PlayCloseUpCoroutine);
+            PlayCloseUpCoroutine = StartCoroutine (_PlayCloseUp (player));
 
         }
-        public void ExitCloseUp(CharacterControl player)
-        {
-            controller.RemoveFromCloseUpTargetGroup(player);
-            controller.RemoveFromCloseUpTargetGroup(player.CharacterData.GrapplingTarget);
-            Debug.Log("trigger default!");
-            controller.TriggerCamera (CameraType.Default);
+        public void ExitCloseUp (CharacterControl player) {
+            if (ExitCloseUpCoroutine != null)
+                StopCoroutine (ExitCloseUpCoroutine);
+            ExitCloseUpCoroutine = StartCoroutine (_ExitCloseUp (player));
 
+        }
+
+        IEnumerator _PlayCloseUp (CharacterControl player) {
+            controller.RemoveFromCloseUpTargetGroup (player);
+            controller.RemoveFromCloseUpTargetGroup (player.CharacterData.GrapplingTarget);
+            controller.AddToCloseUpTargetGroup (player);
+            controller.AddToCloseUpTargetGroup (player.CharacterData.GrapplingTarget);
+            controller.TriggerCamera (CameraType.CloseUp);
+            float t = 0f;
+            while (t < 0.25f) {
+                controller.ZoomCameraPerFrame (-20f * Time.deltaTime);
+                t = t + Time.deltaTime;
+                yield return null;
+            }
+        }
+        IEnumerator _ExitCloseUp (CharacterControl player) {
+            Debug.Log ("trigger default!");
+            controller.TriggerCamera (CameraType.Default);
+            yield return new WaitForSeconds (0.5f);
+            controller.RemoveFromCloseUpTargetGroup (player);
+            controller.RemoveFromCloseUpTargetGroup (player.CharacterData.GrapplingTarget);
         }
     }
 

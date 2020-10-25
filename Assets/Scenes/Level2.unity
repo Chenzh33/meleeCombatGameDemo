@@ -18560,15 +18560,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 308901678, guid: e7d4d2add15663f4abb4a78736c75542, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.20718336
+      value: -2.871295
       objectReference: {fileID: 0}
     - target: {fileID: 308901678, guid: e7d4d2add15663f4abb4a78736c75542, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.8548183
+      value: 1.8197231
       objectReference: {fileID: 0}
     - target: {fileID: 308901678, guid: e7d4d2add15663f4abb4a78736c75542, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.094381
+      value: 15.1757965
+      objectReference: {fileID: 0}
+    - target: {fileID: 308901679, guid: e7d4d2add15663f4abb4a78736c75542, type: 3}
+      propertyPath: m_Targets.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 308901679, guid: e7d4d2add15663f4abb4a78736c75542, type: 3}
       propertyPath: m_Targets.Array.data[0].target
@@ -18581,32 +18585,32 @@ PrefabInstance:
     - target: {fileID: 8128117138932165214, guid: e7d4d2add15663f4abb4a78736c75542,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.1675703
+      value: -2.8316813
       objectReference: {fileID: 0}
     - target: {fileID: 8128117138932165214, guid: e7d4d2add15663f4abb4a78736c75542,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.4080887
+      value: 1.2664518
       objectReference: {fileID: 0}
     - target: {fileID: 8128117138932165214, guid: e7d4d2add15663f4abb4a78736c75542,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.888157
+      value: 10.969572
       objectReference: {fileID: 0}
     - target: {fileID: 8482438056424922114, guid: e7d4d2add15663f4abb4a78736c75542,
         type: 3}
       propertyPath: m_XDamping
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8482438056424922114, guid: e7d4d2add15663f4abb4a78736c75542,
         type: 3}
       propertyPath: m_YDamping
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8482438056424922114, guid: e7d4d2add15663f4abb4a78736c75542,
         type: 3}
       propertyPath: m_ZDamping
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8570433778420877608, guid: e7d4d2add15663f4abb4a78736c75542,
         type: 3}
