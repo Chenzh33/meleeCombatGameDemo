@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:ListView focusable="True" />
+    <ui:VisualElement style="height: 62px;">
+        <ui:Label text="Label" />
+        <ui:Button text="Button" />
+        <ui:Toggle label="Toggle" />
+    </ui:VisualElement>
+    <ui:VisualElement style="height: 49.33333px;">
+        <ui:Label text="Label" />
+    </ui:VisualElement>
+    <ui:VisualElement style="height: 54.66667px;">
+        <ui:Label text="Label" />
+    </ui:VisualElement>
+    <ui:VisualElement style="height: 52px;">
+        <ui:Label text="Label" />
+    </ui:VisualElement>
+    <ui:VisualElement style="height: 54.66667px;">
+        <ui:Label text="Label" />
+    </ui:VisualElement>
+    <ui:VisualElement style="height: 49.33333px;">
+        <ui:Label text="Label" />
+    </ui:VisualElement>
+</ui:UXML>
