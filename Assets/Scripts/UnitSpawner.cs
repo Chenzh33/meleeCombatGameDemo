@@ -4,20 +4,6 @@ using UnityEngine;
 
 namespace meleeDemo {
 
-    [System.Serializable]
-    public class SpawnUnitInfo {
-        public SpawnUnitInfo () {
-            Name = "";
-            //Count = 0;
-            PosVector = Vector3.zero;
-            RotVector = Vector3.zero;
-
-        }
-        public string Name;
-        //public int Count;
-        public Vector3 PosVector;
-        public Vector3 RotVector;
-    }
 
     public class UnitSpawner : MonoBehaviour {
         public List<SpawnUnitInfo> Configs = new List<SpawnUnitInfo> ();
@@ -28,6 +14,10 @@ namespace meleeDemo {
         }
 
         void Update () {
+
+        }
+        public void ParseLevelEnemyConfigFile(string filename)
+        {
 
         }
 

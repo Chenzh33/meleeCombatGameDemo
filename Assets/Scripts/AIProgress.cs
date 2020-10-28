@@ -21,10 +21,6 @@ namespace meleeDemo {
         public float RunToWalkRange = 4f;
         public float WalkToRunRange = 8f;
         public float MomentumFactor = 0.1f;
-        public float ProbExecute = 0.5f;
-        public float ProbAttack = 0.3f;
-        public float ProbFire = 0.5f;
-        public float ProbDodge = 0.8f;
         public float AITransition = 0f;
         public float FearArmourPercentThreshold = 0.4f;
         public float FearHealthPercentThreshold = 0.2f;
@@ -79,6 +75,8 @@ namespace meleeDemo {
                 */
                 aiUnit.CharacterData.OnDamage -= player.OnEnemyGetDamaged;
                 aiUnit.CharacterData.OnDamage += player.OnEnemyGetDamaged;
+                aiUnit.CharacterData.OnDead -= GameManager.Instance.OnUnitDead;
+                aiUnit.CharacterData.OnDead += GameManager.Instance.OnUnitDead;
             }
 
         }

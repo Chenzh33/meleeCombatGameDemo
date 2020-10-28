@@ -65,7 +65,9 @@ namespace meleeDemo {
         public event StateChangeEvent OnEnergyGet;
 
         public delegate void EnemyGetDamagedEvent (SkillEffect skill, CharacterControl enemy);
+        public delegate void UnitDeadEvent (CharacterControl unit);
         public event EnemyGetDamagedEvent OnDamage;
+        public event UnitDeadEvent OnDead;
 
         public const int STATE_BUFFER_SIZE = 3;
         public int[] StateBuffer = new int[STATE_BUFFER_SIZE];
@@ -192,6 +194,10 @@ namespace meleeDemo {
             if (OnDamage != null)
                 OnDamage (skill, enemy);
 
+        }
+        public void Dead(CharacterControl unit)
+        {
+            OnDead(unit);
         }
 
     }

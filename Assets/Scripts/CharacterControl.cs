@@ -463,7 +463,9 @@ namespace meleeDemo {
                     this.Animator.Play ("Ybot_Dead_Executed", 0, 0f);
                 } else
                     this.Animator.Play ("Ybot_Dead" + randomIndex.ToString (), 0, 0f);
+
             }
+            this.CharacterData.Dead(this);
             data.IsDead = true;
 
             gameObject.layer = LayerMask.NameToLayer ("Default");
