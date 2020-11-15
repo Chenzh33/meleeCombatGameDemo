@@ -16,9 +16,10 @@ namespace meleeDemo {
         void Update () {
 
         }
-        public void ParseLevelEnemyConfigFile(string filename)
+        public void SetSpawnInfoFromCurrQuest(Quest q)
         {
-
+            Configs.Clear();
+            Configs = q.Enemies;
         }
 
         public void SpawnUnit (Vector3 position, Vector3 rotVec, string prefabName) {

@@ -413,7 +413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1150906012402949295
 Transform:
   m_ObjectHideFlags: 0
@@ -505,6 +505,7 @@ MonoBehaviour:
   CommandAttackHoldFrame: 0
   CommandExecuteHoldFrame: 0
   CommandDodgeHoldFrame: 0
+  CommandGuardHoldOn: 0
   InputAxisHoldFrame: 0
   data:
     HP: 15
@@ -521,13 +522,11 @@ MonoBehaviour:
     EnergyRegenerationDelay: 0
     EnergyGetOnExecuteHit: 0
     EnergyGetOnEnemyDeathByExecute: 0
-    GuardKnockbackReduction: 0
-    GuardDamageReduction: 0
-    GuardStunReduction: 0
     TargetGroupWeight: 0.4
     TargetGroupRadius: 1
     CurrentDisplacementSpeed: 0
     DodgeCoolDown: 7
+    GuardCoolDown: 0
     DamageMultiplier: 1
     IsRagdollOn: 0
     IsColliderOff: 0
@@ -548,6 +547,10 @@ MonoBehaviour:
     EffectShadow: 0
     GetHitTime: 0
     FirstFramesOfBlock: 0
+    BlockCount: 0
+    GuardKnockbackReduction: 0
+    GuardDamageReduction: 0
+    GuardStunReduction: 0
     VFXs: []
 --- !u!114 &901825142
 MonoBehaviour:
@@ -586,12 +589,17 @@ MonoBehaviour:
   RunToWalkRange: 0
   WalkToRunRange: 0
   MomentumFactor: 0.1
-  ProbExecute: 0
-  ProbAttack: 0.8
-  ProbFire: 0.35
-  ProbDodge: 1
   AITransition: 0
+  FearArmourPercentThreshold: 0.4
+  FearHealthPercentThreshold: 0.2
+  LastGetHitTime: 0
+  LastTargetAttackTime: 0
+  LastTargetExecuteTime: 0
+  LastTargetDodgeTime: 0
+  LastTargetGuardTime: 0
   IsInCrowd: 0
+  IsInFear: 0
+  HitCountOnGuard: 0
   inputVectorIncremental: {x: 0, y: 0}
 --- !u!114 &-4235130198263152179
 MonoBehaviour:

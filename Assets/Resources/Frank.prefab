@@ -33362,13 +33362,11 @@ MonoBehaviour:
     EnergyRegenerationDelay: 1.5
     EnergyGetOnExecuteHit: 0
     EnergyGetOnEnemyDeathByExecute: 4
-    GuardKnockbackReduction: 0.33
-    GuardDamageReduction: 0.2
-    GuardStunReduction: 0.1
     TargetGroupWeight: 5
     TargetGroupRadius: 1
     CurrentDisplacementSpeed: 0
     DodgeCoolDown: 0.25
+    GuardCoolDown: 0
     DamageMultiplier: 1
     IsRagdollOn: 0
     IsColliderOff: 0
@@ -33390,6 +33388,9 @@ MonoBehaviour:
     GetHitTime: 0
     FirstFramesOfBlock: 0
     BlockCount: 0
+    GuardKnockbackReduction: 0.33
+    GuardDamageReduction: 0.2
+    GuardStunReduction: 0.1
     VFXs: []
 --- !u!143 &8025092262141336794
 CharacterController:

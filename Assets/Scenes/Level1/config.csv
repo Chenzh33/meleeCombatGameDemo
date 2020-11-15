@@ -1,7 +1,7 @@
 ﻿Q,KAE,,C,,CutScene_Level1,,
 E,Swordman,0,0,5,0,0,-1
-E,Swordman,-3,0,4,0,0,-1
-E,Swordman,3,0,4,0,0,-1
-E,Gunman,-2,0,6,0,0,-1
-E,Gunman,2,0,6,0,0,-1
+E,Swordman,-2,0,4,0,0,-1
+E,Swordman,2,0,4,0,0,-1
+E,Gunman,-4,0,7,0,0,-1
+E,Gunman,4,0,7,0,0,-1
 P,0,0,0,,,,

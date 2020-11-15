@@ -24,7 +24,7 @@ namespace meleeDemo {
         public GameObject GoalObject;
         public GameObject ResultObject;
         public string TimelineAssetName;
-        public List<SpawnUnitInfo> Enemies;
+        public List<SpawnUnitInfo> Enemies = new List<SpawnUnitInfo>();
         public int CurrKilledEnemyNum;
         public Quest (string[] ss) {
             switch (ss[1]) {

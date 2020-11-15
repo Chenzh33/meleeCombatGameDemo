@@ -64,9 +64,9 @@ namespace meleeDemo {
 
         public void LoadLevelData () {
             //if (CurrLevelData != null)
-             //   Destroy (CurrLevelData);
+            //   Destroy (CurrLevelData);
             CurrQuestIndex = 0;
-            string levelDataFileName = "\\" + CurrScene.name + "\\config.csv";
+            string levelDataFileName = "Assets\\Scenes\\" + CurrScene.name + "\\config.csv";
             CurrLevelData = new LevelData (levelDataFileName);
             if (CurrLevelData.Quests != null) {
                 BeginCurrentQuest ();
@@ -77,13 +77,21 @@ namespace meleeDemo {
             Quest CurrQuest = CurrLevelData.Quests[CurrQuestIndex];
             if (CurrQuest.Type == QuestType.KillAllEnemies)
                 CurrQuest.CurrKilledEnemyNum = 0;
+
+            GameObject spawnerObj = GameObject.Find ("UnitSpawner");
+            UnitSpawner spawner = spawnerObj.GetComponent<UnitSpawner>();
+            spawner.SetSpawnInfoFromCurrQuest(CurrQuest);
+            /*
             if (CurrQuest.TimelineAssetName != "") {
                 GameObject timelineObj = GameObject.Find ("SceneLoader");
                 PlayableDirector pd = timelineObj.GetComponent<PlayableDirector> ();
-                PlayableAsset pa = Resources.Load<PlayableAsset> (CurrQuest.TimelineAssetName);
+                string playableName = CurrQuest.TimelineAssetName;
+                Debug.Log(playableName);
+                PlayableAsset pa = Resources.Load<PlayableAsset> (playableName);
                 pd.playableAsset = pa;
                 pd.Play ();
             }
+            */
 
         }
         public void ConcludeCurrentQuest () {
