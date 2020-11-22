@@ -23,7 +23,6 @@ namespace meleeDemo {
 
         }
 
-
         void Update () {
 
             inputDataTop = VirtualInputManager.Instance.GetTopInput ();
@@ -107,6 +106,7 @@ namespace meleeDemo {
                         player.CharacterData.IsRunning = false;
                     }
                 }
+             
                 // for test
                 /*
                 if (Input.GetKeyDown (KeyCode.P)) {

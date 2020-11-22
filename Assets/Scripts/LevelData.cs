@@ -71,6 +71,7 @@ namespace meleeDemo {
     public class LevelData {
         public List<Quest> Quests = new List<Quest> ();
         public Vector3 PlayerSpawnPoint;
+        public bool HasCompleted;
 
         public LevelData (string filename) {
             StreamReader sr = new StreamReader (filename);
@@ -91,6 +92,7 @@ namespace meleeDemo {
                         break;
                 }
             }
+            HasCompleted = false;
 
         }
 

@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace meleeDemo {
 
@@ -29,12 +29,11 @@ namespace meleeDemo {
         public bool[] inputKeyStates = new bool[12];
         //public float interval = 0.4f;
         //private Coroutine changeItemCooldownCoroutine;
-        [DllImport("user32.dll")]
-        static extern void mouse_event(MouseEventFlag flags, int dx, int dy, uint data, UIntPtr extraInfo);
+        [DllImport ("user32.dll")]
+        static extern void mouse_event (MouseEventFlag flags, int dx, int dy, uint data, UIntPtr extraInfo);
 
         [Flags]
-        enum MouseEventFlag : uint
-        {
+        enum MouseEventFlag : uint {
             Move = 0x0001,
             LeftDown = 0x0002,
             LeftUp = 0x0004,
@@ -49,8 +48,7 @@ namespace meleeDemo {
             Absolute = 0x8000
         }
 
-        void Awake()
-        {
+        void Awake () {
             input = GetComponent<ManualInput> ();
             Animator[] animators = GetComponentsInChildren<Animator> ();
             animator = animators[animators.Length - 1];
@@ -128,6 +126,8 @@ namespace meleeDemo {
             }
         }
         public void MenuChange (int index) {
+            if (Time.timeScale == 0f)
+                ResumeGame ();
             if (MenuIndexRecord.Count == 0 && index < 0)
                 return;
             StartCoroutine (_MenuChange (index));
@@ -136,7 +136,7 @@ namespace meleeDemo {
         IEnumerator _MenuChange (int index) {
             animator.SetTrigger ("Fade");
             SetInputState (false);
-            yield return new WaitForSeconds (0.5f);
+            yield return new WaitForSecondsRealtime (0.5f);
             currentSelectedButtonIdx = 0;
             GameObject currentMenuObj = this.transform.GetChild (currentMenuIndex).gameObject;
             currentMenuObj.SetActive (false);
@@ -151,23 +151,29 @@ namespace meleeDemo {
             currentMenuObj = this.transform.GetChild (currentMenuIndex).gameObject;
             currentMenuObj.SetActive (true);
             SetButtonList ();
-            yield return new WaitForSeconds (0.5f);
+            yield return new WaitForSecondsRealtime (0.5f);
             SetInputState (true);
+        }
+        public void InitButtonList () {
 
-            /*
-                        Canvas[] CanvasList = GetComponentsInChildren<Canvas> ();
-                        foreach (Canvas c in CanvasList) {
-                            if (c.gameObject.transform.parent == this.transform) {
-                                Debug.Log (c);
-                                currentMenu = c;
-                            }
-
-                        }
+            currentSelectedButtonIdx = 0;
+            UIContainer buttonObjContainer = this.GetComponent<UIContainer> ();
+            if (buttonObjContainer != null) {
+                //Debug.Log (buttonObjContainer.Buttons.Length);
+                buttonList = buttonObjContainer.Buttons;
+                if (buttonList != null) {
+                    buttonNum = buttonList.Length;
+                    Button currentSelectedButton = buttonList[currentSelectedButtonIdx];
+                    if (currentSelectedButton != null) {
+                        EventSystem.current.SetSelectedGameObject (null);
+                        EventSystem.current.SetSelectedGameObject (currentSelectedButton.gameObject);
+                        /*
+                        currentSelectedButton.Unselect ();
+                        currentSelectedButton.Select ();
                         */
-            //buttonList = currentMenu.GetComponentsInChildren<Button> ();
-            //UIContainer buttonObjContainer = currentMenu.GetComponent<UIContainer> ();
-
-            //animator.SetInteger ("CurrentItemIndex", currentSelectedButtonIdx);
+                    }
+                }
+            }
         }
 
         public void SetInputState (bool state) {
@@ -184,43 +190,30 @@ namespace meleeDemo {
         public void FocusOnTarget (RectTransform target) {
 
         }
-        public void KeepItemInViewport()
-        {  
-            ScrollRect scrollRect = GetComponentInChildren<ScrollRect>();
-            if (scrollRect != null)
-            {
-                RectTransform viewport = scrollRect.gameObject.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();
+        public void KeepItemInViewport () {
+            ScrollRect scrollRect = GetComponentInChildren<ScrollRect> ();
+            if (scrollRect != null) {
+                RectTransform viewport = scrollRect.gameObject.transform.GetChild (0).GetChild (0).GetComponent<RectTransform> ();
                 float offsetY = viewport.offsetMax.y;
                 float upperBoundY = 0f;
-                float lowerBoundY = - scrollRect.GetComponent<RectTransform>().rect.height;
+                float lowerBoundY = -scrollRect.GetComponent<RectTransform> ().rect.height;
                 Button currentButton = buttonList[currentSelectedButtonIdx];
-                float MaxY = currentButton.GetComponent<RectTransform>().offsetMax.y + offsetY;
-                float MinY = currentButton.GetComponent<RectTransform>().offsetMin.y + offsetY;
+                float MaxY = currentButton.GetComponent<RectTransform> ().offsetMax.y + offsetY;
+                float MinY = currentButton.GetComponent<RectTransform> ().offsetMin.y + offsetY;
                 //Rect rectTarget = buttonList[(buttonNum + currentSelectedButtonIdx - 1) % buttonNum].GetComponent<RectTransform>().rect;
-                Debug.Log(upperBoundY);
-                Debug.Log(lowerBoundY);
-                Debug.Log(MaxY);
-                Debug.Log(MinY);
-                Debug.Log(offsetY);
-                float deltaY = Mathf.Max(lowerBoundY - MinY, MaxY - upperBoundY);
-                if(lowerBoundY > MinY)
-                {
-                    StartCoroutine(MoveScrollRectPosition(- 20f / 4 , 0.2f));
-                }
-                else if(upperBoundY < MaxY)
-                {
-                    StartCoroutine(MoveScrollRectPosition(20f / 4 , 0.2f));
+                float deltaY = Mathf.Max (lowerBoundY - MinY, MaxY - upperBoundY);
+                if (lowerBoundY > MinY) {
+                    StartCoroutine (MoveScrollRectPosition (-20f / 4, 0.2f));
+                } else if (upperBoundY < MaxY) {
+                    StartCoroutine (MoveScrollRectPosition (20f / 4, 0.2f));
                 }
                 //Debug.Log(rectTarget);
             }
-          
 
         }
-        IEnumerator MoveScrollRectPosition(float offset, float duration)
-        {
-            ScrollRect scrollRect = GetComponentInChildren<ScrollRect>();
-            if (scrollRect != null)
-            {
+        IEnumerator MoveScrollRectPosition (float offset, float duration) {
+            ScrollRect scrollRect = GetComponentInChildren<ScrollRect> ();
+            if (scrollRect != null) {
                 //PointerEventData data;// = new PointerEventData();
                 //data.scrollDelta = new Vector2(0f, -0.1f);
 
@@ -231,9 +224,8 @@ namespace meleeDemo {
                 //scrollRect.OnScroll(data);
 
                 float t = 0f;
-                while (t < duration)
-                {
-                    Vector2 offsetVector = new Vector2(scrollRect.normalizedPosition.x, scrollRect.normalizedPosition.y + offset * Time.deltaTime);
+                while (t < duration) {
+                    Vector2 offsetVector = new Vector2 (scrollRect.normalizedPosition.x, scrollRect.normalizedPosition.y + offset * Time.deltaTime);
                     scrollRect.normalizedPosition = offsetVector;
                     //mouse_event(MouseEventFlag.Wheel, 0, 0, (uint)(offset * Time.deltaTime), UIntPtr.Zero);
                     t += Time.deltaTime;
@@ -248,7 +240,7 @@ namespace meleeDemo {
             Button currentSelectedButton = buttonList[currentSelectedButtonIdx];
             if (currentSelectedButton != null)
                 currentSelectedButton.Select ();
-            KeepItemInViewport();
+            KeepItemInViewport ();
             //StartCoroutine(MoveScrollRectPosition(5f / 4 , 0.2f));
             //MoveScrollRectPosition (1.0f); 
             //animator.SetInteger ("CurrentItemIndex", currentSelectedButtonIdx);
@@ -258,7 +250,7 @@ namespace meleeDemo {
             Button currentSelectedButton = buttonList[currentSelectedButtonIdx];
             if (currentSelectedButton != null)
                 currentSelectedButton.Select ();
-            KeepItemInViewport();
+            KeepItemInViewport ();
             //MoveScrollRectPosition (-1.0f); 
             //StartCoroutine(MoveScrollRectPosition(-5f / 4 , 0.2f));
             //animator.SetInteger ("CurrentItemIndex", currentSelectedButtonIdx);
@@ -271,6 +263,12 @@ namespace meleeDemo {
         }
         public void Back () {
             MenuChange (-1);
+        }
+        public void PauseGame () {
+            GameManager.Instance.PauseGame ();
+        }
+        public void ResumeGame () {
+            GameManager.Instance.ResumeGame ();
         }
     }
 }

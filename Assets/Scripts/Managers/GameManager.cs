@@ -10,10 +10,12 @@ namespace meleeDemo {
     public class GameManager : Singleton<GameManager> {
 
         private Scene CurrScene;
-        public Canvas CurrHUD;
+        public GameObject CurrMainMenuObj;
         public CharacterControl Player;
         public LevelData CurrLevelData;
         public int CurrQuestIndex;
+        private Coroutine MainMenuRoutine;
+        private Coroutine LoadSceneRoutine;
         public override void Init () {
 
         }
@@ -37,13 +39,21 @@ namespace meleeDemo {
             }
         }
 
-        void Update () { }
+        void Update () {
+            if (CurrScene.name != "MainMenu" && !CurrLevelData.HasCompleted) {
+                if (Input.GetKeyDown (KeyCode.Escape)) {
+                    ToggleMainMenu ();
 
-        public void LoadScene (string sceneName, bool InitCharacter) {
-            StartCoroutine (LoadAsyncScene (sceneName, InitCharacter));
+                }
+            }
         }
 
-        IEnumerator LoadAsyncScene (string sceneName, bool InitCharacter) {
+        public void LoadScene (string sceneName, bool notMainMenu) {
+            if (LoadSceneRoutine == null)
+                LoadSceneRoutine = StartCoroutine (LoadAsyncScene (sceneName, notMainMenu));
+        }
+
+        IEnumerator LoadAsyncScene (string sceneName, bool notMainMenu) {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync (sceneName);
 
             while (!asyncLoad.isDone) {
@@ -51,14 +61,19 @@ namespace meleeDemo {
             }
 
             CurrScene = SceneManager.GetActiveScene ();
-            InitSceneInfo (InitCharacter);
+            InitSceneInfo (notMainMenu);
+            LoadSceneRoutine = null;
         }
 
-        public void InitSceneInfo (bool InitCharacter) {
+        public void InitSceneInfo (bool notMainMenu) {
             //GameObject playerObj = (FindObjectOfType(typeof(ManualInput)) as ManualInput).gameObject;
             //Player = playerObj.GetComponent<CharacterControl>();
-            LoadLevelData ();
-            InitAllManagers ();
+            if (notMainMenu) {
+                LoadLevelData ();
+                InitAllManagers ();
+                CurrMainMenuObj = GameObject.Find ("MainMenu");
+                CurrMainMenuObj.SetActive (false);
+            }
 
         }
 
@@ -79,8 +94,8 @@ namespace meleeDemo {
                 CurrQuest.CurrKilledEnemyNum = 0;
 
             GameObject spawnerObj = GameObject.Find ("UnitSpawner");
-            UnitSpawner spawner = spawnerObj.GetComponent<UnitSpawner>();
-            spawner.SetSpawnInfoFromCurrQuest(CurrQuest);
+            UnitSpawner spawner = spawnerObj.GetComponent<UnitSpawner> ();
+            spawner.SetSpawnInfoFromCurrQuest (CurrQuest);
             /*
             if (CurrQuest.TimelineAssetName != "") {
                 GameObject timelineObj = GameObject.Find ("SceneLoader");
@@ -124,6 +139,7 @@ namespace meleeDemo {
         }
 
         public bool CheckCurrQuestComplete () {
+            Debug.Log ("check current quest complete");
             Quest CurrQuest = CurrLevelData.Quests[CurrQuestIndex];
             switch (CurrQuest.Type) {
                 case QuestType.KillAllEnemies:
@@ -154,9 +170,11 @@ namespace meleeDemo {
             if (unit == Player) {
                 GameOver ();
             } else {
-                Quest CurrQuest = CurrLevelData.Quests[CurrQuestIndex];
-                CurrQuest.CurrKilledEnemyNum++;
-                UpdateState ();
+                if (!CurrLevelData.HasCompleted) {
+                    Quest CurrQuest = CurrLevelData.Quests[CurrQuestIndex];
+                    CurrQuest.CurrKilledEnemyNum++;
+                    UpdateState ();
+                }
             }
         }
 
@@ -166,8 +184,9 @@ namespace meleeDemo {
                     ConcludeCurrentQuest ();
                     CurrQuestIndex++;
                     BeginCurrentQuest ();
-                } else
+                } else {
                     LevelClear ();
+                }
 
             }
 
@@ -179,18 +198,60 @@ namespace meleeDemo {
         }
 
         IEnumerator _GameOver () {
-            yield return new WaitForSeconds (3.0f);
+            yield return new WaitForSecondsRealtime (3.0f);
             Debug.Log ("Game Over");
 
         }
         public void LevelClear () {
+            CurrLevelData.HasCompleted = true;
             StartCoroutine (_LevelClear ());
 
         }
 
         IEnumerator _LevelClear () {
-            yield return new WaitForSeconds (3.0f);
+            yield return new WaitForSecondsRealtime (3.0f);
             Debug.Log ("Level Clear");
+        }
+
+        public void ToggleMainMenu () {
+            if (MainMenuRoutine == null)
+                MainMenuRoutine = StartCoroutine (_ToggleMainMenu ());
+        }
+        IEnumerator _ToggleMainMenu () {
+            if (CurrMainMenuObj.activeInHierarchy) {
+                ResumeGame ();
+            } else {
+                PauseGame ();
+            }
+
+            yield return new WaitForSecondsRealtime (0.5f);
+            MainMenuRoutine = null;
+        }
+
+        public void PauseGame () {
+            if (Player != null) {
+                ManualInput input = Player.GetComponent<ManualInput> ();
+                input.enabled = false;
+            }
+            Time.timeScale = 0.0f;
+            if (CurrMainMenuObj != null) {
+                CurrMainMenuObj.SetActive (true);
+                MenuController controller = CurrMainMenuObj.GetComponent<MenuController> ();
+                controller.InitButtonList ();
+            }
+
+        }
+        public void ResumeGame () {
+            VirtualInputManager.Instance.ClearAllInputsInBuffer ();
+            if (Player != null) {
+                ManualInput input = Player.GetComponent<ManualInput> ();
+                input.enabled = true;
+            }
+            Time.timeScale = 1.0f;
+            if (CurrMainMenuObj != null) {
+                CurrMainMenuObj.SetActive (false);
+            }
+
         }
     }
 }
