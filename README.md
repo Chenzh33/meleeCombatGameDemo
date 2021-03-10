@@ -14,3 +14,4 @@ melee combat system test demo
 | Charge | Space | **Charged Melee Attack**: `Space` + `I`.<br>**Charged Hold Melee Attack**: `Space` + release `I`.<br>**Charged Quick Execute**: `Space` + `J`.<br>**Charged AOE Execute**: `Space` + `J` and hold `J`.<br>**Quick Slash**: `Space` + `K`, can be chained with another 2 increasingly-powerful quick slashes.<br>**Spin Uppercut**: `Space` + `K` and hold `K`. When in mid-air, melee attack and execute can be performed.<br>**Charged Guard**: `Space` + `L`, generate a barrier for a moment which can reflect any projectiles.|
 | Main Menu | Esc | Turn on the main menu. |
  
+* **Note: You can find the full playthrough and skill showcase videos in the link below:**
