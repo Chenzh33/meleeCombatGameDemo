@@ -16,6 +16,7 @@ melee/combo combat system test
   * scifi gun collection，两种持枪敌人所拿枪的模型（包括手枪和来复枪）
   * tanto knife，持匕首敌人所拿匕首的模型
   * katana sword free，持长刀敌人所拿的刀的模型
+* 完整游戏过场、招式、敌人演示视频链接：https://share.weiyun.com/MkMDOgxS
 * 基本键位：（目前仅支持全键盘，键位配置类似鬼泣4，且暂时不可更改键位配置）:
   * 移动：`W/S/A/D`
   * 近战攻击：`I`
