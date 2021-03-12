@@ -2,6 +2,7 @@
 melee/combo combat system test
 
 * 引擎: Unity 2019.4.12f
+* 完整游戏过场、招式、敌人演示视频链接：https://share.weiyun.com/MkMDOgxS
 * 战斗风格/系统简述：
   * 快节奏的一对多强制清关风格，非常鼓励速杀和连杀，考验操作，较多借鉴忍者龙剑传、鬼泣；
   * 有处决和晕值的设定，用连续不断的攻击将敌人一口气打至气绝状态后，可以使用处决一击必杀；
@@ -16,7 +17,6 @@ melee/combo combat system test
   * scifi gun collection，两种持枪敌人所拿枪的模型（包括手枪和来复枪）
   * tanto knife，持匕首敌人所拿匕首的模型
   * katana sword free，持长刀敌人所拿的刀的模型
-* 完整游戏过场、招式、敌人演示视频链接：https://share.weiyun.com/MkMDOgxS
 * 基本键位：（目前仅支持全键盘，键位配置类似鬼泣4，且暂时不可更改键位配置）:
   * 移动：`W/S/A/D`
   * 近战攻击：`I`
